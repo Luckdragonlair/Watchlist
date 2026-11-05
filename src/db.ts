@@ -4,6 +4,7 @@ import { regular, released, episodeSort } from './model';
 export class WatchlistDB extends Dexie {
   shows!: Table<Show, number>; seasons!: Table<Season, number>; episodes!: Table<Episode, number>;
   progress!: Table<Progress, number>; preferences!: Table<Preference, number>; sources!: Table<Source, string>;
+  settings!: Table<{key:string;value:string|boolean},string>;
   constructor(name = 'watchlist-v01') {
     super(name);
     this.version(1).stores({ shows: 'id, name', seasons: 'id, showId', episodes: 'id, showId, [showId+season]', progress: 'episodeId', preferences: 'showId, order', sources: 'id' });
@@ -11,11 +12,32 @@ export class WatchlistDB extends Dexie {
       const owners=new Map((await transaction.table<Episode>('episodes').toArray()).map(e=>[e.id,e.showId]));
       await transaction.table<Progress>('progress').toCollection().modify(p=>{p.showId ??= owners.get(p.episodeId);});
     });
+    this.version(3).stores({settings:'key'}).upgrade(async transaction=>{
+      if (await transaction.table('sources').count() || await transaction.table('shows').count()) await transaction.table('settings').put({key:'catalogInitialized',value:true});
+    });
   }
 }
 export const db = new WatchlistDB();
-export async function saveBundle(bundle: Bundle, database = db, requireExisting = false) {
-  await database.transaction('rw', [database.shows, database.seasons, database.episodes, database.preferences, database.progress], async () => {
+export async function libraryRevision(database=db):Promise<string> {return String((await database.settings.get('libraryRevision'))?.value??'');}
+export async function assertLibraryRevision(expected:string,database=db) {
+  if(await libraryRevision(database)!==expected) throw new Error('The library was restored while this request was running. Please try again.');
+}
+export async function initializeCatalog(source:Source,database=db) {
+  await database.transaction('rw',database.sources,database.settings,async()=>{
+    if((await database.settings.get('catalogInitialized'))?.value===true) return;
+    if(!await database.sources.get(source.id)) await database.sources.add(source);
+    await database.settings.put({key:'catalogInitialized',value:true});
+  });
+}
+export async function addImportSource(source:Source,expectedRevision:string,database=db) {
+  await database.transaction('rw',database.sources,database.settings,async()=>{
+    await assertLibraryRevision(expectedRevision,database);
+    await database.sources.add(source);
+  });
+}
+export async function saveBundle(bundle: Bundle, database = db, requireExisting = false, expectedRevision?:string) {
+  await database.transaction('rw', [database.shows, database.seasons, database.episodes, database.preferences, database.progress, database.settings], async () => {
+    if(expectedRevision!==undefined) await assertLibraryRevision(expectedRevision,database);
     if (requireExisting && !await database.shows.get(bundle.show.id)) throw new Error('This show was deleted. Refresh cannot add it back.');
     // Retain ownership even if the provider retracts an episode during this refresh.
     for (const episode of await database.episodes.where('showId').equals(bundle.show.id).toArray()) await database.progress.update(episode.id,{showId:bundle.show.id});
@@ -48,6 +70,7 @@ export async function onboard(showId: number, currentId: number, now = new Date(
 }
 
 export async function deleteShow(showId: number, database = db, resolveLegacyOwner?: (episodeId:number)=>Promise<number>) {
+  const expectedRevision=await libraryRevision(database);
   // Version 1 could retain history after its episode metadata disappeared. Resolve
   // those IDs before deletion; never guess ownership or purge another show's history.
   const legacyOwners=new Map<number,number>();
@@ -63,7 +86,8 @@ export async function deleteShow(showId: number, database = db, resolveLegacyOwn
       } catch { throw new Error('Older viewing history could not be linked to its show. Please reconnect and retry deletion. No records were deleted.'); }
     }
   }
-  await database.transaction('rw',[database.shows,database.seasons,database.episodes,database.progress,database.preferences,database.sources],async()=>{
+  await database.transaction('rw',[database.shows,database.seasons,database.episodes,database.progress,database.preferences,database.sources,database.settings],async()=>{
+    await assertLibraryRevision(expectedRevision,database);
     const show=await database.shows.get(showId);
     if (!show) return;
     const sources=await database.sources.toArray();

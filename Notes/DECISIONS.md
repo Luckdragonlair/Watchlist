@@ -38,3 +38,9 @@ The decisions below remain the product target. v0.1 implements the basic library
 - TVmaze is the proposed primary episode metadata API, with optional TMDB fallback later. Test live coverage/accuracy and honor source attribution/licensing. Cache source metadata, protect watched/manual fields during sync.
 - Silo is intentionally excluded from initial app seed for a realistic mid-season add-and-catch-up test. See TEST_CASE_SILO.md.
 - Claude owns visual/graphical design. ChatGPT handles architecture, functionality, behavior, API/data integration, and tests. Code should keep presentation separate from logic.
+
+## Backup replacement behavior — 2026-11-05
+
+- Version-1 backup files remain supported. Restore validates record types, identifiers, references, dates, duplicate IDs and history ownership before any write; unknown metadata is preserved as unknown and unlinked legacy history is not guessed.
+- Preview and cancellation do not modify the library. The user can export the current state in the preview. A checkbox and final button explicitly confirm replacement of the entire library, not merging. All six collections replace atomically; storage failure preserves the prior library through rollback.
+- Schema v3 keeps catalog initialization and restore revision outside the exported user data. An empty restore stays empty. New revisions invalidate pre-restore asynchronous writes and stale UI undo/detail state across tabs.

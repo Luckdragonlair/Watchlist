@@ -3,6 +3,10 @@
 body { margin: 0; }
 main { max-width: 900px; margin: auto; padding: 20px; }
 nav, form { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; margin: 12px 0; }
+.top-controls { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin: 12px 0; }
+.top-controls nav { flex: 1 1 auto; margin: 0; }
+.top-controls .backup-controls { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; max-width: 360px; margin-left: auto; }
+.backup-controls > section { flex: 1 1 auto; max-width: 280px; min-width: 0; text-align: right; }
 button, input, select, textarea { font: inherit; padding: 8px; }
 button { cursor: pointer; margin: 3px; border: 1px solid #777; border-radius: 3px; background: white; }
 button[aria-current] { background: #ddd; font-weight: bold; }
@@ -21,3 +25,8 @@ textarea { display: block; width: 100%; min-height: 70px; }
 [role=dialog] { position: fixed; inset: 25% max(16px, calc((100vw - 650px)/2)) auto; background: white; border: 3px solid #555; padding: 24px; box-shadow: 0 0 0 100vmax #0005; }
 footer { border-top: 1px solid #aaa; margin-top: 30px; font-size: .9rem; }
 @media(max-width: 500px) { main { padding: 12px; } input:not([type=checkbox]), select { max-width: 100%; } nav button { flex: 1; } }
+dialog { max-width: min(600px, calc(100vw - 24px)); max-height: 85vh; overflow: auto; border: 2px solid #777; padding: 20px; text-align: left; }
+dialog::backdrop { background: #0005; }
+dialog .backup-export { max-width: none; }
+dialog p { overflow-wrap: anywhere; }
+@media(max-width: 600px) { .top-controls { display: block; } .top-controls .backup-controls { max-width: none; margin-top: 8px; justify-content: flex-end; } }

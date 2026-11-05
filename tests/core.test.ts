@@ -3,6 +3,7 @@ import Dexie from 'dexie';
 import { WatchlistDB, saveBundle, setWatched, onboard, deleteShow } from '../src/db';
 import { airTime, bucket, confirmedComplete, queue, released, weeklyRelease, type Bundle, type Episode } from '../src/model';
 import { prepareSource } from '../src/importer';
+import { createBackup } from '../src/backup';
 const now = new Date('2026-11-05T12:00:00Z');
 const ep = (id: number, season = 1, number = id, airstamp: string | null = '2025-01-01T12:00:00Z'): Episode => ({id,showId:10,season,number,name:`Episode ${number}`,summary:null,airstamp,airdate:airstamp?.slice(0,10) ?? null,type:'regular'});
 const bundle = (): Bundle => ({show:{id:10,name:'Test series',summary:null,status:'Running',genres:[],service:null,url:'https://www.tvmaze.com/shows/10',syncedAt:now.toISOString()},seasons:[{id:20,showId:10,number:1,episodeOrder:2,endDate:'2025-01-01'}],episodes:[ep(1),ep(2)]});
@@ -82,6 +83,13 @@ describe('IndexedDB persistence and sync', () => {
   it('persists progress across closing and reopening the database',async()=>{
     const db=create(); await saveBundle(bundle(),db); await setWatched(1,true,db); const name=db.name; db.close();
     const reopened=create(name); expect(await reopened.progress.get(1)).toBeDefined(); expect(await reopened.shows.count()).toBe(1);
+  });
+  it('exports all library records and progress without changing them',async()=>{
+    const db=create();const b=bundle();await saveBundle(b,db);await setWatched(1,true,db);await db.preferences.update(10,{notes:'Preserve these notes',order:4});
+    const source={id:'backup-source',name:'Working list',raw:'Test series',importedAt:now.toISOString(),rows:[{id:'1',title:'Test series',notes:'source assertion',state:'imported' as const,showId:10}]};await db.sources.put(source);
+    const progress=await db.progress.toArray();const backup=await createBackup(db);
+    expect(backup).toMatchObject({version:1,shows:[b.show],seasons:b.seasons,episodes:b.episodes,progress,sources:[source],preferences:[{showId:10,notes:'Preserve these notes',order:4}]});
+    expect(Number.isFinite(Date.parse(backup.exportedAt))).toBe(true);expect(await db.progress.toArray()).toEqual(progress);expect(await db.shows.toArray()).toEqual([b.show]);
   });
   it('syncs twice without duplicates or overwriting progress and manual preferences',async()=>{
     const db=create(); const b=bundle(); await saveBundle(b,db); await setWatched(1,true,db); await db.preferences.update(10,{notes:'My notes',order:9});

@@ -36,11 +36,22 @@ Updated: 2026-11-05
 
 - [ ] Later idea from user: add Search on TVmaze for spelling/alias mismatches, then accept a selected show URL/ID back in Watchlist with explicit confirmation. Do not implement during v0.1. Existing title search can already be edited for alternate spellings.
 
-- [ ] Validated JSON backup restore/transfer with rollback and round-trip tests.
+- [x] Validated JSON backup restore/transfer with preview, explicit replacement confirmation, cancellation, atomic rollback, exact round-trip tests, and cross-tab restore safety.
 - [ ] Installable PWA and offline reopen: production app reopens offline with cached data and ordinary actions need no metadata requests.
 - [ ] Smooth drag-and-drop plus Watch Now/Watch Soon, preserving manual Binge order.
 - [ ] Completion recommendations from Binge with Skip/Pass/dismiss actions.
 - [ ] Explicit specials, manual release corrections, richer season-level placement, unknown future seasons.
 - [ ] Accessible modal focus management and Claude's final responsive design.
-- [x] Connect D:\Watchlist to the existing Luckdragonlair/Watchlist Git history while preserving app files. No changes uploaded yet.
-- [ ] Review and commit the tested v0.1 checkpoint in GitHub Desktop, then Push origin. Select a code license before public release; no deployment exists.
+- [x] Connect D:\Watchlist to the existing Luckdragonlair/Watchlist Git history while preserving app files. Initial checkpoint 4fb09e3 is uploaded.
+- [x] Commit and push the initial tested v0.1 checkpoint (4fb09e3).
+- [x] Include the tested export/restore work in the user-authorized backup/restore GitHub checkpoint.
+- [ ] Select a code license before public release; no deployment exists.
+
+## Export feedback follow-up — 2026-11-05
+
+- [x] Fix hidden Export backup confirmation; show nearby feedback and a reusable download link, timestamp filenames, and export one consistent database snapshot. The user's existing backup was found and checked without changing progress.
+- [x] Include export feedback, top-right controls and validated restore in this checkpoint.
+
+- [x] Move Export backup to the top-right controls; retain nearby feedback/re-download link and wrap the toolbar on small screens. Export workflow, desktop/mobile placement and build verified.
+
+- [x] User-reported browser check of the new backup restore flow: seems to work fine (2026-11-05). Automated recovery tests already pass; no independent inspection of the user's restored record counts was performed.

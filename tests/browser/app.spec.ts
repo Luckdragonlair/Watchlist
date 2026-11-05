@@ -117,3 +117,50 @@ test('a pending source import in another tab cannot resurrect a deleted show',as
   release();await expect(page.getByRole('alert')).toContainText('changed or was removed');
   await page.reload();await expect(page.getByRole('article')).toHaveCount(0);await other.close();
 });
+test('backup export downloads viewing history and shows feedback plus a reusable download link beside the button',async({page})=>{
+  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await page.getByRole('button',{name:'Back to library'}).click();
+  await page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'}).click();await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
+  const section=page.getByRole('region',{name:'Backup export'});
+  const downloading=page.waitForEvent('download');await section.getByRole('button',{name:'Export backup',exact:true}).click();const first=await downloading;
+  const backup=JSON.parse(readFileSync((await first.path())!,'utf8'));expect(backup.shows[0].id).toBe(90001);expect(backup.episodes).toHaveLength(2);expect(backup.progress).toEqual([expect.objectContaining({episodeId:91001,showId:90001})]);expect(backup.sources).toHaveLength(1);
+  await expect(section.getByRole('status')).toContainText('Check your Downloads folder');await expect(section.getByRole('status')).toBeInViewport();
+  const link=section.getByRole('link',{name:'Download backup file again'});await expect(link).toBeVisible();expect(first.suggestedFilename()).toMatch(/^watchlist-backup-.*\.json$/);
+  const downloadingAgain=page.waitForEvent('download');await link.click();const second=await downloadingAgain;
+  expect(JSON.parse(readFileSync((await second.path())!,'utf8'))).toEqual(backup);
+  await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
+});
+test('restore previews and cancels safely, then recovers an exported library with notes and watched progress',async({page})=>{
+  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();
+  await page.getByLabel('Personal notes').fill('Bring these notes back');await page.getByRole('button',{name:'Save notes'}).click();await page.getByRole('checkbox',{name:'S1 E1 · Episode 1',exact:true}).click();await expect(page.getByRole('checkbox',{name:'S1 E1 · Episode 1',exact:true})).toBeChecked();
+  const downloading=page.waitForEvent('download');await page.getByRole('region',{name:'Backup export'}).getByRole('button',{name:'Export backup',exact:true}).click();const download=await downloading;const path=(await download.path())!;
+  page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Delete show',exact:true}).click();await expect(page.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();
+  await page.getByLabel('Backup file').setInputFiles(path);const preview=page.getByRole('dialog',{name:'Restore this backup?'});await expect(preview).toContainText('1 shows · 2 episodes · 1 watched-episode records');await expect(preview.getByRole('button',{name:'Replace library and restore'})).toBeDisabled();
+  await preview.getByRole('button',{name:'Cancel restore'}).click();await expect(page.getByRole('article')).toHaveCount(0);
+  await page.getByLabel('Backup file').setInputFiles(path);await expect(preview).toBeVisible();
+  const safeguard=page.waitForEvent('download');await preview.getByRole('button',{name:'Export backup',exact:true}).click();const currentBackup=await safeguard;expect(JSON.parse(readFileSync((await currentBackup.path())!,'utf8')).shows).toEqual([]);
+  await preview.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await preview.getByRole('button',{name:'Replace library and restore'}).click();
+  await expect(preview).not.toBeVisible();await expect(page.getByRole('region',{name:'Backup restore'}).getByRole('status')).toContainText('Backup restored');await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);
+  await page.reload();await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();await page.getByRole('button',{name:'Fixture series',exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Bring these notes back');await expect(page.getByRole('checkbox').first()).toBeChecked();
+});
+test('malformed restore files leave the existing library untouched',async({page})=>{
+  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await page.getByRole('button',{name:'Back to library'}).click();
+  await page.getByLabel('Backup file').setInputFiles({name:'broken.json',mimeType:'application/json',buffer:Buffer.from('{broken')});await expect(page.getByRole('region',{name:'Backup restore'}).getByRole('alert')).toContainText('could not be read');await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'})).toBeVisible();
+  await page.getByLabel('Backup file').setInputFiles({name:'future.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:99}))});await expect(page.getByRole('region',{name:'Backup restore'}).getByRole('alert')).toContainText('unsupported');await expect(page.getByRole('article',{name:'Fixture series',exact:true})).toBeVisible();
+});
+test('an empty restore stays empty after reload and does not reimport the starter catalog',async({page})=>{
+  const source={id:'empty-restore-seed',name:'Starter',raw:'Fixture',importedAt:'2026-11-05T00:00:00Z',rows:[{id:'1',title:'Fixture series',notes:'',state:'pending',sourceCategory:'Binge'}]};
+  await page.route('**/master-working.json',route=>route.fulfill({json:source}));await page.goto('/');await expect(page.getByRole('article')).toHaveCount(1);
+  const backup={version:1,exportedAt:'2026-11-05T00:00:00Z',shows:[],seasons:[],episodes:[],progress:[],preferences:[],sources:[]};
+  await page.getByLabel('Backup file').setInputFiles({name:'empty.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});const dialog=page.getByRole('dialog',{name:'Restore this backup?'});await dialog.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await dialog.getByRole('button',{name:'Replace library and restore'}).click();await expect(dialog).not.toBeVisible();await expect(page.getByRole('article')).toHaveCount(0);
+  await page.reload();await expect(page.getByRole('button',{name:'Restore backup',exact:true})).toBeEnabled();await expect(page.getByRole('article')).toHaveCount(0);await page.getByRole('button',{name:'Import',exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);
+});
+test('restoring in another tab clears old undo state and rejects an older in-flight import',async({page,context})=>{
+  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await page.getByRole('button',{name:'Back to library'}).click();
+  await page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'}).click();await expect(page.getByRole('button',{name:'Undo last episode change'})).toBeVisible();
+  await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();
+  let release!:()=>void,started!:()=>void;const gate=new Promise<void>(resolve=>release=resolve),waiting=new Promise<void>(resolve=>started=resolve);
+  await page.route('https://api.tvmaze.com/shows/90001/episodes',async route=>{started();await gate;await route.fulfill({json:episodes});});await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await waiting;
+  const other=await context.newPage();await other.goto('/');const backup={version:1,exportedAt:'2026-11-05T00:00:00Z',shows:[],seasons:[],episodes:[],progress:[],preferences:[],sources:[]};
+  await other.getByLabel('Backup file').setInputFiles({name:'empty.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});const dialog=other.getByRole('dialog',{name:'Restore this backup?'});await dialog.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await dialog.getByRole('button',{name:'Replace library and restore'}).click();await expect(dialog).not.toBeVisible();
+  await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);release();await expect(page.getByRole('alert')).toContainText('library was restored');await page.reload();await expect(page.getByRole('article')).toHaveCount(0);await other.close();
+});
