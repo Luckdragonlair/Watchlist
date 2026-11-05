@@ -1,0 +1,2738 @@
+{
+  "id": "master-6278d1781529929a12831005ec6b9922cfa0b68d11f7115360318748e3f0e5be",
+  "name": "Project Watchlist Master List.txt — working copy",
+  "raw": "Original preserved separately in originals/ and the project root. Source assertions are unverified.",
+  "importedAt": "2026-11-05T06:56:19.081Z",
+  "rows": [
+    {
+      "id": "5",
+      "title": "The Institute",
+      "rawTitle": "The Institute S2",
+      "season": 2,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Sunday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "17",
+      "title": "VisionQuest",
+      "rawTitle": "VisionQuest S1",
+      "season": 1,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Wednesday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "19",
+      "title": "The Lord of the Rings: The Rings of Power",
+      "rawTitle": "The Lord of the Rings: The Rings of Power S3",
+      "season": 3,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Wednesday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "21",
+      "title": "Ahsoka",
+      "rawTitle": "Ahsoka S2",
+      "season": 2,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Wednesday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "25",
+      "title": "Eternally Yours",
+      "rawTitle": "Eternally Yours S1",
+      "season": 1,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Thursday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "27",
+      "title": "Ghosts",
+      "rawTitle": "Ghosts S6",
+      "season": 6,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Thursday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "31",
+      "title": "Dexter: Resurrection",
+      "rawTitle": "Dexter: Resurrection S2",
+      "season": 2,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Friday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "35",
+      "title": "Outlander: Blood of My Blood",
+      "rawTitle": "Outlander: Blood of My Blood S2",
+      "season": 2,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Friday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "37",
+      "title": "Yaga",
+      "rawTitle": "Yaga S1",
+      "season": 1,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Friday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "39",
+      "title": "Percy Jackson and the Olympians",
+      "rawTitle": "Percy Jackson and the Olympians S3",
+      "season": 3,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Friday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "41",
+      "title": "Yellowjackets",
+      "rawTitle": "Yellowjackets S4",
+      "season": 4,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Friday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "43",
+      "title": "Harry Potter",
+      "rawTitle": "Harry Potter S1",
+      "season": 1,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Friday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "45",
+      "title": "Neuromancer",
+      "rawTitle": "Neuromancer S1",
+      "season": 1,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Friday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "51",
+      "title": "Get Jiro!",
+      "rawTitle": "Get Jiro! S1",
+      "season": 1,
+      "sourceCategory": "Weekly",
+      "sourceWeekday": "Saturday",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "55",
+      "title": "3 Body Problem",
+      "rawTitle": "3 Body Problem S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "57",
+      "title": "3 Body Problem",
+      "rawTitle": "3 Body Problem S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "59",
+      "title": "A Knight of the Seven Kingdoms",
+      "rawTitle": "A Knight of the Seven Kingdoms S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "61",
+      "title": "A Knight of the Seven Kingdoms",
+      "rawTitle": "A Knight of the Seven Kingdoms S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "63",
+      "title": "Adventure Time: Fionna and Cake",
+      "rawTitle": "Adventure Time: Fionna and Cake S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "65",
+      "title": "Agatha All Along",
+      "rawTitle": "Agatha All Along S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "67",
+      "title": "Alice in Borderland",
+      "rawTitle": "Alice in Borderland S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "69",
+      "title": "Alien: Earth",
+      "rawTitle": "Alien: Earth S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "71",
+      "title": "Alien: Earth",
+      "rawTitle": "Alien: Earth S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "73",
+      "title": "All of Us Are Dead",
+      "rawTitle": "All of Us Are Dead S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "75",
+      "title": "American Horror Story",
+      "rawTitle": "American Horror Story S14",
+      "season": 14,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "77",
+      "title": "Andor",
+      "rawTitle": "Andor S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "79",
+      "title": "Anne Rice's Mayfair Witches",
+      "rawTitle": "Anne Rice's Mayfair Witches S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "81",
+      "title": "Anne Rice's Mayfair Witches",
+      "rawTitle": "Anne Rice's Mayfair Witches S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "83",
+      "title": "Arcane",
+      "rawTitle": "Arcane S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "85",
+      "title": "Avatar Kuruk: Wave of Chaos",
+      "rawTitle": "Avatar Kuruk: Wave of Chaos S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "87",
+      "title": "Avatar: Seven Havens",
+      "rawTitle": "Avatar: Seven Havens S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "89",
+      "title": "Avatar: Seven Havens",
+      "rawTitle": "Avatar: Seven Havens S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "91",
+      "title": "Avatar: Seven Havens",
+      "rawTitle": "Avatar: Seven Havens S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "93",
+      "title": "Avatar: Seven Havens",
+      "rawTitle": "Avatar: Seven Havens S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "95",
+      "title": "Avatar: The Last Airbender",
+      "rawTitle": "Avatar: The Last Airbender S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "97",
+      "title": "Avatar: The Last Airbender",
+      "rawTitle": "Avatar: The Last Airbender S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "99",
+      "title": "Bass X Machina",
+      "rawTitle": "Bass X Machina S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "101",
+      "title": "Bat-Fam",
+      "rawTitle": "Bat-Fam S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "103",
+      "title": "Batman: Caped Crusader",
+      "rawTitle": "Batman: Caped Crusader S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "105",
+      "title": "Before",
+      "rawTitle": "Before S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "107",
+      "title": "Below",
+      "rawTitle": "Below S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "109",
+      "title": "Black Mirror",
+      "rawTitle": "Black Mirror S7",
+      "season": 7,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "111",
+      "title": "Blade Runner 2099",
+      "rawTitle": "Blade Runner 2099 S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "113",
+      "title": "BLEACH: Thousand-Year Blood War Part 3 / The Conflict",
+      "rawTitle": "BLEACH: Thousand-Year Blood War Part 3 / The Conflict",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "115",
+      "title": "BLEACH: Thousand-Year Blood War Part 4 / The Calamity",
+      "rawTitle": "BLEACH: Thousand-Year Blood War Part 4 / The Calamity",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "117",
+      "title": "Blood of Zeus",
+      "rawTitle": "Blood of Zeus S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "119",
+      "title": "Carrie",
+      "rawTitle": "Carrie S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "121",
+      "title": "Cassandra",
+      "rawTitle": "Cassandra S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "123",
+      "title": "Castlevania: Nocturne",
+      "rawTitle": "Castlevania: Nocturne S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "125",
+      "title": "Castlevania: Nocturne",
+      "rawTitle": "Castlevania: Nocturne S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "127",
+      "title": "Chainsaw Man: Assassins Arc",
+      "rawTitle": "Chainsaw Man: Assassins Arc",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "129",
+      "title": "Common Side Effects",
+      "rawTitle": "Common Side Effects S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "131",
+      "title": "Common Side Effects",
+      "rawTitle": "Common Side Effects S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "133",
+      "title": "Constellation",
+      "rawTitle": "Constellation S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "135",
+      "title": "Coven Academy",
+      "rawTitle": "Coven Academy S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "137",
+      "title": "Creature Commandos",
+      "rawTitle": "Creature Commandos S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "139",
+      "title": "Creature Commandos",
+      "rawTitle": "Creature Commandos S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "141",
+      "title": "Crystal Lake",
+      "rawTitle": "Crystal Lake S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "143",
+      "title": "Cyberpunk: Edgerunners",
+      "rawTitle": "Cyberpunk: Edgerunners S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "145",
+      "title": "DAN DA DAN",
+      "rawTitle": "DAN DA DAN S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "147",
+      "title": "DAN DA DAN",
+      "rawTitle": "DAN DA DAN S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "149",
+      "title": "DAN DA DAN",
+      "rawTitle": "DAN DA DAN S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "151",
+      "title": "Daemons of the Shadow Realm",
+      "rawTitle": "Daemons of the Shadow Realm",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "153",
+      "title": "Daredevil: Born Again",
+      "rawTitle": "Daredevil: Born Again S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "155",
+      "title": "Dead-End Job",
+      "rawTitle": "Dead-End Job S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "157",
+      "title": "Delicious in Dungeon",
+      "rawTitle": "Delicious in Dungeon S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "159",
+      "title": "Demascus",
+      "rawTitle": "Demascus S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "161",
+      "title": "Devil May Cry",
+      "rawTitle": "Devil May Cry S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "163",
+      "title": "Devil May Cry",
+      "rawTitle": "Devil May Cry S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "165",
+      "title": "Devil May Cry",
+      "rawTitle": "Devil May Cry S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "167",
+      "title": "Disney Twisted-Wonderland: The Animation",
+      "rawTitle": "Disney Twisted-Wonderland: The Animation S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "169",
+      "title": "Disney Twisted-Wonderland: The Animation",
+      "rawTitle": "Disney Twisted-Wonderland: The Animation S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "171",
+      "title": "Disney Twisted-Wonderland: The Animation",
+      "rawTitle": "Disney Twisted-Wonderland: The Animation S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "173",
+      "title": "Doctor Who 2024 Christmas Special",
+      "rawTitle": "Doctor Who 2024 Christmas Special",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "175",
+      "title": "Doctor Who Disney",
+      "rawTitle": "Doctor Who Disney S2 / Series 15",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "/ Series 15",
+      "state": "pending"
+    },
+    {
+      "id": "177",
+      "title": "Doctor Who Next Series",
+      "rawTitle": "Doctor Who Next Series",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "179",
+      "title": "Dorohedoro",
+      "rawTitle": "Dorohedoro S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "181",
+      "title": "Dr. STONE",
+      "rawTitle": "Dr. STONE S4 / Science Future",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "/ Science Future",
+      "state": "pending"
+    },
+    {
+      "id": "183",
+      "title": "Dr. STONE TERRAFORMING follow-up",
+      "rawTitle": "Dr. STONE TERRAFORMING follow-up",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "185",
+      "title": "Dragon Ball DAIMA",
+      "rawTitle": "Dragon Ball DAIMA S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "187",
+      "title": "Dream Productions",
+      "rawTitle": "Dream Productions S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "189",
+      "title": "Dune: Prophecy",
+      "rawTitle": "Dune: Prophecy S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "191",
+      "title": "Dune: Prophecy",
+      "rawTitle": "Dune: Prophecy S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "193",
+      "title": "Earth Abides",
+      "rawTitle": "Earth Abides S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "195",
+      "title": "Eyes of Wakanda",
+      "rawTitle": "Eyes of Wakanda S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "197",
+      "title": "Fallout",
+      "rawTitle": "Fallout S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "199",
+      "title": "Fallout",
+      "rawTitle": "Fallout S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "201",
+      "title": "Fire Force",
+      "rawTitle": "Fire Force S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "203",
+      "title": "Fool Night",
+      "rawTitle": "Fool Night S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "205",
+      "title": "For All Mankind",
+      "rawTitle": "For All Mankind S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "207",
+      "title": "For All Mankind",
+      "rawTitle": "For All Mankind S6",
+      "season": 6,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "209",
+      "title": "Foundation",
+      "rawTitle": "Foundation S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "211",
+      "title": "Foundation",
+      "rawTitle": "Foundation S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "213",
+      "title": "Fourth Wing",
+      "rawTitle": "Fourth Wing",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "215",
+      "title": "Fright Krewe",
+      "rawTitle": "Fright Krewe",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "217",
+      "title": "Frieren: Beyond Journey's End",
+      "rawTitle": "Frieren: Beyond Journey's End S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "219",
+      "title": "Frieren: Beyond Journey's End",
+      "rawTitle": "Frieren: Beyond Journey's End S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "221",
+      "title": "From",
+      "rawTitle": "From S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "223",
+      "title": "Futurama",
+      "rawTitle": "Futurama S13",
+      "season": 13,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "225",
+      "title": "Futurama",
+      "rawTitle": "Futurama S14",
+      "season": 14,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "227",
+      "title": "Gachiakuta",
+      "rawTitle": "Gachiakuta S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "229",
+      "title": "Gachiakuta",
+      "rawTitle": "Gachiakuta S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "231",
+      "title": "Ghostbusters: Night Shift",
+      "rawTitle": "Ghostbusters: Night Shift S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "233",
+      "title": "Ghosts",
+      "rawTitle": "Ghosts S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "235",
+      "title": "Ghosts",
+      "rawTitle": "Ghosts S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "237",
+      "title": "Golden Axe",
+      "rawTitle": "Golden Axe S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "239",
+      "title": "Goosebumps",
+      "rawTitle": "Goosebumps S2 / The Vanishing",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "/ The Vanishing",
+      "state": "pending"
+    },
+    {
+      "id": "241",
+      "title": "Grotesquerie",
+      "rawTitle": "Grotesquerie S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "243",
+      "title": "Harlan Coben's Lazarus",
+      "rawTitle": "Harlan Coben's Lazarus S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "245",
+      "title": "Harley Quinn",
+      "rawTitle": "Harley Quinn S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "247",
+      "title": "Hazbin Hotel",
+      "rawTitle": "Hazbin Hotel S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "249",
+      "title": "Hazbin Hotel",
+      "rawTitle": "Hazbin Hotel S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "251",
+      "title": "Hazbin Hotel",
+      "rawTitle": "Hazbin Hotel S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "253",
+      "title": "Hazbin Hotel",
+      "rawTitle": "Hazbin Hotel S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "255",
+      "title": "Hazbin Hotel",
+      "rawTitle": "Hazbin Hotel S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "257",
+      "title": "Hell Motel",
+      "rawTitle": "Hell Motel S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "259",
+      "title": "Hell's Paradise",
+      "rawTitle": "Hell's Paradise S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "261",
+      "title": "Helluva Boss",
+      "rawTitle": "Helluva Boss S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "263",
+      "title": "House of the Dragon",
+      "rawTitle": "House of the Dragon S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "265",
+      "title": "House of the Dragon",
+      "rawTitle": "House of the Dragon S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "267",
+      "title": "House of the Dragon",
+      "rawTitle": "House of the Dragon S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "269",
+      "title": "Invasion",
+      "rawTitle": "Invasion S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "271",
+      "title": "Invincible",
+      "rawTitle": "Invincible S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "273",
+      "title": "Invincible",
+      "rawTitle": "Invincible S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "275",
+      "title": "Invincible",
+      "rawTitle": "Invincible S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "277",
+      "title": "Invincible",
+      "rawTitle": "Invincible S6",
+      "season": 6,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "279",
+      "title": "Ironheart",
+      "rawTitle": "Ironheart S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "281",
+      "title": "IT: Welcome to Derry",
+      "rawTitle": "IT: Welcome to Derry S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "283",
+      "title": "IT: Welcome to Derry Special / A Story of Derry",
+      "rawTitle": "IT: Welcome to Derry Special / A Story of Derry",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "285",
+      "title": "Jentry Chau vs. the Underworld",
+      "rawTitle": "Jentry Chau vs. the Underworld S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "287",
+      "title": "JUJUTSU KAISEN",
+      "rawTitle": "JUJUTSU KAISEN S3 / Culling Game",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "/ Culling Game",
+      "state": "pending"
+    },
+    {
+      "id": "289",
+      "title": "Kaiju No. 8 Final Chapter",
+      "rawTitle": "Kaiju No. 8 Final Chapter",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "291",
+      "title": "Kaiju No. 8",
+      "rawTitle": "Kaiju No. 8 S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "293",
+      "title": "Kindred",
+      "rawTitle": "Kindred S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "295",
+      "title": "Koala Man",
+      "rawTitle": "Koala Man S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "297",
+      "title": "Laid",
+      "rawTitle": "Laid S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "299",
+      "title": "Lazarus",
+      "rawTitle": "Lazarus S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "301",
+      "title": "LEGO Star Wars: Rebuild the Galaxy",
+      "rawTitle": "LEGO Star Wars: Rebuild the Galaxy S2 / Pieces of the Past",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "/ Pieces of the Past",
+      "state": "pending"
+    },
+    {
+      "id": "303",
+      "title": "Light Shop",
+      "rawTitle": "Light Shop S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "305",
+      "title": "Love, Death + Robots",
+      "rawTitle": "Love, Death + Robots S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "307",
+      "title": "Marvel Zombies: Fist of Khonshu",
+      "rawTitle": "Marvel Zombies: Fist of Khonshu",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "309",
+      "title": "Marvel Zombies: Last Guardian",
+      "rawTitle": "Marvel Zombies: Last Guardian",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "311",
+      "title": "Marvel Zombies",
+      "rawTitle": "Marvel Zombies S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "313",
+      "title": "Marvel Zombies: Winter Soldier",
+      "rawTitle": "Marvel Zombies: Winter Soldier",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "315",
+      "title": "Marvel's Iron Man and His Awesome Friends",
+      "rawTitle": "Marvel's Iron Man and His Awesome Friends S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "317",
+      "title": "Marvel's Moon Girl and Devil Dinosaur",
+      "rawTitle": "Marvel's Moon Girl and Devil Dinosaur S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "319",
+      "title": "Monarch: Legacy of Monsters",
+      "rawTitle": "Monarch: Legacy of Monsters S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "321",
+      "title": "Moving",
+      "rawTitle": "Moving S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "323",
+      "title": "Murderbot",
+      "rawTitle": "Murderbot S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "325",
+      "title": "Murderbot",
+      "rawTitle": "Murderbot S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "327",
+      "title": "My Adventures with Superman",
+      "rawTitle": "My Adventures with Superman S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "329",
+      "title": "My Hero Academia",
+      "rawTitle": "My Hero Academia S8",
+      "season": 8,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "331",
+      "title": "One Piece",
+      "rawTitle": "One Piece S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "333",
+      "title": "One Piece",
+      "rawTitle": "One Piece S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "335",
+      "title": "One-Punch Man",
+      "rawTitle": "One-Punch Man S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "337",
+      "title": "Outlander",
+      "rawTitle": "Outlander S7",
+      "season": 7,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "339",
+      "title": "Outlander",
+      "rawTitle": "Outlander S8",
+      "season": 8,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "341",
+      "title": "Outlander: Blood of My Blood",
+      "rawTitle": "Outlander: Blood of My Blood S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "343",
+      "title": "Paradise",
+      "rawTitle": "Paradise S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "345",
+      "title": "Paradise",
+      "rawTitle": "Paradise S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "347",
+      "title": "Paradise",
+      "rawTitle": "Paradise S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "349",
+      "title": "Percy Jackson and the Olympians",
+      "rawTitle": "Percy Jackson and the Olympians S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "351",
+      "title": "Phineas and Ferb",
+      "rawTitle": "Phineas and Ferb S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "353",
+      "title": "Phineas and Ferb",
+      "rawTitle": "Phineas and Ferb S6",
+      "season": 6,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "355",
+      "title": "Pluribus",
+      "rawTitle": "Pluribus S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "357",
+      "title": "Primal",
+      "rawTitle": "Primal S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "359",
+      "title": "Queen of the Damned",
+      "rawTitle": "Queen of the Damned S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "361",
+      "title": "Re",
+      "rawTitle": "Re S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "review"
+    },
+    {
+      "id": "363",
+      "title": "Re",
+      "rawTitle": "Re S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "review"
+    },
+    {
+      "id": "365",
+      "title": "Resident Alien",
+      "rawTitle": "Resident Alien S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "367",
+      "title": "Revival",
+      "rawTitle": "Revival S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "369",
+      "title": "Rick and Morty",
+      "rawTitle": "Rick and Morty S8",
+      "season": 8,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "371",
+      "title": "Rick and Morty",
+      "rawTitle": "Rick and Morty S9",
+      "season": 9,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "373",
+      "title": "Rick and Morty",
+      "rawTitle": "Rick and Morty S10",
+      "season": 10,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "375",
+      "title": "Sanctuary: A Witch's Tale",
+      "rawTitle": "Sanctuary: A Witch's Tale S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "377",
+      "title": "School Spirits",
+      "rawTitle": "School Spirits S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "379",
+      "title": "School Spirits",
+      "rawTitle": "School Spirits S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "381",
+      "title": "School Spirits",
+      "rawTitle": "School Spirits S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "383",
+      "title": "Secret Level",
+      "rawTitle": "Secret Level S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "385",
+      "title": "Severance",
+      "rawTitle": "Severance S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "389",
+      "title": "Small Prophets",
+      "rawTitle": "Small Prophets S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "391",
+      "title": "Smiling Friends",
+      "rawTitle": "Smiling Friends S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "393",
+      "title": "Solar Opposites",
+      "rawTitle": "Solar Opposites S6",
+      "season": 6,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "395",
+      "title": "Solo Leveling",
+      "rawTitle": "Solo Leveling S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "397",
+      "title": "Solo Leveling",
+      "rawTitle": "Solo Leveling S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "399",
+      "title": "Something Very Bad Is Going to Happen",
+      "rawTitle": "Something Very Bad Is Going to Happen S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "401",
+      "title": "Spider-Noir",
+      "rawTitle": "Spider-Noir S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "403",
+      "title": "Spidey and His Amazing Friends",
+      "rawTitle": "Spidey and His Amazing Friends",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "405",
+      "title": "Squid Game",
+      "rawTitle": "Squid Game S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "407",
+      "title": "Squid Game",
+      "rawTitle": "Squid Game S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "409",
+      "title": "Star City",
+      "rawTitle": "Star City S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "411",
+      "title": "Star Trek: Lower Decks",
+      "rawTitle": "Star Trek: Lower Decks S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "413",
+      "title": "Star Trek: Starfleet Academy",
+      "rawTitle": "Star Trek: Starfleet Academy S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "415",
+      "title": "Star Trek: Starfleet Academy",
+      "rawTitle": "Star Trek: Starfleet Academy S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "417",
+      "title": "Star Trek: Strange New Worlds",
+      "rawTitle": "Star Trek: Strange New Worlds S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "419",
+      "title": "Star Trek: Strange New Worlds",
+      "rawTitle": "Star Trek: Strange New Worlds S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "421",
+      "title": "Star Trek: Strange New Worlds",
+      "rawTitle": "Star Trek: Strange New Worlds S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "423",
+      "title": "Star Wars Tales: Tales of the Underworld",
+      "rawTitle": "Star Wars Tales: Tales of the Underworld",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "425",
+      "title": "Star Wars: Maul – Shadow Lord",
+      "rawTitle": "Star Wars: Maul – Shadow Lord S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "427",
+      "title": "Star Wars: Maul – Shadow Lord",
+      "rawTitle": "Star Wars: Maul – Shadow Lord S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "429",
+      "title": "Star Wars: Skeleton Crew",
+      "rawTitle": "Star Wars: Skeleton Crew S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "431",
+      "title": "Star Wars: Visions Presents – The Ninth Jedi",
+      "rawTitle": "Star Wars: Visions Presents – The Ninth Jedi S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "433",
+      "title": "Star Wars: Visions Volume 3",
+      "rawTitle": "Star Wars: Visions Volume 3",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "435",
+      "title": "Star Wars: Young Jedi Adventures",
+      "rawTitle": "Star Wars: Young Jedi Adventures S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "437",
+      "title": "Star Wars: Young Jedi Adventures",
+      "rawTitle": "Star Wars: Young Jedi Adventures S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "439",
+      "title": "Stranger Things: Tales From '85",
+      "rawTitle": "Stranger Things: Tales From '85 S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "441",
+      "title": "Stranger Things: Tales From '85",
+      "rawTitle": "Stranger Things: Tales From '85 S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "443",
+      "title": "Sugar",
+      "rawTitle": "Sugar S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "445",
+      "title": "Superman & Lois",
+      "rawTitle": "Superman & Lois S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "447",
+      "title": "SurrealEstate",
+      "rawTitle": "SurrealEstate S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "449",
+      "title": "Sweet Tooth",
+      "rawTitle": "Sweet Tooth S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "451",
+      "title": "Sweetpea",
+      "rawTitle": "Sweetpea S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "453",
+      "title": "Talamasca: The Secret Order",
+      "rawTitle": "Talamasca: The Secret Order S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "455",
+      "title": "Ted",
+      "rawTitle": "Ted S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "457",
+      "title": "Terminator Zero",
+      "rawTitle": "Terminator Zero S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "459",
+      "title": "The Ark",
+      "rawTitle": "The Ark S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "461",
+      "title": "The Beauty",
+      "rawTitle": "The Beauty S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "463",
+      "title": "The Beauty",
+      "rawTitle": "The Beauty S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "465",
+      "title": "The Body",
+      "rawTitle": "The Body S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "467",
+      "title": "The Boroughs",
+      "rawTitle": "The Boroughs S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "469",
+      "title": "The Boys",
+      "rawTitle": "The Boys S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "471",
+      "title": "The Boys",
+      "rawTitle": "The Boys S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "473",
+      "title": "The Chair Company",
+      "rawTitle": "The Chair Company S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "475",
+      "title": "The Copenhagen Test",
+      "rawTitle": "The Copenhagen Test S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "477",
+      "title": "The Creep Tapes",
+      "rawTitle": "The Creep Tapes S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "479",
+      "title": "The Creep Tapes",
+      "rawTitle": "The Creep Tapes S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "481",
+      "title": "The Creep Tapes",
+      "rawTitle": "The Creep Tapes S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "483",
+      "title": "The Eternaut",
+      "rawTitle": "The Eternaut S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "485",
+      "title": "The Handmaid's Tale",
+      "rawTitle": "The Handmaid's Tale S6",
+      "season": 6,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "487",
+      "title": "The Institute",
+      "rawTitle": "The Institute S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "489",
+      "title": "The Last of Us",
+      "rawTitle": "The Last of Us S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "491",
+      "title": "The Legend of Vox Machina",
+      "rawTitle": "The Legend of Vox Machina S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "493",
+      "title": "The Legend of Vox Machina",
+      "rawTitle": "The Legend of Vox Machina S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "495",
+      "title": "The Librarians: The Next Chapter",
+      "rawTitle": "The Librarians: The Next Chapter S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "497",
+      "title": "The Librarians: The Next Chapter",
+      "rawTitle": "The Librarians: The Next Chapter S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "499",
+      "title": "The Mighty Nein",
+      "rawTitle": "The Mighty Nein S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "501",
+      "title": "The Mighty Nein",
+      "rawTitle": "The Mighty Nein S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "503",
+      "title": "The Penguin",
+      "rawTitle": "The Penguin S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "505",
+      "title": "The Punisher: One Last Kill Special",
+      "rawTitle": "The Punisher: One Last Kill Special",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "507",
+      "title": "The Return of the Shadow",
+      "rawTitle": "The Return of the Shadow S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "509",
+      "title": "The Rig",
+      "rawTitle": "The Rig S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "511",
+      "title": "The Sandman",
+      "rawTitle": "The Sandman S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "513",
+      "title": "The Terror",
+      "rawTitle": "The Terror S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "515",
+      "title": "The Testaments",
+      "rawTitle": "The Testaments S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "517",
+      "title": "The Testaments",
+      "rawTitle": "The Testaments S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "519",
+      "title": "The Vampire Lestat",
+      "rawTitle": "The Vampire Lestat S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "521",
+      "title": "The Walking Dead: Daryl Dixon",
+      "rawTitle": "The Walking Dead: Daryl Dixon S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "523",
+      "title": "The Walking Dead: Daryl Dixon",
+      "rawTitle": "The Walking Dead: Daryl Dixon S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "525",
+      "title": "The Walking Dead: Dead City",
+      "rawTitle": "The Walking Dead: Dead City S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "527",
+      "title": "The Walking Dead: Dead City",
+      "rawTitle": "The Walking Dead: Dead City S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "529",
+      "title": "The War Between the Land and the Sea",
+      "rawTitle": "The War Between the Land and the Sea",
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "531",
+      "title": "The Wheel of Time",
+      "rawTitle": "The Wheel of Time S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "533",
+      "title": "The Witcher",
+      "rawTitle": "The Witcher S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "535",
+      "title": "The Witcher",
+      "rawTitle": "The Witcher S5",
+      "season": 5,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "537",
+      "title": "TO BE HERO X",
+      "rawTitle": "TO BE HERO X S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "539",
+      "title": "Tomb Raider: The Legend of Lara Croft",
+      "rawTitle": "Tomb Raider: The Legend of Lara Croft S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "541",
+      "title": "Twisted Metal",
+      "rawTitle": "Twisted Metal S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "543",
+      "title": "Twisted Metal",
+      "rawTitle": "Twisted Metal S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "545",
+      "title": "Upload",
+      "rawTitle": "Upload S4",
+      "season": 4,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "547",
+      "title": "Wayward",
+      "rawTitle": "Wayward S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "549",
+      "title": "Wednesday",
+      "rawTitle": "Wednesday S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "551",
+      "title": "Wednesday",
+      "rawTitle": "Wednesday S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "553",
+      "title": "What If...?",
+      "rawTitle": "What If...? S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "555",
+      "title": "Widow's Bay",
+      "rawTitle": "Widow's Bay S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "557",
+      "title": "Widow's Bay",
+      "rawTitle": "Widow's Bay S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "559",
+      "title": "Wolf King",
+      "rawTitle": "Wolf King S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "561",
+      "title": "Wolf King",
+      "rawTitle": "Wolf King S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "563",
+      "title": "X-Men '97",
+      "rawTitle": "X-Men '97 S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "565",
+      "title": "X-Men '97",
+      "rawTitle": "X-Men '97 S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "567",
+      "title": "X-Men '97",
+      "rawTitle": "X-Men '97 S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "569",
+      "title": "Your Friendly Neighborhood Spider-Man",
+      "rawTitle": "Your Friendly Neighborhood Spider-Man S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "571",
+      "title": "Your Friendly Neighborhood Spider-Man",
+      "rawTitle": "Your Friendly Neighborhood Spider-Man S2",
+      "season": 2,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "573",
+      "title": "Your Friendly Neighborhood Spider-Man",
+      "rawTitle": "Your Friendly Neighborhood Spider-Man S3",
+      "season": 3,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "575",
+      "title": "Zodiac",
+      "rawTitle": "Zodiac S1",
+      "season": 1,
+      "sourceCategory": "Binge",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "581",
+      "title": "American Horror Story",
+      "rawTitle": "American Horror Story S13",
+      "season": 13,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 14 confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "585",
+      "title": "Carrie",
+      "rawTitle": "Carrie S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 2 confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "589",
+      "title": "Daredevil: Born Again",
+      "rawTitle": "Daredevil: Born Again S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "591",
+      "title": "Daredevil: Born Again",
+      "rawTitle": "Daredevil: Born Again S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 3 confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "595",
+      "title": "From",
+      "rawTitle": "From S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "597",
+      "title": "From",
+      "rawTitle": "From S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "599",
+      "title": "From",
+      "rawTitle": "From S3",
+      "season": 3,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "601",
+      "title": "From",
+      "rawTitle": "From S4",
+      "season": 4,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 5 confirmed as final season",
+      "state": "pending"
+    },
+    {
+      "id": "605",
+      "title": "Interview with the Vampire",
+      "rawTitle": "Interview with the Vampire S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "607",
+      "title": "Interview with the Vampire",
+      "rawTitle": "Interview with the Vampire S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Continues with The Vampire Lestat\nQueen of the Damned continuation also confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "613",
+      "title": "IT: Welcome to Derry",
+      "rawTitle": "IT: Welcome to Derry S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 2 confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "617",
+      "title": "Pluribus",
+      "rawTitle": "Pluribus S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 2 confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "621",
+      "title": "Severance",
+      "rawTitle": "Severance S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "623",
+      "title": "Severance",
+      "rawTitle": "Severance S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 3 confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "635",
+      "title": "The Last of Us",
+      "rawTitle": "The Last of Us S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "637",
+      "title": "The Last of Us",
+      "rawTitle": "The Last of Us S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 3 confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "641",
+      "title": "Wonder Man",
+      "rawTitle": "Wonder Man S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Renewed / Continuing",
+      "notes": "Season 2 confirmed",
+      "state": "pending"
+    },
+    {
+      "id": "647",
+      "title": "Dark Matter",
+      "rawTitle": "Dark Matter S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Unknown / TBA",
+      "notes": "Creators have plans for a third season, but Apple has not renewed it yet",
+      "state": "pending"
+    },
+    {
+      "id": "651",
+      "title": "Lanterns",
+      "rawTitle": "Lanterns S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Unknown / TBA",
+      "notes": "No official Season 2 order yet",
+      "state": "pending"
+    },
+    {
+      "id": "655",
+      "title": "Peacemaker",
+      "rawTitle": "Peacemaker S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Unknown / TBA",
+      "notes": "No official Season 3 order yet",
+      "state": "pending"
+    },
+    {
+      "id": "659",
+      "title": "Stuart Fails to Save the Universe",
+      "rawTitle": "Stuart Fails to Save the Universe S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Unknown / TBA",
+      "notes": "No official Season 2 order yet",
+      "state": "pending"
+    },
+    {
+      "id": "665",
+      "title": "Castlevania — original series",
+      "rawTitle": "Castlevania — original series",
+      "sourceCategory": "Watched",
+      "sourceStatus": "Cancelled / Ended",
+      "notes": "Ended",
+      "state": "pending"
+    },
+    {
+      "id": "669",
+      "title": "Gen V",
+      "rawTitle": "Gen V S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Cancelled / Ended",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "671",
+      "title": "Gen V",
+      "rawTitle": "Gen V S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Cancelled / Ended",
+      "notes": "Cancelled after Season 2",
+      "state": "pending"
+    },
+    {
+      "id": "675",
+      "title": "Outer Range",
+      "rawTitle": "Outer Range S1",
+      "season": 1,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Cancelled / Ended",
+      "notes": "",
+      "state": "pending"
+    },
+    {
+      "id": "677",
+      "title": "Outer Range",
+      "rawTitle": "Outer Range S2",
+      "season": 2,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Cancelled / Ended",
+      "notes": "Cancelled",
+      "state": "pending"
+    },
+    {
+      "id": "681",
+      "title": "Stranger Things",
+      "rawTitle": "Stranger Things S5",
+      "season": 5,
+      "sourceCategory": "Watched",
+      "sourceStatus": "Cancelled / Ended",
+      "notes": "Final season / intentionally ended",
+      "state": "pending"
+    }
+  ]
+}

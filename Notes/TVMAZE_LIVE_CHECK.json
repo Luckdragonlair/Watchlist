@@ -1,0 +1,444 @@
+{
+  "checkedAt": "2026-11-05T07:03:11.311Z",
+  "provider": "TVmaze",
+  "scope": "Public metadata coverage only. No release claims independently verified; no app library imported or changed.",
+  "matchingRule": "Fetch details only when exactly one search candidate has an exact normalized name. Ambiguous candidates remain unselected.",
+  "results": [
+    {
+      "query": "Severance",
+      "candidates": [
+        {
+          "id": 44933,
+          "name": "Severance",
+          "premiered": "2022-02-18",
+          "service": "Apple TV",
+          "url": "https://www.tvmaze.com/shows/44933/severance",
+          "exactName": true
+        },
+        {
+          "id": 85532,
+          "name": "Aligned Reverence",
+          "premiered": "2025-12-05",
+          "service": "Tencent QQ",
+          "url": "https://www.tvmaze.com/shows/85532/aligned-reverence",
+          "exactName": false
+        },
+        {
+          "id": 70294,
+          "name": "La Rivière Espérance",
+          "premiered": "1995-09-04",
+          "service": "France 2",
+          "url": "https://www.tvmaze.com/shows/70294/la-riviere-esperance",
+          "exactName": false
+        }
+      ],
+      "outcome": "unique-exact-name-coverage-checked",
+      "coverage": {
+        "showId": 44933,
+        "name": "Severance",
+        "status": "Running",
+        "premiered": "2022-02-18",
+        "service": "Apple TV",
+        "episodeEndpointIncludesSpecials": false,
+        "seasonCount": 3,
+        "episodeCount": 19,
+        "regularEpisodeCount": 19,
+        "episodesWithUnknownAirstamp": 0,
+        "episodesWithUnknownAirdate": 0,
+        "episodesWithNoReleaseDateOrTime": 0,
+        "seasonsWithUnknownEpisodeOrder": 1,
+        "seasonsWithUnknownEndDate": 1,
+        "seasons": [
+          {
+            "id": 102615,
+            "number": 1,
+            "expectedEpisodeCount": 9,
+            "endDate": "2022-04-08",
+            "listedRegularEpisodes": 9
+          },
+          {
+            "id": 137329,
+            "number": 2,
+            "expectedEpisodeCount": 10,
+            "endDate": "2025-03-21",
+            "listedRegularEpisodes": 10
+          },
+          {
+            "id": 183341,
+            "number": 3,
+            "expectedEpisodeCount": null,
+            "endDate": null,
+            "listedRegularEpisodes": 0
+          }
+        ]
+      }
+    },
+    {
+      "query": "The Institute",
+      "candidates": [
+        {
+          "id": 77778,
+          "name": "The Institute",
+          "premiered": "2025-07-13",
+          "service": "MGM+",
+          "url": "https://www.tvmaze.com/shows/77778/the-institute",
+          "exactName": true
+        },
+        {
+          "id": 40093,
+          "name": "The Twinstitute",
+          "premiered": "2019-01-02",
+          "service": "BBC Two",
+          "url": "https://www.tvmaze.com/shows/40093/the-twinstitute",
+          "exactName": false
+        },
+        {
+          "id": 54247,
+          "name": "Keep Your Hands Off Eizouken!",
+          "premiered": "2020-04-06",
+          "service": "MBS",
+          "url": "https://www.tvmaze.com/shows/54247/keep-your-hands-off-eizouken",
+          "exactName": false
+        }
+      ],
+      "outcome": "unique-exact-name-coverage-checked",
+      "coverage": {
+        "showId": 77778,
+        "name": "The Institute",
+        "status": "Running",
+        "premiered": "2025-07-13",
+        "service": "MGM+",
+        "episodeEndpointIncludesSpecials": false,
+        "seasonCount": 2,
+        "episodeCount": 16,
+        "regularEpisodeCount": 16,
+        "episodesWithUnknownAirstamp": 0,
+        "episodesWithUnknownAirdate": 0,
+        "episodesWithNoReleaseDateOrTime": 0,
+        "seasonsWithUnknownEpisodeOrder": 0,
+        "seasonsWithUnknownEndDate": 0,
+        "seasons": [
+          {
+            "id": 171084,
+            "number": 1,
+            "expectedEpisodeCount": 8,
+            "endDate": "2025-08-24",
+            "listedRegularEpisodes": 8
+          },
+          {
+            "id": 189980,
+            "number": 2,
+            "expectedEpisodeCount": 8,
+            "endDate": "2026-12-27",
+            "listedRegularEpisodes": 8
+          }
+        ]
+      }
+    },
+    {
+      "query": "Ghosts",
+      "candidates": [
+        {
+          "id": 46573,
+          "name": "Ghosts",
+          "premiered": "2021-10-07",
+          "service": "CBS",
+          "url": "https://www.tvmaze.com/shows/46573/ghosts",
+          "exactName": true
+        },
+        {
+          "id": 38241,
+          "name": "Ghosts",
+          "premiered": "2019-04-15",
+          "service": "BBC iPlayer",
+          "url": "https://www.tvmaze.com/shows/38241/ghosts",
+          "exactName": true
+        },
+        {
+          "id": 78624,
+          "name": "Ghosts",
+          "premiered": "2025-04-09",
+          "service": "Disney+",
+          "url": "https://www.tvmaze.com/shows/78624/ghosts",
+          "exactName": true
+        },
+        {
+          "id": 78090,
+          "name": "Ghosts",
+          "premiered": "2025-03-07",
+          "service": "ARD Mediathek",
+          "url": "https://www.tvmaze.com/shows/78090/ghosts",
+          "exactName": true
+        },
+        {
+          "id": 51109,
+          "name": "Ghosts",
+          "premiered": "1995-01-21",
+          "service": "BBC One",
+          "url": "https://www.tvmaze.com/shows/51109/ghosts",
+          "exactName": true
+        },
+        {
+          "id": 79634,
+          "name": "Ghosts Australia",
+          "premiered": "2025-11-02",
+          "service": "Paramount+",
+          "url": "https://www.tvmaze.com/shows/79634/ghosts-australia",
+          "exactName": false
+        },
+        {
+          "id": 40308,
+          "name": "Hungry Ghosts",
+          "premiered": "2020-08-24",
+          "service": "SBS",
+          "url": "https://www.tvmaze.com/shows/40308/hungry-ghosts",
+          "exactName": false
+        },
+        {
+          "id": 24568,
+          "name": "Castle Ghosts",
+          "premiered": "1995-01-01",
+          "service": "Discovery",
+          "url": "https://www.tvmaze.com/shows/24568/castle-ghosts",
+          "exactName": false
+        },
+        {
+          "id": 5265,
+          "name": "Marley's Ghosts",
+          "premiered": "2015-09-30",
+          "service": "U&GOLD",
+          "url": "https://www.tvmaze.com/shows/5265/marleys-ghosts",
+          "exactName": false
+        },
+        {
+          "id": 67933,
+          "name": "Ghosts of Beirut",
+          "premiered": "2023-05-19",
+          "service": "Showtime on Demand",
+          "url": "https://www.tvmaze.com/shows/67933/ghosts-of-beirut",
+          "exactName": false
+        }
+      ],
+      "outcome": "ambiguous-exact-name",
+      "note": "No candidate selected. Manual identification is required."
+    },
+    {
+      "query": "DAN DA DAN",
+      "candidates": [
+        {
+          "id": 73023,
+          "name": "Dandadan",
+          "premiered": "2024-10-03",
+          "service": "AbemaTV",
+          "url": "https://www.tvmaze.com/shows/73023/dandadan",
+          "exactName": false
+        },
+        {
+          "id": 92288,
+          "name": "Da Bu Liao Liang Ban Dao",
+          "premiered": null,
+          "service": "Youku",
+          "url": "https://www.tvmaze.com/shows/92288/da-bu-liao-liang-ban-dao",
+          "exactName": false
+        },
+        {
+          "id": 71362,
+          "name": "Da Dao Xin Huo",
+          "premiered": "2023-09-15",
+          "service": "CCTV-1",
+          "url": "https://www.tvmaze.com/shows/71362/da-dao-xin-huo",
+          "exactName": false
+        },
+        {
+          "id": 27538,
+          "name": "Dal Ati: Bore Da",
+          "premiered": "2017-04-02",
+          "service": "S4C",
+          "url": "https://www.tvmaze.com/shows/27538/dal-ati-bore-da",
+          "exactName": false
+        },
+        {
+          "id": 92364,
+          "name": "Da Dao Du Xing",
+          "premiered": "2026-04-08",
+          "service": "Bilibili",
+          "url": "https://www.tvmaze.com/shows/92364/da-dao-du-xing",
+          "exactName": false
+        },
+        {
+          "id": 90334,
+          "name": "Ni Hao Da Dan Zhi Shei Shi Wo Di",
+          "premiered": "2026-01-31",
+          "service": "Tencent QQ",
+          "url": "https://www.tvmaze.com/shows/90334/ni-hao-da-dan-zhi-shei-shi-wo-di",
+          "exactName": false
+        },
+        {
+          "id": 91894,
+          "name": "Tui Hun Hou，Wo Dui Fu Ren Si Chan Lan Da",
+          "premiered": "2026-05-14",
+          "service": "iQIYI",
+          "url": "https://www.tvmaze.com/shows/91894/tui-hun-houwo-dui-fu-ren-si-chan-lan-da",
+          "exactName": false
+        },
+        {
+          "id": 92597,
+          "name": "Da Hun Dang Ri，Wo Xian Ru Le Xun Huan",
+          "premiered": "2026-06-19",
+          "service": "iQIYI",
+          "url": "https://www.tvmaze.com/shows/92597/da-hun-dang-riwo-xian-ru-le-xun-huan",
+          "exactName": false
+        },
+        {
+          "id": 93174,
+          "name": "Bao An Dai Dui Peng Qi Da Li Shen Bei",
+          "premiered": "2026-07-17",
+          "service": "Tencent QQ",
+          "url": "https://www.tvmaze.com/shows/93174/bao-an-dai-dui-peng-qi-da-li-shen-bei",
+          "exactName": false
+        }
+      ],
+      "outcome": "no-exact-name",
+      "note": "No candidate selected. Manual identification is required."
+    },
+    {
+      "query": "Star Trek: Strange New Worlds",
+      "candidates": [
+        {
+          "id": 48090,
+          "name": "Star Trek: Strange New Worlds",
+          "premiered": "2022-05-05",
+          "service": "Paramount+",
+          "url": "https://www.tvmaze.com/shows/48090/star-trek-strange-new-worlds",
+          "exactName": true
+        }
+      ],
+      "outcome": "unique-exact-name-coverage-checked",
+      "coverage": {
+        "showId": 48090,
+        "name": "Star Trek: Strange New Worlds",
+        "status": "Running",
+        "premiered": "2022-05-05",
+        "service": "Paramount+",
+        "episodeEndpointIncludesSpecials": false,
+        "seasonCount": 5,
+        "episodeCount": 40,
+        "regularEpisodeCount": 40,
+        "episodesWithUnknownAirstamp": 0,
+        "episodesWithUnknownAirdate": 0,
+        "episodesWithNoReleaseDateOrTime": 0,
+        "seasonsWithUnknownEpisodeOrder": 0,
+        "seasonsWithUnknownEndDate": 1,
+        "seasons": [
+          {
+            "id": 109836,
+            "number": 1,
+            "expectedEpisodeCount": 10,
+            "endDate": "2022-07-07",
+            "listedRegularEpisodes": 10
+          },
+          {
+            "id": 140389,
+            "number": 2,
+            "expectedEpisodeCount": 10,
+            "endDate": "2023-08-10",
+            "listedRegularEpisodes": 10
+          },
+          {
+            "id": 150297,
+            "number": 3,
+            "expectedEpisodeCount": 10,
+            "endDate": "2025-09-11",
+            "listedRegularEpisodes": 10
+          },
+          {
+            "id": 187306,
+            "number": 4,
+            "expectedEpisodeCount": 10,
+            "endDate": "2026-09-24",
+            "listedRegularEpisodes": 10
+          },
+          {
+            "id": 187449,
+            "number": 5,
+            "expectedEpisodeCount": 6,
+            "endDate": null,
+            "listedRegularEpisodes": 0
+          }
+        ]
+      }
+    }
+  ],
+  "requests": [
+    {
+      "url": "https://api.tvmaze.com/search/shows?q=Severance",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:03.505Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/44933",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:04.101Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/44933/seasons",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:04.690Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/44933/episodes",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:05.278Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/search/shows?q=The%20Institute",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:05.882Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/77778",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:06.472Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/77778/seasons",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:07.067Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/77778/episodes",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:07.671Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/search/shows?q=Ghosts",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:08.281Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/search/shows?q=DAN%20DA%20DAN",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:08.933Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/search/shows?q=Star%20Trek%3A%20Strange%20New%20Worlds",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:09.532Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/48090",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:10.124Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/48090/seasons",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:10.721Z"
+    },
+    {
+      "url": "https://api.tvmaze.com/shows/48090/episodes",
+      "status": 200,
+      "checkedAt": "2026-11-05T07:03:11.309Z"
+    }
+  ]
+}

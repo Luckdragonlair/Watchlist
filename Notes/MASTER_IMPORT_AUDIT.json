@@ -1,0 +1,20 @@
+{
+  "sourceSHA256": "6278d1781529929a12831005ec6b9922cfa0b68d11f7115360318748e3f0e5be",
+  "totalInstallments": 301,
+  "distinctTitles": 208,
+  "heldOutSiloRows": 5,
+  "needsReview": [
+    "Re S3",
+    "Re S4"
+  ],
+  "categories": {
+    "Weekly": 14,
+    "Binge": 260,
+    "Watched": 27
+  },
+  "ignoredMarkers": [
+    "None",
+    "None",
+    "New Group"
+  ]
+}

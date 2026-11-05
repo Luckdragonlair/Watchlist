@@ -1,0 +1,23 @@
+:root { font-family: system-ui, sans-serif; color: #202020; background: #f5f5f5; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 900px; margin: auto; padding: 20px; }
+nav, form { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; margin: 12px 0; }
+button, input, select, textarea { font: inherit; padding: 8px; }
+button { cursor: pointer; margin: 3px; border: 1px solid #777; border-radius: 3px; background: white; }
+button[aria-current] { background: #ddd; font-weight: bold; }
+button:disabled { cursor: default; opacity: .55; }
+label { display: inline-block; margin: 8px 0; }
+input[type=checkbox] { margin-right: 10px; width: 18px; height: 18px; }
+article, fieldset { border: 1px solid #999; padding: 16px; margin: 14px 0; background: white; }
+h3 { margin: 0; }
+small { font-size: .85rem; display: inline-block; margin-left: 8px; }
+textarea { display: block; width: 100%; min-height: 70px; }
+.episode { border-bottom: 1px solid #ccc; padding: 10px 0; }
+.episode p { margin: 4px 0; }
+.circle { color: white; background: #ac2020; border-radius: 50%; width: 42px; height: 42px; }
+.danger { color: #9e1919; border-color: #9e1919; }
+[role=alert] { color: #9e1919; }
+[role=dialog] { position: fixed; inset: 25% max(16px, calc((100vw - 650px)/2)) auto; background: white; border: 3px solid #555; padding: 24px; box-shadow: 0 0 0 100vmax #0005; }
+footer { border-top: 1px solid #aaa; margin-top: 30px; font-size: .9rem; }
+@media(max-width: 500px) { main { padding: 12px; } input:not([type=checkbox]), select { max-width: 100%; } nav button { flex: 1; } }

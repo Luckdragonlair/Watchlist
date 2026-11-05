@@ -1,56 +1,17 @@
-Watchlist 🍿
-Watchlist is a personal, offline-first Progressive Web App (PWA) for keeping track of genre TV series and movies without juggling streaming schedules, spreadsheets, or subscriptions.
+# Watchlist v0.1
 
-It focuses on science fiction, fantasy, horror, superheroes, supernatural fiction, animation, anime, and other speculative storytelling.
-Project status: Early planning and prototyping. The features below describe the intended application, not a completed release.
+A personal React + TypeScript + Vite app with a browser-local IndexedDB library (Dexie). The interface deliberately uses plain boxes and buttons; Claude will handle visual design.
 
-What Watchlist will do
-- Weekly schedule: Group actively releasing shows by weekday, showing the next available unwatched episode.
-- Episode-by-episode progress: Check off an episode to advance automatically to the next available one. When caught up, show the next release date and time in Central Time, if known.
-- Binge queue: Keep unscheduled and fully available shows in a searchable, drag-and-drop list, with Watch Now and Watch Soon priorities.
-- Show details: See a synopsis, service, genre, series status, and counts of available unwatched and upcoming episodes.
-- Watched history: Retain completed episodes and seasons along with renewal, cancellation, or conclusion information.
-- Completion prompts: Celebrate finishing a season and optionally recommend another show already in the Binge queue.
-- Offline use: Store watchlist data locally, with JSON import/export for backup and transfer.
-- Metadata refresh: Fetch available episode listings, summaries, and release information from TVmaze, with additional sources considered where useful.
-Ordinary actions such as checking off episodes, searching, sorting, and rearranging shows will not require AI or a network connection.
-Planned technology
-Area	Proposed choice
-Frontend	React + TypeScript + Vite
-Styling	Simple, replaceable UI components and CSS
-Local database	IndexedDB (via Dexie)
-Installable/offline app	PWA / service worker
-Episode metadata	TVmaze API; optional secondary sources
-Testing	Vitest
-Hosting	Static hosting, likely Cloudflare Pages
+From `D:\Watchlist`, run `pnpm install`, then `pnpm dev`. On this machine you can use `./run-watchlist.ps1` instead; it finds the bundled Node/pnpm tools. See [RUN.md](RUN.md) for setup, tests, and data-storage details.
 
+Implemented: TVmaze candidate search and explicit import, metadata refresh, episode check-off and automatic advance, undo, already-watching catch-up, Weekly/Binge/Watched views, show details, persistent Binge arrow ordering, personal notes, and JSON backup export.
 
-The technical choices are provisional until implementation begins. The first version does not require user accounts, cloud sync, or a dedicated backend.
-Data principles
-- A title, its seasons/installments, and its episodes are separate records.
-- Release availability and personal watched status are separate facts.
-- Unknown dates, episode counts, and renewal information remain unknown, never guessed.
-- Imported metadata must not overwrite manually entered viewing history.
-- External metadata is cached locally with source attribution and refreshed only when needed, subject to provider licensing terms.
-- Release times are displayed in the America/Chicago time zone, handling CST/CDT automatically.
-Development roadmap
-- [ ] Finalize episode, release, and viewing-state schemas
-- [ ] Build basic weekly schedule and Binge queue
-- [ ] Add episode check-off, automatic advancement, and undo
-- [ ] Add show details, sorting, drag-and-drop, and priority controls
-- [ ] Add completed-season notifications and local recommendations
-- [ ] Import the existing master watchlist and resolve ambiguous entries
-- [ ] Integrate TVmaze search, episode import, and metadata updates
-- [ ] Add reliable JSON backup/restore and offline PWA behavior
-- [ ] Test responsive desktop/mobile behavior
-- [ ] Consider optional secure OpenAI-assisted research and cloud sync later
-Important test case: Silo
-Leave Silo out of the initial bulk import. Add it through the app afterward to verify mid-season onboarding: Season 1 watched; Season 2 Episodes 1–7 watched; Season 2 Episode 8 in progress (not yet completed). Future seasons stay unwatched. See notes/TEST_CASE_SILO.md when the notes folder is added to the repository.
-Project organization
-The project will keep key decisions, outstanding tasks, and test cases in a notes/ folder. Functionality and data behavior are being specified first; the final visual treatment may be developed separately and integrated later.
-Setup
-Not available yet. This repository is at the planning/prototype stage. Installation, development, and deployment instructions will be added once the initial app is scaffolded.
-Data sources and attribution
-TVmaze is the proposed primary episode metadata source. Its API and content have separate usage and attribution conditions; review the TVmaze API documentation and applicable licensing before shipping an integration. Any additional provider will be credited as required.
-License
-A code license has not yet been selected. Do not assume the repository or third-party metadata is open-source or freely redistributable until licensing is explicitly established.
+To remove a matched show, open its detail and choose **Delete show**, then confirm. This removes its active app records and viewing history without rewriting the preserved original master or existing backup files. Re-adding starts with fresh progress.
+
+The preserved master list has a separate normalized starting catalog: 301 installments / 208 titles, excluding every Silo entry. Source classifications, season labels, viewing assertions, and notes are retained. Metadata linking requires selecting the correct TVmaze show; unmatched entries remain visible and clearly labeled. `Re S3` and `Re S4` need identification. Silo is reserved for the later manual onboarding test.
+
+The original files are preserved in `originals/`; current project notes are in [Notes/README.md](Notes/README.md). The original master SHA-256 is recorded in [the import audit](Notes/MASTER_IMPORT_AUDIT.json).
+
+PWA installation/offline reload, backup restore, drag-and-drop, and completion recommendations remain future work. Ordinary viewing-state changes work without a network while the app is open; search/import/refresh require TVmaze. This version is not a finished offline PWA.
+
+Metadata is supplied by [TVmaze](https://www.tvmaze.com/), under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); see [the API documentation](https://www.tvmaze.com/api). Dates/statuses reflect the provider and are not independent release verification. No code license has been selected.
