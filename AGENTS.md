@@ -33,6 +33,22 @@ This file is a living project ledger, not a one-time summary. **Every agent that
 9. If this file conflicts with current code, verify the code, correct this file, and explain the discrepancy in the project log. Do not silently choose the more convenient version.
 10. Do not erase useful history. When a decision changes, mark the old state superseded with a date and reason, then record the new state.
 
+## Canonical working copy and synchronization policy
+
+On the user's Windows machine, `D:\\Watchlist` is the primary live working copy. GitHub `main` is the durable shared checkpoint. They should normally contain the same committed project state, with one allowed exception: `D:\\Watchlist` may be newer while an update is actively in progress and has not yet been committed and pushed.
+
+Every agent must follow these rules:
+
+1. At the start of work, inspect `D:\\Watchlist` and its Git status before using another checkout. Do not assume GitHub is newer.
+2. Prefer working directly from `D:\\Watchlist` when safe. If an internal workspace, temporary clone, worktree, or generated directory is required, it is temporary—not the authoritative handoff location.
+3. Copy or reconcile every project change made in an internal workspace back into `D:\\Watchlist` before reporting completion. This includes code, tests, documentation, design references, configuration, scripts, and generated source assets that belong in the project.
+4. Never overwrite newer or uncommitted work in `D:\\Watchlist`. Inspect and merge deliberately. Do not pull, reset, checkout, or restore broad paths over a dirty working tree.
+5. Before starting a new task, fetch GitHub metadata and compare local and remote history. If GitHub is newer and the local tree can be updated safely, update it. If local work is newer or dirty, preserve it and integrate the remote change without discarding local files.
+6. Before handoff, ensure `AGENTS.md` itself is the newest version in both `D:\\Watchlist` and GitHub. It may differ only while its update is actively being prepared for the same commit/push.
+7. After an authorized commit and push, verify the remote commit and confirm that `D:\\Watchlist` contains the same committed files plus only intentional newer local work.
+8. Do not leave completed work only in a chat workspace, Downloads folder, temporary directory, or unpushed branch. If the work belongs to Watchlist, it must also exist in `D:\\Watchlist`.
+9. External reference material such as approved mockups may remain outside the repository only when intentionally preserved as source material. Any implementation notes or decisions derived from it must be recorded in the repository, and reference files should be copied into a durable project design/reference directory before implementation depends on them.
+
 ### Status vocabulary
 
 Use these labels consistently:
@@ -248,6 +264,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-06 — Canonical local-copy synchronization rule
+
+- Established `D:\\Watchlist` as the primary live working copy on the user's machine and GitHub `main` as the durable remote checkpoint.
+- Required all temporary-workspace changes to be reconciled into `D:\\Watchlist` before handoff.
+- Required local/remote comparison before work, protection of dirty local state, and post-push verification.
+- No application code, dependency, database, user library, or runtime behavior changed.
+
 
 ### 2026-11-06 — Durable multi-agent handoff created
 
