@@ -1,4 +1,4 @@
-param([ValidateSet('dev','install','test','test:e2e','build','preview')][string]$Task = 'dev')
+param([ValidateSet('start','dev','install','test','test:e2e','test:pwa','build','preview')][string]$Task = 'start')
 $ErrorActionPreference = 'Stop'
 Push-Location $PSScriptRoot
 try {
@@ -18,6 +18,7 @@ try {
   if ($Task -eq 'install') { Invoke-WatchlistPackage @('install','--frozen-lockfile') }
   else {
     if (!(Test-Path -LiteralPath 'node_modules')) { Invoke-WatchlistPackage @('install','--frozen-lockfile') }
+    if ($Task -eq 'start' -or $Task -eq 'test:pwa') { Invoke-WatchlistPackage @('run','build') }
     Invoke-WatchlistPackage @('run',$Task)
   }
 } finally { Pop-Location }

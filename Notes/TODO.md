@@ -37,7 +37,7 @@ Updated: 2026-11-05
 - [ ] Later idea from user: add Search on TVmaze for spelling/alias mismatches, then accept a selected show URL/ID back in Watchlist with explicit confirmation. Do not implement during v0.1. Existing title search can already be edited for alternate spellings.
 
 - [x] Validated JSON backup restore/transfer with preview, explicit replacement confirmation, cancellation, atomic rollback, exact round-trip tests, and cross-tab restore safety.
-- [ ] Installable PWA and offline reopen: production app reopens offline with cached data and ordinary actions need no metadata requests.
+- [x] Installable PWA and offline reopen: production caching, manifest/icons, install guidance, controlled updates, offline tracking/details/order/backup/restore, and full-browser-restart verification with the server stopped. User OS installation remains manual.
 - [ ] Smooth drag-and-drop plus Watch Now/Watch Soon, preserving manual Binge order.
 - [ ] Completion recommendations from Binge with Skip/Pass/dismiss actions.
 - [ ] Explicit specials, manual release corrections, richer season-level placement, unknown future seasons.
@@ -55,3 +55,18 @@ Updated: 2026-11-05
 - [x] Move Export backup to the top-right controls; retain nearby feedback/re-download link and wrap the toolbar on small screens. Export workflow, desktop/mobile placement and build verified.
 
 - [x] User-reported browser check of the new backup restore flow: seems to work fine (2026-11-05). Automated recovery tests already pass; no independent inspection of the user's restored record counts was performed.
+
+## Manual completion follow-up — 2026-11-06
+
+- [x] User-reported completion of The Handmaid's Tale: checking Episode 10 correctly marked it watched and placed it in Watched. Season and post-reload state were not independently verified.
+- [ ] Keep next-watch recommendations after completion as a future feature; no recommendation behavior added in this follow-up.
+
+- [ ] Binge card design requirement confirmed 2026-11-06: visible card dragging plus up/down reorder arrows on the right edge, vertically centered. Both must save the same manual order. Coordinate final styling with Claude.
+
+## Offline/installable follow-up — 2026-11-06
+
+- [x] Production app stays at 5174; development moves to isolated 5175. Normal launcher builds/serves the offline-capable app.
+- [x] Cache only the static app shell/catalog; metadata stays in IndexedDB and TVmaze requests are not cached by the worker.
+- [x] Verify explicit update acceptance, failed-update rollback to the working offline app, unrelated-cache preservation, full browser restart, and offline backup/restore.
+- [ ] User check: refresh the normal app, wait for Available offline, and optionally install through Edge/Chrome. Export/restore when moving to another browser.
+- [x] Include tested offline support and recorded draggable/right-middle-arrow requirements in the user-authorized offline/installable checkpoint. Card drag implementation remains future work.

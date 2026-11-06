@@ -7,6 +7,7 @@ import { isSilo, prepareSource } from './importer';
 import { masterSource } from './master';
 import { BackupExport } from './BackupExport';
 import { BackupRestore } from './BackupRestore';
+import { PwaStatus } from './PwaStatus';
 
 type View = 'Weekly' | 'Binge' | 'Watched' | 'Add Show' | 'Import';
 export function App() {
@@ -105,7 +106,7 @@ export function App() {
     <h1>Watchlist <small>v0.1</small></h1>
     <p>Local library · Release times in America/Chicago</p>
     <div className="top-controls"><nav aria-label="Views">{(['Weekly','Binge','Watched','Add Show','Import'] as View[]).map(v => <button key={v} aria-current={view === v ? 'page' : undefined} onClick={() => {setView(v); setDetail(null); if(v==='Import') setImportTarget(null);}}>{v}</button>)}</nav><div className="backup-controls"><BackupExport disabled={busy||restoring||!data}/><BackupRestore disabled={busy||!data} onBusyChange={setRestoring} onRestored={resetAfterRestore}/></div></div>
-    {error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
+    <PwaStatus/>{error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     {busy && <p role="status">Saving or fetching…</p>}
     {undo && !completion && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}
     {detail !== null && data ? <Detail show={data.shows.find(s => s.id === detail)!} episodes={data.episodes.filter(e => e.showId === detail)} watched={new Set(data.progress.map(p => p.episodeId))} notes={data.preferences.find(p => p.showId === detail)?.notes ?? ''} now={now} busy={busy} run={run} toggle={toggle} onDelete={async () => { const show=data.shows.find(s=>s.id===detail); if (!show || !window.confirm(`Delete ${show.name}? This permanently removes its seasons, episodes, watched history, personal notes, order, and matching import entries from this library. Original files and existing backup files stay unchanged.`)) return; await run(async()=>{await deleteShow(show.id,db,fetchEpisodeOwner);setDetail(null);setImportTarget(null);setUndo(null);setCompletion('');setView('Binge');setNotice(`${show.name} was deleted from your library.`);}); }} onBack={() => setDetail(null)}/> : <><h2>{view}</h2>{['Weekly','Binge','Watched'].includes(view) && <label>Search library <input value={filter} onChange={e => setFilter(e.target.value)}/></label>}{content}</>}

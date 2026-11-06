@@ -6,10 +6,11 @@ The project uses Node.js, React, and Vite. From the project folder, install depe
 
 ```powershell
 pnpm install
-pnpm dev
+pnpm build
+pnpm start
 ```
 
-Open `http://127.0.0.1:5174`. The fixed development port keeps your browser library at the same address between sessions. The repository includes `pnpm-lock.yaml`, so pnpm is preferred for a reproducible install. If pnpm is unavailable, `npm install` and `npm run dev` are alternatives. On the current handoff machine, npm and pnpm are not on PATH; use `./run-watchlist.ps1` from PowerShell. To install explicitly, use `./run-watchlist.ps1 -Task install`.
+Open `http://127.0.0.1:5174`. The fixed development port keeps your browser library at the same address between sessions. The repository includes `pnpm-lock.yaml`, so pnpm is preferred for a reproducible install. If pnpm is unavailable, `npm install`, `npm run build`, and `npm start` are alternatives. On the current handoff machine, npm and pnpm are not on PATH; use `./run-watchlist.ps1` from PowerShell. To install explicitly, use `./run-watchlist.ps1 -Task install`.
 
 ## Tests and build
 
@@ -33,7 +34,7 @@ Keep `originals/Project Watchlist Master List.txt` unchanged. Use the normalized
 
 ## Scope of this version
 
-The UI is a functional placeholder; Claude owns the visual design. Installable/offline PWA behavior, recommendations, and drag-and-drop reordering are deferred. The Silo mid-season onboarding test is intentionally pending; no Silo data is seeded.
+The UI is a functional placeholder; Claude owns the visual design. Installable/offline app support is implemented; recommendations and drag-and-drop reordering are deferred. The Silo mid-season onboarding test is intentionally pending; no Silo data is seeded.
 
 ## Export a backup
 
@@ -49,3 +50,12 @@ Click Export backup. The result appears beside the button and scrolls into view.
 Cancel restore or Escape closes the preview without changes. Invalid or unsupported files are rejected before writing. If storage fails, the replacement transaction rolls back. A deliberately empty backup stays empty after reload instead of reloading the starter catalog. Restore uses no network. Requests already running in other tabs cannot overwrite the restored library.
 
 Backup format version 1 remains supported, including older exports without viewing-record show ownership. Database schema v3 adds only internal initialization/revision settings; existing viewing timestamps are preserved. No restore is automatically performed on the user's saved library during development or testing.
+## Offline/installable app
+
+The default ./run-watchlist.ps1 now builds and serves the production app at http://127.0.0.1:5174. Wait for Available offline on the first load. Once cached, this app can reopen with the local server stopped, including after a full browser restart; local tracking, details, ordering and backup/restore need no network. First load and app updates need the local server running. TVmaze functions require internet.
+
+For installation, use Install app when offered, or How to install for browser instructions. Normal Edge/Chrome support installation; the in-app browser may not expose the install option. A different browser has a separate library, so export current progress and restore it there to transfer data. No OS installation was performed during development.
+
+Development is now pnpm dev at http://127.0.0.1:5175, with no service worker and a separate test library. Keep your normal data at 5174. Updates do not force a reload while you work: use Update and reload after saving open notes, or close all app windows to allow a waiting update to activate before next launch. See OFFLINE.md.
+
+Run production PWA tests with pnpm build followed by pnpm test:pwa, or ./run-watchlist.ps1 -Task test:pwa. Those tests use disposable browser profiles and local test servers, never the user's library. No deployment, accounts, or cross-device sync has been created.

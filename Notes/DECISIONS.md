@@ -44,3 +44,14 @@ The decisions below remain the product target. v0.1 implements the basic library
 - Version-1 backup files remain supported. Restore validates record types, identifiers, references, dates, duplicate IDs and history ownership before any write; unknown metadata is preserved as unknown and unlinked legacy history is not guessed.
 - Preview and cancellation do not modify the library. The user can export the current state in the preview. A checkbox and final button explicitly confirm replacement of the entire library, not merging. All six collections replace atomically; storage failure preserves the prior library through rollback.
 - Schema v3 keeps catalog initialization and restore revision outside the exported user data. An empty restore stays empty. New revisions invalidate pre-restore asynchronous writes and stale UI undo/detail state across tabs.
+
+## Binge card controls — 2026-11-06
+
+The user confirmed that Binge cards should be draggable. Up/down reorder arrows belong on the right edge, vertically centered on each card. Dragging and arrows must update the same persistent manual ordering. Current controls remain functional placeholders; drag-and-drop and final positioning are future work with Claude's visual design. Do not treat this confirmation as completion of drag support.
+
+## Offline app behavior — 2026-11-06
+
+- Production app address stays 127.0.0.1:5174 so viewing data remains in the same origin; development uses 5175 with separate data and no service worker. Default local launcher builds/serves production.
+- Cache static shell/catalog only. Keep episode metadata and viewing history in IndexedDB; TVmaze search/import/refresh require internet. After initial cache setup, reopening and normal tracking/details/order/backup/restore work with the local server stopped.
+- Do not force reload while users are working. Explicit Update and reload applies immediately; waiting updates may also activate after all old windows close. Preserve the working offline app on failed updates and avoid touching unrelated caches.
+- Install manifest/icon support is present, but the user chooses installation. In-app-browser and Edge/Chrome libraries are separate; transfer via backup/restore rather than assuming automatic synchronization. Placeholder icons remain for Claude to redesign.
