@@ -49,6 +49,34 @@ Every agent must follow these rules:
 8. Do not leave completed work only in a chat workspace, Downloads folder, temporary directory, or unpushed branch. If the work belongs to Watchlist, it must also exist in `D:\\Watchlist`.
 9. External reference material such as approved mockups may remain outside the repository only when intentionally preserved as source material. Any implementation notes or decisions derived from it must be recorded in the repository, and reference files should be copied into a durable project design/reference directory before implementation depends on them.
 
+## Standing authorization to commit and push substantial features
+
+The user grants standing authorization for agents to create a **new ordinary Git commit and push it to GitHub** whenever a substantial feature or coherent project milestone has been completed and verified. Treat commit-and-push as the final step of that feature, not as a separate permission request.
+
+This authorization has strict guardrails:
+
+1. Create a new commit. Never amend, rebase away, squash into, reset, overwrite, or force-push existing history unless the user explicitly requests that exact history operation.
+2. Push to the configured `origin` on the current intended branch, normally `main`. Do not invent a different remote or publish the private repository elsewhere.
+3. Commit only coherent, reviewed changes that belong to the completed feature. Do not sweep unrelated pre-existing local modifications into the commit.
+4. Before committing, inspect the diff, check for credentials/secrets/private exports, update required documentation, and run the relevant tests/builds.
+5. After pushing, verify the remote commit and confirm that `D:\\Watchlist` contains the same committed state plus only intentional newer work.
+6. Use a clear commit message describing the delivered outcome.
+7. Small incidental edits may be grouped with the substantial feature they support. Independent substantial features should receive separate commits so history remains recoverable and understandable.
+8. This is authorization to preserve completed work, not to broaden feature scope or perform unrelated destructive actions.
+
+Do **not** commit or push automatically when there is a serious reason to stop, including:
+
+- Relevant tests or builds are failing and the failure is not an already documented, unrelated condition.
+- The feature is incomplete, contains temporary debug code, or is only an experiment.
+- Secrets, credentials, personal exports, generated private data, or machine-specific sensitive files may be included.
+- The intended branch, ownership of overlapping changes, or commit scope is unclear.
+- A merge/rebase conflict or suspicious repository state needs user judgment.
+- The user explicitly asked to review before commit, asked to pause, or said not to push.
+- The push would require force, history rewriting, deletion, or another destructive operation.
+- External service, security, billing, deployment, or account consequences require new user authority.
+
+When stopped for one of these reasons, preserve the work in `D:\\Watchlist`, document the exact blocker, and ask for the narrow decision needed. Do not silently abandon completed work or claim it was pushed.
+
 ### Status vocabulary
 
 Use these labels consistently:
@@ -264,6 +292,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-06 — Standing feature commit-and-push authorization
+
+- Recorded standing user authorization to create and push a new ordinary commit after each substantial, verified feature or coherent milestone.
+- Prohibited force-push, history rewriting, unrelated-change bundling, secret leakage, and automatic commits of incomplete or failing work.
+- Defined the serious conditions that require pausing for user direction.
+- No application code, dependency, database, user library, or runtime behavior changed.
+
 
 ### 2026-11-06 — Canonical local-copy synchronization rule
 
