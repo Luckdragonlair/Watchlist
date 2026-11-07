@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": "dist-hosted",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/master-working.json"],
+    "rewrites": [{"source": "**", "destination": "/index.html"}],
+    "headers": [
+      {"source": "/service-worker.js", "headers": [{"key":"Cache-Control","value":"no-cache"}]},
+      {"source": "/index.html", "headers": [{"key":"Cache-Control","value":"no-cache"}]}
+    ],
+    "predeploy": ["node scripts/check-hosted-build.mjs"]
+  },
+  "firestore": {"rules": "firestore.rules", "indexes":"firestore.indexes.json"},
+  "emulators": {"auth":{"host":"127.0.0.1","port":9099},"firestore":{"host":"127.0.0.1","port":8080},"singleProjectMode":true}
+}

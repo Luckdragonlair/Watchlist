@@ -13,6 +13,22 @@ async function addFixture(page:Page){
   await page.getByLabel('Personal notes').fill('Keep offline notes');await page.getByRole('button',{name:'Save notes'}).click();await page.getByRole('button',{name:'Back to library'}).click();await page.getByLabel('Search library').fill('Offline fixture');
   await page.getByRole('checkbox',{name:'Watch Offline fixture S1 E1 · Episode 1'}).click();await expect(page.getByRole('checkbox',{name:'Watch Offline fixture S1 E2 · Episode 2'})).toBeVisible();
 }
+test('active offline routing leaves reserved Firebase auth pages on the network',async({page,context})=>{
+  const server=await productionServer();try{
+    await page.goto(server.url);await ready(page);
+    // Test iframe navigation as well as top-level redirect navigation, after
+    // the service worker controls the page rather than only on first load.
+    await page.evaluate(()=>{const frame=document.createElement('iframe');frame.src='/__/auth/iframe';document.body.append(frame);});
+    await expect(page.frameLocator('iframe').getByRole('heading',{name:'Authentication helper fixture'})).toBeVisible();
+    const redirect=await context.newPage();
+    const response=await redirect.goto(server.url+'/__/auth/handler');
+    expect(response?.fromServiceWorker()).toBe(false);
+    await expect(redirect.getByRole('heading',{name:'Authentication helper fixture'})).toBeVisible();
+    await redirect.close();
+    const cached=await page.evaluate(async()=>{for(const name of await caches.keys())for(const request of await(await caches.open(name)).keys())if(new URL(request.url).pathname.startsWith('/__/'))return true;return false;});
+    expect(cached).toBe(false);
+  }finally{await server.stop();}
+});
 test('production app reopens with its server stopped and supports progress, details, backup and restore offline',async({page,context})=>{
   const server=await productionServer();try{
     await page.goto(server.url);await ready(page);

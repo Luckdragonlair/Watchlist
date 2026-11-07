@@ -19,7 +19,12 @@ export async function restoreBackup(value:unknown,database:WatchlistDB=db):Promi
     await database.shows.bulkPut(backup.shows);await database.seasons.bulkPut(backup.seasons);await database.episodes.bulkPut(backup.episodes);
     await database.progress.bulkPut(backup.progress);await database.preferences.bulkPut(backup.preferences);await database.sources.bulkPut(backup.sources);
     await database.settings.put({key:'catalogInitialized',value:true});
-    await database.settings.put({key:'libraryRevision',value:crypto.randomUUID()});
+    const revision=crypto.randomUUID();
+    await database.settings.put({key:'libraryRevision',value:revision});
+    await database.settings.put({key:'uiResetRevision',value:revision});
+    await database.settings.put({key:'syncEpoch',value:crypto.randomUUID()});
+    await database.settings.where('key').startsWith('syncLife:').delete();
+    await database.settings.bulkPut(backup.shows.map(show=>({key:'syncLife:'+show.id,value:crypto.randomUUID()})));
   });
   return backup;
 }

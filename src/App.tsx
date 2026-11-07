@@ -25,6 +25,7 @@ export function App() {
   useEffect(() => { const timer = setInterval(() => setNow(new Date()), 60000); return () => clearInterval(timer); }, []);
   useEffect(() => {
     (async()=>{
+      if(import.meta.env.MODE==='hosted') return;
       if((await db.settings.get('catalogInitialized'))?.value===true) return;
       const response=await fetch('/master-working.json');
       if (!response.ok) throw new Error('Master working copy could not be loaded. Your existing library is unchanged.');
@@ -33,14 +34,15 @@ export function App() {
       await initializeCatalog(source);
     })().catch(e=>setError(e instanceof Error ? e.message : String(e)));
   }, []);
-  const data = useLiveQuery(async () => ({ shows: await db.shows.toArray(), seasons: await db.seasons.toArray(), episodes: await db.episodes.toArray(), progress: await db.progress.toArray(), preferences: await db.preferences.toArray(), sources: await db.sources.toArray(), revision:await libraryRevision() }));
+  const data = useLiveQuery(async () => ({ shows: await db.shows.toArray(), seasons: await db.seasons.toArray(), episodes: await db.episodes.toArray(), progress: await db.progress.toArray(), preferences: await db.preferences.toArray(), sources: await db.sources.toArray(), revision:await libraryRevision(),resetRevision:(await db.settings.get('uiResetRevision'))?.value??await libraryRevision() }));
   const seenRevision=useRef<string|null>(null);
   function resetAfterRestore(){setDetail(null);setUndo(null);setCompletion('');setImportTarget(null);setFilter('');setError('');setNotice('');setView('Binge');}
   useEffect(()=>{
     if(!data) return;
-    if(seenRevision.current!==null && seenRevision.current!==data.revision) resetAfterRestore();
-    seenRevision.current=data.revision;
-  },[data?.revision]);
+    if(seenRevision.current!==null && seenRevision.current!==String(data.resetRevision)) resetAfterRestore();
+    seenRevision.current=String(data.resetRevision);
+  },[data?.resetRevision]);
+  useEffect(()=>{setUndo(null);setCompletion('');setImportTarget(null);},[data?.revision]);
   async function run(action: () => Promise<void>) {
     if (busy||restoring) return;
     setBusy(true); setError('');
@@ -126,10 +128,28 @@ function AddShow({run, busy, onAdded, initial = '', onSelect}: {run: Run; busy: 
 function Detail({show, episodes, watched, notes, now, busy, run, toggle, onDelete, onBack}: {show:Show; episodes:Episode[]; watched:Set<number>; notes:string; now:Date; busy:boolean; run:Run; toggle:(e:Episode,w:boolean)=>Promise<void>; onDelete:()=>Promise<void>; onBack:()=>void}) {
   const [current, setCurrent] = useState('');
   const [draftNotes, setDraftNotes] = useState(notes);
+  const notesBaseline=useRef(notes);
+  const [newerNotes,setNewerNotes]=useState(false),[replaceNewerNotes,setReplaceNewerNotes]=useState(false);
+  useEffect(()=>{
+    if(draftNotes===notesBaseline.current){setDraftNotes(notes);notesBaseline.current=notes;setNewerNotes(false);}
+    else setNewerNotes(notes!==notesBaseline.current);
+    setReplaceNewerNotes(false);
+  },[notes]);
   if (!show) return null;
   const ordered = episodes.filter(regular).sort(episodeSort);
   return <section><button className="circle" aria-label="Back to library" onClick={onBack}>↶</button><h2>{show.name}</h2><p>{plainText(show.summary)}</p><p>{show.genres.join(', ') || 'Genres unknown'} · {show.service ?? 'Service unknown'} · {show.status ?? 'Status unknown'}</p><p>Last refresh: {new Date(show.syncedAt).toLocaleString()}</p><button disabled={busy} onClick={() => run(async () => {const revision=await libraryRevision();await saveBundle(await fetchBundle(show.id),db,true,revision);})}>Refresh metadata</button><button className="danger" disabled={busy} onClick={onDelete}>Delete show</button>
-    <label>Personal notes <textarea value={draftNotes} onChange={e => setDraftNotes(e.target.value)}/></label><button disabled={busy} onClick={() => run(async () => {await db.preferences.update(show.id, {notes: draftNotes});})}>Save notes</button>
+    <label>Personal notes <textarea value={draftNotes} onChange={e => setDraftNotes(e.target.value)}/></label>
+    {newerNotes&&<div role="status"><p>Notes changed on another device. Your draft is still here.</p><p>Latest saved notes: {notes||'(empty)'}</p><label><input type="checkbox" checked={replaceNewerNotes} onChange={event=>setReplaceNewerNotes(event.target.checked)}/>Replace the newer saved notes with my draft.</label><button onClick={()=>{setDraftNotes(notes);notesBaseline.current=notes;setNewerNotes(false);setReplaceNewerNotes(false);}}>Discard draft and load latest notes</button></div>}
+    <button disabled={busy||(newerNotes&&!replaceNewerNotes)} onClick={() => run(async () => {
+      const expected=replaceNewerNotes?notes:notesBaseline.current;
+      await db.transaction('rw',db.preferences,async()=>{
+        const latest=await db.preferences.get(show.id);
+        if(!latest)throw new Error('This show was removed. Copy your draft before leaving this screen.');
+        if(latest.notes!==expected)throw new Error('The saved notes changed again. Your draft is kept; review the latest notes before saving.');
+        await db.preferences.update(show.id,{notes:draftNotes});
+      });
+      notesBaseline.current=draftNotes;setNewerNotes(false);setReplaceNewerNotes(false);
+    })}>Save notes</button>
     <fieldset><legend>Already watching? Choose the current episode</legend><p>Explicitly mark released episodes before this one watched. The selected episode stays unchanged.</p><label>Current episode <select value={current} onChange={e => setCurrent(e.target.value)}><option value="">Choose episode</option>{ordered.map(e => <option key={e.id} value={e.id}>{episodeLabel(e)}</option>)}</select></label><button disabled={busy || !current} onClick={() => run(() => onboard(show.id, Number(current), now))}>Mark earlier released episodes watched</button></fieldset>
     {Array.from(new Set(ordered.map(e => e.season))).map(season => <section key={season}><h3>Season {season}</h3>{ordered.filter(e => e.season === season).map(e => <div className="episode" key={e.id}><label><input type="checkbox" checked={watched.has(e.id)} disabled={busy || (!watched.has(e.id) && !released(e,now))} onChange={event => run(() => toggle(e,event.target.checked))}/>{episodeLabel(e)}</label><small>{e.airstamp ? airTime(e.airstamp) : e.airdate ? `${e.airdate} · Time unknown` : 'Release unknown'}</small><p>{plainText(e.summary)}</p></div>)}</section>)}
   </section>;
@@ -141,7 +161,7 @@ function ImportPanel({sources,run,busy,initialTarget}: {sources:Source[];run:Run
   const selectedSource = sources.find(s => s.id === selected?.sourceId);
   const row = selectedSource?.rows.find(r => r.id === selected?.rowId);
   const seasonlessWatched = !!row && !!selectedSource?.rows.some(r=>r.title===row.title && r.sourceCategory==='Watched' && r.season===undefined && r.state==='pending');
-  return <section><p>The original master has been imported as a separate working catalog, excluding Silo. Select a TVmaze candidate to link its episodes. Source schedules and renewal claims remain unverified.</p><p>Additional working lists can be one title per line (.txt), or JSON arrays of titles / &#123;title, notes&#125; rows. Original uploaded text is retained locally.</p>
+  return <section><p>{import.meta.env.MODE==='hosted'?'Add a working list from a file or a restored backup. Bulk matching keeps Silo held out.':'The original master has been imported as a separate working catalog, excluding Silo.'} Select a TVmaze candidate to link its episodes. Source schedules and renewal claims remain unverified.</p><p>Additional working lists can be one title per line (.txt), or JSON arrays of titles / &#123;title, notes&#125; rows. Original uploaded text is retained locally.</p>
     <label>Working list file <input type="file" accept=".txt,.json" disabled={busy} onChange={event => {const file = event.target.files?.[0]; if (file) run(async () => {if (file.size > 5_000_000) throw new Error('Please use a file smaller than 5 MB.'); const revision=await libraryRevision(); const raw=await file.text(); const source = /^WEEKLY\s*$/m.test(raw) && /^WATCHED\s*$/m.test(raw) ? {...masterSource(raw,crypto.randomUUID()),raw} : prepareSource(file.name,raw); await addImportSource(source,revision);}); event.target.value='';}}/></label>
     <label>Filter source entries <input value={filter} onChange={e=>setFilter(e.target.value)}/></label>
     {!row && sources.map(source => <article key={source.id}><h3>{source.name}</h3><p>{source.rows.length} installments retained</p>{source.rows.filter(r=>r.title.toLowerCase().includes(filter.toLowerCase())).map(r => <div key={r.id}><span>{r.rawTitle ?? r.title} · {r.state}</span> {r.state === 'pending' && <button disabled={busy} onClick={() => setSelected({sourceId:source.id,rowId:r.id})}>Find match for {r.rawTitle ?? r.title}</button>}{r.state === 'review' && <small> Needs manual identification; not imported.</small>}</div>)}</article>)}

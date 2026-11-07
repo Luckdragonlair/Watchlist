@@ -1,11 +1,12 @@
 import Dexie, { type Table } from 'dexie';
 import type { Show, Season, Episode, Progress, Preference, Source, Bundle } from './model';
 import { regular, released, episodeSort } from './model';
+import { libraryDatabaseName } from './library-scope';
 export class WatchlistDB extends Dexie {
   shows!: Table<Show, number>; seasons!: Table<Season, number>; episodes!: Table<Episode, number>;
   progress!: Table<Progress, number>; preferences!: Table<Preference, number>; sources!: Table<Source, string>;
   settings!: Table<{key:string;value:string|boolean},string>;
-  constructor(name = 'watchlist-v01') {
+  constructor(name = libraryDatabaseName()) {
     super(name);
     this.version(1).stores({ shows: 'id, name', seasons: 'id, showId', episodes: 'id, showId, [showId+season]', progress: 'episodeId', preferences: 'showId, order', sources: 'id' });
     this.version(2).stores({progress:'episodeId, showId'}).upgrade(async transaction=>{
@@ -20,7 +21,7 @@ export class WatchlistDB extends Dexie {
 export const db = new WatchlistDB();
 export async function libraryRevision(database=db):Promise<string> {return String((await database.settings.get('libraryRevision'))?.value??'');}
 export async function assertLibraryRevision(expected:string,database=db) {
-  if(await libraryRevision(database)!==expected) throw new Error('The library was restored while this request was running. Please try again.');
+  if(await libraryRevision(database)!==expected) throw new Error('The library was restored or synchronized while this request was running. Please try again.');
 }
 export async function initializeCatalog(source:Source,database=db) {
   await database.transaction('rw',database.sources,database.settings,async()=>{
@@ -41,6 +42,7 @@ export async function saveBundle(bundle: Bundle, database = db, requireExisting 
     if (requireExisting && !await database.shows.get(bundle.show.id)) throw new Error('This show was deleted. Refresh cannot add it back.');
     // Retain ownership even if the provider retracts an episode during this refresh.
     for (const episode of await database.episodes.where('showId').equals(bundle.show.id).toArray()) await database.progress.update(episode.id,{showId:bundle.show.id});
+    if(!await database.shows.get(bundle.show.id))await database.settings.put({key:'syncLife:'+bundle.show.id,value:crypto.randomUUID()});
     await database.shows.put(bundle.show);
     await database.seasons.where('showId').equals(bundle.show.id).delete();
     await database.episodes.where('showId').equals(bundle.show.id).delete();
@@ -102,6 +104,7 @@ export async function deleteShow(showId: number, database = db, resolveLegacyOwn
     await database.seasons.where('showId').equals(showId).delete();
     await database.preferences.delete(showId);
     await database.shows.delete(showId);
+    await database.settings.put({key:'syncLife:'+showId,value:crypto.randomUUID()});
     for (const source of sources) {
       const rows=source.rows.filter(r=>r.showId!==showId && !(r.showId===undefined && names.has(normalize(r.title)) && !otherNames.has(normalize(r.title))));
       // Keep the source ID even when empty so startup does not reload its original seed.

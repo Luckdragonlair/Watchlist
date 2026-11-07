@@ -7,6 +7,7 @@ export async function productionServer(){
   const server=createServer(async(request,response)=>{
     if(request.method!=='GET'){response.writeHead(200,{'Content-Type':'text/plain'});response.end('non-GET reached server');return;}
     const path=new URL(request.url??'/', 'http://localhost').pathname;
+    if(path.startsWith('/__/')){response.writeHead(200,{'Content-Type':'text/html','Cache-Control':'no-store'});response.end('<h1>Authentication helper fixture</h1>');return;}
     if(path==='/dynamic'){response.writeHead(200,{'Content-Type':'text/plain'});response.end('uncached dynamic response');return;}
     const filename=path==='/'?'/index.html':path;
     const target=resolve(directory,`.${decodeURIComponent(filename)}`);

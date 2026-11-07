@@ -1,10 +1,15 @@
 # Watchlist project notes
 
-Updated: 2026-11-05
+Updated: 2026-11-06
 
+- [ROADMAP.md](ROADMAP.md): living progress tracker with status marks, remaining-effort ETAs, dated updates and release acceptance criteria.
+- [SYNC.md](../SYNC.md): one-time personal-library migration, offline sync and conflict recovery.
+- [FIREBASE.md](../FIREBASE.md): free Firebase setup, verification limits and migration instructions.
+- [HOSTING_PLAN.md](HOSTING_PLAN.md): proposed hosting, sign-in, private data migration and synchronization approach.
+- [CLAUDE_DESIGN_HANDOFF.md](CLAUDE_DESIGN_HANDOFF.md): ready-to-send visual design brief for parallel Claude work.
 - [DECISIONS.md](DECISIONS.md): intended behavior and v0.1 implementation choices.
 - [TODO.md](TODO.md): completed work and remaining acceptance checks.
-- [TEST_CASE_SILO.md](TEST_CASE_SILO.md): held-out manual onboarding test, still pending.
+- [TEST_CASE_SILO.md](TEST_CASE_SILO.md): held-out manual onboarding test, partially completed; see its recorded results.
 - [MASTER_IMPORT_AUDIT.json](MASTER_IMPORT_AUDIT.json): original hash, counts and review entries.
 - [TVMAZE_LIVE_CHECK.json](TVMAZE_LIVE_CHECK.json): actual coverage sample, not independent release verification.
 - [PROGRESS.md](PROGRESS.md): verified checkpoint and handoff to Chat or Claude.

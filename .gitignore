@@ -4,3 +4,10 @@ test-results/
 playwright-report/
 *.tsbuildinfo
 originals/
+dist-hosted/
+.env*.local
+.firebase/
+firebase-debug.log
+firestore-debug.log
+.tools/
+ui-debug.log

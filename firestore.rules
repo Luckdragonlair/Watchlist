@@ -1,0 +1,114 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(userId) {
+      return request.auth != null
+        && request.auth.uid == '6FpyLI0bEFaPJBTUboMz0MzTpMV2'
+        && userId == request.auth.uid;
+    }
+
+    function libraryPath(userId) {
+      return /databases/$(database)/documents/users/$(userId)/sync/library;
+    }
+
+    function chunkPath(userId, chunkId) {
+      return /databases/$(database)/documents/users/$(userId)/sync/library/chunks/$(chunkId);
+    }
+
+    function validManifest(data) {
+      return data is map
+        && data.keys().hasAll(['version', 'revision', 'epoch', 'chunkCount', 'payloadHash', 'updatedAt'])
+        && data.keys().hasOnly(['version', 'revision', 'epoch', 'chunkCount', 'payloadHash', 'updatedAt'])
+        && data.version is int && data.version == 1
+        && data.revision is int && data.revision >= 1
+        && data.epoch is string && data.epoch.size() > 0 && data.epoch.size() <= 128
+        && data.chunkCount is int && data.chunkCount >= 1 && data.chunkCount <= 8
+        && data.payloadHash is string && data.payloadHash.matches('^[0-9a-f]{64}$')
+        && data.updatedAt is timestamp;
+    }
+
+    function validChunk(data) {
+      return data is map
+        && data.keys().hasAll(['revision', 'data'])
+        && data.keys().hasOnly(['revision', 'data'])
+        && data.revision is int && data.revision >= 1
+        && data.data is string && data.data.size() <= 800000;
+    }
+
+    function validChunkId(chunkId) {
+      return chunkId.matches('^[0-7]$');
+    }
+
+    function validChunkAfter(userId, chunkId, revision) {
+      let data = getAfter(chunkPath(userId, chunkId)).data;
+      return validChunk(data) && data.revision == revision;
+    }
+
+    function validAllChunksAfter(userId, revision, count) {
+      return validChunkAfter(userId, '0', revision)
+        && (count < 2 || validChunkAfter(userId, '1', revision))
+        && (count < 3 || validChunkAfter(userId, '2', revision))
+        && (count < 4 || validChunkAfter(userId, '3', revision))
+        && (count < 5 || validChunkAfter(userId, '4', revision))
+        && (count < 6 || validChunkAfter(userId, '5', revision))
+        && (count < 7 || validChunkAfter(userId, '6', revision))
+        && (count < 8 || validChunkAfter(userId, '7', revision));
+    }
+
+    function validManifestAdvance(userId) {
+      let path = libraryPath(userId);
+      return existsAfter(path)
+        && validManifest(getAfter(path).data)
+        && (exists(path)
+          ? validManifest(get(path).data) && getAfter(path).data.revision == get(path).data.revision + 1
+          : getAfter(path).data.revision == 1);
+    }
+
+    match /users/{userId}/sync/library {
+      // An owner must be able to check for a first library (and watch for its
+      // first revision) even when the manifest document does not exist yet.
+      allow get: if isOwner(userId)
+        && (!exists(libraryPath(userId)) || validManifest(resource.data));
+      allow list: if false;
+      allow create: if isOwner(userId)
+        && validManifest(request.resource.data)
+        && request.resource.data.revision == 1
+        && request.resource.data.updatedAt == request.time
+        && validAllChunksAfter(userId, request.resource.data.revision, request.resource.data.chunkCount);
+      allow update: if isOwner(userId)
+        && validManifest(resource.data)
+        && validManifest(request.resource.data)
+        && request.resource.data.revision == resource.data.revision + 1
+        && request.resource.data.updatedAt == request.time
+        && validAllChunksAfter(userId, request.resource.data.revision, request.resource.data.chunkCount);
+      allow delete: if false;
+
+      match /chunks/{chunkId} {
+        allow get: if isOwner(userId)
+          && validChunkId(chunkId)
+          && validManifest(get(libraryPath(userId)).data)
+          && validChunk(resource.data)
+          && int(chunkId) < get(libraryPath(userId)).data.chunkCount
+          && resource.data.revision == get(libraryPath(userId)).data.revision;
+        allow list: if false;
+        allow create, update: if isOwner(userId)
+          && validChunkId(chunkId)
+          && validChunk(request.resource.data)
+          && validManifestAdvance(userId)
+          && request.resource.data.revision == getAfter(libraryPath(userId)).data.revision
+          && int(chunkId) < getAfter(libraryPath(userId)).data.chunkCount;
+        allow delete: if isOwner(userId)
+          && validChunkId(chunkId)
+          && validChunk(resource.data)
+          && validManifest(get(libraryPath(userId)).data)
+          && validManifestAdvance(userId)
+          && resource.data.revision == get(libraryPath(userId)).data.revision
+          && int(chunkId) >= getAfter(libraryPath(userId)).data.chunkCount;
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

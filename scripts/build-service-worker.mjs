@@ -45,6 +45,9 @@ self.addEventListener('fetch', event => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== scope.origin || !url.pathname.startsWith(scope.pathname) || url.pathname === workerURL.pathname) return;
+  // Firebase Hosting owns these endpoints, including the auth iframe and
+  // redirect handler. Returning the offline app here breaks sign-in.
+  if (url.pathname.startsWith('/__/')) return;
   if (request.mode === 'navigate') {
     event.respondWith((async () => {
       const cache = await caches.open(cacheName);

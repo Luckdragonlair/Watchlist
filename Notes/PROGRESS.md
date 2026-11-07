@@ -83,3 +83,101 @@ Binge design requirement reconfirmed by the user: visible card dragging plus up/
 ## Offline/installable GitHub checkpoint — 2026-11-06
 
 The user authorized committing/pushing the tested offline/installable work, and clarified that this authorization does not include implementing draggable cards now. This checkpoint includes the offline app shell, install manifest and placeholder icons, startup/update controls, production/development launcher separation, 4 production PWA tests, and updated instructions/design notes. Existing verification: 100 unit/database/validation tests, 13 browser workflows, 4 production offline/update workflows and build passed. Draggable cards and right-middle arrows remain planned. Commit and remote upload are verified in the associated chat and Git history.
+
+## Android and PC goal reaffirmed — 2026-11-06
+
+The user emphasized easy Android-phone use alongside the PC. This is now explicitly a primary target in DECISIONS.md and TODO.md. The current PWA/offline work is a foundation, not completion of cross-device access: the local 127.0.0.1 address does not make the PC app available on the phone, and libraries remain browser/device-local. Plan stable hosted HTTPS access and secure progress/library/order synchronization, keeping offline support and touch-friendly interaction. Installation remains optional; automatic sync and deployment are not yet implemented or authorized by this reminder. No code or viewing data changed.
+
+## Ordered development roadmap — 2026-11-06
+
+Created Notes/ROADMAP.md at the user's request. It separates completed local tracking/data-protection/offline foundations from remaining Firefox verification, architecture decisions, hosted access, secure cross-device sync, Binge controls, completion/library behavior, Claude design and real-device release acceptance. It includes dependencies and done criteria, preserves the partial Silo status, flags movie scope as a decision, and identifies Firefox access plus hosting/sync design as the next concrete task. No code, viewing data, hosting or sync implementation changed. The roadmap and recent browser/device requirements are local documentation changes awaiting a future commit/push.
+
+## Roadmap progress tracker — 2026-11-06 05:45 CST (America/Chicago)
+
+Updated ROADMAP.md with status marks, initial remaining-effort estimates for every milestone, explicit dependencies, verified progress dates, and an append-only dated log. Earlier dates without times remain labeled accordingly. Initial remaining estimate is 12–26 focused sessions of roughly 1–2 active hours; calendar completion remains unscheduled. Preserved the prior roadmap under originals/. No code, user viewing state, deployment or new tests changed.
+
+
+## Firefox preparation — 2026-11-06 06:53 CST
+
+Confirmed installed Firefox 159.0.1 from executable version information and checked Mozilla Windows/Android web-app guides. Updated installation help to include Firefox and clarify phone access needs hosting. Actual Firefox installation/offline behavior has not been observed. Roadmap step 4 is underway; Android acceptance follows step 5 hosting. Proposed direction: hosted app plus private authenticated backend; provider unselected. Supabase pricing reviewed: free projects currently pause after one week of inactivity; Pro starts at USD25/month. No accounts, deployment or personal data migration performed.
+
+Verification for the Firefox help change: TypeScript and production build passed. This was a text-only help change; device acceptance remains pending.
+
+## Firefox user check — 2026-11-06 06:58 CST
+
+User reported Watchlist loaded successfully in Firefox and taskbar web-app setup worked. Recorded these two checks as passed by user report in OFFLINE.md and ROADMAP.md. Available offline status, reopening from the taskbar with the local launcher stopped, and actual Android acceptance remain unverified. Hosting and automatic synchronization are not implemented. Documentation only; no viewing state changed.
+
+
+## Firefox internet-disconnected reopening — 2026-11-06 07:00 CST
+
+User reported the instructed flow worked: wait for Available offline, close Watchlist, disconnect PC internet, and reopen from the taskbar to view saved shows. Recorded as passed by user report. The local launcher was not explicitly stopped, so this does not establish Firefox reopening without the local server. Edge production server-stopped automated coverage remains separate. Android installation, hosted access and cross-device sync remain open. Documentation only; no personal viewing state changed.
+
+
+## Hosting and sync proposal — 2026-11-06 07:02 CST
+
+Prepared HOSTING_PLAN.md after reviewing official Firebase pricing, quotas and security-rule guidance. Proposed ordinary Firebase Hosting, Authentication and Firestore on Spark with Google sign-in, existing offline IndexedDB retained, owner-only access, private seed removal before deployment, and explicit migration/conflict/restore design. Proposal only; no account, billing, deployment or viewing-state change. Provider and sign-in preference await user selection.
+
+
+## Firebase groundwork verification — 2026-11-06 07:23 CST
+
+Saved the reviewed groundwork into D:\Watchlist after preserving prior changed files under originals/before-cloud-foundation-*. From D: TypeScript, 139 unit/database/validation/protocol tests, normal production build, hosted build/privacy guard and 1 isolated hosted sign-in-screen browser test passed. Matching source in staging also passed all 13 existing browser workflows and 4 production offline/update workflows; no personal browser library was used. Hosted smoke test blocks external requests and confirms no personal catalog fetch or Watchlist database before sign-in; it is not a real Google sign-in test. The 27 pure protocol tests do not establish persistent/live sync. Master SHA-256 remains 6278d1781529929a12831005ec6b9922cfa0b68d11f7115360318748e3f0e5be. Configured project genre-watchlist; credentials are public web configuration in ignored .env.hosted.local. No commit/push, deployment, cloud data migration or billing change performed. Java shim is broken, so Firestore emulator/rules testing remains open and all cloud writes stay disabled. Local setup preview uses localhost:5182; normal library remains at 127.0.0.1:5174.
+
+## Google owner sign-in confirmed — 2026-11-06 07:28 CST
+
+Observed the signed-in account and exact Firebase UID in the local setup page through browser accessibility text. Bound that UID in ignored hosted configuration and local Firestore rule source. All cloud writes remain denied; no rules deployed or data uploaded. Rebuilt hosted app; TypeScript, hosted asset privacy guard and isolated unsigned-in hosted smoke test passed. Live Google sign-in was observed in the in-app browser, not Firefox or Android. Owner-library opening after accepting this update still needs confirmation. Existing local library and original master remain untouched. No paid plan, deployment, migration, commit or push performed.
+
+## Owner-library opening confirmed — 2026-11-06 07:30 CST
+
+User reported the updated owner-bound setup worked after the instructed refresh/update. Recorded owner-library opening as passed by user report in the in-app browser. This confirms the local sign-in/access checkpoint, not deployment or cross-device synchronization. No viewing data was imported or changed by the assistant. Cloud writes remain disabled. Next: create the free Firestore Standard database in production/locked mode and complete local security-rule/sync tests before publishing data.
+
+## Firestore database created — 2026-11-06 07:36 CST
+
+User screenshot shows the genre-watchlist default Cloud Firestore database created and empty, with Spark No-cost ($0/month) visible. No collection or personal library data shown. The screenshot does not show edition, location or deployed Rules content; those are not independently verified by this check. Next check: Rules tab should retain production deny-all access while local sync/security testing proceeds. No cloud data or rule changes made by the assistant.
+
+## Local rules tests and Firebase CLI access — 2026-11-06 07:56 CST
+
+User confirmed live production Rules deny all reads/writes. Prepared a portable Temurin Java 21.0.13 runtime in ignored .tools, verified archive SHA-256 against official Adoptium metadata; system Java was not modified. Five local Firestore emulator tests passed in staging: configured owner own-path reads allowed; anonymous/other-account reads denied; cross-owner paths denied; even owner create/update/delete denied; configuration and unmatched paths denied. Tests hardcode demo-watchlist-rules, load actual rules source and refuse non-loopback emulator endpoints. The actual genre-watchlist database was not used by these tests. Saved reproducible runner/test files into D:\Watchlist; dependency installation is being completed there. Shared-data rules/transport are not yet implemented or enabled.
+
+User completed CLI login automatically through localhost callback, with no manual code required. Read-only CLI verification succeeded for genre-watchlist default database: native Firestore, us-central1, point-in-time recovery disabled. No live rule/deployment/library-data change or billing change performed. New administrative access is authorized for this project only.
+
+Final saved-checkpoint verification — 2026-11-06 07:57 CST: dependency installation completed in D:\Watchlist; TypeScript and all five local Firestore rule tests passed from D:\Watchlist. Local emulator shut down cleanly. No live database writes, deployments or billing changes. Sign-in helper now uses the project-local CLI and recognizes automatic login completion without requiring a manual code.
+
+## Hosted trial published — 2026-11-06 08:03 CST
+
+User requested next development step and authorized direct Firebase management for genre-watchlist. Read-only project billing check returned billingEnabled:false. TypeScript, 12 focused configuration/privacy tests, hosted build/privacy guard and 1 unsigned hosted browser test passed. Published only Firebase Hosting using explicit project genre-watchlist; deployed 12 static files from dist-hosted. No Firestore rules, library data or billing settings were changed.
+
+Live isolated Edge check passed at https://genre-watchlist.firebaseapp.com/: sign-in screen visible, manifest available, private master path returns app HTML rather than catalog JSON, service worker excludes master, no Watchlist database opens before sign-in, unsigned-in shell reopens offline and zero page errors. Worker version 435792cd9fd46bca2f60349df47e15bfc4bfd1909530246bee4cc5b6eec3a732. Hosting also supplies https://genre-watchlist.web.app/; use firebaseapp.com consistently for initial tests because it matches the configured auth domain. Real hosted owner sign-in, actual Android installation/offline checks and migration remain open. Existing local libraries untouched. Automatic sync is not connected. No Git commit/push performed.
+
+## Hosted Google sign-in navigation fix — 2026-11-06 08:20 CST
+
+User reported Google sign-in flashes without opening login in the hosted embedded preview. Root cause was not independently established; the observed page had no explanatory error. Changed primary firebaseapp.com hosting to signInWithRedirect in the same window, handled getRedirectResult on return, retained popup for localhost/nonmatching origins, added offline/busy feedback and specific safe messages for common auth failures. Google documents same firebaseapp.com hosting/auth domain avoids redirect third-party storage issues: https://firebase.google.com/docs/auth/web/redirect-best-practices . No credential, library or cloud-rule changes.
+
+Verified TypeScript, 20 focused auth/config tests, hosted build/privacy guard and unsigned hosted browser smoke test pass. Published hosting only to genre-watchlist. Live isolated browser click reached same-window Firebase auth handler with google.com and signInViaRedirect; the handler was intercepted before credential entry, so this verifies navigation rather than a completed Google login. User must accept the app update and retry; actual hosted Firefox/Android and embedded-browser completion remain unverified. No billing change or watchlist migration.
+
+## Firebase helper routing root cause fixed — 2026-11-06 08:29 CST
+
+User reported Checking sign-in hanging after the redirect change. Reproduced on live hosting in an isolated browser: after offline caching was active, navigating /__/auth/iframe returned the Watchlist index from the service worker. The SPA navigation fallback incorrectly intercepted Firebase Hosting reserved helper pages. This also explains why first-load/worker-blocked navigation checks missed the failure; the prior popup diagnosis was incomplete.
+
+Excluded all /__/ paths from service-worker interception, allowing Firebase iframe/redirect endpoints to reach the network. Added real iframe and top-level redirect regression coverage with the worker already controlling the page; new test failed against the old production build and passes after rebuilding. Added bounded sign-in checking feedback after 10 seconds without bypassing authentication. TypeScript, normal/hosted builds, privacy guard, all 5 production PWA tests and hosted unsigned smoke test pass. Published hosting only. Live warm-cache check passes: reload reaches sign-in UI, actual Firebase iframe response is not served by service worker and is not app HTML, and button reaches same-window sign-in handler with cache active. Google credentials were not entered in automated checks; actual user completion remains to confirm. Existing libraries, live Firestore rules and billing unchanged.
+
+## Hosted sign-in recovery confirmed — 2026-11-06 08:35 CST
+
+User reported the hosted sign-in worked after the Firebase helper routing fix and instructed app update/retry. Record the reported stuck sign-in issue as resolved by user acceptance. Browser/device was not specified in this confirmation; do not infer full Firefox/Android installation or offline acceptance. Cloud synchronization and existing-library migration are still pending. No additional library, deployment, rule or billing changes made for this confirmation.
+
+## Synchronization integration in progress — 2026-11-06 10:13 CST
+
+Resumed after usage interruption. Sync implementation remains in writable staging pending final review/copy/deployment. State-based three-way merge, owner-only chunked Firestore transport and status/conflict UI are implemented. Local SDK emulator verification: 13 security-rule tests and 5 transport/two-database integration tests pass, including offline reconnect, deletion safety, restore generations, UTF-8 chunking, stale revision and corrupt/oversized payload refusal. Review found and is closing upload/undo acknowledgement and crash recovery boundaries before release. No new live rules or sync build deployed yet; original local library unchanged. Added Notes/CLAUDE_DESIGN_HANDOFF.md so visual design can proceed independently.
+
+## Automatic synchronization deployed — 2026-11-06 10:27 CST
+
+Completed and published owner-only shared-library synchronization. Saved state baseline and pending upload intent persist in IndexedDB; three-way merge covers progress/undo, notes, Binge order, metadata/source records, deletion/re-add lifecycles and full-restore generations. Atomic acknowledgement rebasing preserves edits made during upload; persisted intent recovers a lost reply/restart, and ambiguous newer server state pauses rather than discarding data. Explicit whole-library conflict choices include backup export and replacement confirmation. Remote notes refresh clean fields and preserve unsaved drafts with guarded overwrite.
+
+Verified from D:\Watchlist: TypeScript; 195 unit/database/merge/recovery tests; 14 regular browser tests; 5 production offline/update tests; 1 unsigned hosted privacy test; 13 security-rule tests; 5 real SDK/independent-database integration tests; normal and hosted builds/privacy guard all PASS. Integration covers offline merge/reconnect, deletion conflict without resurrection, restore epochs, multi-chunk UTF-8 payloads, hash corruption, stale CAS and size rejection. Prior files archived under originals/before-sync-*. Original master hash remains 6278d1781529929a12831005ec6b9922cfa0b68d11f7115360318748e3f0e5be.
+
+Before deployment, live read-only billing check returned billingEnabled:false and the sync manifest did not exist. Deployed firestore:rules, firestore:indexes and hosting explicitly to genre-watchlist. Snapshot data indexing is exempted; no paid products or billing changes. Live isolated browser check confirms sync build marker, unsigned sign-in screen, cached reload, reserved auth endpoint bypass, private master exclusion and zero page errors. A fresh in-app browser view was unsigned, so actual signed-in live two-device sync still needs user acceptance; no personal records were injected for testing. Original local viewing library was not migrated or modified. A fresh backup transfer and actual Firefox/Android checks remain. No Git commit/push performed.
+
+Added SYNC.md migration/recovery instructions and Notes/CLAUDE_DESIGN_HANDOFF.md for independent visual work. Code deployment is complete; real-device and personal-library acceptance remain open.
+
+## PC and Android sign-in/update confirmed — 2026-11-06 10:32 CST
+
+User reported the hosted app worked on both devices, the phone signed in automatically, and accepting Update and reload returned to the signed-in app automatically. Recorded actual phone/PC launch, session persistence and update re-entry as passed by user report. The report does not independently establish backup migration, matching library counts or two-way data edits; those remain separate acceptance checks. No viewing state or deployment changed for this confirmation.

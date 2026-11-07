@@ -41,7 +41,7 @@ export function BackupRestore({disabled,onRestored,onBusyChange}:{disabled:boole
       {preview&&<><p>{filename}</p><p>Saved {new Date(preview.exportedAt).toLocaleString('en-US',{timeZone:'America/Chicago',timeZoneName:'short'})}</p>
       <p>{preview.shows.length} shows · {preview.episodes.length} episodes · {preview.progress.length} watched-episode records · {preview.sources.reduce((sum,s)=>sum+s.rows.length,0)} source entries</p>
       <p>Your current library has {current?.shows??'…'} shows and {current?.progress??'…'} watched-episode records. Restoring replaces the whole library, including its notes and ordering.</p>
-      <p>To keep your current changes, export a backup before replacing them.</p><BackupExport disabled={working}/>
+      <p>To keep your current changes, export a backup before replacing them.</p>{import.meta.env.MODE==='hosted'&&<p>This replacement also syncs to your other signed-in devices. Conflicting offline edits will pause for review.</p>}<BackupExport disabled={working}/>
       <label><input type="checkbox" checked={confirmed} disabled={working} onChange={e=>setConfirmed(e.target.checked)}/>Replace my current library with this backup.</label>
       {error&&<p role="alert">{error}</p>}
       <div><button disabled={working} onClick={cancel}>Cancel restore</button><button className="danger" disabled={!confirmed||working} onClick={restore}>{working?'Restoring…':'Replace library and restore'}</button></div></>}

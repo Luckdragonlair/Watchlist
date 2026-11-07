@@ -294,6 +294,12 @@ If any answer is yes, update the affected documentation now. A code change is in
 
 ## Recent project log
 
+### 2026-11-07 - Existing shared-sync code saved before Nightfall
+
+- Saved the previously implemented and deployed synchronization, hosting, configuration and supporting tests as a code checkpoint before the presentation rewrite. These files were present locally but not yet committed; no new sync behavior was introduced here.
+- Baseline unit tests passed (195) before Nightfall edits. Earlier November 6 build/browser/PWA/rules/integration evidence remains in Notes/PROGRESS.md; November 7 real-device acceptance is in Notes/SYNC_ACCEPTANCE_2026-11-07.md.
+- Kept the in-progress Nightfall presentation changes outside this checkpoint, preserving the original plain-interface files from originals/before-nightfall-2026-11-07 in the Git index only. The live working files were not rolled back.
+
 ### 2026-11-07 - PC/phone sync acceptance confirmed
 
 - User reported the one-time backup transfer worked after the hosted app initially showed an empty library.

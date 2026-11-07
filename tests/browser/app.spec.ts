@@ -164,3 +164,27 @@ test('restoring in another tab clears old undo state and rejects an older in-fli
   await other.getByLabel('Backup file').setInputFiles({name:'empty.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});const dialog=other.getByRole('dialog',{name:'Restore this backup?'});await dialog.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await dialog.getByRole('button',{name:'Replace library and restore'}).click();await expect(dialog).not.toBeVisible();
   await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);release();await expect(page.getByRole('alert')).toContainText('library was restored');await page.reload();await expect(page.getByRole('article')).toHaveCount(0);await other.close();
 });
+
+test('remote notes refresh clean drafts and preserve conflicting unsaved drafts',async({page,context})=>{
+  await page.goto('/');
+  await page.getByRole('button',{name:'Add Show',exact:true}).click();
+  await page.getByLabel('Show title').fill('Fixture');
+  await page.getByRole('button',{name:'Search TVmaze'}).click();
+  await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();
+  const other=await context.newPage();await other.goto('/');
+  async function remoteNotes(value:string){await other.evaluate(async value=>{
+    const modulePath='/src/db.ts';
+    const {db}=await import(modulePath);
+    await db.preferences.update(90001,{notes:value});
+  },value);}
+  await remoteNotes('Latest from phone');
+  await expect(page.getByLabel('Personal notes')).toHaveValue('Latest from phone');
+  await page.getByLabel('Personal notes').fill('My unsaved PC draft');
+  await remoteNotes('Another phone edit');
+  await expect(page.getByText('Notes changed on another device. Your draft is still here.')).toBeVisible();
+  await expect(page.getByLabel('Personal notes')).toHaveValue('My unsaved PC draft');
+  await expect(page.getByRole('button',{name:'Save notes',exact:true})).toBeDisabled();
+  await page.getByRole('button',{name:'Discard draft and load latest notes'}).click();
+  await expect(page.getByLabel('Personal notes')).toHaveValue('Another phone edit');
+  await other.close();
+});
