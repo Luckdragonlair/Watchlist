@@ -1,6 +1,6 @@
 # Watchlist agent handoff and project state
 
-Last verified: 2026-11-06 (America/Chicago)  
+Last verified: 2026-11-07 (America/Chicago)
 Repository: `Luckdragonlair/Watchlist`  
 Default branch: `main`
 
@@ -97,7 +97,7 @@ Non-negotiable product rules:
 
 - Ordinary use must not require AI, a paid cloud service, or an account.
 - The normal personal library lives in IndexedDB at `http://127.0.0.1:5174`. Development uses `127.0.0.1:5175` and a separate library.
-- Treat each browser/origin as a separate library. Cross-device/cloud sync does not currently exist.
+- Each browser/origin has separate local storage. Optional owner-only Firebase synchronization was authorized and deployed on 2026-11-06; see SYNC.md. Local-only use remains available.
 - Use `America/Chicago` for release display and date-boundary decisions, including CST/CDT automatically.
 - Preserve the original master list byte-for-byte. Work from normalized copies.
 - Never invent titles, episodes, dates, release times, services, renewal states, or viewing history.
@@ -142,8 +142,9 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Validated backup restore | Built and verified | Preview, cancellation, explicit whole-library replacement, validation, rollback, and cross-tab revision protection. |
 | Automatic 30-day recovery copies | Approved design, not built | Appears in V2 mockups. Do not claim it exists. |
 | Installable/offline PWA | Built and verified | Shell/catalog caching, controlled updates, offline local functions, isolated PWA tests. |
-| Public deployment | Deferred | No deployment exists. |
-| Accounts or cloud/cross-device sync | Deferred / not approved for implementation | Mockup conflict/sync states are conceptual. Do not add a backend or account requirement without an explicit user decision. |
+| Public deployment | Built and verified | Hosted at https://genre-watchlist.firebaseapp.com/ on the free Spark plan; private master excluded from hosted assets. See Notes/PROGRESS.md, 2026-11-06. |
+| Accounts or cloud/cross-device sync | Built; live two-way personal-data acceptance pending | Authorized owner-only Google sign-in and Firestore snapshot sync. PC/Android sign-in and update re-entry passed by user report; migration and matching two-way edits remain separate checks. |
+| Current readable master list | Updated and verified 2026-11-07 | Existing master Page and root Project Watchlist Master List - Current.md agree. Original TXT and app normalization seed preserved. See Notes/MASTER_UPDATE_2026-11-07.md. |
 | Completion detection/basic message | Built and verified | Completion recommendations are separate and remain deferred. |
 | “What next?” recommendations | Proposed and deferred | V2 marks this deferred until the core app and design implementation are stable. |
 | Resumable import queues and bulk “Likely matches” | Proposed, not built | Any future bulk rule must remain reviewable and must not silently link ambiguous shows. |
@@ -152,7 +153,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Full Silo acceptance run | In progress | Generic coverage exists; remaining manual checks are in `Notes/TEST_CASE_SILO.md`. |
 | Re S3 / Re S4 identification | Blocked on user identification | Preserve original text until identified. |
 
-Recorded verification at the latest functional checkpoint includes 100 unit/database/validation tests, 13 Edge browser workflows, 4 production PWA workflows, and a passing TypeScript/Vite build. Re-run relevant tests after changes; do not treat old results as proof of new code.
+Recorded synchronization checkpoint (2026-11-06): 195 unit tests, 14 browser workflows, 5 PWA workflows, 1 unsigned hosted check, 13 rules tests, 5 SDK integration tests, and normal/hosted builds passed, per Notes/PROGRESS.md. These replace the older 100/13/4 counts. This 2026-11-07 document-only update verified Page readback, local export consistency and original-file hash; it did not rerun application tests.
 
 ## Approved Nightfall V2 design baseline
 
@@ -256,7 +257,7 @@ Unless the user reprioritizes, use this order:
 3. **Implement the V2 Binge structure.** Ready/Upcoming & TBA/Not for me; Watching now/Watch soon/Everything else; shared persistent ordering; search; sticky headings; compact layout.
 4. **Add drag-and-drop accessibly.** Mouse/touch/keyboard dragging and arrow controls must operate on the same ordering model and announce moves.
 5. **Restyle Weekly, Watched, Add Show, Import, and Show Detail.** Preserve current tested behavior while adding the approved hierarchy and mobile lower-detail content.
-6. **Implement empty/loading/error/status/dialog presentation.** Do not imply cloud sync or automatic recovery copies unless those capabilities are separately approved and built.
+6. **Implement empty/loading/error/status/dialog presentation.** Preserve the deployed owner-only sync and its conflict safeguards. Automatic 30-day recovery copies remain a separate unbuilt feature.
 7. **Implement and test the A–Z adjustable control contract.**
 8. **Run the complete verification set.** Unit/database tests, browser workflows, PWA workflows, build, keyboard-only pass, TalkBack/NVDA checks, zoom/text-size checks, and visual review.
 9. **Finish remaining manual acceptance work.** Silo and unresolved source titles remain separate from the visual rewrite unless the user explicitly combines them.
@@ -292,6 +293,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-07 — Master-list additions and ledger correction
+
+- Updated the existing master Page and a readable current Markdown copy in D:\\Watchlist; added six titles, clarified the existing Ghosts Halloween special and preserved all existing watched marks. Orville unchanged. Warhammer is Henry Cavill's live-action series, per the owner's clarification.
+- Preserved the root TXT hash and historical normalization seed; no browser/cloud viewing records were changed. Films and pending adaptations are recorded in the master rather than forced into TVmaze episode imports.
+- See Notes/MASTER_UPDATE_2026-11-07.md for scope, sources and verification. The private full-master export remains local and is excluded from Git.
+- Safely fast-forwarded the three GitHub AGENTS-only commits without overwriting dirty local sync work. Corrected this ledger's stale claims that deployment and synchronization did not exist, using current code and the recorded November 6 verification. No new deployment or application changes in this task.
+- Next: verify real two-device data edits and backup migration separately; then follow the approved Nightfall implementation sequence.
 
 ### 2026-11-06 — Standing feature commit-and-push authorization
 
