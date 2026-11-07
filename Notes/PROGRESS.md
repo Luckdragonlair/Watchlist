@@ -190,3 +190,9 @@ First approved Nightfall presentation milestone completed. See [NIGHTFALL_FOUNDA
 ## Published - 2026-11-07 08:23 CST
 
 Published only Firebase Hosting for genre-watchlist. Live isolated signed-out Edge check passed: Nightfall colors, three locally loaded font families, cached font allowlist, private-master exclusion, no Watchlist database before sign-in, phone width without overflow and zero page errors. Existing signed-in devices need to accept Update and reload; signed-in visual acceptance is still requested from the owner. No database rules, billing or viewing records were changed by this release.
+
+## Weekly backlog regression fixed - 2026-11-07 09:36 CST
+
+User screenshot: Dexter: Resurrection S2 had released episodes and future Friday dates, yet an unwatched S1 kept it in Binge. User's manual S2 E2 onboarding worked around the bug. Removed weeklyRelease's oldest-unwatched-season restriction; release placement now considers any actually started season with a future regular episode. No direct library or metadata changes. Verified TypeScript, all 197 unit tests, all 16 browser workflows, normal/hosted builds and privacy guard, plus the PWA update-preserves-library workflow. Fixed-date regression verifies Friday placement and unchanged older watched flags; existing future-unstarted-season regressions still pass. Paramount's episode page confirms S2 has started; provider episode labels differ between cached views, so no episode names or dates were rewritten: https://www.paramountpressexpress.com/showtime/shows/dexter-resurrection/episodes .
+
+Published Hosting-only to genre-watchlist. Live index and service worker were read back and match the tested hosted build. No database rules, billing settings or personal records changed. Existing devices need to accept Update and reload.

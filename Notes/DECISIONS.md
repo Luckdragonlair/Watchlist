@@ -17,7 +17,7 @@ The user reaffirmed on 2026-11-06 that Watchlist should be easy to use on both a
 - Viewing history now records show ownership (IndexedDB schema v2). Existing history is migrated without changing watched timestamps. If a legacy orphan's episode metadata was already lost, deletion first resolves its owner through TVmaze; unresolved ownership stops deletion safely rather than guessing or removing another show's history. Ordinary v2 deletion is local and requires no network.
 - Stale refreshes, episode undo, and in-flight source imports must not recreate deleted show records. Re-adding through Add Show is an explicit fresh import with no deleted viewing state.
 
-- Weekly means an actively releasing season: at least one regular episode in that season has released and another is scheduled. An announced future season does not enter Weekly before its first release. Remaining episodes in a fully released backlog season stay in Binge even if a later season has a future premiere. Weekly weekday grouping uses the active viewing season's next release, not another season's date. Confirmed future dates remain visible while waiting in Binge.
+- Weekly means an actively releasing season: at least one regular episode in that season has released and another is scheduled. An announced future season does not enter Weekly before its first release. Remaining episodes in a fully released backlog season stay in Binge even if a later season has a future premiere. Weekly weekday grouping uses an actively releasing season's next scheduled episode, independently of the oldest unwatched episode. Older backlog does not block a later season once it actually starts releasing (clarified 2026-11-07). Confirmed future dates remain visible while waiting in Binge.
 
 The decisions below remain the product target. v0.1 implements the basic library, TVmaze import/refresh, check-off/advance/undo, explicit catch-up, source catalog, and plain placeholder views. Backup/restore and the installable/offline app shell are implemented. Recommendations and drag-and-drop remain deferred.
 
@@ -96,3 +96,7 @@ Shared snapshots use owner-only Firestore manifest/chunk paths, revision compare
 ## Nightfall foundation - 2026-11-07 08:20 CST
 
 Approved V2 references now live unchanged under design/nightfall-v2. The presentation foundation preserves existing data and sync behavior. Self-host the approved freely licensed fonts, with explicit hosted allowlisting and offline caching. Genre colors always include text. Existing arrows remain visible and operate the existing order; do not add cosmetic V2 tabs or section controls before their persistent model is implemented. Account details can collapse while sync errors/conflicts remain visible.
+
+## Weekly placement clarification - 2026-11-07 09:36 CST
+
+Release placement and watch-queue order are separate. An active later season puts the show in Weekly even with unwatched older seasons. Do not mark those older episodes watched or advance the watch queue simply to change placement. A future season that has not released a regular episode still leaves backlog in Binge. This preserves the Silo future-premiere protection while fixing Dexter's active-season case.

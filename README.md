@@ -8,6 +8,8 @@ From `D:\Watchlist`, run `pnpm install`, `pnpm build`, then `pnpm start`. On thi
 
 Implemented: TVmaze candidate search and explicit import, metadata refresh, episode check-off and automatic advance, undo, already-watching catch-up, Weekly/Binge/Watched views, show details, persistent Binge arrow ordering, personal notes, and JSON backup export/restore with validation, preview, confirmation, and atomic replacement.
 
+Weekly follows an actively releasing season even when older seasons are still unwatched. A future season stays out of Weekly until it starts; the next-to-watch episode and your watched history remain independent of placement.
+
 To remove a matched show, open its detail and choose **Delete show**, then confirm. This removes its active app records and viewing history without rewriting the preserved original master or existing backup files. Re-adding starts with fresh progress.
 
 The preserved master list has a separate normalized starting catalog: 301 installments / 208 titles, excluding every Silo entry. Source classifications, season labels, viewing assertions, and notes are retained. Metadata linking requires selecting the correct TVmaze show; unmatched entries remain visible and clearly labeled. `Re S3` and `Re S4` need identification. Silo is excluded from the starting catalog; the user has exercised manual onboarding at S3 E8, as recorded in the project notes.

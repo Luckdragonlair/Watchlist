@@ -123,3 +123,9 @@ Updated: 2026-11-05
 - [ ] Implement A-Z slider, final dialog/status hierarchy and icon assets; verify real zoom/text sizes, Firefox/Android and assistive technologies.
 
 Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANCE_2026-11-07.md. Historical pending-sync items above are superseded only to that recorded extent.
+
+## Weekly placement regression - 2026-11-07 09:36 CST
+
+- [x] Active later seasons enter Weekly even when older seasons are unwatched.
+- [x] Preserve future-premiere backlog protection and unchanged next-to-watch/history, verified in unit and browser regressions.
+- [x] User reports Nightfall looks good; full palette/stronger accents remain part of visual refinement.

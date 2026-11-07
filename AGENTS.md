@@ -132,6 +132,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | TVmaze search and explicit candidate import | Built and verified | Candidate results show identifying details; no silent exact-name selection. |
 | Atomic metadata refresh | Built and verified | Metadata refresh protects progress, notes, ordering, deleted shows, and restored revisions. |
 | Weekly, Binge, Watched, Add Show, Import views | Built and verified; Nightfall foundation applied | Shared dark theme, locally cached fonts, clearer cards, right-centered arrows and phone bottom navigation. V2 Binge sections and drag-and-drop remain pending. |
+| Weekly placement with older backlog | Built and verified | An active later season appears under its next release weekday even if older seasons are unwatched. An unstarted future premiere stays in Binge. 2026-11-07 regression fix. |
 | Episode check-off and automatic next-episode advance | Built and verified | Includes undo and Central-time availability rules. |
 | Already-watching catch-up | Built and verified | Only earlier released regular episodes are marked; selected/current episode remains unwatched. |
 | Personal notes | Built and verified | Stored separately from provider metadata. |
@@ -239,7 +240,7 @@ The mockup's static markup may show only an accessible name; the production comp
 These are easy to break during a visual rewrite:
 
 - A date without a time does not become available until the following Central calendar day.
-- Weekly requires an actively releasing season: a regular episode has released and another in that same season is scheduled.
+- Weekly requires an actively releasing season: a regular episode has released and another in that same season is scheduled. Unwatched older seasons do not block Weekly placement; the next-to-watch queue still follows unwatched episode order without inferring completion.
 - A future announced season must not pull a completed/backlog season into Weekly.
 - Confirmed completion requires provider end date, expected positive episode count, a matching fetched regular-episode count, every episode released, and every episode watched.
 - Metadata refresh replaces the provider snapshot atomically but preserves progress, preferences, notes, and orphan viewing records.
@@ -293,6 +294,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-07 - Active weekly season no longer hidden by older backlog
+
+- User showed Dexter S2 actively releasing on Fridays while it remained in Binge. Root cause: weeklyRelease restricted upcoming episodes to the season of the oldest unwatched episode. Choosing S2 E2 as current bypassed the issue, confirmed by the user, but should not be necessary for placement.
+- Removed that viewing-progress dependency. A later season must still have a released regular episode and a future timed regular episode before it qualifies for Weekly. Older episodes, watched flags, queue order and source records are unchanged.
+- PASS: TypeScript, 197 unit tests, 16 browser workflows including a fixed-date two-season regression, both builds/privacy guard and the PWA update-preserves-library test. Previous future-premiere/Silo regression remains covered. No personal library records or episode metadata were altered by the agent.
+- Published Hosting-only; live index and worker match the tested build. No rules or billing changes. Devices need Update and reload.
+- Next development step remains V2 Binge organization. The fix is generic; no Dexter title, provider ID, release date or watched state is hardcoded.
 
 ### 2026-11-07 - Nightfall foundation verified
 

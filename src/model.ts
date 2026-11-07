@@ -31,9 +31,8 @@ export function confirmedComplete(season: Season, episodes: Episode[], progress:
 }
 export function weeklyRelease(episodes: Episode[], progress: Progress[], now: Date): Episode | undefined {
   const q = queue(episodes, progress, now);
-  // A later season must not pull a released backlog season out of Binge.
-  if (q.next) return q.upcoming.find(e => e.season === q.next.season);
-  // An announced premiere is upcoming, not an active weekly season.
+  // Release placement is independent of the oldest unwatched episode.
+  // A season must have started: an announced premiere alone stays in Binge.
   return q.upcoming.find(e => episodes.some(prior => regular(prior) && prior.season === e.season && released(prior, now)));
 }
 export function bucket(episodes: Episode[], seasons: Season[], progress: Progress[], now: Date): 'Weekly' | 'Binge' | 'Watched' {
