@@ -143,7 +143,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Automatic 30-day recovery copies | Approved design, not built | Appears in V2 mockups. Do not claim it exists. |
 | Installable/offline PWA | Built and verified | Shell/catalog caching, controlled updates, offline local functions, isolated PWA tests. |
 | Public deployment | Built and verified | Hosted at https://genre-watchlist.firebaseapp.com/ on the free Spark plan; private master excluded from hosted assets. See Notes/PROGRESS.md, 2026-11-06. |
-| Accounts or cloud/cross-device sync | Built; live two-way personal-data acceptance pending | Authorized owner-only Google sign-in and Firestore snapshot sync. PC/Android sign-in and update re-entry passed by user report; migration and matching two-way edits remain separate checks. |
+| Accounts or cloud/cross-device sync | Built; core real-device acceptance passed by user report | On 2026-11-07 the owner confirmed backup transfer, live two-way PC/phone notes sync without refresh, and phone offline notes delivery on reconnect. See Notes/SYNC_ACCEPTANCE_2026-11-07.md for scope and remaining checks. |
 | Current readable master list | Updated and verified 2026-11-07 | Existing master Page and root Project Watchlist Master List - Current.md agree. Original TXT and app normalization seed preserved. See Notes/MASTER_UPDATE_2026-11-07.md. |
 | Completion detection/basic message | Built and verified | Completion recommendations are separate and remain deferred. |
 | “What next?” recommendations | Proposed and deferred | V2 marks this deferred until the core app and design implementation are stable. |
@@ -293,6 +293,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-07 - PC/phone sync acceptance confirmed
+
+- User reported the one-time backup transfer worked after the hosted app initially showed an empty library.
+- User confirmed saved notes synchronized both ways between PC and phone automatically, without refresh; an offline phone note appeared after reconnecting.
+- This completes the core manual migration/notes-sync acceptance. It is user-reported evidence, not an independently observed browser test or a new automated run. See Notes/SYNC_ACCEPTANCE_2026-11-07.md.
+- The earlier November 7 pending-migration/two-way-notes checkpoint below is superseded by these results. Next: approved Nightfall V2 design implementation; installation/offline cold-start and episode-progress/order acceptance remain separate checks.
+- No application code, deployment, account settings, billing or personal library records were changed by the agent for this documentation checkpoint.
 
 ### 2026-11-07 — Master-list additions and ledger correction
 
