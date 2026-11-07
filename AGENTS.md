@@ -148,7 +148,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Current readable master list | Updated and verified 2026-11-07 | Existing master Page and root Project Watchlist Master List - Current.md agree. Original TXT and app normalization seed preserved. See Notes/MASTER_UPDATE_2026-11-07.md. |
 | Completion detection/basic message | Built and verified | Completion recommendations are separate and remain deferred. |
 | “What next?” recommendations | Proposed and deferred | V2 marks this deferred until the core app and design implementation are stable. |
-| Resumable import queues and bulk “Likely matches” | Proposed, not built | Any future bulk rule must remain reviewable and must not silently link ambiguous shows. |
+| Resumable import queues and bulk “Likely matches” | Full UI proposed; approved maintenance matching performed | One reviewed CLI batch added 138 clear series, then 3 owner-selected adaptations. Preserve ambiguous/special/missing-season entries for review. This is not a shipped bulk-matching UI. |
 | Specials and manual release corrections | Deferred | Regular numbered episodes are the current queue. |
 | Final Nightfall styling | Foundation built and verified; full V2 integration in progress | Approved assets preserved under design/nightfall-v2. First presentation milestone verified; section model, dragging, A-Z control, final screen/dialog refinements and assistive-tech checks remain. |
 | Full Silo acceptance run | In progress | Generic coverage exists; remaining manual checks are in `Notes/TEST_CASE_SILO.md`. |
@@ -294,6 +294,15 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-07 - Reviewed matching batch and current folder export
+
+- User approved TVmaze title searches, then the concrete 138 clear-match batch while holding 59 entries. Luna/Low performed bounded read-only candidate review. Matched 138 and verified server readback at revision 20; then the owner selected Netflix One Piece (46065), Netflix Avatar (38753), and Apple TV+ Dark Matter (61315). Applied those 3 after checking season coverage; revision 21 contains 152 series / 4,023 episodes. All 56 remaining groups are still untouched.
+- Existing shows, seasons, episodes, preferences, watched records/timestamps, source raw text and lifecycle history were protected. Only explicit source Watched seasons gained new watched records; no current episode or missing season was invented. Private before-snapshots, candidate metadata, offline previews and receipts are in ignored originals/bulk-matching-2026-11-07/.
+- Added a read-only export helper. Library/Watchlist Current.json and .md reflect the cloud library; the original master and curated Page remain separate. Library/ is Git-ignored. User approved starting the hidden export watcher for this Windows session; it polls only the manifest when unchanged and exports on changes. No automatic Windows startup was installed. Start/stop via Start-LibraryExport.ps1; see LIBRARY_EXPORT.md.
+- PASS: TypeScript and 5 focused maintenance/export tests (record preservation, changed-source/deletion safety, scope guards, UTF-8 chunking, stale-write precondition, payload limit and app-rule-based summary). Cloud reads/checksums and both apply readbacks verified. No app UI, deployed rules, billing or accounts changed. First live request had a body-envelope error and was rejected before writes; corrected the CLI call signature before the successful guarded commit.
+- Automatic approval review required explicit authorization for sending 197 titles to TVmaze and for the concrete batch. The user granted both. Retain the policy: ask before applying ambiguous mappings or changes that may mislabel/drop shows/seasons.
+- Remaining choices are in the private Library/Remaining Matching Choices.md. Bulk approval replaces per-show setup prompts for this maintenance run; manual imports still open setup. No complete bulk feature or 30-day automatic recovery system is claimed.
 
 ### 2026-11-07 - Setup after every successful show import or match
 

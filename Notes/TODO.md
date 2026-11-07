@@ -137,3 +137,11 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Verify atomic notes/progress saves and stale notes/restore/deletion safeguards.
 - [ ] Owner visual acceptance on actual PC/phone after updating.
 - [ ] Bulk matching assistance only when the owner explicitly asks to start; do not begin during genre spot checks.
+
+## Matching/export checkpoint - 2026-11-07 10:52 CST
+
+- [x] Apply and verify 138 approved clear matches plus 3 owner-selected adaptations.
+- [x] Create private current JSON/Markdown app exports and start the approved read-only Windows-session watcher.
+- [ ] Review the remaining 56 groups before further mappings; proposed versions and missing-season policy are in Library/Remaining Matching Choices.md.
+- [ ] Automatic Windows-login startup remains optional and uninstalled.
+- [ ] Full in-app resumable bulk matching, stronger genre palette and V2 Binge/dragging remain separate work.

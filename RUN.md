@@ -59,3 +59,5 @@ For installation, use Install app when offered, or How to install for browser in
 Development is now pnpm dev at http://127.0.0.1:5175, with no service worker and a separate test library. Keep your normal data at 5174. Updates do not force a reload while you work: use Update and reload after saving open notes, or close all app windows to allow a waiting update to activate before next launch. See OFFLINE.md.
 
 Run production PWA tests with pnpm build followed by pnpm test:pwa, or ./run-watchlist.ps1 -Task test:pwa. Those tests use disposable browser profiles and local test servers, never the user's library. No deployment, accounts, or cross-device sync has been created.
+
+For the optional private current-library folder export, run `./Start-LibraryExport.ps1` (Windows-session watcher), `-Once` (single export) or `-Stop`. See LIBRARY_EXPORT.md. No Windows-login startup task is installed.

@@ -21,3 +21,5 @@ Follow [the development roadmap](Notes/ROADMAP.md) for the ordered plan toward o
 Installable/offline app support is implemented. Open the normal app at `http://127.0.0.1:5174`, wait for Available offline, and use the browser install option if desired. The cached app can reopen with its local server stopped; saved tracking, ordering, details and backup/restore work offline. TVmaze search/import/refresh still need internet. See [OFFLINE.md](OFFLINE.md). Drag-and-drop and completion recommendations remain future work.
 
 Metadata is supplied by [TVmaze](https://www.tvmaze.com/), under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); see [the API documentation](https://www.tvmaze.com/api). Dates/statuses reflect the provider and are not independent release verification. No code license has been selected.
+
+A read-only helper can keep a private current app export in `Library/` on this PC. See [LIBRARY_EXPORT.md](LIBRARY_EXPORT.md) for start/stop commands, scope and reboot behavior. It preserves the original master and does not automatically edit the separate master Page.
