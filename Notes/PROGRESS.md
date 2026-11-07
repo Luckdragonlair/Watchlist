@@ -181,3 +181,12 @@ Added SYNC.md migration/recovery instructions and Notes/CLAUDE_DESIGN_HANDOFF.md
 ## PC and Android sign-in/update confirmed — 2026-11-06 10:32 CST
 
 User reported the hosted app worked on both devices, the phone signed in automatically, and accepting Update and reload returned to the signed-in app automatically. Recorded actual phone/PC launch, session persistence and update re-entry as passed by user report. The report does not independently establish backup migration, matching library counts or two-way data edits; those remain separate acceptance checks. No viewing state or deployment changed for this confirmation.
+
+## Nightfall foundation - 2026-11-07 08:20 CST
+
+First approved Nightfall presentation milestone completed. See [NIGHTFALL_FOUNDATION.md](NIGHTFALL_FOUNDATION.md) for delivered scope, exact verification and remaining V2 work. 195 unit tests, 15 browser tests (14 existing plus one responsive), 6 PWA tests (five existing plus offline fonts), hosted unsigned privacy check, TypeScript and both builds/privacy guard passed. Desktop/phone fixture screenshots inspected. No personal library or sync behavior changed.
+
+
+## Published - 2026-11-07 08:23 CST
+
+Published only Firebase Hosting for genre-watchlist. Live isolated signed-out Edge check passed: Nightfall colors, three locally loaded font families, cached font allowlist, private-master exclusion, no Watchlist database before sign-in, phone width without overflow and zero page errors. Existing signed-in devices need to accept Update and reload; signed-in visual acceptance is still requested from the owner. No database rules, billing or viewing records were changed by this release.

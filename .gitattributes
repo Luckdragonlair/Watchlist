@@ -1,0 +1,2 @@
+# Preserve approved reference files byte-for-byte across checkouts.
+design/nightfall-v2/* -text

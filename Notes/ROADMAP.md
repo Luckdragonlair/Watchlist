@@ -1,6 +1,6 @@
 # Watchlist development roadmap
 
-Updated: 2026-11-06 10:32 CST (America/Chicago)
+Updated: 2026-11-07 08:23 CST (America/Chicago)
 
 This is the living development plan from the original prototype to a dependable first release. It tracks verified progress, remaining work and initial effort estimates. AI maintains the status marks, timestamps and estimate changes.
 
@@ -24,10 +24,10 @@ Marks: **[x] complete** · **[~] partly complete** · **[>] next** · **[ ] not 
 | 3 | [~] Backup and offline foundation tested in Edge; target-device checks open | Implementation complete; Firefox taskbar and internet-disconnected reopen confirmed; server-stopped and Android checks remain | 2026-11-06; time not recorded |
 | 4 | [~] Firefox PC checks passed; Firebase Spark chosen; access/security design underway | 1–2 sessions; Android acceptance follows hosted access in step 5 | 2026-11-06 07:00 CST; user confirmed internet-disconnected reopen |
 | 5 | [~] Hosted trial published; live unsigned-in shell verified; device acceptance and migration remain | About 1 session for device checks; migration depends on sync readiness | 2026-11-06 08:03 CST |
-| 6 | [~] Automatic sync deployed; merge, recovery and security tests pass; personal two-device acceptance remains | About 1–2 sessions for migration/device checks and any fixes | 2026-11-06 10:27 CST |
-| 7 | [~] Binge arrows persist order; dragging and placement remain | 1–2 sessions after the sync rules are stable | 2026-11-06 requirement confirmed; implementation time not recorded |
+| 6 | [~] Sync deployed; migration, live two-way notes and offline reconnect passed by user report | Remaining progress/order/recovery checks included in step 10 | 2026-11-07; see SYNC_ACCEPTANCE_2026-11-07.md |
+| 7 | [~] Persistent arrows now centered on card right edge; dragging remains | 1-2 sessions for accessible drag/order integration | 2026-11-07 08:23 CST |
 | 8 | [~] Core library works; onboarding and next-watch features remain | 2–4 sessions after scope is agreed | 2026-11-06; time not recorded |
-| 9 | [ ] Claude design and accessibility integration | 2–4 sessions after functional behavior is stable; depends on design availability | Not started |
+| 9 | [~] Nightfall foundation deployed; full V2 integration continues | 2-4 focused sessions remain; Binge sections, drag/A-Z and accessibility validation | 2026-11-07 08:23 CST |
 | 10 | [ ] Device acceptance, recovery checks and first release | 1–3 sessions after steps 4–9; major defects require a revised estimate | Not started |
 
 ### How to read the estimates
@@ -173,3 +173,9 @@ For each future entry use: **Timestamp | Step | Change and evidence | Remaining 
 | 2026-11-06 08:35 CST | 5 | User confirmed hosted sign-in works after the routing fix. Stuck sign-in issue resolved by user report; device-specific installation/offline acceptance and sync/migration remain open. | Device checks about 1 session; sync 4–8 sessions; provisional |
 | 2026-11-06 10:27 CST | 5–6 | Deployed tested owner-only sync and strict atomic snapshot rules after confirming billing disabled. Full automated suite passes; original library remains untouched. Fresh-backup migration and actual Firefox/Android two-way/offline acceptance are next. | Revised sync estimate from 4–8 sessions to about 1–2 remaining for acceptance/fixes after implementation |
 | 2026-11-06 10:32 CST | 5–6 | User confirmed hosted PC/phone launch, automatic phone sign-in and signed-in return after app update. Personal migration and two-way saved data/offline acceptance remain to confirm. | About 1–2 acceptance/fix sessions; unchanged |
+
+## Nightfall checkpoint - 2026-11-07 08:20 CST
+
+- [x] Preserve approved V2 reference bundle and implement the visual foundation; local fonts, responsive shell/cards and right-centered arrows verified. See NIGHTFALL_FOUNDATION.md.
+- [~] Step 9 is now in progress. Remaining estimate: 2-4 focused sessions for persistent Binge sections, accessible dragging/A-Z, final screen refinements and accessibility validation. This replaces the former Not started status for step 9; no completion date is promised.
+- [x] Core real-device notes synchronization and reconnect delivery passed by user report; see SYNC_ACCEPTANCE_2026-11-07.md. Other real-device acceptance remains separate.

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+html,body{background:#0d0f14}body{margin:0;background:#0d0f14;min-height:100vh;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#e4e9f4}
+a{color:oklch(0.82 0.1 230)}a:hover{color:#fff}
+button{font:inherit;color:inherit}
+@keyframes wl-scan{0%{transform:translateY(-120px)}100%{transform:translateY(900px)}}
+@keyframes wl-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.75)}}
+@keyframes wl-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.wl-anim{animation:none!important}}
+.dv-turn{padding:48px 48px 40px;border-bottom:1px solid rgba(255,255,255,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 14px}
+.dv-tid{font:600 10px 'IBM Plex Mono',monospace;padding:3px 7px;background:#e4e9f4;color:#0d0f14;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 15px/1.2 'IBM Plex Sans',sans-serif;color:#e4e9f4}
+.dv-opts{display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'IBM Plex Mono',monospace;padding:3px 7px;background:rgba(255,255,255,.12);color:#e4e9f4;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:10px;font:400 13px/1.3 'IBM Plex Sans',sans-serif;color:rgba(228,233,244,.7)}
+.dv-card{max-width:100%;background:#13161d;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden}
+.dv-opt:target .dv-oid{background:#4a8cff;color:#fff}
+.dv-next{margin:28px 0 0;font:13px/1.5 'IBM Plex Sans',sans-serif;color:rgba(228,233,244,.6)}
+</style>
+</helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Two visual directions · same Binge screen, PC and Android</span></div>
+<div style="max-width:980px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin:0 0 36px;font-size:13.5px;line-height:1.55;color:rgba(228,233,244,.72);text-wrap:pretty">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:rgba(228,233,244,.45)">SHARED</div><div>Both directions use the same HUD layer (corner ticks, mono labels, grid backdrop), the same genre accents and the same layout. Only type, shape and texture differ.</div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:rgba(228,233,244,.45)">GENRE ACCENTS</div><div style="display:flex;flex-wrap:wrap;gap:6px 12px"><sc-for list="{{ legend }}" as="g" hint-placeholder-count="6"><span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:50%;background:{{ g.color }}"></span>{{ g.label }}</span></sc-for></div><div>The first listed genre sets the card accent. The tag always shows the genre name too, so color is never the only cue.</div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:rgba(228,233,244,.45)">SHOWN IN EACH</div><div>Card 4 is mid-drag with its drop gap. Arrows sit on the right edge, vertically centered. The checkbox and title stay clear of the drag grip. Titles come from your list. Episode counts are sample data.</div></div>
+</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a><span style="color:#e4e9f4;font-weight:600">Nightfall</span><span>Moody cinematic. Serif headlines, soft glow, deep navy. Recommended.</span></div>
+<div class="dv-card" style="padding:32px;display:flex;gap:40px;align-items:flex-start;background:#0a0c12">
+
+<div data-screen-label="1a PC Binge" style="width:1280px;height:820px;position:relative;overflow:hidden;border-radius:8px;background-color:#05070d;background-image:radial-gradient(ellipse 70% 55% at 78% -12%, oklch(0.36 0.09 252 / .6), transparent 70%),radial-gradient(ellipse 50% 40% at -5% 105%, oklch(0.30 0.08 280 / .35), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,auto,44px 44px,44px 44px;font-family:'IBM Plex Sans',sans-serif;color:#e4e9f4">
+{{ scanA }}
+<header style="height:68px;display:flex;align-items:center;gap:28px;padding:0 32px;border-bottom:1px solid rgba(140,170,225,.13);background:rgba(5,7,13,.6);position:relative">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:34px;height:34px;border-radius:9px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%, #16233f, #070a14);box-shadow:inset 0 0 0 1px rgba(150,185,240,.25)"><div style="position:absolute;inset:4px;border-radius:50%;border:1px solid oklch(0.82 0.1 230 / .55);border-top-color:transparent;border-bottom-color:transparent"></div><span style="font:400 21px/1 'Instrument Serif',serif;color:#eaf1ff;margin-top:1px">W</span></div>
+<span style="font:400 27px/1 'Instrument Serif',serif;letter-spacing:.01em">Watchlist</span>
+</div>
+<nav aria-label="Views" style="display:flex;gap:2px;height:100%">
+<button style="background:none;border:0;padding:0 16px;font-size:14px;font-weight:500;color:#9aa6bf;cursor:pointer">Weekly</button>
+<button aria-current="page" style="background:none;border:0;padding:0 16px;font-size:14px;font-weight:600;color:#eaf1ff;cursor:pointer;box-shadow:inset 0 -2px 0 oklch(0.82 0.1 230);text-shadow:0 0 18px oklch(0.82 0.1 230 / .6)">Binge</button>
+<button style="background:none;border:0;padding:0 16px;font-size:14px;font-weight:500;color:#9aa6bf;cursor:pointer">Watched</button>
+<button style="background:none;border:0;padding:0 16px;font-size:14px;font-weight:500;color:#9aa6bf;cursor:pointer">Add Show</button>
+<button style="background:none;border:0;padding:0 16px;font-size:14px;font-weight:500;color:#9aa6bf;cursor:pointer">Import</button>
+</nav>
+<div style="flex:1"></div>
+<div role="status" style="display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:999px;background:rgba(120,200,170,.07);box-shadow:inset 0 0 0 1px rgba(120,200,170,.22)">{{ pulseA }}<span style="font-size:13px;color:#cfe9df">All changes saved</span><span style="font:500 10.5px 'IBM Plex Mono',monospace;color:#7f9a90;letter-spacing:.06em">2 MIN AGO</span></div>
+<div style="display:flex;gap:8px;padding-left:16px;border-left:1px solid rgba(140,170,225,.13)">
+<button style="height:36px;padding:0 14px;border-radius:8px;background:rgba(150,185,240,.08);border:1px solid rgba(150,185,240,.28);font-size:13.5px;font-weight:500;color:#dbe6fb;cursor:pointer">Export backup</button>
+<button style="height:36px;padding:0 14px;border-radius:8px;background:none;border:1px solid rgba(150,185,240,.14);font-size:13.5px;font-weight:500;color:#9aa6bf;cursor:pointer">Restore</button>
+</div>
+</header>
+<div style="padding:30px 32px 0;display:flex;align-items:flex-end;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:4px">
+<div style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:oklch(0.82 0.1 230 / .8)">// BACKLOG · MANUAL ORDER</div>
+<h1 style="margin:0;font:400 60px/1 'Instrument Serif',serif;letter-spacing:-.01em;text-shadow:0 0 40px oklch(0.6 0.12 250 / .45)">Binge</h1>
+<div style="font-size:14px;color:#8f9bb4;margin-top:6px">214 seasons waiting. Drag a card or use its arrows to choose what comes next.</div>
+</div>
+<label style="width:320px;height:42px;display:flex;align-items:center;gap:10px;padding:0 14px;border-radius:10px;background:rgba(10,15,28,.8);border:1px solid rgba(150,185,240,.18)"><span style="width:12px;height:12px;border-radius:50%;border:1.5px solid #8f9bb4;flex:none"></span><span style="font-size:14px;color:#7d89a3">Search library</span></label>
+</div>
+<div style="padding:22px 32px 0;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+<sc-if value="{{ c.isSlot }}" hint-placeholder-val="{{ false }}"><div style="height:46px;border-radius:10px;border:1.5px dashed oklch(0.82 0.1 230 / .5);background:oklch(0.82 0.1 230 / .05);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:oklch(0.82 0.1 230 / .85)">DROP · POSITION 4 OF 214</div></sc-if>
+<sc-if value="{{ c.isCard }}" hint-placeholder-val="{{ true }}">
+<article aria-label="{{ c.title }}" style="position:relative;z-index:{{ c.z }};display:grid;grid-template-columns:24px 50px minmax(0,1fr) 230px 220px 40px;align-items:center;gap:20px;padding:12px 14px 12px 10px;border-radius:10px;background-color:#090e1a;background-image:linear-gradient(90deg, {{ c.wash }}, transparent 45%);border:1px solid {{ c.border }};transform:{{ c.lift }};margin-bottom:{{ c.mb }};box-shadow:{{ c.shadow }}">
+<div style="position:absolute;top:-1px;left:-1px;width:12px;height:12px;border-top:1.5px solid {{ c.color }};border-left:1.5px solid {{ c.color }};border-top-left-radius:10px"></div>
+<div style="position:absolute;bottom:-1px;right:-1px;width:12px;height:12px;border-bottom:1.5px solid {{ c.color }};border-right:1.5px solid {{ c.color }};border-bottom-right-radius:10px"></div>
+<div aria-label="Drag to reorder" style="height:56px;display:grid;place-items:center;color:#5d6880;font-size:18px;letter-spacing:-3px;cursor:grab">⋮⋮</div>
+<div style="width:50px;height:72px;border-radius:5px;background:repeating-linear-gradient(135deg,#121a2c 0 6px,#0d1424 6px 12px);box-shadow:inset 0 0 0 1px rgba(150,185,240,.12);display:grid;place-items:center;font:500 8px 'IBM Plex Mono',monospace;color:#56627a;letter-spacing:.1em">ART</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="font:500 11px 'IBM Plex Mono',monospace;color:#56627a">{{ c.idx }}</span>
+<span style="display:flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;border:1px solid {{ c.line }};font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:{{ c.color }}"><span style="width:6px;height:6px;border-radius:50%;background:{{ c.color }};box-shadow:0 0 8px {{ c.color }}"></span>{{ c.genre }}</span>
+<span style="font-size:12.5px;color:#8f9bb4">{{ c.service }}</span>
+</div>
+<button style="all:unset;cursor:pointer;font:400 27px/1.05 'Instrument Serif',serif;color:#eef3ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</button>
+</div>
+<label style="display:flex;align-items:center;gap:14px;padding:8px 12px;border-radius:9px;background:rgba(255,255,255,.025);cursor:pointer">
+<span style="width:24px;height:24px;border-radius:6px;border:1.5px solid {{ c.color }};flex:none;box-shadow:0 0 12px {{ c.wash }}"></span>
+<span style="display:flex;flex-direction:column;gap:2px"><span style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#6f7b94">NEXT UP</span><span style="font:600 15px 'IBM Plex Mono',monospace;color:#eef3ff">{{ c.next }}</span></span>
+</label>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:#b7c1d6">{{ c.watched }} of {{ c.total }} watched</span><span style="font:600 11px 'IBM Plex Mono',monospace;color:{{ c.color }}">{{ c.left }} LEFT</span></div>
+<div style="height:4px;border-radius:2px;background:rgba(255,255,255,.07)"><div style="height:100%;width:{{ c.pct }};border-radius:2px;background:{{ c.color }};box-shadow:0 0 10px {{ c.color }}"></div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<button aria-label="Move {{ c.title }} up" style="width:40px;height:32px;border-radius:7px;background:rgba(150,185,240,.05);border:1px solid rgba(150,185,240,.18);color:#b7c1d6;font-size:10px;cursor:pointer;outline:{{ c.focus }};outline-offset:2px">▲</button>
+<button aria-label="Move {{ c.title }} down" style="width:40px;height:32px;border-radius:7px;background:rgba(150,185,240,.05);border:1px solid rgba(150,185,240,.18);color:#b7c1d6;font-size:10px;cursor:pointer">▼</button>
+</div>
+<sc-if value="{{ c.dragging }}" hint-placeholder-val="{{ false }}"><div role="status" style="position:absolute;top:-13px;right:64px;padding:4px 10px;border-radius:6px;background:oklch(0.82 0.1 230);color:#05070d;font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em">MOVING · 4 OF 214</div></sc-if>
+</article>
+</sc-if>
+</sc-for>
+</div>
+<div role="status" style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:18px;padding:10px 10px 10px 18px;border-radius:12px;background:#121a2d;border:1px solid rgba(150,185,240,.22);box-shadow:0 18px 50px rgba(0,0,0,.6)"><span style="font-size:14px;color:#dbe6fb">Andor · S2 E6 marked watched. Next up is S2 E7.</span><button style="height:34px;padding:0 14px;border-radius:8px;border:0;background:oklch(0.82 0.1 230);color:#05070d;font-weight:600;font-size:13.5px;cursor:pointer">Undo</button></div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:28px">
+<div data-screen-label="1a Android Binge" style="width:360px;height:780px;border-radius:38px;padding:9px;background:#1a1d24;box-shadow:inset 0 0 0 1px #2b2f38">
+<div style="width:100%;height:100%;border-radius:30px;overflow:hidden;position:relative;display:flex;flex-direction:column;background-color:#05070d;background-image:radial-gradient(ellipse 90% 40% at 80% -5%, oklch(0.36 0.09 252 / .6), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,32px 32px,32px 32px">
+<div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:500 12px 'IBM Plex Mono',monospace;color:#b7c1d6"><span>8:12</span><span style="width:10px;height:10px;border-radius:50%;background:#000;box-shadow:0 0 0 2px #111"></span><span>▴ ● 82%</span></div>
+<div style="padding:8px 14px 0 18px;display:flex;align-items:center;gap:8px">
+<h1 style="margin:0;flex:1;font:400 40px/1 'Instrument Serif',serif;text-shadow:0 0 30px oklch(0.6 0.12 250 / .5)">Binge</h1>
+<div role="status" aria-label="All changes saved" style="height:32px;display:flex;align-items:center;gap:7px;padding:0 10px;border-radius:999px;background:rgba(120,200,170,.07);box-shadow:inset 0 0 0 1px rgba(120,200,170,.22)">{{ pulseA }}<span style="font-size:12px;color:#cfe9df">Saved</span></div>
+<button aria-label="Backup and more" style="width:44px;height:44px;border-radius:12px;background:rgba(150,185,240,.06);border:1px solid rgba(150,185,240,.18);display:grid;place-items:center;font-size:18px;color:#cfd8ea;cursor:pointer">⋯</button>
+</div>
+<div style="padding:4px 18px 12px;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:oklch(0.82 0.1 230 / .75)">214 WAITING · MANUAL ORDER</div>
+<div style="margin:0 14px 12px;height:44px;flex:none;display:flex;align-items:center;gap:10px;padding:0 14px;border-radius:12px;background:rgba(10,15,28,.85);border:1px solid rgba(150,185,240,.16)"><span style="width:11px;height:11px;border-radius:50%;border:1.5px solid #8f9bb4"></span><span style="font-size:14px;color:#7d89a3">Search library</span></div>
+<div style="flex:1;overflow:hidden;padding:0 10px;display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ mcards }}" as="c" hint-placeholder-count="4">
+<article aria-label="{{ c.title }}" style="position:relative;display:grid;grid-template-columns:22px minmax(0,1fr) 44px;gap:8px;align-items:center;padding:12px 8px 12px 4px;border-radius:14px;background-color:#090e1a;background-image:linear-gradient(90deg, {{ c.wash }}, transparent 55%);border:1px solid rgba(150,185,240,.12)">
+<div style="position:absolute;top:-1px;left:-1px;width:12px;height:12px;border-top:1.5px solid {{ c.color }};border-left:1.5px solid {{ c.color }};border-top-left-radius:14px"></div>
+<div aria-label="Drag to reorder" style="align-self:stretch;display:grid;place-items:center;color:#5d6880;font-size:16px;letter-spacing:-3px">⋮⋮</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:8px"><span style="display:flex;align-items:center;gap:5px;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:{{ c.color }}"><span style="width:6px;height:6px;border-radius:50%;background:{{ c.color }}"></span>{{ c.genre }}</span><span style="font-size:12px;color:#8f9bb4">{{ c.service }}</span></div>
+<button style="all:unset;font:400 24px/1.05 'Instrument Serif',serif;color:#eef3ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</button>
+<label style="height:44px;display:flex;align-items:center;gap:12px;padding:0 10px;border-radius:10px;background:rgba(255,255,255,.035)"><span style="width:24px;height:24px;border-radius:6px;border:1.5px solid {{ c.color }};flex:none"></span><span style="font:600 14px 'IBM Plex Mono',monospace;color:#eef3ff">{{ c.next }}</span><span style="flex:1"></span><span style="font-size:12px;color:#8f9bb4">{{ c.watched }}/{{ c.total }}</span></label>
+<div style="height:3px;border-radius:2px;background:rgba(255,255,255,.07)"><div style="height:100%;width:{{ c.pct }};border-radius:2px;background:{{ c.color }}"></div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<button aria-label="Move {{ c.title }} up" style="width:44px;height:44px;border-radius:10px;background:rgba(150,185,240,.05);border:1px solid rgba(150,185,240,.16);color:#b7c1d6;font-size:10px">▲</button>
+<button aria-label="Move {{ c.title }} down" style="width:44px;height:44px;border-radius:10px;background:rgba(150,185,240,.05);border:1px solid rgba(150,185,240,.16);color:#b7c1d6;font-size:10px">▼</button>
+</div>
+</article>
+</sc-for>
+</div>
+<nav aria-label="Views" style="flex:none;height:72px;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 14px;background:rgba(6,9,17,.96);border-top:1px solid rgba(150,185,240,.12)">
+<button style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:12px;color:#8f9bb4"><span style="display:flex;gap:2px;height:16px;align-items:flex-end"><span style="width:3px;height:9px;background:currentColor;border-radius:1px"></span><span style="width:3px;height:14px;background:currentColor;border-radius:1px"></span><span style="width:3px;height:6px;background:currentColor;border-radius:1px"></span><span style="width:3px;height:12px;background:currentColor;border-radius:1px"></span></span>Weekly</button>
+<button aria-current="page" style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:600;color:#eaf1ff"><span style="width:52px;height:26px;border-radius:13px;background:oklch(0.82 0.1 230 / .18);display:grid;place-items:center;box-shadow:0 0 16px oklch(0.82 0.1 230 / .3)"><span style="display:flex;flex-direction:column;gap:2px"><span style="width:14px;height:2.5px;background:oklch(0.82 0.1 230);border-radius:1px"></span><span style="width:14px;height:2.5px;background:oklch(0.82 0.1 230);border-radius:1px"></span><span style="width:14px;height:2.5px;background:oklch(0.82 0.1 230);border-radius:1px"></span></span></span>Binge</button>
+<button style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:12px;color:#8f9bb4"><span style="height:16px;font-size:14px;line-height:16px">✓</span>Watched</button>
+<button style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:12px;color:#8f9bb4"><span style="height:16px;font-size:20px;line-height:16px;font-weight:300">+</span>Add</button>
+</nav>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;width:360px">
+<div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#6f7b94">APP ICON · W + HUD RING</div>
+<div style="display:flex;align-items:flex-end;gap:20px">
+<div style="width:120px;height:120px;border-radius:28px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%, #1c2d52, #070a14 75%);box-shadow:inset 0 0 0 1px rgba(150,185,240,.22),0 10px 30px rgba(0,0,0,.5)">
+<div style="position:absolute;inset:14px;border-radius:50%;border:1.5px solid oklch(0.82 0.1 230 / .7);border-top-color:transparent;border-bottom-color:transparent;transform:rotate(-20deg)"></div>
+<div style="position:absolute;inset:22px;border-radius:50%;background:repeating-conic-gradient(oklch(0.82 0.1 230 / .5) 0 1.5deg, transparent 1.5deg 12deg);-webkit-mask:radial-gradient(circle, transparent 69%, #000 70%, #000 75%, transparent 76%);mask:radial-gradient(circle, transparent 69%, #000 70%, #000 75%, transparent 76%)"></div>
+<span style="font:400 64px/1 'Instrument Serif',serif;color:#f1f6ff;margin-top:6px;text-shadow:0 0 20px oklch(0.75 0.12 240 / .8)">W</span>
+</div>
+<div style="width:56px;height:56px;border-radius:14px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%, #1c2d52, #070a14 75%);box-shadow:inset 0 0 0 1px rgba(150,185,240,.22)"><div style="position:absolute;inset:7px;border-radius:50%;border:1px solid oklch(0.82 0.1 230 / .7);border-top-color:transparent;border-bottom-color:transparent;transform:rotate(-20deg)"></div><span style="font:400 31px/1 'Instrument Serif',serif;color:#f1f6ff;margin-top:3px">W</span></div>
+<div style="width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%, #1c2d52, #070a14 75%);box-shadow:inset 0 0 0 1px rgba(150,185,240,.25)"><span style="font:400 21px/1 'Instrument Serif',serif;color:#f1f6ff;margin-top:2px">W</span></div>
+</div>
+<div style="font-size:13px;line-height:1.55;color:#8f9bb4;text-wrap:pretty">Home screen, taskbar and favicon sizes. The tick ring is dropped at small sizes so the W stays legible.</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a><span style="color:#e4e9f4;font-weight:600">Signal</span><span>Comic and superhero energy. Condensed caps, clipped panels, halftone, hard shadows.</span></div>
+<div class="dv-card" style="padding:32px;display:flex;gap:40px;align-items:flex-start;background:#0a0c12">
+
+<div data-screen-label="1b PC Binge" style="width:1280px;height:820px;position:relative;overflow:hidden;border-radius:8px;background-color:#060912;background-image:linear-gradient(112deg, oklch(0.30 0.12 262 / .55) 0 34%, transparent 34.1%),radial-gradient(rgba(110,150,255,.13) 1px, transparent 1.6px);background-size:auto,7px 7px;font-family:'Barlow',sans-serif;color:#f1f4fb">
+{{ scanB }}
+<header style="height:68px;display:flex;align-items:center;gap:26px;padding:0 32px;background:#04060d;border-bottom:2px solid oklch(0.72 0.17 255);position:relative">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:36px;height:36px;display:grid;place-items:center;background:oklch(0.72 0.17 255);clip-path:polygon(0 0,100% 0,100% 72%,72% 100%,0 100%)"><span style="font:900 italic 24px/1 'Barlow Condensed',sans-serif;color:#04060d">W</span></div>
+<span style="font:800 26px/1 'Barlow Condensed',sans-serif;letter-spacing:.06em">WATCHLIST</span>
+</div>
+<nav aria-label="Views" style="display:flex;gap:4px">
+<button style="background:none;border:0;padding:8px 14px;font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2;cursor:pointer">WEEKLY</button>
+<button aria-current="page" style="border:0;padding:8px 18px;font:800 16px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#04060d;background:oklch(0.72 0.17 255);transform:skewX(-12deg);cursor:pointer"><span style="display:block;transform:skewX(12deg)">BINGE</span></button>
+<button style="background:none;border:0;padding:8px 14px;font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2;cursor:pointer">WATCHED</button>
+<button style="background:none;border:0;padding:8px 14px;font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2;cursor:pointer">ADD SHOW</button>
+<button style="background:none;border:0;padding:8px 14px;font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2;cursor:pointer">IMPORT</button>
+</nav>
+<div style="flex:1"></div>
+<div role="status" style="display:flex;align-items:center;gap:9px;padding:7px 12px;background:#0b1a1a;border:1.5px solid oklch(0.78 0.13 165)">{{ pulseB }}<span style="font:700 14px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#c9f2e2">ALL CHANGES SAVED</span></div>
+<div style="display:flex;gap:8px">
+<button style="height:38px;padding:0 16px;border:0;background:#f1f4fb;color:#04060d;font:800 15px 'Barlow Condensed',sans-serif;letter-spacing:.08em;box-shadow:3px 3px 0 oklch(0.72 0.17 255);cursor:pointer">EXPORT BACKUP</button>
+<button style="height:38px;padding:0 16px;background:none;border:1.5px solid #3a4566;color:#c3cbe2;font:700 15px 'Barlow Condensed',sans-serif;letter-spacing:.08em;cursor:pointer">RESTORE</button>
+</div>
+</header>
+<div style="padding:22px 32px 0;display:flex;align-items:flex-end;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:0">
+<div style="font:700 11px 'JetBrains Mono',monospace;letter-spacing:.18em;color:oklch(0.83 0.14 80)">ISSUE #214 · BACKLOG · MANUAL ORDER</div>
+<h1 style="margin:0;font:900 italic 88px/.9 'Barlow Condensed',sans-serif;letter-spacing:.01em;text-shadow:5px 5px 0 oklch(0.72 0.17 255)">BINGE</h1>
+<div style="font-size:15px;color:#a3aecb;margin-top:8px">214 seasons waiting. Drag a panel or hit the arrows to set what's next.</div>
+</div>
+<label style="width:320px;height:44px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0a1022;border:1.5px solid #2c3658"><span style="width:12px;height:12px;border-radius:50%;border:2px solid #98a3c2"></span><span style="font-size:15px;color:#8892b0">Search library</span></label>
+</div>
+<div style="padding:20px 32px 0;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+<sc-if value="{{ c.isSlot }}" hint-placeholder-val="{{ false }}"><div style="height:46px;border:2px dashed oklch(0.83 0.14 80 / .7);display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.16em;color:oklch(0.83 0.14 80)">DROP · POSITION 4 OF 214</div></sc-if>
+<sc-if value="{{ c.isCard }}" hint-placeholder-val="{{ true }}">
+<div style="position:relative;z-index:{{ c.z }};transform:{{ c.lift }};margin-bottom:{{ c.mb }};filter:{{ c.hard }}">
+<div style="padding:{{ c.bw }};background:{{ c.edge }};clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px))">
+<article aria-label="{{ c.title }}" style="display:grid;grid-template-columns:24px 50px minmax(0,1fr) 230px 230px 40px;align-items:center;gap:20px;padding:12px 16px 12px 10px;background:#0b1124;clip-path:polygon(0 0,calc(100% - 19px) 0,100% 19px,100% 100%,19px 100%,0 calc(100% - 19px))">
+<div aria-label="Drag to reorder" style="height:56px;display:grid;place-items:center;color:#4d587a;font-size:18px;letter-spacing:-3px;cursor:grab">⋮⋮</div>
+<div style="width:50px;height:72px;background:repeating-linear-gradient(135deg,#141c34 0 5px,#0e152a 5px 10px);box-shadow:inset 0 0 0 1.5px #232d4d;display:grid;place-items:center;font:700 8px 'JetBrains Mono',monospace;color:#4d587a">ART</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="padding:2px 10px;background:{{ c.color }};color:#04060d;font:800 13px 'Barlow Condensed',sans-serif;letter-spacing:.1em;transform:skewX(-12deg)">{{ c.genre }}</span>
+<span style="font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2">{{ c.serviceU }}</span>
+</div>
+<button style="all:unset;cursor:pointer;font:800 29px/1 'Barlow Condensed',sans-serif;letter-spacing:.01em;text-transform:uppercase;color:#f6f8fd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</button>
+</div>
+<label style="display:flex;align-items:center;gap:14px;cursor:pointer">
+<span style="width:28px;height:28px;border:2.5px solid {{ c.color }};flex:none;background:#060a18"></span>
+<span style="display:flex;flex-direction:column;gap:1px"><span style="font:700 10px 'JetBrains Mono',monospace;letter-spacing:.14em;color:#6c7799">NEXT UP</span><span style="font:800 21px/1 'Barlow Condensed',sans-serif;letter-spacing:.04em;color:#f6f8fd">{{ c.next }}</span></span>
+</label>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 14px 'Barlow',sans-serif;color:#c3cbe2">{{ c.watched }} of {{ c.total }} watched</span><span style="font:700 11px 'JetBrains Mono',monospace;color:{{ c.color }}">{{ c.left }} LEFT</span></div>
+<div style="display:flex;gap:2px;height:8px"><sc-for list="{{ c.segs }}" as="s" hint-placeholder-count="8"><span style="flex:1;background:{{ s }};transform:skewX(-20deg)"></span></sc-for></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<button aria-label="Move {{ c.title }} up" style="width:40px;height:32px;background:#151d38;border:0;color:#c3cbe2;font-size:10px;cursor:pointer;outline:{{ c.focusB }};outline-offset:2px">▲</button>
+<button aria-label="Move {{ c.title }} down" style="width:40px;height:32px;background:#151d38;border:0;color:#c3cbe2;font-size:10px;cursor:pointer">▼</button>
+</div>
+</article>
+</div>
+<sc-if value="{{ c.dragging }}" hint-placeholder-val="{{ false }}"><div role="status" style="position:absolute;top:-14px;right:64px;padding:4px 10px;background:oklch(0.83 0.14 80);color:#04060d;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.1em;transform:skewX(-10deg)">MOVING · 4 OF 214</div></sc-if>
+</div>
+</sc-if>
+</sc-for>
+</div>
+<div role="status" style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:18px;padding:10px 10px 10px 18px;background:#f1f4fb;color:#04060d;box-shadow:5px 5px 0 oklch(0.72 0.17 255)"><span style="font:600 15px 'Barlow',sans-serif">Andor · S2 E6 marked watched. Next up is S2 E7.</span><button style="height:34px;padding:0 16px;border:0;background:#04060d;color:#f1f4fb;font:800 15px 'Barlow Condensed',sans-serif;letter-spacing:.1em;cursor:pointer">UNDO</button></div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:28px">
+<div data-screen-label="1b Android Binge" style="width:360px;height:780px;border-radius:38px;padding:9px;background:#1a1d24;box-shadow:inset 0 0 0 1px #2b2f38">
+<div style="width:100%;height:100%;border-radius:30px;overflow:hidden;position:relative;display:flex;flex-direction:column;background-color:#060912;background-image:linear-gradient(112deg, oklch(0.30 0.12 262 / .55) 0 46%, transparent 46.1%),radial-gradient(rgba(110,150,255,.13) 1px, transparent 1.6px);background-size:auto 260px,7px 7px;background-repeat:no-repeat,repeat">
+<div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:700 12px 'JetBrains Mono',monospace;color:#c3cbe2"><span>8:12</span><span style="width:10px;height:10px;border-radius:50%;background:#000;box-shadow:0 0 0 2px #111"></span><span>▴ ● 82%</span></div>
+<div style="padding:6px 14px 0 18px;display:flex;align-items:center;gap:8px">
+<h1 style="margin:0;flex:1;font:900 italic 50px/.9 'Barlow Condensed',sans-serif;text-shadow:4px 4px 0 oklch(0.72 0.17 255)">BINGE</h1>
+<div role="status" aria-label="All changes saved" style="height:32px;display:flex;align-items:center;gap:7px;padding:0 10px;background:#0b1a1a;border:1.5px solid oklch(0.78 0.13 165)">{{ pulseB }}<span style="font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#c9f2e2">SAVED</span></div>
+<button aria-label="Backup and more" style="width:44px;height:44px;background:#151d38;border:0;display:grid;place-items:center;font-size:18px;color:#e2e7f5">⋯</button>
+</div>
+<div style="padding:8px 18px 12px;font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:.16em;color:oklch(0.83 0.14 80)">ISSUE #214 · MANUAL ORDER</div>
+<div style="margin:0 14px 12px;height:44px;flex:none;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0a1022;border:1.5px solid #2c3658"><span style="width:11px;height:11px;border-radius:50%;border:2px solid #98a3c2"></span><span style="font-size:15px;color:#8892b0">Search library</span></div>
+<div style="flex:1;overflow:hidden;padding:0 10px;display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ mcards }}" as="c" hint-placeholder-count="4">
+<div style="padding:1.5px;background:#232d4d;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)">
+<article aria-label="{{ c.title }}" style="display:grid;grid-template-columns:22px minmax(0,1fr) 44px;gap:8px;align-items:center;padding:12px 8px 12px 4px;background:#0b1124;clip-path:polygon(0 0,calc(100% - 15px) 0,100% 15px,100% 100%,0 100%)">
+<div aria-label="Drag to reorder" style="align-self:stretch;display:grid;place-items:center;color:#4d587a;font-size:16px;letter-spacing:-3px">⋮⋮</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:7px">
+<div style="display:flex;align-items:center;gap:8px"><span style="padding:1px 8px;background:{{ c.color }};color:#04060d;font:800 12px 'Barlow Condensed',sans-serif;letter-spacing:.1em;transform:skewX(-12deg)">{{ c.genre }}</span><span style="font:700 12px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2">{{ c.serviceU }}</span></div>
+<button style="all:unset;font:800 25px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f6f8fd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</button>
+<label style="height:44px;display:flex;align-items:center;gap:12px;padding:0 10px;background:#060a18"><span style="width:24px;height:24px;border:2.5px solid {{ c.color }};flex:none"></span><span style="font:800 19px 'Barlow Condensed',sans-serif;letter-spacing:.04em;color:#f6f8fd">{{ c.next }}</span><span style="flex:1"></span><span style="font:700 12px 'JetBrains Mono',monospace;color:{{ c.color }}">{{ c.watched }}/{{ c.total }}</span></label>
+<div style="display:flex;gap:2px;height:6px"><sc-for list="{{ c.segs }}" as="s" hint-placeholder-count="8"><span style="flex:1;background:{{ s }};transform:skewX(-20deg)"></span></sc-for></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<button aria-label="Move {{ c.title }} up" style="width:44px;height:44px;background:#151d38;border:0;color:#c3cbe2;font-size:10px">▲</button>
+<button aria-label="Move {{ c.title }} down" style="width:44px;height:44px;background:#151d38;border:0;color:#c3cbe2;font-size:10px">▼</button>
+</div>
+</article>
+</div>
+</sc-for>
+</div>
+<nav aria-label="Views" style="flex:none;height:72px;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 14px;background:#04060d;border-top:2px solid oklch(0.72 0.17 255)">
+<button style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2"><span style="display:flex;gap:2px;height:16px;align-items:flex-end"><span style="width:3px;height:9px;background:currentColor"></span><span style="width:3px;height:14px;background:currentColor"></span><span style="width:3px;height:6px;background:currentColor"></span><span style="width:3px;height:12px;background:currentColor"></span></span>WEEKLY</button>
+<button aria-current="page" style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:800 13px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#f6f8fd"><span style="width:48px;height:24px;background:oklch(0.72 0.17 255);transform:skewX(-12deg);display:grid;place-items:center"><span style="display:flex;flex-direction:column;gap:2px;transform:skewX(12deg)"><span style="width:14px;height:2.5px;background:#04060d"></span><span style="width:14px;height:2.5px;background:#04060d"></span><span style="width:14px;height:2.5px;background:#04060d"></span></span></span>BINGE</button>
+<button style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2"><span style="height:16px;font-size:14px;line-height:16px">✓</span>WATCHED</button>
+<button style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#98a3c2"><span style="height:16px;font-size:22px;line-height:16px">+</span>ADD</button>
+</nav>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;width:360px">
+<div style="font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:.14em;color:#6c7799">APP ICON · W + HUD RING</div>
+<div style="display:flex;align-items:flex-end;gap:20px">
+<div style="width:120px;height:120px;border-radius:28px;position:relative;overflow:hidden;display:grid;place-items:center;background-color:#060912;background-image:linear-gradient(112deg, oklch(0.36 0.14 262) 0 48%, transparent 48.2%),radial-gradient(rgba(110,150,255,.22) 1px, transparent 1.6px);background-size:auto,6px 6px">
+<div style="position:absolute;inset:14px;border-radius:50%;border:3px dashed oklch(0.83 0.14 80)"></div>
+<span style="font:900 italic 70px/1 'Barlow Condensed',sans-serif;color:#f6f8fd;text-shadow:4px 4px 0 oklch(0.72 0.17 255);margin-top:4px">W</span>
+</div>
+<div style="width:56px;height:56px;border-radius:14px;position:relative;overflow:hidden;display:grid;place-items:center;background-color:#060912;background-image:linear-gradient(112deg, oklch(0.36 0.14 262) 0 48%, transparent 48.2%)"><div style="position:absolute;inset:6px;border-radius:50%;border:2px dashed oklch(0.83 0.14 80)"></div><span style="font:900 italic 34px/1 'Barlow Condensed',sans-serif;color:#f6f8fd;text-shadow:2px 2px 0 oklch(0.72 0.17 255);margin-top:2px">W</span></div>
+<div style="width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:oklch(0.36 0.14 262)"><span style="font:900 italic 22px/1 'Barlow Condensed',sans-serif;color:#f6f8fd;margin-top:1px">W</span></div>
+</div>
+<div style="font-size:13px;line-height:1.55;color:#98a3c2;text-wrap:pretty">A dashed ring and an offset shadow, in the style of a comic cover badge.</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "go with <a class="dv-oid" href="#1a">1a</a>" · "<a class="dv-oid" href="#1a">1a</a> layout with the segmented progress bar from <a class="dv-oid" href="#1b">1b</a>" · "push <a class="dv-oid" href="#1b">1b</a> further toward horror"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const G = {
+      scifi: ['SCI-FI', '0.80 0.12 215'], hero: ['SUPERHERO', '0.83 0.14 80'], fantasy: ['FANTASY', '0.76 0.13 300'],
+      horror: ['HORROR', '0.70 0.17 22'], comedy: ['COMEDY', '0.80 0.13 150'], drama: ['DRAMA', '0.76 0.06 250']
+    };
+    const raw = [
+      ['Andor S2', 'Disney+', 'scifi', 'S2 E7', 6, 12],
+      ['Invincible S3', 'Prime Video', 'hero', 'S3 E2', 1, 8],
+      ['Arcane S2', 'Netflix', 'fantasy', 'S2 E1', 0, 9],
+      ['Grotesquerie S1', 'Hulu', 'horror', 'S1 E4', 3, 10],
+      ['Murderbot S1', 'Apple TV+', 'scifi', 'S1 E1', 0, 10],
+      ['The Penguin S1', 'HBO Max', 'hero', 'S1 E5', 4, 8],
+      ['Delicious in Dungeon S1', 'Netflix', 'fantasy', 'S1 E13', 12, 24]
+    ];
+    const ok = (p, a) => a == null ? `oklch(${p})` : `oklch(${p} / ${a})`;
+    const base = raw.map(([title, service, g, next, w, t], i) => {
+      const p = G[g][1];
+      return {
+        isCard: true, isSlot: false, idx: String(i + 1).padStart(2, '0'), title, service, serviceU: service.toUpperCase(),
+        genre: G[g][0], next, watched: w, total: t, left: t - w, pct: Math.round(w / t * 100) + '%',
+        color: ok(p), wash: ok(p, .1), line: ok(p, .4),
+        segs: Array.from({ length: t }, (_, k) => k < w ? ok(p) : '#1b2443'),
+        border: 'rgba(150,185,240,.12)', lift: 'none', mb: '0px', z: 1, shadow: 'none', dragging: false,
+        focus: 'none', focusB: 'none', hard: 'none', edge: '#232d4d', bw: '1.5px'
+      };
+    });
+    const d = base[3];
+    Object.assign(d, {
+      dragging: true, z: 3, lift: 'translate(10px,-6px) rotate(-.6deg) scale(1.012)', mb: '-40px',
+      border: d.color, shadow: `0 26px 60px rgba(0,0,0,.65), 0 0 40px ${ok(G.horror[1], .25)}`,
+      hard: `drop-shadow(6px 6px 0 ${ok(G.horror[1])})`, edge: d.color, bw: '2px'
+    });
+    base[5].focus = '2px solid oklch(0.82 0.1 230)';
+    base[5].focusB = '2px solid oklch(0.83 0.14 80)';
+    const cards = [...base.slice(0, 4), { isSlot: true, isCard: false }, ...base.slice(4, 6)];
+    const mk = (cls, style) => React.createElement('span', { className: 'wl-anim', style });
+    const dot = c => mk('', { width: 8, height: 8, borderRadius: '50%', background: c, boxShadow: `0 0 10px ${c}`, animation: 'wl-pulse 2.4s ease-in-out infinite', flex: 'none', display: 'block' });
+    const scan = c => React.createElement('div', { className: 'wl-anim', 'aria-hidden': true, style: { position: 'absolute', left: 0, right: 0, top: 0, height: 120, pointerEvents: 'none', zIndex: 5, background: `linear-gradient(180deg, transparent, ${c} 92%, transparent)`, opacity: .5, animation: 'wl-scan 7s linear infinite' } });
+    return {
+      legend: Object.values(G).map(([label, p]) => ({ label: label[0] + label.slice(1).toLowerCase().replace('Sci-fi', 'Sci-Fi'), color: ok(p) })),
+      cards, mcards: base.slice(0, 4),
+      pulseA: dot('oklch(0.80 0.12 165)'), pulseB: dot('oklch(0.78 0.13 165)'),
+      scanA: scan('rgba(140,185,255,.07)'), scanB: scan('rgba(110,150,255,.08)')
+    };
+  }
+}
+</script>
+</body>
+</html>

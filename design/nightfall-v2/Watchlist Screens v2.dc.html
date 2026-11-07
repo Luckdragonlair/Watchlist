@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html,body{background:#0d0f14}body{margin:0;background:#0d0f14;min-height:100vh;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#e4e9f4}
+a{color:oklch(0.82 0.1 230)}a:hover{color:#fff}
+button,select,textarea{font:inherit;color:inherit}
+@keyframes wl-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.75)}}
+@keyframes wl-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.wl-anim{animation:none!important}}
+.sx{padding:48px 48px 44px;border-bottom:1px solid rgba(255,255,255,.08);scroll-margin-top:16px}
+.sx-h{display:flex;align-items:baseline;gap:12px;margin:0 0 8px}
+.sx-id{font:600 10.5px 'IBM Plex Mono',monospace;padding:3px 7px;background:rgba(255,255,255,.12);color:#e4e9f4;border-radius:5px;text-decoration:none}
+.sx-t{font:400 34px/1 'Instrument Serif',serif;color:#eef3ff}
+.sx-n{max-width:900px;margin:0 0 28px;font:14px/1.55 'IBM Plex Sans',sans-serif;color:rgba(228,233,244,.66);text-wrap:pretty}
+.sx-row{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+</style>
+</helmet>
+
+<section class="sx" id="intro" style="padding-bottom:36px">
+<div style="display:flex;flex-direction:column;gap:10px;max-width:900px">
+<div style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:oklch(0.82 0.1 230 / .8)">// WATCHLIST · NIGHTFALL · V2 · SCREENS</div>
+<div style="font:400 52px/1 'Instrument Serif',serif;color:#eef3ff">Weekly, Watched and Show detail</div>
+<div style="font-size:15px;line-height:1.6;color:#9aa6bf;text-wrap:pretty">Version 2. Checkboxes now say "Mark S3 E4 watched", the "saved" status fades to a small ✓ icon, and Android show detail adds notes and catch-up. Binge is in <a href="Watchlist Binge v2.dc.html">Watchlist Binge v2</a>. Today is shown as Friday, Nov 6. Titles come from your master list. Services, episode numbers, dates and notes are sample data. Silo is left out on purpose. Each PC header shows a different sync status so you can see each one in context. Dialogs and states are in <a href="Watchlist States v2.dc.html">Watchlist States v2</a>.</div>
+</div>
+</section>
+
+<section class="sx" id="weekly">
+<div class="sx-h"><a class="sx-id" href="#weekly">A</a><span class="sx-t">Weekly</span></div>
+<p class="sx-n">Today comes first in a lit panel. The rest of the week follows in order, and empty days are folded into a single line. Each card shows one of two states. "Available" means the next episode can be checked. "Caught up" means the next confirmed airing is shown instead of a checkbox.</p>
+<div class="sx-row">
+
+<div data-screen-label="Weekly PC" style="width:1280px;flex:none;position:relative;overflow:hidden;border-radius:8px;padding-bottom:40px;background-color:#05070d;background-image:radial-gradient(ellipse 70% 40% at 78% -8%, oklch(0.36 0.09 252 / .6), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,44px 44px,44px 44px">
+<header style="height:68px;display:flex;align-items:center;gap:28px;padding:0 32px;border-bottom:1px solid rgba(140,170,225,.13);background:rgba(5,7,13,.6)">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:34px;height:34px;border-radius:9px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%, #16233f, #070a14);box-shadow:inset 0 0 0 1px rgba(150,185,240,.25)"><div style="position:absolute;inset:4px;border-radius:50%;border:1px solid oklch(0.82 0.1 230 / .55);border-top-color:transparent;border-bottom-color:transparent"></div><span style="font:400 21px/1 'Instrument Serif',serif;color:#eaf1ff;margin-top:1px">W</span></div><span style="font:400 27px/1 'Instrument Serif',serif">Watchlist</span></div>
+<nav aria-label="Views" style="display:flex;gap:2px;height:100%"><sc-for list="{{ navWeekly }}" as="n" hint-placeholder-count="5"><button aria-current="{{ n.cur }}" style="background:none;border:0;padding:0 16px;font-size:14px;font-weight:{{ n.fw }};color:{{ n.color }};box-shadow:{{ n.bar }};text-shadow:{{ n.glow }};cursor:pointer">{{ n.label }}</button></sc-for></nav>
+<div style="flex:1"></div>
+<span role="status" aria-label="All changes saved" title="All changes saved" style="width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:13px;color:oklch(0.80 0.12 165);box-shadow:inset 0 0 0 1px rgba(120,200,170,.22);opacity:.75">✓</span>
+<div style="display:flex;gap:8px;padding-left:16px;border-left:1px solid rgba(140,170,225,.13)"><button style="height:36px;padding:0 14px;border-radius:8px;background:rgba(150,185,240,.08);border:1px solid rgba(150,185,240,.28);font-size:13.5px;font-weight:500;color:#dbe6fb">Export backup</button><button style="height:36px;padding:0 14px;border-radius:8px;background:none;border:1px solid rgba(150,185,240,.14);font-size:13.5px;font-weight:500;color:#9aa6bf">Restore</button></div>
+<button aria-label="Account: signed in" style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(150,185,240,.28);background:#101a30;font-size:14px;font-weight:600;color:#dbe6fb">L</button>
+</header>
+<div style="padding:30px 32px 0;display:flex;align-items:flex-end;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:4px"><div style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:oklch(0.82 0.1 230 / .8)">// WEEK OF NOV 2 – 8 · CENTRAL TIME</div><h1 style="margin:0;font:400 60px/1 'Instrument Serif',serif;text-shadow:0 0 40px oklch(0.6 0.12 250 / .45)">Weekly</h1></div>
+<label style="width:320px;height:42px;display:flex;align-items:center;gap:10px;padding:0 14px;border-radius:10px;background:rgba(10,15,28,.8);border:1px solid rgba(150,185,240,.18)"><span style="width:12px;height:12px;border-radius:50%;border:1.5px solid #8f9bb4"></span><span style="font-size:14px;color:#7d89a3">Search library</span></label>
+</div>
+<div style="margin:24px 32px 0;padding:22px 24px 24px;border-radius:14px;position:relative;background:linear-gradient(180deg, rgba(20,34,64,.55), rgba(9,14,26,.7));border:1px solid oklch(0.82 0.1 230 / .35);box-shadow:0 0 0 1px rgba(0,0,0,.4),0 0 60px oklch(0.6 0.12 250 / .18)">
+<div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2px solid oklch(0.82 0.1 230);border-left:2px solid oklch(0.82 0.1 230);border-top-left-radius:14px"></div>
+<div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:2px solid oklch(0.82 0.1 230);border-right:2px solid oklch(0.82 0.1 230);border-bottom-right-radius:14px"></div>
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:18px"><span style="font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.16em;padding:4px 9px;border-radius:5px;background:oklch(0.82 0.1 230);color:#05070d">TODAY</span><span style="font:400 36px/1 'Instrument Serif',serif">Friday</span><span style="font:500 12px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8f9bb4">NOV 6 · 6 SHOWS · 4 READY TO WATCH</span></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+<sc-for list="{{ today }}" as="c" hint-placeholder-count="6">
+<article aria-label="{{ c.title }}" style="position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding:14px;border-radius:10px;background-color:#090e1a;background-image:linear-gradient(90deg, {{ c.wash }}, transparent 55%);border:1px solid rgba(150,185,240,.12)">
+<div style="position:absolute;top:-1px;left:-1px;width:10px;height:10px;border-top:1.5px solid {{ c.color }};border-left:1.5px solid {{ c.color }};border-top-left-radius:10px"></div>
+<div style="width:44px;height:64px;border-radius:4px;background:repeating-linear-gradient(135deg,#121a2c 0 6px,#0d1424 6px 12px);box-shadow:inset 0 0 0 1px rgba(150,185,240,.12)"></div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:7px">
+<div style="display:flex;align-items:center;gap:8px"><span style="display:flex;align-items:center;gap:5px;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:{{ c.color }}"><span style="width:6px;height:6px;border-radius:50%;background:{{ c.color }};box-shadow:0 0 8px {{ c.color }}"></span>{{ c.genre }}</span><span style="font-size:12px;color:#8f9bb4">{{ c.service }}</span></div>
+<button style="all:unset;cursor:pointer;font:400 22px/1.05 'Instrument Serif',serif;color:#eef3ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</button>
+<sc-if value="{{ c.avail }}" hint-placeholder-val="{{ true }}"><label style="display:flex;align-items:center;gap:10px;min-height:36px;padding:0 10px;border-radius:8px;background:rgba(255,255,255,.035);cursor:pointer"><span style="width:22px;height:22px;border-radius:6px;border:1.5px solid {{ c.color }};flex:none"></span><span style="font-size:13px;color:#dbe6fb;white-space:nowrap">Mark <b style="font:600 13.5px 'IBM Plex Mono',monospace;color:#eef3ff">{{ c.next }}</b> watched</span><span style="flex:1"></span><span style="font-size:12px;color:#b7c1d6">{{ c.sub }}</span></label></sc-if>
+<sc-if value="{{ c.wait }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:10px;min-height:36px;padding:0 10px;border-radius:8px;border:1px dashed rgba(150,185,240,.2)"><span style="font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8f9bb4">CAUGHT UP</span><span style="font-size:13px;color:#dbe6fb">{{ c.sub }}</span></div></sc-if>
+</div>
+</article>
+</sc-for>
+</div>
+</div>
+<div style="margin:30px 32px 0;display:flex;flex-direction:column">
+<sc-for list="{{ rest }}" as="d" hint-placeholder-count="5">
+<sc-if value="{{ d.empty }}" hint-placeholder-val="{{ false }}"><div style="display:grid;grid-template-columns:170px minmax(0,1fr);align-items:center;padding:12px 0;border-top:1px solid rgba(150,185,240,.09)"><span style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#5d6880">{{ d.label }}</span><span style="font-size:13px;color:#6f7b94">Nothing scheduled</span></div></sc-if>
+<sc-if value="{{ d.full }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:170px minmax(0,1fr);gap:0;padding:16px 0;border-top:1px solid rgba(150,185,240,.09)">
+<div style="display:flex;flex-direction:column;gap:4px;padding-top:6px"><span style="font:400 28px/1 'Instrument Serif',serif;color:#dbe6fb">{{ d.day }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#6f7b94">{{ d.date }}</span></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+<sc-for list="{{ d.cards }}" as="c" hint-placeholder-count="2">
+<article aria-label="{{ c.title }}" style="position:relative;display:flex;flex-direction:column;gap:7px;padding:12px 14px;border-radius:10px;background-color:#090e1a;background-image:linear-gradient(90deg, {{ c.wash }}, transparent 55%);border:1px solid rgba(150,185,240,.1)">
+<div style="display:flex;align-items:center;gap:8px"><span style="display:flex;align-items:center;gap:5px;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:{{ c.color }}"><span style="width:6px;height:6px;border-radius:50%;background:{{ c.color }}"></span>{{ c.genre }}</span><span style="font-size:12px;color:#8f9bb4">{{ c.service }}</span></div>
+<button style="all:unset;cursor:pointer;font:400 21px/1.05 'Instrument Serif',serif;color:#eef3ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</button>
+<sc-if value="{{ c.avail }}" hint-placeholder-val="{{ true }}"><label style="display:flex;align-items:center;gap:10px;min-height:34px;padding:0 10px;border-radius:8px;background:rgba(255,255,255,.035)"><span style="width:20px;height:20px;border-radius:5px;border:1.5px solid {{ c.color }};flex:none"></span><span style="font-size:13px;color:#dbe6fb;white-space:nowrap">Mark <b style="font:600 13px 'IBM Plex Mono',monospace;color:#eef3ff">{{ c.next }}</b> watched</span><span style="flex:1"></span><span style="font-size:12px;color:#b7c1d6">{{ c.sub }}</span></label></sc-if>
+<sc-if value="{{ c.wait }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:10px;min-height:34px;padding:0 10px;border-radius:8px;border:1px dashed rgba(150,185,240,.2)"><span style="font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8f9bb4">CAUGHT UP</span><span style="font-size:13px;color:#dbe6fb">{{ c.sub }}</span></div></sc-if>
+</article>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+
+<div data-screen-label="Weekly Android" style="width:360px;height:780px;border-radius:38px;padding:9px;background:#1a1d24;box-shadow:inset 0 0 0 1px #2b2f38;flex:none">
+<div style="width:100%;height:100%;border-radius:30px;overflow:hidden;position:relative;display:flex;flex-direction:column;background-color:#05070d;background-image:radial-gradient(ellipse 90% 40% at 80% -5%, oklch(0.36 0.09 252 / .6), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,32px 32px,32px 32px">
+<div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:500 12px 'IBM Plex Mono',monospace;color:#b7c1d6"><span>8:12</span><span style="width:10px;height:10px;border-radius:50%;background:#000"></span><span>▴ ● 82%</span></div>
+<div style="padding:8px 14px 0 18px;display:flex;align-items:center;gap:8px"><h1 style="margin:0;flex:1;font:400 40px/1 'Instrument Serif',serif;text-shadow:0 0 30px oklch(0.6 0.12 250 / .5)">Weekly</h1><span role="status" aria-label="All changes saved" style="width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:oklch(0.80 0.12 165);box-shadow:inset 0 0 0 1px rgba(120,200,170,.22);opacity:.75">✓</span><button aria-label="Backup and more" style="width:44px;height:44px;border-radius:12px;background:rgba(150,185,240,.06);border:1px solid rgba(150,185,240,.18);font-size:18px;color:#cfd8ea">⋯</button></div>
+<div style="flex:1;overflow:hidden;padding:14px 10px 0;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:baseline;gap:10px;padding:0 6px 2px"><span style="font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.14em;padding:3px 7px;border-radius:4px;background:oklch(0.82 0.1 230);color:#05070d">TODAY</span><span style="font:400 24px/1 'Instrument Serif',serif">Friday</span><span style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8f9bb4">NOV 6 · 6 SHOWS</span></div>
+<sc-for list="{{ todayM }}" as="c" hint-placeholder-count="3">
+<article aria-label="{{ c.title }}" style="position:relative;display:flex;flex-direction:column;gap:7px;padding:12px;border-radius:14px;background-color:#090e1a;background-image:linear-gradient(90deg, {{ c.wash }}, transparent 55%);border:1px solid rgba(150,185,240,.12)">
+<div style="position:absolute;top:-1px;left:-1px;width:12px;height:12px;border-top:1.5px solid {{ c.color }};border-left:1.5px solid {{ c.color }};border-top-left-radius:14px"></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="display:flex;align-items:center;gap:5px;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:{{ c.color }}"><span style="width:6px;height:6px;border-radius:50%;background:{{ c.color }}"></span>{{ c.genre }}</span><span style="font-size:12px;color:#8f9bb4">{{ c.service }}</span></div>
+<button style="all:unset;font:400 22px/1.05 'Instrument Serif',serif;color:#eef3ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</button>
+<sc-if value="{{ c.avail }}" hint-placeholder-val="{{ true }}"><label style="height:44px;display:flex;align-items:center;gap:12px;padding:0 10px;border-radius:10px;background:rgba(255,255,255,.035)"><span style="width:24px;height:24px;border-radius:6px;border:1.5px solid {{ c.color }};flex:none"></span><span style="font-size:13px;color:#dbe6fb;white-space:nowrap">Mark <b style="font:600 13.5px 'IBM Plex Mono',monospace;color:#eef3ff">{{ c.next }}</b> watched</span><span style="flex:1"></span><span style="font-size:12px;color:#b7c1d6">{{ c.sub }}</span></label></sc-if>
+<sc-if value="{{ c.wait }}" hint-placeholder-val="{{ false }}"><div style="height:44px;display:flex;align-items:center;gap:10px;padding:0 10px;border-radius:10px;border:1px dashed rgba(150,185,240,.2)"><span style="font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8f9bb4">CAUGHT UP</span><span style="font-size:13px;color:#dbe6fb">{{ c.sub }}</span></div></sc-if>
+</article>
+</sc-for>
+<button style="height:44px;border-radius:12px;border:1px solid rgba(150,185,240,.16);background:none;font-size:13.5px;color:#b7c1d6">Show 3 more today</button>
+<div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#6f7b94;padding:10px 6px 2px">LATER THIS WEEK</div>
+<sc-for list="{{ restM }}" as="r" hint-placeholder-count="4">
+<div style="min-height:48px;display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:10px;padding:0 6px;border-top:1px solid rgba(150,185,240,.08)"><span style="font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8f9bb4">{{ r.day }}</span><span style="font:400 18px 'Instrument Serif',serif;color:#dbe6fb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</span><span style="font:600 11px 'IBM Plex Mono',monospace;color:#6f7b94">{{ r.more }}</span></div>
+</sc-for>
+</div>
+<nav aria-label="Views" style="flex:none;height:72px;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 14px;background:rgba(6,9,17,.96);border-top:1px solid rgba(150,185,240,.12)"><sc-for list="{{ mnavWeekly }}" as="n" hint-placeholder-count="4"><button aria-current="{{ n.cur }}" style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:{{ n.fw }};color:{{ n.color }}"><span style="width:52px;height:26px;border-radius:13px;display:grid;place-items:center;font-size:15px;background:{{ n.pill }};color:{{ n.icol }}">{{ n.icon }}</span>{{ n.label }}</button></sc-for></nav>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="sx" id="watched">
+<div class="sx-h"><a class="sx-id" href="#watched">B</a><span class="sx-t">Watched</span></div>
+<p class="sx-n">Viewing history sorted A–Z. Season chips separate fully watched seasons (✓) from partly watched ones (shown as a fraction). Series status is labeled as coming from TVmaze, with an icon as well as a color, and only uses wording TVmaze can back up. This header shows the offline state, with changes waiting to save.</p>
+<div class="sx-row">
+
+<div data-screen-label="Watched PC" style="width:1280px;flex:none;position:relative;overflow:hidden;border-radius:8px;padding-bottom:40px;background-color:#05070d;background-image:radial-gradient(ellipse 70% 40% at 78% -8%, oklch(0.36 0.09 252 / .6), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,44px 44px,44px 44px">
+<header style="height:68px;display:flex;align-items:center;gap:28px;padding:0 32px;border-bottom:1px solid rgba(140,170,225,.13);background:rgba(5,7,13,.6)">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:34px;height:34px;border-radius:9px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%, #16233f, #070a14);box-shadow:inset 0 0 0 1px rgba(150,185,240,.25)"><div style="position:absolute;inset:4px;border-radius:50%;border:1px solid oklch(0.82 0.1 230 / .55);border-top-color:transparent;border-bottom-color:transparent"></div><span style="font:400 21px/1 'Instrument Serif',serif;color:#eaf1ff;margin-top:1px">W</span></div><span style="font:400 27px/1 'Instrument Serif',serif">Watchlist</span></div>
+<nav aria-label="Views" style="display:flex;gap:2px;height:100%"><sc-for list="{{ navWatched }}" as="n" hint-placeholder-count="5"><button aria-current="{{ n.cur }}" style="background:none;border:0;padding:0 16px;font-size:14px;font-weight:{{ n.fw }};color:{{ n.color }};box-shadow:{{ n.bar }};text-shadow:{{ n.glow }};cursor:pointer">{{ n.label }}</button></sc-for></nav>
+<div style="flex:1"></div>
+<div role="status" style="display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:999px;background:oklch(0.83 0.14 80 / .08);box-shadow:inset 0 0 0 1px oklch(0.83 0.14 80 / .35)"><span style="width:9px;height:9px;border:1.5px solid oklch(0.83 0.14 80);border-radius:2px;transform:rotate(45deg)"></span><span style="font-size:13px;color:#f1e3c2">Offline · 3 changes saved on this device</span></div>
+<div style="display:flex;gap:8px;padding-left:16px;border-left:1px solid rgba(140,170,225,.13)"><button style="height:36px;padding:0 14px;border-radius:8px;background:rgba(150,185,240,.08);border:1px solid rgba(150,185,240,.28);font-size:13.5px;font-weight:500;color:#dbe6fb">Export backup</button><button style="height:36px;padding:0 14px;border-radius:8px;background:none;border:1px solid rgba(150,185,240,.14);font-size:13.5px;font-weight:500;color:#9aa6bf">Restore</button></div>
+<button aria-label="Account: signed in" style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(150,185,240,.28);background:#101a30;font-size:14px;font-weight:600;color:#dbe6fb">L</button>
+</header>
+<div style="padding:30px 32px 0;display:flex;align-items:flex-end;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:4px"><div style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:oklch(0.82 0.1 230 / .8)">// HISTORY · A–Z</div><h1 style="margin:0;font:400 60px/1 'Instrument Serif',serif;text-shadow:0 0 40px oklch(0.6 0.12 250 / .45)">Watched</h1></div>
+<label style="width:320px;height:42px;display:flex;align-items:center;gap:10px;padding:0 14px;border-radius:10px;background:rgba(10,15,28,.8);border:1px solid rgba(150,185,240,.18)"><span style="width:12px;height:12px;border-radius:50%;border:1.5px solid #8f9bb4"></span><span style="font-size:14px;color:#7d89a3">Search library</span></label>
+</div>
+<div style="padding:18px 32px 0;display:flex;gap:8px;align-items:center">
+<sc-for list="{{ filters }}" as="f" hint-placeholder-count="4"><button aria-pressed="{{ f.on }}" style="height:36px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:999px;border:1px solid {{ f.bd }};background:{{ f.bg }};font-size:13.5px;color:{{ f.fg }}"><span style="font-size:11px">{{ f.icon }}</span>{{ f.label }}<span style="font:500 11px 'IBM Plex Mono',monospace;color:#8f9bb4">{{ f.n }}</span></button></sc-for>
+<span style="flex:1"></span><span style="font-size:12.5px;color:#6f7b94">Series status from TVmaze · checked Nov 4</span>
+</div>
+<div style="margin:18px 32px 0;display:grid;grid-template-columns:28px 40px minmax(0,1.4fr) minmax(0,1.3fr) 190px 130px;column-gap:18px;padding:0 16px 8px;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#5d6880;border-bottom:1px solid rgba(150,185,240,.1)"><span></span><span></span><span>TITLE</span><span>SEASONS</span><span>SERIES STATUS</span><span>LAST WATCHED</span></div>
+<div style="margin:0 32px;display:flex;flex-direction:column">
+<sc-for list="{{ watched }}" as="r" hint-placeholder-count="10">
+<article aria-label="{{ r.title }}" style="display:grid;grid-template-columns:28px 40px minmax(0,1.4fr) minmax(0,1.3fr) 190px 130px;column-gap:18px;align-items:center;padding:10px 16px;border-bottom:1px solid rgba(150,185,240,.07);background-image:linear-gradient(90deg, {{ r.wash }}, transparent 30%)">
+<span style="font:400 22px 'Instrument Serif',serif;color:oklch(0.82 0.1 230 / .7)">{{ r.letter }}</span>
+<div style="width:40px;height:56px;border-radius:4px;background:repeating-linear-gradient(135deg,#121a2c 0 6px,#0d1424 6px 12px);box-shadow:inset 0 0 0 1px rgba(150,185,240,.12)"></div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:4px"><button style="all:unset;cursor:pointer;font:400 22px/1.1 'Instrument Serif',serif;color:#eef3ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</button><span style="display:flex;align-items:center;gap:6px;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:{{ r.color }}"><span style="width:6px;height:6px;border-radius:50%;background:{{ r.color }}"></span>{{ r.genre }}<span style="font:400 12px 'IBM Plex Sans',sans-serif;letter-spacing:0;color:#8f9bb4;margin-left:4px">{{ r.service }}</span></span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ r.seasons }}" as="s" hint-placeholder-count="2"><span style="height:26px;display:flex;align-items:center;gap:5px;padding:0 9px;border-radius:6px;border:1px solid {{ s.bd }};background:{{ s.bg }};font:500 12px 'IBM Plex Mono',monospace;color:{{ s.fg }}">{{ s.label }}</span></sc-for></div>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:{{ r.stFg }}"><span style="width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:{{ r.stBg }}">{{ r.stIcon }}</span>{{ r.status }}</span>
+<span style="font:500 12.5px 'IBM Plex Mono',monospace;color:#8f9bb4">{{ r.last }}</span>
+</article>
+</sc-for>
+</div>
+</div>
+
+<div data-screen-label="Watched Android" style="width:360px;height:780px;border-radius:38px;padding:9px;background:#1a1d24;box-shadow:inset 0 0 0 1px #2b2f38;flex:none">
+<div style="width:100%;height:100%;border-radius:30px;overflow:hidden;position:relative;display:flex;flex-direction:column;background-color:#05070d;background-image:radial-gradient(ellipse 90% 40% at 80% -5%, oklch(0.36 0.09 252 / .6), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,32px 32px,32px 32px">
+<div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:500 12px 'IBM Plex Mono',monospace;color:#b7c1d6"><span>8:12</span><span style="width:10px;height:10px;border-radius:50%;background:#000"></span><span>✕ ● 82%</span></div>
+<div style="padding:8px 14px 0 18px;display:flex;align-items:center;gap:8px"><h1 style="margin:0;flex:1;font:400 40px/1 'Instrument Serif',serif;text-shadow:0 0 30px oklch(0.6 0.12 250 / .5)">Watched</h1><button aria-label="Backup and more" style="width:44px;height:44px;border-radius:12px;background:rgba(150,185,240,.06);border:1px solid rgba(150,185,240,.18);font-size:18px;color:#cfd8ea">⋯</button></div>
+<div role="status" style="margin:10px 14px 0;min-height:40px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:10px;background:oklch(0.83 0.14 80 / .08);box-shadow:inset 0 0 0 1px oklch(0.83 0.14 80 / .35)"><span style="width:9px;height:9px;border:1.5px solid oklch(0.83 0.14 80);border-radius:2px;transform:rotate(45deg);flex:none"></span><span style="font-size:13px;color:#f1e3c2">Offline. 3 changes saved on this phone.</span></div>
+<div style="padding:12px 14px 6px;display:flex;gap:6px;overflow:hidden"><sc-for list="{{ filters }}" as="f" hint-placeholder-count="4"><button aria-pressed="{{ f.on }}" style="height:36px;flex:none;display:flex;align-items:center;gap:6px;padding:0 12px;border-radius:999px;border:1px solid {{ f.bd }};background:{{ f.bg }};font-size:13px;color:{{ f.fg }}"><span style="font-size:10px">{{ f.icon }}</span>{{ f.short }}</button></sc-for></div>
+<div style="flex:1;overflow:hidden;padding:4px 10px 0;display:flex;flex-direction:column">
+<sc-for list="{{ watchedM }}" as="r" hint-placeholder-count="7">
+<article aria-label="{{ r.title }}" style="min-height:72px;display:grid;grid-template-columns:minmax(0,1fr) 28px;align-items:center;gap:10px;padding:8px 8px;border-bottom:1px solid rgba(150,185,240,.08)">
+<div style="min-width:0;display:flex;flex-direction:column;gap:5px"><span style="font:400 20px/1.1 'Instrument Serif',serif;color:#eef3ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</span><div style="display:flex;gap:5px;align-items:center"><span style="width:6px;height:6px;border-radius:50%;background:{{ r.color }};margin-right:3px"></span><sc-for list="{{ r.seasons }}" as="s" hint-placeholder-count="2"><span style="height:22px;display:flex;align-items:center;padding:0 7px;border-radius:5px;border:1px solid {{ s.bd }};font:500 11px 'IBM Plex Mono',monospace;color:{{ s.fg }}">{{ s.label }}</span></sc-for></div></div>
+<span aria-label="{{ r.status }}" style="width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:{{ r.stBg }};color:{{ r.stFg }}">{{ r.stIcon }}</span>
+</article>
+</sc-for>
+</div>
+<nav aria-label="Views" style="flex:none;height:72px;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 14px;background:rgba(6,9,17,.96);border-top:1px solid rgba(150,185,240,.12)"><sc-for list="{{ mnavWatched }}" as="n" hint-placeholder-count="4"><button aria-current="{{ n.cur }}" style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:{{ n.fw }};color:{{ n.color }}"><span style="width:52px;height:26px;border-radius:13px;display:grid;place-items:center;font-size:15px;background:{{ n.pill }};color:{{ n.icol }}">{{ n.icon }}</span>{{ n.label }}</button></sc-for></nav>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="sx" id="detail">
+<div class="sx-h"><a class="sx-id" href="#detail">C</a><span class="sx-t">Show detail</span></div>
+<p class="sx-n">The red curved back arrow comes from your decisions doc. On the left are facts, the next episode, notes and catch-up. On the right are the episodes. Each episode row has one of five states: watched, next, available, upcoming (locked until it airs) or not announced. Notes show their own save state. Delete is kept apart and outlined in red. This header shows the syncing state. The second Android screen shows the lower part of the page, with notes, catch-up, and the refresh and delete actions.</p>
+<div class="sx-row">
+
+<div data-screen-label="Detail PC" style="width:1280px;flex:none;position:relative;overflow:hidden;border-radius:8px;padding-bottom:40px;background-color:#05070d;background-image:radial-gradient(ellipse 60% 40% at 20% -5%, oklch(0.40 0.11 300 / .35), transparent 70%),radial-gradient(ellipse 70% 40% at 78% -8%, oklch(0.36 0.09 252 / .55), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,auto,44px 44px,44px 44px">
+<header style="height:68px;display:flex;align-items:center;gap:28px;padding:0 32px;border-bottom:1px solid rgba(140,170,225,.13);background:rgba(5,7,13,.6)">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:34px;height:34px;border-radius:9px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%, #16233f, #070a14);box-shadow:inset 0 0 0 1px rgba(150,185,240,.25)"><div style="position:absolute;inset:4px;border-radius:50%;border:1px solid oklch(0.82 0.1 230 / .55);border-top-color:transparent;border-bottom-color:transparent"></div><span style="font:400 21px/1 'Instrument Serif',serif;color:#eaf1ff;margin-top:1px">W</span></div><span style="font:400 27px/1 'Instrument Serif',serif">Watchlist</span></div>
+<nav aria-label="Views" style="display:flex;gap:2px;height:100%"><sc-for list="{{ navDetail }}" as="n" hint-placeholder-count="5"><button aria-current="{{ n.cur }}" style="background:none;border:0;padding:0 16px;font-size:14px;font-weight:{{ n.fw }};color:{{ n.color }};box-shadow:{{ n.bar }};text-shadow:{{ n.glow }};cursor:pointer">{{ n.label }}</button></sc-for></nav>
+<div style="flex:1"></div>
+<div role="status" style="display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:999px;background:oklch(0.82 0.1 230 / .08);box-shadow:inset 0 0 0 1px oklch(0.82 0.1 230 / .3)">{{ spinner }}<span style="font-size:13px;color:#dbe6fb">Syncing your changes…</span></div>
+<div style="display:flex;gap:8px;padding-left:16px;border-left:1px solid rgba(140,170,225,.13)"><button style="height:36px;padding:0 14px;border-radius:8px;background:rgba(150,185,240,.08);border:1px solid rgba(150,185,240,.28);font-size:13.5px;font-weight:500;color:#dbe6fb">Export backup</button><button style="height:36px;padding:0 14px;border-radius:8px;background:none;border:1px solid rgba(150,185,240,.14);font-size:13.5px;font-weight:500;color:#9aa6bf">Restore</button></div>
+<button aria-label="Account: signed in" style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(150,185,240,.28);background:#101a30;font-size:14px;font-weight:600;color:#dbe6fb">L</button>
+</header>
+<div style="padding:24px 32px 0;display:flex;align-items:center;gap:14px">
+<button aria-label="Back to library" style="width:44px;height:44px;border-radius:50%;border:0;background:oklch(0.62 0.2 25);color:#fff;font-size:22px;display:grid;place-items:center;box-shadow:0 0 0 4px oklch(0.62 0.2 25 / .18),0 0 24px oklch(0.62 0.2 25 / .4)">↶</button>
+<span style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#6f7b94">WEEKLY / FRIDAY</span>
+<span style="flex:1"></span>
+<button style="height:38px;padding:0 14px;border-radius:8px;background:rgba(150,185,240,.06);border:1px solid rgba(150,185,240,.22);font-size:13.5px;color:#dbe6fb">↻ Refresh episode info</button>
+<button style="height:38px;padding:0 14px;border-radius:8px;background:none;border:1px solid oklch(0.70 0.17 22 / .55);font-size:13.5px;color:oklch(0.80 0.12 22)">Delete show</button>
+</div>
+<div style="padding:22px 32px 0;display:grid;grid-template-columns:420px minmax(0,1fr);gap:36px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px">
+<div style="height:174px;border-radius:8px;background:repeating-linear-gradient(135deg,#171d36 0 7px,#10152a 7px 14px);box-shadow:inset 0 0 0 1px oklch(0.76 0.13 300 / .3);display:grid;place-items:center;font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#5d6880">POSTER</div>
+<div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+<div style="display:flex;flex-wrap:wrap;gap:6px"><span style="display:flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;border:1px solid oklch(0.76 0.13 300 / .4);font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:oklch(0.76 0.13 300)"><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.76 0.13 300)"></span>FANTASY</span><span style="padding:3px 9px;border-radius:999px;border:1px solid rgba(150,185,240,.18);font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8f9bb4">ADVENTURE</span><span style="padding:3px 9px;border-radius:999px;border:1px solid rgba(150,185,240,.18);font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8f9bb4">FAMILY</span></div>
+<h1 style="margin:0;font:400 40px/1.02 'Instrument Serif',serif;text-shadow:0 0 36px oklch(0.6 0.12 300 / .45)">Percy Jackson and the Olympians</h1>
+<div style="font-size:13.5px;color:#9aa6bf">Disney+ · Continuing · Fridays</div>
+</div>
+</div>
+<p style="margin:0;font-size:14.5px;line-height:1.6;color:#b7c1d6;text-wrap:pretty">A demigod and his friends take on quests drawn from Greek myth. This is a sample synopsis. The real one comes from TVmaze.</p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(150,185,240,.12);border-radius:10px;overflow:hidden">
+<div style="padding:12px 14px;display:flex;flex-direction:column;gap:3px;border-right:1px solid rgba(150,185,240,.12)"><span style="font:400 30px/1 'Instrument Serif',serif;color:oklch(0.76 0.13 300)">1</span><span style="font-size:12px;color:#8f9bb4">available unwatched</span></div>
+<div style="padding:12px 14px;display:flex;flex-direction:column;gap:3px;border-right:1px solid rgba(150,185,240,.12)"><span style="font:400 30px/1 'Instrument Serif',serif;color:#dbe6fb">3</span><span style="font-size:12px;color:#8f9bb4">upcoming, dated</span></div>
+<div style="padding:12px 14px;display:flex;flex-direction:column;gap:3px"><span style="font:400 30px/1 'Instrument Serif',serif;color:#8f9bb4">1</span><span style="font-size:12px;color:#8f9bb4">date not announced</span></div>
+</div>
+<div style="position:relative;padding:16px;border-radius:12px;background:linear-gradient(90deg, oklch(0.76 0.13 300 / .12), rgba(9,14,26,.9) 60%);border:1px solid oklch(0.76 0.13 300 / .4)">
+<div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#8f9bb4;margin-bottom:10px">NEXT UP</div>
+<label style="display:flex;align-items:center;gap:14px"><span style="width:30px;height:30px;border-radius:7px;border:2px solid oklch(0.76 0.13 300);box-shadow:0 0 14px oklch(0.76 0.13 300 / .35);flex:none"></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 16px 'IBM Plex Mono',monospace;color:#eef3ff">Mark S3 E4 watched</span><span style="font-size:12.5px;color:#9aa6bf">Released Fri Oct 30 · Then caught up until Nov 13</span></span></label>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:baseline;justify-content:space-between"><label style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#8f9bb4">PERSONAL NOTES</label><span style="font-size:12px;color:#8fd6bd">✓ Saved</span></div>
+<div style="min-height:84px;padding:12px 14px;border-radius:10px;background:rgba(8,12,22,.9);border:1px solid rgba(150,185,240,.18);font-size:14px;line-height:1.55;color:#dbe6fb">Watching on Fridays with Sam. Avoid spoilers for book 3 online.</div>
+</div>
+<details open style="border:1px solid rgba(150,185,240,.12);border-radius:10px;padding:14px 16px;background:rgba(9,14,26,.6)">
+<summary style="cursor:pointer;font-size:14px;font-weight:500;color:#dbe6fb">Already watching? Choose your current episode</summary>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:12px"><p style="margin:0;font-size:13px;line-height:1.5;color:#9aa6bf">Released episodes before the one you pick will be marked watched. The episode you pick stays unwatched.</p><div style="display:flex;gap:8px"><div style="flex:1;height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-radius:8px;border:1px solid rgba(150,185,240,.2);background:#080c16;font:500 13px 'IBM Plex Mono',monospace;color:#9aa6bf">Choose episode <span>▾</span></div><button disabled style="height:40px;padding:0 14px;border-radius:8px;border:1px solid rgba(150,185,240,.12);background:none;font-size:13px;color:#5d6880">Mark earlier watched</button></div></div>
+</details>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div role="tablist" aria-label="Seasons" style="display:flex;gap:6px;align-items:center"><sc-for list="{{ seasonTabs }}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{ t.on }}" style="height:38px;display:flex;align-items:center;gap:8px;padding:0 16px;border-radius:8px;border:1px solid {{ t.bd }};background:{{ t.bg }};font-size:14px;font-weight:500;color:{{ t.fg }}">{{ t.label }}<span style="font:500 11px 'IBM Plex Mono',monospace;color:#8f9bb4">{{ t.sub }}</span></button></sc-for><span style="flex:1"></span><span style="font-size:12.5px;color:#6f7b94">Episode info refreshed Nov 4, 9:12 PM</span></div>
+<div style="height:4px;border-radius:2px;background:rgba(255,255,255,.07)"><div style="width:37.5%;height:100%;border-radius:2px;background:oklch(0.76 0.13 300);box-shadow:0 0 10px oklch(0.76 0.13 300)"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ episodes }}" as="e" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:30px 56px minmax(0,1fr) 230px 120px;align-items:center;gap:14px;min-height:58px;padding:0 16px;border-radius:10px;background:{{ e.bg }};border:1px solid {{ e.bd }};opacity:{{ e.op }}">
+<span aria-hidden="true" style="width:24px;height:24px;border-radius:6px;display:grid;place-items:center;font-size:13px;font-weight:700;border:1.5px {{ e.boxStyle }} {{ e.boxBd }};background:{{ e.boxBg }};color:#05070d">{{ e.tick }}</span>
+<span style="font:600 13px 'IBM Plex Mono',monospace;color:#8f9bb4">{{ e.code }}</span>
+<span style="font-size:15px;color:{{ e.fg }}">{{ e.name }}</span>
+<span style="font:500 12.5px 'IBM Plex Mono',monospace;color:#9aa6bf">{{ e.when }}</span>
+<span style="justify-self:end;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;padding:4px 8px;border-radius:5px;border:1px solid {{ e.tagBd }};color:{{ e.tagFg }}">{{ e.tag }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+
+<div data-screen-label="Detail Android" style="width:360px;height:780px;border-radius:38px;padding:9px;background:#1a1d24;box-shadow:inset 0 0 0 1px #2b2f38;flex:none">
+<div style="width:100%;height:100%;border-radius:30px;overflow:hidden;position:relative;display:flex;flex-direction:column;background-color:#05070d;background-image:radial-gradient(ellipse 90% 35% at 20% -5%, oklch(0.40 0.11 300 / .4), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,32px 32px,32px 32px">
+<div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:500 12px 'IBM Plex Mono',monospace;color:#b7c1d6"><span>8:12</span><span style="width:10px;height:10px;border-radius:50%;background:#000"></span><span>▴ ● 82%</span></div>
+<div style="padding:6px 12px 0;display:flex;align-items:center;gap:8px">
+<button aria-label="Back to library" style="width:44px;height:44px;border-radius:50%;border:0;background:oklch(0.62 0.2 25);color:#fff;font-size:21px;box-shadow:0 0 0 4px oklch(0.62 0.2 25 / .18)">↶</button>
+<span style="flex:1"></span>
+<div role="status" aria-label="Syncing your changes" style="height:32px;display:flex;align-items:center;gap:7px;padding:0 10px;border-radius:999px;background:oklch(0.82 0.1 230 / .08);box-shadow:inset 0 0 0 1px oklch(0.82 0.1 230 / .3)">{{ spinner }}<span style="font-size:12px;color:#dbe6fb">Syncing</span></div>
+<button aria-label="Show options: refresh, delete" style="width:44px;height:44px;border-radius:12px;background:rgba(150,185,240,.06);border:1px solid rgba(150,185,240,.18);font-size:18px;color:#cfd8ea">⋯</button>
+</div>
+<div style="flex:1;overflow:hidden;padding:12px 16px 0;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="display:flex;align-items:center;gap:6px;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:oklch(0.76 0.13 300)"><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.76 0.13 300)"></span>FANTASY <span style="font:400 12px 'IBM Plex Sans',sans-serif;letter-spacing:0;color:#8f9bb4">· Disney+ · Continuing</span></span><h1 style="margin:0;font:400 31px/1.02 'Instrument Serif',serif;text-shadow:0 0 30px oklch(0.6 0.12 300 / .45)">Percy Jackson and the Olympians</h1></div>
+<label style="min-height:60px;display:flex;align-items:center;gap:12px;padding:0 12px;border-radius:12px;background:linear-gradient(90deg, oklch(0.76 0.13 300 / .14), rgba(9,14,26,.9) 70%);border:1px solid oklch(0.76 0.13 300 / .4)"><span style="width:28px;height:28px;border-radius:7px;border:2px solid oklch(0.76 0.13 300);flex:none"></span><span style="display:flex;flex-direction:column;gap:1px"><span style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#8f9bb4">NEXT UP</span><span style="font:600 15px 'IBM Plex Mono',monospace;color:#eef3ff">Mark S3 E4 watched</span></span></label>
+<div style="display:flex;gap:8px;font-size:12.5px;color:#9aa6bf"><span style="flex:1;padding:8px 10px;border-radius:8px;border:1px solid rgba(150,185,240,.12)"><b style="font:400 20px 'Instrument Serif',serif;color:#eef3ff">1</b> available</span><span style="flex:1;padding:8px 10px;border-radius:8px;border:1px solid rgba(150,185,240,.12)"><b style="font:400 20px 'Instrument Serif',serif;color:#eef3ff">3</b> upcoming</span></div>
+<div role="tablist" aria-label="Seasons" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border-radius:10px;background:rgba(255,255,255,.04)"><sc-for list="{{ seasonTabs }}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{ t.on }}" style="height:38px;border-radius:7px;border:0;background:{{ t.mbg }};font-size:13.5px;font-weight:500;color:{{ t.fg }}">{{ t.label }}</button></sc-for></div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ episodesM }}" as="e" hint-placeholder-count="6">
+<div style="min-height:52px;display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:12px;padding:0 4px;border-bottom:1px solid rgba(150,185,240,.07);opacity:{{ e.op }}">
+<span aria-hidden="true" style="width:24px;height:24px;border-radius:6px;display:grid;place-items:center;font-size:13px;font-weight:700;border:1.5px {{ e.boxStyle }} {{ e.boxBd }};background:{{ e.boxBg }};color:#05070d">{{ e.tick }}</span>
+<span style="display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font:600 13px 'IBM Plex Mono',monospace;color:{{ e.fg }}">{{ e.code }} · {{ e.name }}</span><span style="font-size:11.5px;color:#8f9bb4">{{ e.whenM }}</span></span>
+<span style="font:600 9.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:{{ e.tagFg }}">{{ e.tag }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<nav aria-label="Views" style="flex:none;height:72px;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 14px;background:rgba(6,9,17,.96);border-top:1px solid rgba(150,185,240,.12)"><sc-for list="{{ mnavWeekly }}" as="n" hint-placeholder-count="4"><button aria-current="{{ n.cur }}" style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:{{ n.fw }};color:{{ n.color }}"><span style="width:52px;height:26px;border-radius:13px;display:grid;place-items:center;font-size:15px;background:{{ n.pill }};color:{{ n.icol }}">{{ n.icon }}</span>{{ n.label }}</button></sc-for></nav>
+</div>
+</div>
+
+<div data-screen-label="Detail Android · lower" style="width:360px;height:780px;border-radius:38px;padding:9px;background:#1a1d24;box-shadow:inset 0 0 0 1px #2b2f38;flex:none"><div style="width:100%;height:100%;border-radius:30px;overflow:hidden;position:relative;display:flex;flex-direction:column;background-color:#05070d;background-image:radial-gradient(ellipse 90% 35% at 20% -5%, oklch(0.40 0.11 300 / .4), transparent 70%),linear-gradient(rgba(130,165,225,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(130,165,225,.045) 1px, transparent 1px);background-size:auto,32px 32px,32px 32px"><div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:500 12px 'IBM Plex Mono',monospace;color:#b7c1d6"><span>8:12</span><span style="width:10px;height:10px;border-radius:50%;background:#000"></span><span>▴ ● 82%</span></div><div style="padding:6px 12px 0;display:flex;align-items:center;gap:10px"><button aria-label="Back to library" style="width:44px;height:44px;border-radius:50%;border:0;background:oklch(0.62 0.2 25);color:#fff;font-size:21px;flex:none">↶</button><span style="flex:1;font:400 20px 'Instrument Serif',serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Percy Jackson and the Olympians</span></div>
+<div style="flex:1;overflow:hidden;padding:16px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;align-items:baseline"><label style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#8f9bb4">PERSONAL NOTES</label><span style="font-size:12px;color:#f1e3c2">◆ Saved on this phone</span></div><div style="min-height:110px;padding:12px;border-radius:12px;background:#080c16;border:1px solid oklch(0.82 0.1 230 / .5);box-shadow:0 0 0 3px oklch(0.82 0.1 230 / .12);font-size:15px;line-height:1.55;color:#dbe6fb">Watching on Fridays with Sam. Avoid spoilers for book 3 online.<span style="display:inline-block;width:1.5px;height:17px;background:oklch(0.82 0.1 230);vertical-align:-3px;margin-left:2px"></span></div><span style="font-size:12px;color:#8f9bb4">Notes save as you type. They'll upload when you're back online.</span></div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:12px;border:1px solid rgba(150,185,240,.14);background:rgba(9,14,26,.7)"><span style="font-size:15px;font-weight:500;color:#eef3ff">Already watching? Choose your current episode</span><span style="font-size:13px;line-height:1.5;color:#9aa6bf">Released episodes before the one you pick will be marked watched. The episode you pick stays unwatched.</span><div style="height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-radius:10px;border:1px solid rgba(150,185,240,.22);background:#080c16;font:500 14px 'IBM Plex Mono',monospace;color:#eef3ff">S2 E5 · Episode 5 <span style="color:#8f9bb4">▾</span></div><span style="font-size:12.5px;line-height:1.45;color:#b7c1d6">Marks S1 E1 through S2 E4 watched (12 episodes).</span><button style="height:48px;border-radius:10px;border:1px solid rgba(150,185,240,.28);background:rgba(150,185,240,.08);font-size:14px;font-weight:500;color:#eef3ff">Mark earlier episodes watched</button></div>
+<div style="display:flex;flex-direction:column"><button style="min-height:52px;display:flex;align-items:center;gap:12px;padding:0 4px;border:0;border-bottom:1px solid rgba(150,185,240,.08);background:none;font-size:14.5px;color:#dbe6fb;text-align:left"><span style="width:20px">↻</span>Refresh episode info<span style="flex:1"></span><span style="font-size:12px;color:#6f7b94">Nov 4</span></button><button style="min-height:52px;display:flex;align-items:center;gap:12px;padding:0 4px;border:0;background:none;font-size:14.5px;color:oklch(0.80 0.12 22);text-align:left"><span style="width:20px">✕</span>Delete show…</button></div>
+</div><nav aria-label="Views" style="flex:none;height:72px;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 14px;background:rgba(6,9,17,.96);border-top:1px solid rgba(150,185,240,.12)"><sc-for list="{{ mnavWeekly }}" as="n" hint-placeholder-count="4"><button aria-current="{{ n.cur }}" style="background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:{{ n.fw }};color:{{ n.color }}"><span style="width:52px;height:26px;border-radius:13px;display:grid;place-items:center;font-size:15px;background:{{ n.pill }};color:{{ n.icol }}">{{ n.icon }}</span>{{ n.label }}</button></sc-for></nav></div></div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const ok = (p, a) => a == null ? `oklch(${p})` : `oklch(${p} / ${a})`;
+    const G = { scifi: ['SCI-FI', '0.80 0.12 215'], hero: ['SUPERHERO', '0.83 0.14 80'], fantasy: ['FANTASY', '0.76 0.13 300'], horror: ['HORROR', '0.70 0.17 22'], comedy: ['COMEDY', '0.80 0.13 150'], drama: ['DRAMA', '0.76 0.06 250'] };
+    const card = (title, service, g, mode, next, sub) => ({ title, service, genre: G[g][0], color: ok(G[g][1]), wash: ok(G[g][1], .1), avail: mode === 'a', wait: mode === 'w', next, sub });
+    const today = [
+      card('Percy Jackson and the Olympians S3', 'Disney+', 'fantasy', 'a', 'S3 E4', '1 available'),
+      card('Dexter: Resurrection S2', 'Paramount+', 'drama', 'a', 'S2 E3', '2 available'),
+      card('Outlander: Blood of My Blood S2', 'Starz', 'fantasy', 'a', 'S2 E5', 'New today'),
+      card('Yellowjackets S4', 'Paramount+', 'horror', 'w', '', 'Airs tonight · 8:00 PM CST'),
+      card('Harry Potter S1', 'HBO Max', 'fantasy', 'a', 'S1 E2', '1 available'),
+      card('Neuromancer S1', 'Apple TV+', 'scifi', 'w', '', 'Airs tonight · 11:00 PM CST')
+    ];
+    const rest = [
+      { full: true, day: 'Saturday', date: 'NOV 7', cards: [card('Get Jiro! S1', 'Adult Swim', 'comedy', 'a', 'S1 E3', '1 available')] },
+      { full: true, day: 'Sunday', date: 'NOV 8', cards: [card('The Institute S2', 'MGM+', 'horror', 'w', '', 'Sun · 8:00 PM CST')] },
+      { empty: true, label: 'MONDAY · TUESDAY' },
+      { full: true, day: 'Wednesday', date: 'NOV 11', cards: [card('VisionQuest S1', 'Disney+', 'hero', 'a', 'S1 E2', '1 available'), card('The Rings of Power S3', 'Prime Video', 'fantasy', 'w', '', 'Wed · 8:00 PM CST'), card('Ahsoka S2', 'Disney+', 'scifi', 'a', 'S2 E4', '2 available')] },
+      { full: true, day: 'Thursday', date: 'NOV 12', cards: [card('Eternally Yours S1', 'Service unknown', 'drama', 'w', '', 'Thu · time not announced'), card('Ghosts S6', 'Paramount+', 'comedy', 'a', 'S6 E5', '1 available')] }
+    ];
+    const restM = [
+      { day: 'SAT', title: 'Get Jiro! S1', more: '' }, { day: 'SUN', title: 'The Institute S2', more: '' },
+      { day: 'WED', title: 'VisionQuest S1', more: '+2' }, { day: 'THU', title: 'Ghosts S6', more: '+1' }
+    ];
+    const navFor = active => ['Weekly', 'Binge', 'Watched', 'Add Show', 'Import'].map(label => {
+      const on = label === active;
+      return { label, cur: on ? 'page' : undefined, fw: on ? 600 : 500, color: on ? '#eaf1ff' : '#9aa6bf', bar: on ? 'inset 0 -2px 0 oklch(0.82 0.1 230)' : 'none', glow: on ? '0 0 18px oklch(0.82 0.1 230 / .6)' : 'none' };
+    });
+    const mnav = active => [['Weekly', '◫'], ['Binge', '≡'], ['Watched', '✓'], ['Add', '+']].map(([label, icon]) => {
+      const on = label === active;
+      return { label, icon, cur: on ? 'page' : undefined, fw: on ? 600 : 400, color: on ? '#eaf1ff' : '#8f9bb4', pill: on ? 'oklch(0.82 0.1 230 / .18)' : 'transparent', icol: on ? 'oklch(0.82 0.1 230)' : 'currentColor' };
+    });
+    const ST = {
+      cont: ['Continuing', '↻', '#bfeedd', 'oklch(0.80 0.12 165 / .16)'],
+      tbd: ['To be determined', '?', '#f1e3c2', 'oklch(0.83 0.14 80 / .16)'],
+      end: ['Ended', '■', '#b7c1d6', 'rgba(150,185,240,.12)']
+    };
+    const ss = list => list.map(s => s.includes('/') ? { label: s, bd: 'oklch(0.83 0.14 80 / .45)', bg: 'transparent', fg: '#f1e3c2' } : { label: '✓ ' + s, bd: 'oklch(0.82 0.1 230 / .35)', bg: 'oklch(0.82 0.1 230 / .08)', fg: '#cfe0fb' });
+    let prev = '';
+    const watchedRaw = [
+      ['American Horror Story', 'horror', 'FX', ['S13'], 'cont', 'Oct 2'],
+      ['Carrie', 'horror', 'Prime Video', ['S1'], 'cont', 'Sep 18'],
+      ['Daredevil: Born Again', 'hero', 'Disney+', ['S1', 'S2'], 'cont', 'Oct 21'],
+      ['Dark Matter', 'scifi', 'Apple TV+', ['S2'], 'tbd', 'Sep 27'],
+      ['From', 'horror', 'MGM+', ['S1', 'S2', 'S3', 'S4'], 'cont', 'Oct 30'],
+      ['Gen V', 'hero', 'Prime Video', ['S1', 'S2'], 'end', 'Oct 15'],
+      ['Interview with the Vampire', 'horror', 'AMC+', ['S1', 'S2'], 'cont', 'Jul 11'],
+      ['IT: Welcome to Derry', 'horror', 'HBO Max', ['S1'], 'cont', 'Nov 1'],
+      ['Lanterns', 'hero', 'HBO Max', ['S1'], 'tbd', 'Oct 26'],
+      ['Outer Range', 'scifi', 'Prime Video', ['S1', 'S2'], 'end', 'Jun 3'],
+      ['Pluribus', 'scifi', 'Apple TV+', ['S1 · 6/9'], 'cont', 'Nov 5'],
+      ['Severance', 'scifi', 'Apple TV+', ['S1', 'S2'], 'cont', 'Aug 9']
+    ];
+    const watched = watchedRaw.map(([title, g, service, seasons, st, last]) => {
+      const L = title[0]; const letter = L === prev ? '' : L; prev = L;
+      return { title, letter, genre: G[g][0], color: ok(G[g][1]), wash: ok(G[g][1], .05), service, seasons: ss(seasons), status: ST[st][0], stIcon: ST[st][1], stFg: ST[st][2], stBg: ST[st][3], last };
+    });
+    const filters = [['All', 'All', '', 46, true], ['Continuing', 'Continuing', '↻', 29], ['To be determined', 'TBD', '?', 9], ['Ended', 'Ended', '■', 8]].map(([label, short, icon, n, on]) => ({
+      label, short, icon, n, on: !!on, bd: on ? 'oklch(0.82 0.1 230 / .5)' : 'rgba(150,185,240,.16)', bg: on ? 'oklch(0.82 0.1 230 / .12)' : 'transparent', fg: on ? '#eaf1ff' : '#b7c1d6'
+    }));
+    const P = '0.76 0.13 300';
+    const E = (n, kind, when, whenM) => {
+      const base = { code: 'E' + n, name: 'Episode ' + n, when, whenM: whenM || when, op: 1, bg: 'rgba(9,14,26,.7)', bd: 'rgba(150,185,240,.08)', fg: '#dbe6fb', tick: '', boxStyle: 'solid', boxBd: 'rgba(150,185,240,.35)', boxBg: 'transparent', tag: '', tagBd: 'transparent', tagFg: '#8f9bb4' };
+      if (kind === 'w') Object.assign(base, { fg: '#9aa6bf', tick: '✓', boxBd: ok(P), boxBg: ok(P), tag: 'WATCHED', tagFg: '#8f9bb4' });
+      if (kind === 'n') Object.assign(base, { bg: `linear-gradient(90deg, ${ok(P, .14)}, rgba(9,14,26,.8) 60%)`, bd: ok(P, .45), fg: '#eef3ff', boxBd: ok(P), tag: 'NEXT UP', tagBd: ok(P, .5), tagFg: ok(P) });
+      if (kind === 'u') Object.assign(base, { op: .78, boxStyle: 'dashed', boxBd: 'rgba(150,185,240,.25)', tick: '', tag: 'UPCOMING', tagBd: 'rgba(150,185,240,.2)' });
+      if (kind === 'x') Object.assign(base, { op: .6, boxStyle: 'dashed', boxBd: 'rgba(150,185,240,.2)', tag: 'NOT ANNOUNCED', tagBd: 'rgba(150,185,240,.14)', tagFg: '#6f7b94' });
+      return base;
+    };
+    const episodes = [
+      E(1, 'w', 'Watched Oct 17', 'Watched Oct 17'), E(2, 'w', 'Watched Oct 23'), E(3, 'w', 'Watched Oct 30'),
+      E(4, 'n', 'Released Fri Oct 30'), E(5, 'u', 'Fri Nov 13 · 8:00 PM CST', 'Fri Nov 13 · 8:00 PM'),
+      E(6, 'u', 'Fri Nov 20 · 8:00 PM CST', 'Fri Nov 20 · 8:00 PM'), E(7, 'u', 'Fri Nov 27 · 8:00 PM CST', 'Fri Nov 27 · 8:00 PM'), E(8, 'x', 'Release date not announced', 'Date not announced')
+    ];
+    const seasonTabs = [['Season 1', '✓ 8/8'], ['Season 2', '✓ 8/8'], ['Season 3', '3/8', true]].map(([label, sub, on]) => ({
+      label, sub, on: !!on, bd: on ? ok(P, .5) : 'rgba(150,185,240,.14)', bg: on ? ok(P, .12) : 'transparent', mbg: on ? ok(P, .22) : 'transparent', fg: on ? '#eef3ff' : '#9aa6bf'
+    }));
+    const pulse = React.createElement('span', { className: 'wl-anim', style: { width: 8, height: 8, borderRadius: '50%', background: 'oklch(0.80 0.12 165)', boxShadow: '0 0 10px oklch(0.80 0.12 165)', animation: 'wl-pulse 2.4s ease-in-out infinite', flex: 'none', display: 'block' } });
+    const spinner = React.createElement('span', { className: 'wl-anim', style: { width: 12, height: 12, borderRadius: '50%', border: '2px solid oklch(0.82 0.1 230 / .25)', borderTopColor: 'oklch(0.82 0.1 230)', animation: 'wl-spin .9s linear infinite', flex: 'none', display: 'block' } });
+    return {
+      today, todayM: today.slice(0, 3), rest, restM, watched, watchedM: watched.slice(0, 7), filters, episodes, episodesM: episodes.slice(1, 7), seasonTabs,
+      navWeekly: navFor('Weekly'), navWatched: navFor('Watched'), navDetail: navFor('Weekly'),
+      mnavWeekly: mnav('Weekly'), mnavWatched: mnav('Watched'), pulse, spinner
+    };
+  }
+}
+</script>
+</body>
+</html>

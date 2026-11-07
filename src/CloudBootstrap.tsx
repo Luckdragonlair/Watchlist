@@ -45,9 +45,9 @@ export default function CloudBootstrap(){
     finally{setBusy(false);}
   }
   async function logout(){setBusy(true);setLocalApp(null);setSyncView(null);try{await signOut(auth!);location.reload();}catch{setBusy(false);setError('Sign-out did not finish. Please retry.');}}
-  return <>{!LocalApp&&<PwaStatus/>}<section aria-label="Cloud account"><h1>Watchlist account</h1>
+  return <>{!LocalApp&&<PwaStatus/>}<details className="cloud-account" open={!LocalApp}><summary>Account <span>{user?.email??'Sign in'}</span></summary><section aria-label="Cloud account"><h1>Watchlist account</h1>
     {!ready?<p>{checkingSlow?<>Sign-in is taking longer than expected. Accept any app update above, then <a href="/">reload Watchlist</a>. If it still stalls, open it directly in Firefox.</>:'Checking sign-in…'}</p>:!user?<><p>Sign in with your Google account to open this device’s private library.</p><button disabled={busy} onClick={login}>{busy?'Opening Google…':'Sign in with Google'}</button></>:<><p>Signed in as {user.email??'Google account'}</p><button disabled={busy} onClick={logout}>Sign out</button>{user.uid!==config.ownerUid?<p>This account does not have access to this Watchlist.</p>:<p>Your library syncs while Watchlist is open and connected. Offline changes stay on this device until it reconnects.</p>}</>}
     {user&&!config.ownerUid&&<p>Owner setup is pending. Your account ID is <code>{user.uid}</code>. No library has been opened or uploaded.</p>}
     {error&&<p role="alert">{error}</p>}
-  </section>{user?.uid===config.ownerUid&&LocalApp&&SyncView&&<><SyncView uid={user.uid}/><LocalApp/></>}</>;
+  </section></details>{user?.uid===config.ownerUid&&LocalApp&&SyncView&&<><SyncView uid={user.uid}/><LocalApp/></>}</>;
 }

@@ -114,3 +114,12 @@ Updated: 2026-11-05
 - [ ] Actual Firefox PC/Android two-way progress/undo/order/notes, offline reconnect, delete/re-add and restore acceptance.
 - [ ] Actual signed-in offline reopening and hosted installation with PC switched off.
 - [x] User-reported hosted launch on PC and Android, automatic phone sign-in and authenticated return after accepting app update (2026-11-06 10:32 CST).
+
+## Nightfall foundation - 2026-11-07 08:20 CST
+
+- [x] Preserve approved references, apply local/offline typography and theme, responsive navigation/cards, focus/reduced-motion handling and centered right-edge arrows.
+- [x] Verify existing browser/offline behavior and new narrow-layout/font checks.
+- [ ] Implement V2 Binge sections with compatible persisted preferences before drag-and-drop.
+- [ ] Implement A-Z slider, final dialog/status hierarchy and icon assets; verify real zoom/text sizes, Firefox/Android and assistive technologies.
+
+Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANCE_2026-11-07.md. Historical pending-sync items above are superseded only to that recorded extent.

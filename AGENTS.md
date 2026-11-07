@@ -131,7 +131,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | IndexedDB/Dexie data model | Built and verified | Shows, seasons, episodes, progress, preferences, sources, and internal settings are separate. |
 | TVmaze search and explicit candidate import | Built and verified | Candidate results show identifying details; no silent exact-name selection. |
 | Atomic metadata refresh | Built and verified | Metadata refresh protects progress, notes, ordering, deleted shows, and restored revisions. |
-| Weekly, Binge, Watched, Add Show, Import views | Built and verified | Functionally present with a plain placeholder presentation. |
+| Weekly, Binge, Watched, Add Show, Import views | Built and verified; Nightfall foundation applied | Shared dark theme, locally cached fonts, clearer cards, right-centered arrows and phone bottom navigation. V2 Binge sections and drag-and-drop remain pending. |
 | Episode check-off and automatic next-episode advance | Built and verified | Includes undo and Central-time availability rules. |
 | Already-watching catch-up | Built and verified | Only earlier released regular episodes are marked; selected/current episode remains unwatched. |
 | Personal notes | Built and verified | Stored separately from provider metadata. |
@@ -149,7 +149,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | “What next?” recommendations | Proposed and deferred | V2 marks this deferred until the core app and design implementation are stable. |
 | Resumable import queues and bulk “Likely matches” | Proposed, not built | Any future bulk rule must remain reviewable and must not silently link ambiguous shows. |
 | Specials and manual release corrections | Deferred | Regular numbered episodes are the current queue. |
-| Final Nightfall styling | Approved design, not built | Current UI remains a functional placeholder. |
+| Final Nightfall styling | Foundation built and verified; full V2 integration in progress | Approved assets preserved under design/nightfall-v2. First presentation milestone verified; section model, dragging, A-Z control, final screen/dialog refinements and assistive-tech checks remain. |
 | Full Silo acceptance run | In progress | Generic coverage exists; remaining manual checks are in `Notes/TEST_CASE_SILO.md`. |
 | Re S3 / Re S4 identification | Blocked on user identification | Preserve original text until identified. |
 
@@ -171,7 +171,7 @@ It contains:
 - `CHANGES.md`
 - `support.js`
 
-These files are not currently committed to this repository. If they are unavailable in a future environment, use the requirements below and ask the user for the bundle before making subjective visual substitutions.
+The unchanged approved files are now preserved under design/nightfall-v2/ in this repository (2026-11-07). Use that durable copy; the Downloads path records provenance only.
 
 ### Visual system
 
@@ -232,7 +232,7 @@ The mockup's static markup may show only an accessible name; the production comp
 - Undo takes priority over update notices on phone; do not stack transient bars.
 - Focus begins on a safe action, stays trapped inside modal dialogs, and returns to the opener.
 - Escape performs the safe cancel action.
-- The approved mockups illustrate online conflict and automatic recovery-copy concepts, but those are not current app capabilities.
+- Live synchronization conflicts are implemented. The mockups also illustrate automatic 30-day recovery copies; those remain unbuilt and must not be implied by the new presentation.
 
 ## Data and behavior invariants
 
@@ -252,8 +252,8 @@ These are easy to break during a visual rewrite:
 
 Unless the user reprioritizes, use this order:
 
-1. **Bring the approved design assets into a durable repository location.** Preserve the supplied files unchanged under a clearly named design/reference directory, or record why they remain external.
-2. **Create the Nightfall foundation.** Add self-hosted fonts, design tokens, shared surfaces, focus styles, icons, reduced-motion behavior, and responsive navigation without changing data behavior.
+1. **Completed 2026-11-07: approved assets preserved.** Unmodified copies and hashes checked under design/nightfall-v2/.
+2. **Foundation completed 2026-11-07.** Locally cached approved typography, dark surfaces, focus styles, reduced-motion handling, brand treatment, responsive cards/navigation and arrow placement are verified. Application icon replacement and final screen refinements remain part of later V2 work.
 3. **Implement the V2 Binge structure.** Ready/Upcoming & TBA/Not for me; Watching now/Watch soon/Everything else; shared persistent ordering; search; sticky headings; compact layout.
 4. **Add drag-and-drop accessibly.** Mouse/touch/keyboard dragging and arrow controls must operate on the same ordering model and announce moves.
 5. **Restyle Weekly, Watched, Add Show, Import, and Show Detail.** Preserve current tested behavior while adding the approved hierarchy and mobile lower-detail content.
@@ -293,6 +293,13 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-07 - Nightfall foundation verified
+
+- Preserved the seven approved reference files unchanged in design/nightfall-v2. Applied the dark grid/glow visual foundation, locally hosted Instrument Serif / IBM Plex Sans / IBM Plex Mono, genre labels, episode actions/progress, right-centered arrows, phone bottom navigation and compact account disclosure. Kept existing mutation, matching, metadata, sync and database code intact.
+- PASS: TypeScript; 195 unit tests; all 14 existing browser workflows plus a new responsive test at 320/412/640/960/1280; five existing PWA workflows plus the offline-font test; hosted unsigned privacy test; normal and hosted builds with privacy guard. Inspected fictional long-title desktop/phone screenshots.
+- Published Hosting-only to genre-watchlist after verification; live isolated signed-out theme/fonts/privacy/phone checks passed. Owner signed-in visual acceptance remains. No database rules or billing changes.
+- Full approved V2 is not finished: new Binge sections/filter model, drag-and-drop, A-Z slider, final dialogs/status hierarchy, icon replacement and real assistive-technology/zoom acceptance remain. See Notes/NIGHTFALL_FOUNDATION.md and the updated roadmap. No personal viewing data was used for testing.
 
 ### 2026-11-07 - Existing shared-sync code saved before Nightfall
 

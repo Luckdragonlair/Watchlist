@@ -15,7 +15,7 @@ export function CloudSyncStatus({uid}:{uid:string}){
     engine.current=sync;sync.start();return()=>{sync.stop();engine.current=null;};
   },[uid]);
   async function resolve(){if(!choice||!confirmed)return;setWorking(true);await engine.current?.resolve(choice);setWorking(false);setChoice(null);setConfirmed(false);}
-  return <section aria-label="Library synchronization"><p role="status">{status.message}</p>
+  return <section className="cloud-sync" data-phase={status.phase} aria-label="Library synchronization"><p role="status">{status.message}</p>
     {status.phase==='error'&&<button onClick={()=>void engine.current?.sync()}>Retry sync</button>}
     {status.phase==='conflict'&&<><p>Sync is paused. Export this device’s library before choosing a complete copy. Different edits have not been discarded.</p><BackupExport disabled={working}/>
       <button disabled={working} onClick={()=>{setChoice('device');setConfirmed(false);}}>Use this device’s library everywhere</button>

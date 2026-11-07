@@ -75,13 +75,15 @@ export function App() {
     const episodes = data.episodes.filter(e => e.showId === show.id);
     const q = queue(episodes, data.progress, now);
     const completed = data.seasons.filter(s => s.showId === show.id && confirmedComplete(s, episodes, data.progress, now));
-    return <article key={show.id} aria-label={show.name}>
-      <h3><button onClick={() => setDetail(show.id)}>{show.name}</button></h3>
-      <p>{show.service ?? 'Service unknown'} · {show.status ?? 'Status unknown'}</p>
-      {q.next ? <label key={q.next.id}><input type="checkbox" aria-label={`Watch ${show.name} ${episodeLabel(q.next)}`} disabled={busy} checked={false} onChange={() => run(() => toggle(q.next!, true))}/>{episodeLabel(q.next)}</label> : <p>{q.upcoming[0] ? `Next confirmed airing: ${airTime(q.upcoming[0].airstamp!)}` : 'No confirmed next release.'}</p>}
-      <p>{q.available.length} available unwatched · {q.upcoming.length} upcoming · {q.unknown.length} with unknown availability</p>
-      {!!completed.length && <p>Watched seasons: {completed.map(s => s.number).join(', ')}</p>}
-      {view === 'Binge' && <div><button disabled={busy} aria-label={`Move ${show.name} up`} onClick={() => run(() => reorder(show.id, -1))}>↑</button><button disabled={busy} aria-label={`Move ${show.name} down`} onClick={() => run(() => reorder(show.id, 1))}>↓</button></div>}
+    const genre = show.genres.find(g=>['Science-Fiction','Fantasy','Horror'].includes(g)) ?? show.genres[0] ?? 'Unclassified';
+    const total = episodes.filter(regular).length;
+    const watched = episodes.filter(e=>regular(e)&&data.progress.some(p=>p.episodeId===e.id)).length;
+    return <article key={show.id} aria-label={show.name} className={`show-card genre-${genre.toLowerCase().replace(/[^a-z]/g,'')}`}>
+      <div className="show-art" aria-hidden="true"><span>{show.name.replace(/^The /,'').slice(0,1)}</span></div>
+      <div className="show-identity"><div className="show-meta"><span className="genre-tag">{genre}</span><span>{show.service ?? 'Service unknown'}</span></div><h3><button className="show-title" onClick={() => setDetail(show.id)}>{show.name}</button></h3><span className="show-status">{show.status ?? 'Status unknown'}</span></div>
+      <div className="show-next">{q.next ? <label key={q.next.id} className="episode-action"><input type="checkbox" aria-label={`Watch ${show.name} ${episodeLabel(q.next)}`} disabled={busy} checked={false} onChange={() => run(() => toggle(q.next!, true))}/><span>Mark <strong>S{q.next.season} E{q.next.number}</strong> watched<span className="episode-name">{q.next.name}</span></span></label> : <p>{q.upcoming[0] ? `Next confirmed airing: ${airTime(q.upcoming[0].airstamp!)}` : 'No confirmed next release.'}</p>}</div>
+      <div className="show-progress"><span>{watched} of {total} watched</span><progress aria-label={`${show.name} watched episodes`} value={watched} max={Math.max(1,total)}/><p className="queue-count">{q.available.length} available unwatched · {q.upcoming.length} upcoming · {q.unknown.length} with unknown availability</p>{!!completed.length && <p>Watched seasons: {completed.map(s => s.number).join(', ')}</p>}</div>
+      {view === 'Binge' && <div className="reorder-controls"><button disabled={busy} aria-label={`Move ${show.name} up`} onClick={() => run(() => reorder(show.id, -1))}>↑</button><button disabled={busy} aria-label={`Move ${show.name} down`} onClick={() => run(() => reorder(show.id, 1))}>↓</button></div>}
     </article>;
   }
   let content: ReactNode;
@@ -104,10 +106,11 @@ export function App() {
     });
     if (sourceCards.length) content=<>{content}<section><h2>Imported source entries awaiting a match</h2><p>Source viewing history and season labels are preserved. Release and renewal claims need verification.</p>{sourceCards}</section></>;
   }
-  return <main>
-    <h1>Watchlist <small>v0.1</small></h1>
-    <p>Local library · Release times in America/Chicago</p>
-    <div className="top-controls"><nav aria-label="Views">{(['Weekly','Binge','Watched','Add Show','Import'] as View[]).map(v => <button key={v} aria-current={view === v ? 'page' : undefined} onClick={() => {setView(v); setDetail(null); if(v==='Import') setImportTarget(null);}}>{v}</button>)}</nav><div className="backup-controls"><BackupExport disabled={busy||restoring||!data}/><BackupRestore disabled={busy||!data} onBusyChange={setRestoring} onRestored={resetAfterRestore}/></div></div>
+  return <main className="watchlist-app">
+    <header className="app-header"><div className="brand"><span className="brand-mark" aria-hidden="true">W</span><h1>Watchlist <small>v0.1</small></h1></div>
+    <div className="top-controls"><nav aria-label="Views">{(['Weekly','Binge','Watched','Add Show','Import'] as View[]).map(v => <button key={v} className={v==='Import'?'import-nav':undefined} aria-current={view === v ? 'page' : undefined} onClick={() => {setView(v); setDetail(null); if(v==='Import') setImportTarget(null);}}><span className="nav-symbol" aria-hidden="true">{({Weekly:'▦',Binge:'▷',Watched:'✓','Add Show':'+',Import:'↓'})[v]}</span>{v}</button>)}</nav><div className="backup-controls"><BackupExport disabled={busy||restoring||!data}/><BackupRestore disabled={busy||!data} onBusyChange={setRestoring} onRestored={resetAfterRestore}/></div></div></header>
+    <p className="library-context">Your library <span aria-hidden="true">/</span> Release times in America/Chicago</p>
+    <button className="mobile-import" onClick={()=>{setView('Import');setDetail(null);setImportTarget(null);}}>Import</button>
     <PwaStatus/>{error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     {busy && <p role="status">Saving or fetching…</p>}
     {undo && !completion && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}

@@ -15,3 +15,5 @@ Updated: 2026-11-06
 - [PROGRESS.md](PROGRESS.md): verified checkpoint and handoff to Chat or Claude.
 
 Keep originals unchanged. Normalize into separate working copies. The starting catalog excludes Silo; the original retains it. Missing release, streaming, or renewal information stays unknown. Claude handles visual design. See [../RUN.md](../RUN.md) for run instructions.
+
+- [NIGHTFALL_FOUNDATION.md](NIGHTFALL_FOUNDATION.md): delivered visual foundation, verified checks and remaining approved V2 work.
