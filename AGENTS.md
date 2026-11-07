@@ -134,7 +134,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Weekly, Binge, Watched, Add Show, Import views | Built and verified; Nightfall foundation applied | Shared dark theme, locally cached fonts, clearer cards, right-centered arrows and phone bottom navigation. V2 Binge sections and drag-and-drop remain pending. |
 | Weekly placement with older backlog | Built and verified | An active later season appears under its next release weekday even if older seasons are unwatched. An unstarted future premiere stays in Binge. 2026-11-07 regression fix. |
 | Episode check-off and automatic next-episode advance | Built and verified | Includes undo and Central-time availability rules. |
-| Already-watching catch-up | Built and verified | Only earlier released regular episodes are marked; selected/current episode remains unwatched. |
+| Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Import queue. |
 | Personal notes | Built and verified | Stored separately from provider metadata. |
 | Binge up/down ordering | Built and verified | Persists manual order. |
 | Binge drag-and-drop | Approved design, not built | Must share the same saved order as arrow controls. |
@@ -294,6 +294,16 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-07 - Setup after every successful show import or match
+
+- Added a focused native setup dialog for manual Add Show and source matching. Optional current episode and prefilled personal/source notes; Save and continue or Skip for now. Escape skips safely. A match from a library view returns there; Import returns to its filtered queue; Add Show returns to the last library view.
+- Explicit explanation before catch-up. Only earlier released regular episodes are marked; current/later, special and unknown-release episodes are retained. Notes and catch-up save together, guarded against newer notes, restore/sync revision changes and deletion/re-add. Failed saves keep the draft visible.
+- PASS: TypeScript, 202 unit tests, 22 browser workflows, 6 PWA workflows, hosted unsigned privacy check and normal/hosted builds with privacy guard. Inspected the fictional phone setup screenshot; 320px overflow and dialog focus/return checks passed. Old tests were updated to navigate explicitly after setup instead of assuming imports immediately open details.
+- Published Hosting-only; live index and service worker match the tested build. Accept Update and reload before trying the next match/import. No rules or billing changes.
+- No personal library edits or bulk matching performed. The owner may request bulk matching later after genre spot checks; that work is not authorized now. Source matching continues to link all pending seasons of one title without inferring additional watched history.
+- User prefers economical model use: Luna/Low for bounded routine helper reviews, Sol/Medium for coding; avoid unnecessary helpers and repeated verification. No helper agents were used for this change.
+- Next planned feature remains V2 Binge organization, followed by accessible dragging. Full zoom, Firefox/Android and assistive-technology visual acceptance remain separate.
 
 ### 2026-11-07 - Active weekly season no longer hidden by older backlog
 

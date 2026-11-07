@@ -140,3 +140,10 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); fo
 }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; animation:none!important; scroll-behavior:auto!important; } }
 @media (forced-colors:active) { button,article,input,select,textarea { border:1px solid ButtonText; } nav button[aria-current] { outline:2px solid Highlight; } }
+
+.show-setup { width:min(620px,calc(100vw - 24px)); }
+.show-setup h2 { font-size:32px; margin:0 0 16px; overflow-wrap:anywhere; }
+.show-setup form { display:block; }
+.show-setup label { display:block; width:100%; }
+.show-setup select,.show-setup textarea { display:block; width:100%; margin-top:8px; }
+.setup-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }

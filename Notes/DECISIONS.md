@@ -100,3 +100,7 @@ Approved V2 references now live unchanged under design/nightfall-v2. The present
 ## Weekly placement clarification - 2026-11-07 09:36 CST
 
 Release placement and watch-queue order are separate. An active later season puts the show in Weekly even with unwatched older seasons. Do not mark those older episodes watched or advance the watch queue simply to change placement. A future season that has not released a regular episode still leaves backlog in Binge. This preserves the Silo future-premiere protection while fixing Dexter's active-season case.
+
+## Post-import show setup - 2026-11-07 10:05 CST
+
+Every successful provider show import or source match opens setup, with optional current episode and prefilled saved notes. This applies once per linked series, including all linked source installments, not after importing a raw list file or restoring a whole backup. Save notes and explicit earlier released regular-episode catch-up atomically; preserve existing selected/later watched flags and ignore unknown-release/special episodes. Leave progress unchanged when no episode is selected. Skip/Escape keeps the imported show and the source's explicitly applied Watched assertions but discards optional setup edits. Return to the originating library view or filtered Import queue; Add Show returns to the last library view. Native modal focus stays contained and returns to the list heading. Guard stale notes, library revision and show lifecycle so a setup cannot overwrite newer notes or resurrect a removed/restored show.

@@ -8,6 +8,8 @@ From `D:\Watchlist`, run `pnpm install`, `pnpm build`, then `pnpm start`. On thi
 
 Implemented: TVmaze candidate search and explicit import, metadata refresh, episode check-off and automatic advance, undo, already-watching catch-up, Weekly/Binge/Watched views, show details, persistent Binge arrow ordering, personal notes, and JSON backup export/restore with validation, preview, confirmation, and atomic replacement.
 
+After a successful show import or master-list match, setup offers an optional current episode and personal notes. Save and continue returns to your starting list or import queue; Skip for now keeps the imported show and its existing progress/notes. Choosing an episode marks only earlier released regular episodes watched; the selected episode and later history stay unchanged. You can still change notes or catch up later in show details.
+
 Weekly follows an actively releasing season even when older seasons are still unwatched. A future season stays out of Weekly until it starts; the next-to-watch episode and your watched history remain independent of placement.
 
 To remove a matched show, open its detail and choose **Delete show**, then confirm. This removes its active app records and viewing history without rewriting the preserved original master or existing backup files. Re-adding starts with fresh progress.

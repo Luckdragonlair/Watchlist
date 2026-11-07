@@ -8,6 +8,8 @@ import { masterSource } from './master';
 import { BackupExport } from './BackupExport';
 import { BackupRestore } from './BackupRestore';
 import { PwaStatus } from './PwaStatus';
+import { ShowSetup } from './ShowSetup';
+import { loadShowSetup, type SetupSnapshot } from './show-setup';
 
 type View = 'Weekly' | 'Binge' | 'Watched' | 'Add Show' | 'Import';
 export function App() {
@@ -22,6 +24,13 @@ export function App() {
   const [completion, setCompletion] = useState('');
   const [now, setNow] = useState(new Date());
   const [importTarget, setImportTarget] = useState<{sourceId:string;rowId:string} | null>(null);
+  const [matchReturn,setMatchReturn]=useState<View>('Import');
+  const [setup,setSetup]=useState<{snapshot:SetupSnapshot;returnTo:View}|null>(null);
+  const lastLibrary=useRef<View>('Binge'),listHeading=useRef<HTMLHeadingElement>(null),returning=useRef(false);
+  useEffect(()=>{if(['Weekly','Binge','Watched'].includes(view))lastLibrary.current=view;},[view]);
+  useEffect(()=>{if(!setup&&returning.current){returning.current=false;listHeading.current?.focus();}},[setup]);
+  async function beginSetup(id:number,returnTo:View){setDetail(null);setSetup({snapshot:await loadShowSetup(id),returnTo});}
+  function finishSetup(saved:boolean){if(!setup)return;setView(setup.returnTo);setNotice(`${setup.snapshot.name} ${saved?'setup saved':'is in your library; setup skipped'}.`);returning.current=true;setSetup(null);}
   useEffect(() => { const timer = setInterval(() => setNow(new Date()), 60000); return () => clearInterval(timer); }, []);
   useEffect(() => {
     (async()=>{
@@ -36,7 +45,7 @@ export function App() {
   }, []);
   const data = useLiveQuery(async () => ({ shows: await db.shows.toArray(), seasons: await db.seasons.toArray(), episodes: await db.episodes.toArray(), progress: await db.progress.toArray(), preferences: await db.preferences.toArray(), sources: await db.sources.toArray(), revision:await libraryRevision(),resetRevision:(await db.settings.get('uiResetRevision'))?.value??await libraryRevision() }));
   const seenRevision=useRef<string|null>(null);
-  function resetAfterRestore(){setDetail(null);setUndo(null);setCompletion('');setImportTarget(null);setFilter('');setError('');setNotice('');setView('Binge');}
+  function resetAfterRestore(){setSetup(null);setDetail(null);setUndo(null);setCompletion('');setImportTarget(null);setFilter('');setError('');setNotice('');setView('Binge');}
   useEffect(()=>{
     if(!data) return;
     if(seenRevision.current!==null && seenRevision.current!==String(data.resetRevision)) resetAfterRestore();
@@ -88,8 +97,8 @@ export function App() {
   }
   let content: ReactNode;
   if (!data) content = <p>Loading local library…</p>;
-  else if (view === 'Add Show') content = <AddShow run={run} busy={busy} onAdded={id => { setDetail(id); setView('Binge'); }}/ >;
-  else if (view === 'Import') content = <ImportPanel sources={data.sources} run={run} busy={busy} initialTarget={importTarget}/>;
+  else if (view === 'Add Show') content = <AddShow run={run} busy={busy} onAdded={id => beginSetup(id,lastLibrary.current)}/ >;
+  else if (view === 'Import') content = <ImportPanel sources={data.sources} run={run} busy={busy} initialTarget={importTarget} onMatched={id=>beginSetup(id,matchReturn)}/>;
   else {
     const visible = data.shows.filter(s => s.name.toLowerCase().includes(filter.toLowerCase()) && (bucket(data.episodes.filter(e => e.showId === s.id), data.seasons.filter(x => x.showId === s.id), data.progress, now) === view || (view === 'Watched' && data.progress.some(p => data.episodes.some(e => e.id === p.episodeId && e.showId === s.id))))).sort(view === 'Watched' ? (a,b) => a.name.localeCompare(b.name) : byOrder);
     if (view === 'Weekly') {
@@ -102,30 +111,31 @@ export function App() {
     const sourceCards = data.sources.flatMap(source => {
       const groups = new Map<string, typeof source.rows>();
       source.rows.filter(r => r.state !== 'imported' && r.state !== 'excluded' && (r.sourceCategory ?? 'Binge') === view && r.title.toLowerCase().includes(filter.toLowerCase())).forEach(r => groups.set(r.title,[...(groups.get(r.title) ?? []),r]));
-      return [...groups].sort(([a],[b])=>a.localeCompare(b)).map(([title,rows])=><article key={`${source.id}-${title}`} aria-label={`Unmatched ${title}`}><h3>{title}</h3><p>{rows.map(r=>r.rawTitle ?? r.title).join(' · ')}</p><p>From master list · {rows[0].sourceWeekday ? `${rows[0].sourceWeekday} (unverified schedule) · ` : ''}{rows[0].sourceStatus ? `${rows[0].sourceStatus} (unverified) · ` : ''}Episode details not linked yet.</p>{rows.some(r=>r.notes) && <p>{rows.map(r=>r.notes).filter(Boolean).join(' · ')}</p>}<button disabled={rows[0].state==='review'} onClick={()=>{setImportTarget({sourceId:source.id,rowId:rows[0].id});setView('Import');}}>Match {title} with TVmaze</button>{rows[0].state==='review' && <p>Truncated title needs manual identification.</p>}</article>);
+      return [...groups].sort(([a],[b])=>a.localeCompare(b)).map(([title,rows])=><article key={`${source.id}-${title}`} aria-label={`Unmatched ${title}`}><h3>{title}</h3><p>{rows.map(r=>r.rawTitle ?? r.title).join(' · ')}</p><p>From master list · {rows[0].sourceWeekday ? `${rows[0].sourceWeekday} (unverified schedule) · ` : ''}{rows[0].sourceStatus ? `${rows[0].sourceStatus} (unverified) · ` : ''}Episode details not linked yet.</p>{rows.some(r=>r.notes) && <p>{rows.map(r=>r.notes).filter(Boolean).join(' · ')}</p>}<button disabled={rows[0].state==='review'} onClick={()=>{setMatchReturn(view);setImportTarget({sourceId:source.id,rowId:rows[0].id});setView('Import');}}>Match {title} with TVmaze</button>{rows[0].state==='review' && <p>Truncated title needs manual identification.</p>}</article>);
     });
     if (sourceCards.length) content=<>{content}<section><h2>Imported source entries awaiting a match</h2><p>Source viewing history and season labels are preserved. Release and renewal claims need verification.</p>{sourceCards}</section></>;
   }
   return <main className="watchlist-app">
     <header className="app-header"><div className="brand"><span className="brand-mark" aria-hidden="true">W</span><h1>Watchlist <small>v0.1</small></h1></div>
-    <div className="top-controls"><nav aria-label="Views">{(['Weekly','Binge','Watched','Add Show','Import'] as View[]).map(v => <button key={v} className={v==='Import'?'import-nav':undefined} aria-current={view === v ? 'page' : undefined} onClick={() => {setView(v); setDetail(null); if(v==='Import') setImportTarget(null);}}><span className="nav-symbol" aria-hidden="true">{({Weekly:'▦',Binge:'▷',Watched:'✓','Add Show':'+',Import:'↓'})[v]}</span>{v}</button>)}</nav><div className="backup-controls"><BackupExport disabled={busy||restoring||!data}/><BackupRestore disabled={busy||!data} onBusyChange={setRestoring} onRestored={resetAfterRestore}/></div></div></header>
+    <div className="top-controls"><nav aria-label="Views">{(['Weekly','Binge','Watched','Add Show','Import'] as View[]).map(v => <button key={v} className={v==='Import'?'import-nav':undefined} aria-current={view === v ? 'page' : undefined} onClick={() => {setView(v); setDetail(null); if(v==='Import'){setMatchReturn('Import');setImportTarget(null);}}}><span className="nav-symbol" aria-hidden="true">{({Weekly:'▦',Binge:'▷',Watched:'✓','Add Show':'+',Import:'↓'})[v]}</span>{v}</button>)}</nav><div className="backup-controls"><BackupExport disabled={busy||restoring||!data}/><BackupRestore disabled={busy||!data} onBusyChange={setRestoring} onRestored={resetAfterRestore}/></div></div></header>
     <p className="library-context">Your library <span aria-hidden="true">/</span> Release times in America/Chicago</p>
-    <button className="mobile-import" onClick={()=>{setView('Import');setDetail(null);setImportTarget(null);}}>Import</button>
+    <button className="mobile-import" onClick={()=>{setMatchReturn('Import');setView('Import');setDetail(null);setImportTarget(null);}}>Import</button>
     <PwaStatus/>{error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     {busy && <p role="status">Saving or fetching…</p>}
     {undo && !completion && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}
-    {detail !== null && data ? <Detail show={data.shows.find(s => s.id === detail)!} episodes={data.episodes.filter(e => e.showId === detail)} watched={new Set(data.progress.map(p => p.episodeId))} notes={data.preferences.find(p => p.showId === detail)?.notes ?? ''} now={now} busy={busy} run={run} toggle={toggle} onDelete={async () => { const show=data.shows.find(s=>s.id===detail); if (!show || !window.confirm(`Delete ${show.name}? This permanently removes its seasons, episodes, watched history, personal notes, order, and matching import entries from this library. Original files and existing backup files stay unchanged.`)) return; await run(async()=>{await deleteShow(show.id,db,fetchEpisodeOwner);setDetail(null);setImportTarget(null);setUndo(null);setCompletion('');setView('Binge');setNotice(`${show.name} was deleted from your library.`);}); }} onBack={() => setDetail(null)}/> : <><h2>{view}</h2>{['Weekly','Binge','Watched'].includes(view) && <label>Search library <input value={filter} onChange={e => setFilter(e.target.value)}/></label>}{content}</>}
+    {detail !== null && data ? <Detail show={data.shows.find(s => s.id === detail)!} episodes={data.episodes.filter(e => e.showId === detail)} watched={new Set(data.progress.map(p => p.episodeId))} notes={data.preferences.find(p => p.showId === detail)?.notes ?? ''} now={now} busy={busy} run={run} toggle={toggle} onDelete={async () => { const show=data.shows.find(s=>s.id===detail); if (!show || !window.confirm(`Delete ${show.name}? This permanently removes its seasons, episodes, watched history, personal notes, order, and matching import entries from this library. Original files and existing backup files stay unchanged.`)) return; await run(async()=>{await deleteShow(show.id,db,fetchEpisodeOwner);setDetail(null);setImportTarget(null);setUndo(null);setCompletion('');setView('Binge');setNotice(`${show.name} was deleted from your library.`);}); }} onBack={() => setDetail(null)}/> : <><h2 ref={listHeading} tabIndex={-1}>{view}</h2>{['Weekly','Binge','Watched'].includes(view) && <label>Search library <input value={filter} onChange={e => setFilter(e.target.value)}/></label>}{content}</>}
     {completion && <div role="dialog" aria-modal="true" aria-label="Season complete"><p>{completion}</p><p>Your progress is saved. More metadata may be announced later.</p><button className="circle" aria-label="Dismiss completion" onClick={() => setCompletion('')}>×</button>{undo && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}</div>}
+    {setup&&<ShowSetup snapshot={setup.snapshot} returnTo={setup.returnTo} busy={busy||restoring} onDone={finishSetup}/>}
     <footer><p>Episode metadata: <a href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Cached locally; refresh manually. Availability can vary by region.</p></footer>
   </main>;
 }
 
 type Run = (action: () => Promise<void>) => Promise<void>;
-function AddShow({run, busy, onAdded, initial = '', onSelect}: {run: Run; busy: boolean; onAdded: (id:number) => void; initial?: string; onSelect?: (candidate: Candidate) => Promise<void>}) {
+function AddShow({run, busy, onAdded, initial = '', onSelect}: {run: Run; busy: boolean; onAdded: (id:number) => void | Promise<void>; initial?: string; onSelect?: (candidate: Candidate) => Promise<void>}) {
   const [query, setQuery] = useState(initial), [results, setResults] = useState<Candidate[]>([]), [searched, setSearched] = useState(false);
   return <section><form onSubmit={e => { e.preventDefault(); run(async () => {setResults([]); setSearched(false); setResults(await searchShows(query)); setSearched(true);}); }}><label>Show title <input required value={query} onChange={e => setQuery(e.target.value)}/></label><button disabled={busy || !query.trim()}>Search TVmaze</button></form>
     {searched && !results.length && <p>No matches. Try another title.</p>}
-    {results.map(c => <article key={c.id}><h3>{c.name}</h3><p>{c.premiered ?? 'Premiere unknown'} · {c.language ?? 'Language unknown'} · {c.webChannel?.name ?? c.network?.name ?? 'Service unknown'}</p><p>{plainText(c.summary)}</p><a href={c.url} target="_blank" rel="noreferrer">TVmaze details</a> <button disabled={busy} onClick={() => run(async () => { if (onSelect) await onSelect(c); else {const revision=await libraryRevision();await saveBundle(await fetchBundle(c.id),db,false,revision); onAdded(c.id);} })}>Import {c.name} (#{c.id})</button></article>)}
+    {results.map(c => <article key={c.id}><h3>{c.name}</h3><p>{c.premiered ?? 'Premiere unknown'} · {c.language ?? 'Language unknown'} · {c.webChannel?.name ?? c.network?.name ?? 'Service unknown'}</p><p>{plainText(c.summary)}</p><a href={c.url} target="_blank" rel="noreferrer">TVmaze details</a> <button disabled={busy} onClick={() => run(async () => { if (onSelect) await onSelect(c); else {const revision=await libraryRevision();await saveBundle(await fetchBundle(c.id),db,false,revision); await onAdded(c.id);} })}>Import {c.name} (#{c.id})</button></article>)}
   </section>;
 }
 function Detail({show, episodes, watched, notes, now, busy, run, toggle, onDelete, onBack}: {show:Show; episodes:Episode[]; watched:Set<number>; notes:string; now:Date; busy:boolean; run:Run; toggle:(e:Episode,w:boolean)=>Promise<void>; onDelete:()=>Promise<void>; onBack:()=>void}) {
@@ -157,7 +167,7 @@ function Detail({show, episodes, watched, notes, now, busy, run, toggle, onDelet
     {Array.from(new Set(ordered.map(e => e.season))).map(season => <section key={season}><h3>Season {season}</h3>{ordered.filter(e => e.season === season).map(e => <div className="episode" key={e.id}><label><input type="checkbox" checked={watched.has(e.id)} disabled={busy || (!watched.has(e.id) && !released(e,now))} onChange={event => run(() => toggle(e,event.target.checked))}/>{episodeLabel(e)}</label><small>{e.airstamp ? airTime(e.airstamp) : e.airdate ? `${e.airdate} · Time unknown` : 'Release unknown'}</small><p>{plainText(e.summary)}</p></div>)}</section>)}
   </section>;
 }
-function ImportPanel({sources,run,busy,initialTarget}: {sources:Source[];run:Run;busy:boolean;initialTarget:{sourceId:string;rowId:string}|null}) {
+function ImportPanel({sources,run,busy,initialTarget,onMatched}: {sources:Source[];run:Run;busy:boolean;initialTarget:{sourceId:string;rowId:string}|null;onMatched:(id:number)=>Promise<void>}) {
   const [selected, setSelected] = useState<{sourceId:string; rowId:string} | null>(initialTarget);
   const [filter,setFilter] = useState('');
   const [confirmSeasonlessWatched,setConfirmSeasonlessWatched] = useState(false);
@@ -188,6 +198,7 @@ function ImportPanel({sources,run,busy,initialTarget}: {sources:Source[];run:Run
       });
       setSelected(null);
       setConfirmSeasonlessWatched(false);
+      await onMatched(c.id);
     }}/></div>}
   </section>;
 }

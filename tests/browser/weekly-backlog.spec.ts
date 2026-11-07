@@ -8,7 +8,7 @@ test('an active second season appears under Friday even while season one is unwa
   await page.route('https://api.tvmaze.com/**',route=>{const path=new URL(route.request().url()).pathname;return route.fulfill({json:path==='/search/shows'?[{show}]:path.endsWith('/episodes')?episodes:path.endsWith('/seasons')?[{id:873001,number:1,episodeOrder:1,endDate:'2025-07-11'},{id:873002,number:2,episodeOrder:3,endDate:'2026-11-13'}]:show});});
   await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();
   await page.getByLabel('Show title').fill(show.name);await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:`Import ${show.name} (#${show.id})`}).click();
-  await page.getByRole('button',{name:'Back to library'}).click();
+  await page.getByRole('button',{name:'Skip for now'}).click();
   const card=page.getByRole('article',{name:show.name,exact:true});
   await expect(card).toHaveCount(0);
   await page.getByRole('button',{name:'Weekly',exact:true}).click();

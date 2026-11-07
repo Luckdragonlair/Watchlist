@@ -129,3 +129,11 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Active later seasons enter Weekly even when older seasons are unwatched.
 - [x] Preserve future-premiere backlog protection and unchanged next-to-watch/history, verified in unit and browser regressions.
 - [x] User reports Nightfall looks good; full palette/stronger accents remain part of visual refinement.
+
+## Post-import setup - 2026-11-07 10:05 CST
+
+- [x] Offer optional current episode and personal notes after every successful show match/import.
+- [x] Preserve return view/import filter, prefill notes, support Skip/Escape and empty episode lists.
+- [x] Verify atomic notes/progress saves and stale notes/restore/deletion safeguards.
+- [ ] Owner visual acceptance on actual PC/phone after updating.
+- [ ] Bulk matching assistance only when the owner explicitly asks to start; do not begin during genre spot checks.

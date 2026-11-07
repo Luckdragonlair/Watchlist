@@ -179,3 +179,8 @@ For each future entry use: **Timestamp | Step | Change and evidence | Remaining 
 - [x] Preserve approved V2 reference bundle and implement the visual foundation; local fonts, responsive shell/cards and right-centered arrows verified. See NIGHTFALL_FOUNDATION.md.
 - [~] Step 9 is now in progress. Remaining estimate: 2-4 focused sessions for persistent Binge sections, accessible dragging/A-Z, final screen refinements and accessibility validation. This replaces the former Not started status for step 9; no completion date is promised.
 - [x] Core real-device notes synchronization and reconnect delivery passed by user report; see SYNC_ACCEPTANCE_2026-11-07.md. Other real-device acceptance remains separate.
+
+## Import setup improvement - 2026-11-07 10:05 CST
+
+- [x] Post-match/import current-episode and notes setup, return to origin, skip and concurrency guards implemented and verified. This completes that requested onboarding improvement; broader step 8 work remains.
+- [ ] V2 Binge section organization remains next, then dragging. Existing remaining-effort estimates are unchanged by this bounded workflow addition.
