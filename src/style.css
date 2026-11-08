@@ -218,3 +218,17 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); fo
  .watchlist-app{padding-top:4px}
  .app-header{padding-bottom:4px}
 }
+
+/* Dedicated drag handles leave touch scrolling and episode controls intact. */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.show-actions{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.show-actions>details>div{max-width:min(650px,calc(100vw - 100px))}
+.drag-handle{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;min-width:64px;min-height:44px}
+.drag-handle[aria-pressed=true]{cursor:grabbing;border-color:var(--accent);background:#18354b}
+.drag-handle span{font-size:20px;line-height:1;vertical-align:middle}
+.show-card.drag-source{z-index:20;box-shadow:0 12px 30px #0009;outline:2px solid var(--accent);opacity:.9;will-change:transform}
+.show-card.drop-before{box-shadow:0 -4px 0 var(--accent)}
+.show-card.drop-after{box-shadow:0 4px 0 var(--accent)}
+@media(forced-colors:active){.show-card.drag-source,.show-card.drop-before,.show-card.drop-after{outline:3px solid Highlight}}
+
+.binge-heading button{font:12px 'IBM Plex Sans',system-ui,sans-serif;min-height:44px;padding:8px 10px;margin-left:auto;white-space:nowrap}.order-help{font-size:12px;color:var(--muted);line-height:1.4;margin:8px 0}

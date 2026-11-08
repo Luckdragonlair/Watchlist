@@ -133,7 +133,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Unknown episode-date repair (v0.4.1) | Built and verified | Provider/legacy blank airdates become unknown/null; sync startup repairs only that field. Invalid data is distinct from true conflicts and never offers whole-library replacement choices. |
 | Atomic metadata refresh | Built and verified | Metadata refresh protects progress, notes, ordering, deleted shows, and restored revisions. |
 | Automatic episode metadata checks (v0.3.0) | Built and verified | Every 24 elapsed hours per show while visible/online, resume overdue checks on launch/reconnect. Includes Watched/Ended; no cancellation inference or closed-app job. |
-| Weekly, Binge, Watched, Add Show, Import and Match views | Built and verified; Nightfall foundation applied | V2 Binge sections and an unmatched-only Match queue are built. Shared dark theme, fonts and phone navigation remain; dragging/A-Z/final refinements are pending. |
+| Weekly, Binge, Watched, Add Show, Import and Match views | Built and verified; Nightfall foundation applied | V2 Binge sections and an unmatched-only Match queue are built. Shared dark theme, fonts and phone navigation remain; dragging and started-first activity order are built; A-Z/final refinements remain. |
 | Weekly placement with older backlog | Built and verified | An active later season appears under its next release weekday even if older seasons are unwatched. An unstarted future premiere stays in Binge. 2026-11-07 regression fix. |
 | Episode check-off and automatic next-episode advance | Built and verified | Includes undo and Central-time availability rules. |
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Match queue (v0.5.0). |
@@ -141,14 +141,15 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Filed title names (v0.4.0) | Built and verified | Leading A/The become trailing comma suffixes in saved imports/refreshes and alphabetical display/sort/search. Original source fields and manual order retained. |
 | Personal notes | Built and verified | Stored separately from provider metadata. |
 | Binge up/down ordering | Built and verified | Watching now/Watch soon share persistent section ranks; legacy ranks map to Watch soon. Everything else is alphabetical. |
-| Binge drag-and-drop | Approved design, not built | Must share the same saved order as arrow controls. |
+| Binge drag-and-drop (v0.7.0) | Built and verified | Mouse/touch handles, keyboard pickup/drop/cancel, auto-scroll and guarded atomic order shared with arrows. |
+| Started-first Binge/activity order (v0.7.0) | Built and verified | Ready progress promotes to Watching now; recent activity defaults, saved manual override and Recent reset. Not for me/Weekly/upcoming placement protected. |
 | Show deletion | Built and verified | Atomic cascade with source/history protections and safe clean re-add. |
 | Backup export | Built and verified | Consistent snapshot, timestamped file, visible feedback, reusable download. |
 | Splash/gold banner and Weekly launch (v0.6.0) | Built and verified | Original 04/07 assets; five-second flash/fly-up, reduced-motion/failure cleanup, local offline assets, Weekly default/today-first Central weekdays. |
 | Compact phone header (v0.5.1) | Built and verified | More holds phone utilities; primary navigation stays at the bottom; warnings/update actions remain exposed. Healthy cloud info is compact and empty Ready groups are omitted. |
 | Binge sections and interest (v0.5.0) | Built and verified | Ready: Watching now / Watch soon / Everything else; Upcoming & TBA; reversible Not for me. Personal records retained. |
 | Match queue (v0.5.0) | Built and verified | Pending/review rows only; source matching removed from library views; file loading stays in Import. No new bulk matching performed. |
-| Backup format 2 compatibility | Built and verified | New backups/shared payloads retain sections; accepts legacy format 1. Update all devices; old apps safely reject format 2. Schema v3/database names unchanged. |
+| Backup format 3 compatibility (v0.7.0) | Built and verified | Optional manual-activity order flag; accepts formats 1/2. Update all devices; older clients safely reject format 3. Database schema v3/names and cloud manifest/rules unchanged. |
 | Validated backup restore | Built and verified | Preview, cancellation, explicit whole-library replacement, validation, rollback, and cross-tab revision protection. |
 | Automatic 30-day recovery copies | Approved design, not built | Appears in V2 mockups. Do not claim it exists. |
 | Installable/offline PWA | Built and verified | Shell/catalog caching, controlled updates, offline local functions, isolated PWA tests. |
@@ -159,7 +160,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | “What next?” recommendations | Proposed and deferred | V2 marks this deferred until the core app and design implementation are stable. |
 | Resumable import queues and bulk “Likely matches” | Full UI proposed; approved maintenance matching performed | One reviewed CLI batch added 138 clear series, then 3 owner-selected adaptations. Preserve ambiguous/special/missing-season entries for review. This is not a shipped bulk-matching UI. |
 | Specials and manual release corrections | Deferred | Regular numbered episodes are the current queue. |
-| Final Nightfall styling | Foundation built and verified; full V2 integration in progress | Approved assets preserved under design/nightfall-v2. First presentation milestone verified; section model is built; dragging, A-Z control, final screen/dialog refinements and assistive-tech checks remain. |
+| Final Nightfall styling | Foundation built and verified; full V2 integration in progress | Approved assets preserved under design/nightfall-v2. First presentation milestone verified; section model and dragging are built; A-Z control, final screen/dialog refinements and assistive-tech checks remain. |
 | Full Silo acceptance run | In progress | Generic coverage exists; remaining manual checks are in `Notes/TEST_CASE_SILO.md`. |
 | Re S3 / Re S4 placeholders | Removed at owner request, 2026-11-08 | Also removed The Return of the Shadow S2; originals preserved. See Notes/MASTER_REMOVALS.json. |
 
@@ -210,7 +211,7 @@ Binge opens on **Ready** and has three filters:
 
 Ready contains:
 
-- **Watching now** — user ordered; drag and arrows.
+- **Watching now** — started Ready shows first, recent activity by default; saved drag/arrow override with Recent reset. Untouched manually assigned cards stay below started cards.
 - **Watch soon** — user ordered; drag and arrows.
 - **Everything else** — alphabetical; menu actions only.
 
@@ -260,6 +261,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Current priority 2026-11-08 09:05 America/Chicago: cleanup and v0.7.0 dragging/activity ordering are verified. Finish remaining V2/A-Z/dialog/accessibility work and plan required movie support next. Family access/social sharing stay deferred until core completion; API-credit use remains undecided.
+
 2026-11-08 owner reprioritization: integrate the approved original Brick alley splash/Gold banner and Weekly default/today-first ordering now; built and verified. Accessible dragging follows this milestone.
 
 Unless the user reprioritizes, use this order:
@@ -269,7 +272,7 @@ Unless the user reprioritizes, use this order:
 1. **Completed 2026-11-07: approved assets preserved.** Unmodified copies and hashes checked under design/nightfall-v2/.
 2. **Foundation completed 2026-11-07.** Locally cached approved typography, dark surfaces, focus styles, reduced-motion handling, brand treatment, responsive cards/navigation and arrow placement are verified. Application icon replacement and final screen refinements remain part of later V2 work.
 3. **Completed 2026-11-08: V2 Binge structure and Match.** Ready/Upcoming & TBA/Not for me; persistent Watching now/Watch soon order; alphabetical Everything else; search/sticky headings; unmatched-only Match and compatible backups.
-4. **Next: add drag-and-drop accessibly.** Mouse/touch/keyboard dragging and arrow controls must operate on the same ordering model and announce moves.
+4. **Completed v0.7.0: accessible dragging and activity order.** Mouse/touch/keyboard dragging and arrow controls must operate on the same ordering model and announce moves.
 5. **Restyle Weekly, Watched, Add Show, Import, and Show Detail.** Preserve current tested behavior while adding the approved hierarchy and mobile lower-detail content.
 6. **Implement empty/loading/error/status/dialog presentation.** Preserve the deployed owner-only sync and its conflict safeguards. Automatic 30-day recovery copies remain a separate unbuilt feature.
 7. **Implement and test the A–Z adjustable control contract.**
@@ -307,6 +310,16 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 08:58 America/Chicago - Card dragging and active Binge order
+
+- Cleanup checkpoint a973090 is committed and pushed. Implemented mouse/touch/keyboard handles with edge auto-scroll, cancel and stale-data checks; arrows share the same atomic save.
+- Owner requested started shows above untouched, most recent activity first, with dragging allowed to override. Added derived Watching now placement, a saved manual preference and Recent reset. Undo removes activity; source watched timestamps remain recorded/import times. No personal library data was edited to test.
+- New backup/shared payload format 3 retains the preference while reading legacy formats; no database/schema/cloud rules change. Read-only export renderer/validator updated; session watcher restart required.
+- Family access is deferred until core work is finished. Movies are required future scope pending provider/data/flow decisions; API-credit use is undecided and no credits are used here. Next after verification: remaining V2/A-Z/accessibility and movie planning.
+- PASS: TypeScript; 244 unit tests; 44 browser workflows (including actual mouse/touch input, keyboard focus/cancel, filtered moves, long-queue auto-scroll and activity/manual order/undo); nine PWA workflows including offline reorder/export/reopen; hosted signed-out privacy; 13 local access/rules tests and six Firebase SDK integration tests including format-3 manual order/reset across two disposable devices; normal/hosted builds and public-asset privacy guard. Fictional phone/desktop layouts inspected. Initial focus timing and legacy/new test-fixture assertions were corrected; final reruns passed. Real Android Firefox/TalkBack and desktop screen-reader acceptance remain separate.
+- Release verified: Published Hosting-only to genre-watchlist; live index, service worker and all app JS/CSS match the tested build. Restarted the authorized read-only folder watcher with renderer/validator 3; refreshed shared revision 79 (196 shows). No rules, billing, personal history or original master changes. Actual Android Firefox/TalkBack dragging acceptance remains. Original master and real personal library were not modified by feature tests.
+
 
 ### 2026-11-08 - Three owner-requested placeholder removals
 
@@ -453,3 +466,5 @@ If any answer is yes, update the affected documentation now. A code change is in
 - No application code, dependency, database, user library, or runtime behavior changed.
 
 Superseded 2026-11-08 by the approved original five-second 04/07 integration above. Historical proposal: owner proposes a movie-style spotlight sweeping across a wall/stage/screen to reveal Watchlist. Claude is preparing the splash and possible PC banner assets. This is a proposed visual concept, not built or a reason to delay library access; use a brief nonblocking reveal and a static reduced-motion state. Final assets still need review.
+
+2026-11-08 workflow preference: keep work economical. Use focused checks while fixing issues, then one broader verification pass. Repeat broad suites only for a material new change or unresolved risk; keep routine reads/output bounded.

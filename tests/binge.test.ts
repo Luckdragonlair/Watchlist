@@ -21,7 +21,7 @@ it('moves section reversibly without losing history/notes and preserves it throu
   const history=await database.progress.toArray();
   await setBingeSection(1,'not-for-me',...await context(database),database);await saveBundle(bundle,database,true);
   expect(await database.preferences.get(1)).toMatchObject({notes:'Important',bingeSection:'not-for-me'});expect(await database.progress.toArray()).toEqual(history);
-  const backup=await createBackup(database);expect(backup.version).toBe(2);expect(validateBackup(backup).preferences[0].bingeSection).toBe('not-for-me');
+  const backup=await createBackup(database);expect(backup.version).toBe(3);expect(validateBackup(backup).preferences[0].bingeSection).toBe('not-for-me');
   await restoreBackup(backup,database);await setBingeSection(1,'watching-now',...await context(database),database);
   expect(await database.preferences.get(1)).toMatchObject({notes:'Important',bingeSection:'watching-now'});expect(await database.progress.toArray()).toEqual(history);
 });

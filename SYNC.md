@@ -51,3 +51,7 @@ Actual Android/Firefox installation, signed-in offline behavior and personal-lib
 ## v0.5.0 section-format compatibility - 2026-11-08
 
 Update Watchlist on PC and phone before continuing shared use. New snapshots/backups use format 2 to retain Binge sections; older format-1 backups remain readable. Older app versions reject the new shared format rather than dropping its fields. Database names and schema v3 are unchanged. Import handles working files; Match holds only unmatched entries. Reversible Not for me preserves viewing history. The read-only folder helper must run the updated code; restart it after this release so its validation and readable sections are current.
+
+## v0.7.0 order preference compatibility
+
+The optional bingeManualOrder preference and saved ranks travel in format-3 backups/shared payloads. Update PC and Android before editing. Older clients safely reject format 3. Existing format-1/2 libraries remain readable; database schema/names and the cloud manifest/access rules remain unchanged. Concurrent different reorders or manual/recent mode changes use existing conflict handling. Notes can merge independently. Family/multi-user access remains deferred; this release retains the configured owner-only scope.

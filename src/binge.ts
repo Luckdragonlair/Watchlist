@@ -1,7 +1,7 @@
 import {db,assertLibraryRevision} from './db';
 import type {BingeSection} from './model';
 import {sectionOf} from './binge-model';
-export {sectionOf,sectionNames,nextBingeDate,bingePlacement} from './binge-model';
+export {sectionOf,sectionNames,nextBingeDate,bingePlacement,lastBingeActivity,readySection} from './binge-model';
 export async function setBingeSection(showId:number,section:BingeSection,revision:string,life:string,database=db){
   await database.transaction('rw',database.shows,database.preferences,database.settings,async()=>{
     await assertLibraryRevision(revision,database);

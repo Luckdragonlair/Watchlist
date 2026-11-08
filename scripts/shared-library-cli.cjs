@@ -16,7 +16,7 @@ async function validators(){
  if(validation)return validation;
  const out=path.join(root,'.tools/library-validation.cjs');fs.mkdirSync(path.dirname(out),{recursive:true});
  const viteRequire=require('node:module').createRequire(require.resolve(path.join(root,'node_modules/vite/package.json')));
- await viteRequire('esbuild').build({absWorkingDir:root,stdin:{contents:"export {validateCloudUpload} from './src/cloud-transport.ts'; export {bucket,queue,regular,released,episodeLabel} from './src/model.ts'; export {bingePlacement,nextBingeDate,sectionOf} from './src/binge-model.ts'; export {filedTitle,compareTitles} from './src/titles.ts';",resolveDir:root,loader:'ts'},bundle:true,packages:'external',platform:'node',format:'cjs',outfile:out,logLevel:'silent'});
+ await viteRequire('esbuild').build({absWorkingDir:root,stdin:{contents:"export {validateCloudUpload} from './src/cloud-transport.ts'; export {bucket,queue,regular,released,episodeLabel} from './src/model.ts'; export {bingePlacement,nextBingeDate,sectionOf,lastBingeActivity} from './src/binge-model.ts'; export {filedTitle,compareTitles} from './src/titles.ts';",resolveDir:root,loader:'ts'},bundle:true,packages:'external',platform:'node',format:'cjs',outfile:out,logLevel:'silent'});
  validation=require(out);return validation;
 }
 function decode(doc){return Object.fromEntries(Object.entries(doc.fields??{}).map(([k,v])=>[k,'integerValue'in v?Number(v.integerValue):v.stringValue??v.timestampValue??v.booleanValue]));}

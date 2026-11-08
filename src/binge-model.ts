@@ -9,6 +9,16 @@ export function bingePlacement(episodes:Episode[],seasons:Season[],progress:Prog
   const section=sectionOf(preference);
   if(section==='not-for-me')return 'Not for me';
   if(bucket(episodes,seasons,progress,now)!=='Binge')return null;
-  if(queue(episodes,progress,now).available.length)return sectionNames[section];
+  if(queue(episodes,progress,now).available.length)return sectionNames[readySection(episodes,progress,preference)];
   return nextBingeDate(episodes,now)?'Upcoming':'TBA';
+}
+/** Latest recorded regular-episode watch timestamp; undo removes that activity. */
+export function lastBingeActivity(episodes:Episode[],progress:Progress[]):number|null{
+ const ids=new Set(episodes.filter(regular).map(e=>e.id));let last:number|null=null;
+ for(const p of progress){if(!ids.has(p.episodeId))continue;const at=Date.parse(p.watchedAt);if(Number.isFinite(at)&&(last===null||at>last))last=at;}
+ return last;
+}
+export function readySection(episodes:Episode[],progress:Progress[],preference:Preference|undefined):BingeSection{
+ const preferred=sectionOf(preference);if(preferred==='not-for-me')return preferred;
+ return lastBingeActivity(episodes,progress)!==null?'watching-now':preferred;
 }

@@ -1,3 +1,5 @@
+import {DragHandle} from './DragHandle';
+import {moveInOrder,saveBingeOrder,type OrderSnapshot,type OrderedSection} from './binge-order';
 import {weeklyDays} from './weekly-days';
 import {filedTitle,compareTitles,matchesTitle} from './titles';
 import {version} from '../package.json';
@@ -14,7 +16,7 @@ import { PwaStatus } from './PwaStatus';
 import {MetadataRefresh} from './MetadataRefresh';
 import { ShowSetup } from './ShowSetup';
 import { loadShowSetup, type SetupSnapshot } from './show-setup';
-import {bingePlacement,nextBingeDate,sectionNames,sectionOf,setBingeSection} from './binge';
+import {bingePlacement,nextBingeDate,sectionNames,sectionOf,setBingeSection,lastBingeActivity,readySection} from './binge';
 import type {BingeSection} from './model';
 
 type View = 'Weekly' | 'Binge' | 'Watched' | 'Add Show' | 'Import' | 'Match';
@@ -90,18 +92,34 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
     }
   }
   async function undoLast() { if (undo) {await setWatched(undo.id,undo.watched);setUndo(null);setCompletion('');} }
-  async function reorder(id: number, direction: number) {
-    if (!data) return;
-    const section=sectionOf(data.preferences.find(p=>p.showId===id));
-    const ordered = data.shows.filter(s => sectionOf(data.preferences.find(p=>p.showId===s.id))===section&&bucket(data.episodes.filter(e => e.showId === s.id), data.seasons.filter(x => x.showId === s.id), data.progress, now) === 'Binge'&&queue(data.episodes.filter(e=>e.showId===s.id),data.progress,now).available.length>0).sort(byOrder);
-    const index = ordered.findIndex(s => s.id === id), target = index + direction;
-    if (target < 0 || target >= ordered.length) return;
-    [ordered[index], ordered[target]] = [ordered[target], ordered[index]];
-    await db.transaction('rw', db.preferences,db.settings, async () => {
-      await assertLibraryRevision(data.revision);
-      for(const s of ordered)if(String((await db.settings.get('syncLife:'+s.id))?.value??'')!==String(data.lifecycles.find(row=>row.key==='syncLife:'+s.id)?.value??''))throw new Error('The show list changed. Reopen it before moving shows.');
-      for (const [i, s] of ordered.entries()) await db.preferences.update(s.id, {order: i});
-    });
+  const activityCache=new Map<number,number|null>(),orderedCache=new Map<OrderedSection,Show[]>();let manualActive:boolean|undefined;
+  function activity(id:number){if(!activityCache.has(id))activityCache.set(id,data?lastBingeActivity(data.episodes.filter(e=>e.showId===id),data.progress):null);return activityCache.get(id)!;}
+  function orderedShows(section:OrderedSection){
+    if(!data)return [];if(orderedCache.has(section))return orderedCache.get(section)!;
+    const ordered=data.shows.filter(show=>bingePlacement(data.episodes.filter(e=>e.showId===show.id),data.seasons.filter(x=>x.showId===show.id),data.progress,data.preferences.find(p=>p.showId===show.id),now)===sectionNames[section]).sort(section==='watching-now'?activeOrder:byOrder);orderedCache.set(section,ordered);return ordered;
+  }
+  function manualActivityOrder(){return manualActive??=!!data?.shows.some(s=>activity(s.id)!==null&&data.preferences.find(p=>p.showId===s.id)?.bingeManualOrder&&bingePlacement(data.episodes.filter(e=>e.showId===s.id),data.seasons.filter(x=>x.showId===s.id),data.progress,data.preferences.find(p=>p.showId===s.id),now)==='Watching now');}
+  function activeOrder(a:Show,b:Show){
+    const aTime=activity(a.id),bTime=activity(b.id);
+    if((aTime===null)!==(bTime===null))return aTime===null?1:-1;
+    const manual=manualActivityOrder();
+    return aTime!==null&&!manual?(bTime!-aTime||byOrder(a,b)):byOrder(a,b);
+  }
+  function orderSnapshot(section:OrderedSection,id:number):OrderSnapshot{
+    return {revision:data!.revision,section,started:activity(id)!==null,members:orderedShows(section).filter(s=>(activity(s.id)!==null)===(activity(id)!==null)).map(show=>({id:show.id,order:data!.preferences.find(p=>p.showId===show.id)?.order??0,life:String(data!.lifecycles.find(row=>row.key==='syncLife:'+show.id)?.value??''),activity:activity(show.id),manual:!!data!.preferences.find(p=>p.showId===show.id)?.bingeManualOrder,storedSection:sectionOf(data!.preferences.find(p=>p.showId===show.id))}))};
+  }
+  async function persistOrder(snapshot:OrderSnapshot,ids:number[],id:number){
+    await saveBingeOrder(snapshot,ids);
+    const name=filedTitle(data!.shows.find(show=>show.id===id)!.name);
+    setNotice(name+': position '+(ids.indexOf(id)+1)+' of '+ids.length+' in '+sectionNames[snapshot.section]+'. Saved.');
+  }
+  async function dragOrder(snapshot:OrderSnapshot,ids:number[],id:number){let saved=false;await run(async()=>{await persistOrder(snapshot,ids,id);saved=true;});return saved;}
+  async function reorder(id:number,direction:number){
+    if(!data)return;
+    const section=readySection(data.episodes.filter(e=>e.showId===id),data.progress,data.preferences.find(p=>p.showId===id));if(section!=='watching-now'&&section!=='watch-soon')return;
+    const snapshot=orderSnapshot(section,id),ids=snapshot.members.map(m=>m.id),target=ids.indexOf(id)+direction;
+    if(target<0||target>=ids.length)return;
+    await persistOrder(snapshot,moveInOrder(ids,id,ids[target]),id);
   }
   function byOrder(a: Show, b: Show) { return (data?.preferences.find(p => p.showId === a.id)?.order ?? 0) - (data?.preferences.find(p => p.showId === b.id)?.order ?? 0) || compareTitles(a.name,b.name); }
   async function moveSection(show:Show,section:BingeSection){
@@ -117,14 +135,17 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
     const genre = show.genres.find(g=>['Science-Fiction','Fantasy','Horror'].includes(g)) ?? show.genres[0] ?? 'Unclassified';
     const total = episodes.filter(regular).length;
     const watched = episodes.filter(e=>regular(e)&&data.progress.some(p=>p.episodeId===e.id)).length;
-    const section=sectionOf(data.preferences.find(p=>p.showId===show.id)),date=nextBingeDate(episodes,now);
-    return <article key={show.id} aria-label={filedTitle(show.name)} className={`show-card genre-${genre.toLowerCase().replace(/[^a-z]/g,'')}`}>
+    const section=readySection(episodes,data.progress,data.preferences.find(p=>p.showId===show.id)),date=nextBingeDate(episodes,now);
+    const sortable=view==='Binge'&&bingeFilter==='Ready'&&(section==='watching-now'||section==='watch-soon');
+    const snapshot=sortable?orderSnapshot(section,show.id):null;
+    const orderIndex=snapshot?.members.findIndex(m=>m.id===show.id)??-1;
+    return <article key={show.id} data-sort-id={sortable?show.id:undefined} data-sort-section={sortable?section:undefined} data-sort-started={sortable?String(activity(show.id)!==null):undefined} aria-label={filedTitle(show.name)} className={`show-card genre-${genre.toLowerCase().replace(/[^a-z]/g,'')}`}>
       <div className="show-art" aria-hidden="true"><span>{filedTitle(show.name).slice(0,1)}</span></div>
       <div className="show-identity"><div className="show-meta"><span className="genre-tag">{genre}</span><span>{show.service ?? 'Service unknown'}</span></div><h3><button className="show-title" onClick={() => setDetail(show.id)}>{filedTitle(show.name)}</button></h3><span className="show-status">{show.status ?? 'Status unknown'}</span></div>
       <div className="show-next">{section==='not-for-me'&&view==='Binge'?<p>Hidden from active watch lists. History is kept.</p>:q.next ? <label key={q.next.id} className="episode-action"><input type="checkbox" aria-label={`Watch ${show.name} ${episodeLabel(q.next)}`} disabled={busy} checked={false} onChange={() => run(() => toggle(q.next!, true))}/><span>Mark <strong>S{q.next.season} E{q.next.number}</strong> watched<span className="episode-name">{q.next.name}</span></span></label> : <p>{date ? date.stamp?`Next confirmed airing: ${airTime(date.stamp)}`:`Next confirmed date: ${date.date} · Time unknown` : 'No confirmed next release.'}</p>}</div>
       <div className="show-progress"><span>{watched} of {total} watched</span><progress aria-label={`${show.name} watched episodes`} value={watched} max={Math.max(1,total)}/><p className="queue-count">{q.available.length} available unwatched · {q.upcoming.length} upcoming · {q.unknown.length} with unknown availability</p>{!!completed.length && <p>Watched seasons: {completed.map(s => s.number).join(', ')}</p>}</div>
-      {view === 'Binge' && bingeFilter==='Ready'&&['watching-now','watch-soon'].includes(section)&&<div className="reorder-controls"><button disabled={busy||index===0} aria-label={`Move ${show.name} up`} onClick={() => run(() => reorder(show.id, -1))}>↑</button><button disabled={busy||index===peers.length-1} aria-label={`Move ${show.name} down`} onClick={() => run(() => reorder(show.id, 1))}>↓</button></div>}
-      {view==='Binge'&&<details className="show-actions"><summary aria-label={`Manage ${filedTitle(show.name)}`}>Manage</summary><div>{(Object.keys(sectionNames) as BingeSection[]).filter(value=>value!==section).map(value=><button key={value} disabled={busy} onClick={()=>void moveSection(show,value)}>{value==='not-for-me'?'Not for me':`Move to ${sectionNames[value]}`}</button>)}</div></details>}
+      {sortable&&<div className="reorder-controls"><button disabled={busy||restoring||orderIndex===0} aria-label={`Move ${show.name} up`} onClick={() => run(() => reorder(show.id, -1))}>↑</button><button disabled={busy||restoring||orderIndex===(snapshot?.members.length??0)-1} aria-label={`Move ${show.name} down`} onClick={() => run(() => reorder(show.id, 1))}>↓</button></div>}
+      {view==='Binge'&&<div className="show-actions">{snapshot&&<DragHandle id={show.id} name={filedTitle(show.name)} sectionName={sectionNames[snapshot.section]} generation={JSON.stringify([view,bingeFilter,filter,snapshot,peers.filter(p=>(activity(p.id)!==null)===(activity(show.id)!==null)).map(p=>p.id)])} visibleIds={peers.filter(p=>(activity(p.id)!==null)===(activity(show.id)!==null)).map(p=>p.id)} disabled={busy||restoring||snapshot.members.length<2} capture={()=>snapshot} commit={(captured,ids)=>dragOrder(captured,ids,show.id)}/>}<details><summary aria-label={`Manage ${filedTitle(show.name)}`}>Manage</summary><div>{(Object.keys(sectionNames) as BingeSection[]).filter(value=>value!==section&&(activity(show.id)===null||value==='not-for-me'||(section==='not-for-me'&&value==='watching-now'))).map(value=><button key={value} disabled={busy} onClick={()=>void moveSection(show,value)}>{value==='not-for-me'?'Not for me':`Move to ${sectionNames[value]}`}</button>)}</div></details></div>}
     </article>;
   }
   let content: ReactNode;
@@ -133,7 +154,7 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
   else if (view === 'Import'||view==='Match') content = <ImportPanel mode={view==='Match'?'match':'import'} sources={data.sources} run={run} busy={busy} initialTarget={importTarget} onQueue={()=>{setMatchReturn('Match');setView('Match');}} onMatched={id=>beginSetup(id,matchReturn)}/>;
   else {
     const showBucket=(s:Show)=>bucket(data.episodes.filter(e=>e.showId===s.id),data.seasons.filter(x=>x.showId===s.id),data.progress,now);
-    const preference=(s:Show)=>sectionOf(data.preferences.find(p=>p.showId===s.id));
+    const preference=(s:Show)=>readySection(data.episodes.filter(e=>e.showId===s.id),data.progress,data.preferences.find(p=>p.showId===s.id));
     const searched=data.shows.filter(s=>matchesTitle(s.name,filter));
     const visible=searched.filter(s=>(view!=='Weekly'||preference(s)!=='not-for-me')&&(showBucket(s)===view||(view==='Watched'&&data.progress.some(p=>data.episodes.some(e=>e.id===p.episodeId&&e.showId===s.id))))).sort(view==='Watched'?(a,b)=>compareTitles(a.name,b.name):byOrder);
     if(view==='Weekly'){
@@ -147,9 +168,10 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
       const ready=searched.filter(s=>['Watching now','Watch soon','Everything else'].includes(placement(s)??''));
       const waiting=searched.filter(s=>['Upcoming','TBA'].includes(placement(s)??''));
       const date=(s:Show)=>nextBingeDate(data.episodes.filter(e=>e.showId===s.id),now);
-      const group=(label:string,shows:Show[])=><section key={label} className="binge-section" aria-label={label}><h3 className="binge-heading">{label}<span>{shows.length} {shows.length===1?'show':'shows'}</span></h3>{shows.map(card)}{!shows.length&&<p>No shows here yet.</p>}</section>;
+      const recent=async()=>{const first=data.shows.find(s=>activity(s.id)!==null&&preference(s)==='watching-now'&&placement(s)==='Watching now');if(!first)return;const snapshot=orderSnapshot('watching-now',first.id);await saveBingeOrder(snapshot,snapshot.members.map(m=>m.id),db,new Date(),false);setNotice('Watching now sorted by recent activity. Saved.');};
+      const group=(label:string,shows:Show[])=><section key={label} className="binge-section" aria-label={label}><h3 className="binge-heading">{label}<span>{shows.length} {shows.length===1?'show':'shows'}</span>{label==='Watching now'&&shows.some(s=>activity(s.id)!==null)&&<button aria-label="Sort by recent activity" title="Sort by recent activity" disabled={busy||restoring||!manualActivityOrder()} onClick={()=>void run(recent)}>Recent</button>}</h3>{label==='Watching now'&&shows.some(s=>activity(s.id)!==null)&&<p className="order-help">{manualActivityOrder()?'Custom order. Choose Recent to reset.':'Recent first. Drag or use arrows to rearrange.'}</p>}{shows.map(card)}{!shows.length&&<p>No shows here yet.</p>}</section>;
       content=<><div className="binge-filters" role="group" aria-label="Binge filters">{(['Ready','Upcoming & TBA','Not for me'] as const).map(value=><button key={value} aria-pressed={bingeFilter===value} onClick={()=>setBingeFilter(value)}>{value}</button>)}</div>
-        {bingeFilter==='Ready'?ready.length?(['watching-now','watch-soon','everything-else'] as const).filter(section=>ready.some(s=>preference(s)===section)).map(section=>group(sectionNames[section],ready.filter(s=>preference(s)===section).sort(section==='everything-else'?(a,b)=>compareTitles(a.name,b.name):byOrder))):<p>No ready episodes. Check Upcoming &amp; TBA or add a show.</p>:bingeFilter==='Upcoming & TBA'?<>{group('Upcoming',waiting.filter(s=>date(s)).sort((a,b)=>date(a)!.date.localeCompare(date(b)!.date)||compareTitles(a.name,b.name)))}{group('TBA',waiting.filter(s=>!date(s)).sort((a,b)=>compareTitles(a.name,b.name)))}</>:group('Not for me',searched.filter(s=>preference(s)==='not-for-me').sort((a,b)=>compareTitles(a.name,b.name)))}</>;
+        {bingeFilter==='Ready'?ready.length?(['watching-now','watch-soon','everything-else'] as const).filter(section=>ready.some(s=>preference(s)===section)).map(section=>group(sectionNames[section],ready.filter(s=>preference(s)===section).sort(section==='everything-else'?(a,b)=>compareTitles(a.name,b.name):section==='watching-now'?activeOrder:byOrder))):<p>No ready episodes. Check Upcoming &amp; TBA or add a show.</p>:bingeFilter==='Upcoming & TBA'?<>{group('Upcoming',waiting.filter(s=>date(s)).sort((a,b)=>date(a)!.date.localeCompare(date(b)!.date)||compareTitles(a.name,b.name)))}{group('TBA',waiting.filter(s=>!date(s)).sort((a,b)=>compareTitles(a.name,b.name)))}</>:group('Not for me',searched.filter(s=>preference(s)==='not-for-me').sort((a,b)=>compareTitles(a.name,b.name)))}</>;
     }else content=<>{visible.map(card)}{!visible.length&&<p>No episode history yet. Unmatched shows are in Match.</p>}</>;
   }
   return <main className="watchlist-app">
@@ -159,7 +181,7 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
     <PwaStatus mode={phone?'alerts':'all'}/>{error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     {busy && <p role="status">Saving or fetching…</p>}
     {undo && !completion && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}
-    {detail !== null && data ? <Detail section={sectionOf(data.preferences.find(p=>p.showId===detail))} onSection={section=>moveSection(data.shows.find(s=>s.id===detail)!,section)} show={data.shows.find(s => s.id === detail)!} episodes={data.episodes.filter(e => e.showId === detail)} watched={new Set(data.progress.map(p => p.episodeId))} notes={data.preferences.find(p => p.showId === detail)?.notes ?? ''} now={now} busy={busy} run={run} toggle={toggle} onDelete={async () => { const show=data.shows.find(s=>s.id===detail); if (!show || !window.confirm(`Delete ${show.name}? This permanently removes its seasons, episodes, watched history, personal notes, order, and matching import entries from this library. Original files and existing backup files stay unchanged.`)) return; await run(async()=>{await deleteShow(show.id,db,fetchEpisodeOwner);setDetail(null);setImportTarget(null);setUndo(null);setCompletion('');setView('Binge');setNotice(`${show.name} was deleted from your library.`);}); }} onBack={() => setDetail(null)}/> : <><h2 ref={listHeading} tabIndex={-1}>{view}</h2>{['Weekly','Binge','Watched'].includes(view) && <label>Search library <input value={filter} onChange={e => setFilter(e.target.value)}/></label>}{content}</>}
+    {detail !== null && data ? <Detail section={readySection(data.episodes.filter(e=>e.showId===detail),data.progress,data.preferences.find(p=>p.showId===detail))} onSection={section=>moveSection(data.shows.find(s=>s.id===detail)!,section)} show={data.shows.find(s => s.id === detail)!} episodes={data.episodes.filter(e => e.showId === detail)} watched={new Set(data.progress.map(p => p.episodeId))} notes={data.preferences.find(p => p.showId === detail)?.notes ?? ''} now={now} busy={busy} run={run} toggle={toggle} onDelete={async () => { const show=data.shows.find(s=>s.id===detail); if (!show || !window.confirm(`Delete ${show.name}? This permanently removes its seasons, episodes, watched history, personal notes, order, and matching import entries from this library. Original files and existing backup files stay unchanged.`)) return; await run(async()=>{await deleteShow(show.id,db,fetchEpisodeOwner);setDetail(null);setImportTarget(null);setUndo(null);setCompletion('');setView('Binge');setNotice(`${show.name} was deleted from your library.`);}); }} onBack={() => setDetail(null)}/> : <><h2 ref={listHeading} tabIndex={-1}>{view}</h2>{['Weekly','Binge','Watched'].includes(view) && <label>Search library <input value={filter} onChange={e => setFilter(e.target.value)}/></label>}{content}</>}
     {completion && <div role="dialog" aria-modal="true" aria-label="Season complete"><p>{completion}</p><p>Your progress is saved. More metadata may be announced later.</p><button className="circle" aria-label="Dismiss completion" onClick={() => setCompletion('')}>×</button>{undo && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}</div>}
     {setup&&<ShowSetup snapshot={setup.snapshot} returnTo={setup.returnTo} busy={busy||restoring} onDone={finishSetup}/>}
     <MetadataRefresh paused={metadataPaused||busy||restoring||!!setup}/><footer><p>Episode metadata: <a href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Cached locally; checked automatically while open and online. Availability can vary by region.</p></footer>
@@ -199,7 +221,8 @@ function Detail({section,onSection,show, episodes, watched, notes, now, busy, ru
       });
       notesBaseline.current=draftNotes;setNewerNotes(false);setReplaceNewerNotes(false);
     })}>Save notes</button>
-    <label>Watch list section <select value={section} disabled={busy} onChange={event=>void onSection(event.target.value as BingeSection)}>{(Object.keys(sectionNames) as BingeSection[]).map(value=><option key={value} value={value}>{sectionNames[value]}</option>)}</select></label>
+    {episodes.some(e=>regular(e)&&watched.has(e.id))&&<p>Started shows with available episodes appear first in Watching now. Your section choice applies when no episodes are marked watched. Not for me still hides the show.</p>}
+    <label>Watch list section <select value={section} disabled={busy} onChange={event=>void onSection(event.target.value as BingeSection)}>{(Object.keys(sectionNames) as BingeSection[]).filter(value=>!episodes.some(e=>regular(e)&&watched.has(e.id))||value==='watching-now'||value==='not-for-me').map(value=><option key={value} value={value}>{sectionNames[value]}</option>)}</select></label>
     <fieldset><legend>Already watching? Choose the current episode</legend><p>{current === 'caught-up' ? 'Marks all released regular episodes watched. Future, special and unknown-release episodes stay unchanged. The show stays tracked; new releases return to your watch queue.' : 'Explicitly mark released episodes before this one watched. The selected episode stays unchanged.'}</p><label>Current episode <select value={current} onChange={e => setCurrent(e.target.value)}><option value="">Choose episode</option><option value="caught-up">Caught up—all aired episodes watched</option>{ordered.map(e => <option key={e.id} value={e.id}>{episodeLabel(e)}</option>)}</select></label><button disabled={busy || !current} onClick={() => run(() => current === 'caught-up' ? markCaughtUp(show.id, now) : onboard(show.id, Number(current), now))}>{current === 'caught-up' ? 'Mark all aired episodes watched' : 'Mark earlier released episodes watched'}</button></fieldset>
     {Array.from(new Set(ordered.map(e => e.season))).map(season => <section key={season}><h3>Season {season}</h3>{ordered.filter(e => e.season === season).map(e => <div className="episode" key={e.id}><label><input type="checkbox" checked={watched.has(e.id)} disabled={busy || (!watched.has(e.id) && !released(e,now))} onChange={event => run(() => toggle(e,event.target.checked))}/>{episodeLabel(e)}</label><small>{e.airstamp ? airTime(e.airstamp) : e.airdate ? `${e.airdate} · Time unknown` : 'Release unknown'}</small><p>{plainText(e.summary)}</p></div>)}</section>)}
   </section>;

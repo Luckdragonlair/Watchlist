@@ -60,3 +60,7 @@ Section choices and arrow order are stored locally, work offline, and sync on re
 ## Splash and banner offline (v0.6.0)
 
 The original five-second Brick alley splash and gold banner use cached local Limelight/brick/runtime assets, with no external media/font requests. They replay on page launch/reload, including offline reopen; in-app navigation does not replay. Reduced motion shortens the static/fade path; forced colours omits the splash. Failed runtime/font startup has independent cleanup. Android manifest/startup background and browser theme are #05070d. Weekly opens first, using today-first Central-time weekday order. Existing databases and format-2 backups are unchanged.
+
+## Offline card ordering (v0.7.0)
+
+Dragging, arrows, activity grouping and Recent reset operate on IndexedDB offline and sync when reconnected. Drag handles reserve touch gestures; ordinary card surfaces still scroll. Both devices must update for format-3 snapshots, which preserve the manual-activity override. Legacy formats remain readable. No new cloud job, external provider or paid service is introduced.

@@ -36,3 +36,7 @@ When updating the app's backup schema or classification code, restart the watche
 ## v0.5.0 section-format compatibility - 2026-11-08
 
 Update Watchlist on PC and phone before continuing shared use. New snapshots/backups use format 2 to retain Binge sections; older format-1 backups remain readable. Older app versions reject the new shared format rather than dropping its fields. Database names and schema v3 are unchanged. Import handles working files; Match holds only unmatched entries. Reversible Not for me preserves viewing history. The read-only folder helper must run the updated code; restart it after this release so its validation and readable sections are current.
+
+## v0.7.0 renderer update
+
+Renderer version 3 mirrors started-first Watching now, recent activity and saved manual overrides. Its validator accepts backup formats 1/2/3. Restart the session watcher after this update to load the new validator/model; no reboot startup is installed and no cloud writes are made.

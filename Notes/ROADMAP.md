@@ -1,6 +1,6 @@
 # Watchlist development roadmap
 
-Updated: 2026-11-08 04:20 CST (America/Chicago)
+Updated: 2026-11-08 09:05 America/Chicago
 
 This is the living development plan from the original prototype to a dependable first release. It tracks verified progress, remaining work and initial effort estimates. AI maintains the status marks, timestamps and estimate changes.
 
@@ -12,7 +12,7 @@ The current local-first PWA is the foundation. Hosted access is published for tr
 
 ## Progress at a glance
 
-**Current focus:** Steps 7 and 9 — Binge sections and Match are built; accessible dragging is next, followed by the A-Z control and final screen/dialog refinements. Update PC and phone to v0.5.0 for section-compatible sync. Approved Nightfall references are in design/nightfall-v2. Owner-requested original Brick alley/Gold banner integration and Weekly launch/today-first headings are built and verified (v0.6.0). Accessible dragging follows.
+**Current focus:** v0.7.0 card dragging and started-first Binge activity/manual order are built and verified. Next: remaining V2/A-Z/dialog/accessibility work, then movie planning. Family access and social recommendations are deferred until core completion; API-credit use is undecided.
 **Target:** one-click use on Android and Windows, a shared private library, and dependable offline tracking.
 
 Marks: **[x] complete** · **[~] partly complete** · **[>] next** · **[ ] not started** · **[!] blocked**. A blocked mark must name the blocker. No milestone is currently marked blocked; future steps depend on the decisions and checks below.
@@ -25,7 +25,7 @@ Marks: **[x] complete** · **[~] partly complete** · **[>] next** · **[ ] not 
 | 4 | [~] Firefox PC checks passed; Firebase Spark chosen; access/security design underway | 1–2 sessions; Android acceptance follows hosted access in step 5 | 2026-11-06 07:00 CST; user confirmed internet-disconnected reopen |
 | 5 | [~] Hosted trial published; live unsigned-in shell verified; device acceptance and migration remain | About 1 session for device checks; migration depends on sync readiness | 2026-11-06 08:03 CST |
 | 6 | [~] Sync deployed; migration, live two-way notes and offline reconnect passed by user report | Remaining progress/order/recovery checks included in step 10 | 2026-11-07; see SYNC_ACCEPTANCE_2026-11-07.md |
-| 7 | [>] Watching now/Watch soon section arrows and shared saved order built; accessible dragging next | 1-2 focused sessions, subject to device acceptance | 2026-11-08 04:20 CST |
+| 7 | [x] Section arrows plus PC/touch/keyboard dragging and activity/manual order built | Implementation complete; actual-device acceptance remains | 2026-11-08 09:05 America/Chicago |
 | 8 | [~] Setup, caught-up action, daily metadata checks and Match queue built; held titles/manual acceptance remain | Manual review as needed; recommendations remain deferred | 2026-11-08 04:20 CST |
 | 9 | [~] Nightfall foundation, Binge sections and Match complete; drag/A-Z, final styling and accessibility remain | 2-4 focused sessions; overlaps step 7, not additive | 2026-11-08 04:20 CST |
 | 10 | [~] Core real-device sync passed; remaining section/progress/order/recovery and accessibility acceptance open | 1-3 sessions after steps 7-9; defects may revise estimate | 2026-11-08: owner reported sync recovered after v0.4.1 |
@@ -204,3 +204,12 @@ Historical entries above remain as checkpoints; the current summary and this dat
 - [ ] Owner checks actual Android layout after updating. This presentation correction does not change the next planned accessible-dragging milestone or its estimate.
 
 2026-11-08: v0.6.0 original splash/gold banner, Weekly launch and today-first Central weekdays verified. Remaining splash ETA: one actual Android/Firefox smoothness check; accessible dragging remains the next implementation milestone.
+
+## Revised near-term order - 2026-11-08 08:58 America/Chicago
+
+1. [x] Save the three-entry cleanup checkpoint (a973090).
+2. [~] PC/phone/keyboard dragging plus activity-first Binge with manual override — built and verified. Remaining ETA: actual-device acceptance.
+3. [ ] Finish remaining V2/A-Z/dialog/accessibility checks — retain the existing 2–4-session estimate, subject to device findings.
+4. [ ] Design movie support and choose its metadata/import/tracking approach — about one planning session; implementation ETA after scope/provider choice.
+5. [ ] Review API-credit ideas after core/movie requirements settle; no implementation or credit spending authorized by this note.
+6. [ ] Family accounts and recommendation sharing — deferred until core completion; implementation ETA remains unset.

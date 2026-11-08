@@ -42,7 +42,7 @@ Updated: 2026-11-08
 
 - [x] Validated JSON backup restore/transfer with preview, explicit replacement confirmation, cancellation, atomic rollback, exact round-trip tests, and cross-tab restore safety.
 - [x] Installable PWA and offline reopen: production caching, manifest/icons, install guidance, controlled updates, offline tracking/details/order/backup/restore, and full-browser-restart verification with the server stopped. User OS installation remains manual.
-- [ ] Smooth drag-and-drop plus Watch Now/Watch Soon, preserving manual Binge order.
+- [x] Implemented v0.7.0: PC/touch/keyboard dragging in ordered Binge groups, sharing the saved order with arrows.
 - [ ] Completion recommendations from Binge with Skip/Pass/dismiss actions.
 - [ ] Explicit specials, manual release corrections, richer season-level placement, unknown future seasons.
 - [ ] Accessible modal focus management and Claude's final responsive design.
@@ -65,7 +65,7 @@ Updated: 2026-11-08
 - [x] User-reported completion of The Handmaid's Tale: checking Episode 10 correctly marked it watched and placed it in Watched. Season and post-reload state were not independently verified.
 - [ ] Keep next-watch recommendations after completion as a future feature; no recommendation behavior added in this follow-up.
 
-- [ ] Binge card design requirement confirmed 2026-11-06: visible card dragging plus up/down reorder arrows on the right edge, vertically centered. Both must save the same manual order. Coordinate final styling with Claude.
+- [x] Implemented v0.7.0. Binge card design requirement confirmed 2026-11-06: visible card dragging plus up/down reorder arrows on the right edge, vertically centered. Both must save the same manual order. Coordinate final styling with Claude.
 
 ## Offline/installable follow-up — 2026-11-06
 
@@ -180,7 +180,7 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Update readable folder export and current code/status documentation.
 - [x] Owner reported v0.4.1 sync recovery (Up to date) before this release; phone recovery was not separately reported.
 - [ ] Owner checks v0.5.0 on PC and phone: update both, move a show, verify shared section/order and offline reconnect.
-- [ ] Accessible drag-and-drop is next; A-Z rail, final styling/dialogs and assistive-tech/zoom acceptance remain.
+- [x] Dragging delivered v0.7.0; A-Z rail, final styling/dialogs and real assistive-tech/zoom acceptance remain.
 
 - [x] Superseded by the approved original v0.6.0 splash/banner milestone below. Historical plan: Claude is preparing splash/title screen and optional PC banner designs (owner plan 2026-11-08). Review/integrate later; keep splash brief and nonblocking, with offline/reduced-motion support. No implementation claimed.
 
@@ -200,4 +200,14 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Default to Weekly and rotate from today in Central time, skipping empty days.
 - [x] Automated verification: 234 unit, 39 browser, eight PWA, hosted privacy and both builds/privacy guard. Published Hosting-only; live asset hashes match the tested build.
 - [ ] Owner checks actual Android portrait/landscape smoothness and banner after updating.
-- [ ] Accessible dragging remains next after this owner-requested presentation milestone.
+- [x] Dragging delivered v0.7.0 after the splash/banner milestone.
+
+## Card dragging/activity order and revised priorities - 2026-11-08 08:58 America/Chicago
+
+- [x] Implement shared guarded drag/arrow ordering, PC/touch/keyboard handles, edge scrolling, cancel and filtered-list safety.
+- [x] Implement started-first Binge grouping, recent-activity defaults, manual override and Recent reset.
+- [x] Verification passed (244 unit, 44 browser, nine PWA, hosted privacy, 13 rules, six SDK integration, builds/privacy guard); Published Hosting-only to genre-watchlist; live index, service worker and all app JS/CSS match the tested build. Restarted the authorized read-only folder watcher with renderer/validator 3; refreshed shared revision 79 (196 shows). No rules, billing, personal history or original master changes. Actual Android Firefox/TalkBack dragging acceptance remains.
+- [ ] Actual Android Firefox drag/scroll/TalkBack and desktop screen-reader acceptance.
+- [ ] Family/private accounts and social recommendations deferred until the core is complete.
+- [ ] Plan movie support: metadata source, film tracking/import, released/upcoming/theatrical placement and matching. Provider and API-credit choices remain undecided.
+- [ ] Discuss API-credit use after core/movie requirements are clear; no AI dependency for ordinary tracking.

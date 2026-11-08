@@ -8,7 +8,7 @@ export async function createBackup(database:WatchlistDB=db):Promise<Backup> {
       database.shows.toArray(),database.seasons.toArray(),database.episodes.toArray(),
       database.progress.toArray(),database.preferences.toArray(),database.sources.toArray(),
     ]);
-    return {version:2 as const,exportedAt:new Date().toISOString(),shows,seasons,episodes,progress,preferences,sources};
+    return {version:3 as const,exportedAt:new Date().toISOString(),shows,seasons,episodes,progress,preferences,sources};
   });
 }
 

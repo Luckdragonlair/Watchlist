@@ -45,8 +45,8 @@ describe('backup validation', () => {
     expect(restored).not.toHaveProperty('extra'); expect(restored.shows[0]).not.toHaveProperty('extra'); expect(restored.sources[0].rows[0]).not.toHaveProperty('extra');
     expect(restored.shows[0]).not.toBe(b.shows[0]); expect(b.extra).toEqual({ unsafe: true });
   });
-  it.each([undefined, null, 0, 3, '1', false])('rejects missing or unknown version %s', version => {
-    expect(() => validateBackup({ ...fixture(), version })).toThrow(/version.*version 1/);
+  it.each([undefined, null, 0, 4, '1', false])('rejects missing or unknown version %s', version => {
+    expect(() => validateBackup({ ...fixture(), version })).toThrow(/version.*versions 1, 2 and 3/);
   });
   it.each(['shows', 'seasons', 'episodes', 'progress', 'preferences', 'sources'])('requires the %s list', field => {
     const b = fixture() as unknown as Record<string, unknown>;

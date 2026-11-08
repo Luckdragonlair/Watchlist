@@ -148,7 +148,7 @@ describe('three-way shared library merge', () => {
   it.each(['local', 'remote'] as const)('accepts an uncontested %s restore, including an empty replacement', side => {
     const base = fixture(), replacement = empty('restored-epoch');
     const merged = side === 'local' ? mergeLibraries(base, replacement, copy(base)) : mergeLibraries(base, copy(base), replacement);
-    expect(merged).toEqual({...replacement,backup:{...replacement.backup,version:2}}); expect(merged.backup.shows).toEqual([]);
+    expect(merged).toEqual({...replacement,backup:{...replacement.backup,version:3}}); expect(merged.backup.shows).toEqual([]);
   });
   it('rejects old-epoch edits while another device restores', () => {
     const base = fixture(), local = copy(base); watched(local, 30);

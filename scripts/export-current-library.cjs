@@ -13,7 +13,7 @@ function renderLibrary(library,revision,now,model){
  for(const section of sections){
   if(section==='Watching now')lines.push('## Binge','');
   lines.push((['Weekly','Binge','Watched'].includes(section)?'## ':'### ')+section,'');
-  for(const s of [...b.shows].sort((a,c)=>{const pa=b.preferences.find(p=>p.showId===a.id),pc=b.preferences.find(p=>p.showId===c.id);if(['Watching now','Watch soon'].includes(section))return (pa?.order??0)-(pc?.order??0)||(model.compareTitles?.(a.name,c.name)??a.name.localeCompare(c.name));if(section==='Upcoming')return (model.nextBingeDate(byShow.get(a.id)??[],now)?.date??'').localeCompare(model.nextBingeDate(byShow.get(c.id)??[],now)?.date??'')||(model.compareTitles?.(a.name,c.name)??a.name.localeCompare(c.name));return model.compareTitles?.(a.name,c.name)??a.name.localeCompare(c.name);})){
+  for(const s of [...b.shows].sort((a,c)=>{const pa=b.preferences.find(p=>p.showId===a.id),pc=b.preferences.find(p=>p.showId===c.id);if(section==='Watching now'&&model.lastBingeActivity){const ta=model.lastBingeActivity(byShow.get(a.id)??[],b.progress),tc=model.lastBingeActivity(byShow.get(c.id)??[],b.progress);if((ta===null)!==(tc===null))return ta===null?1:-1;const manual=b.shows.some(s=>model.bingePlacement(byShow.get(s.id)??[],b.seasons.filter(x=>x.showId===s.id),b.progress,b.preferences.find(p=>p.showId===s.id),now)==='Watching now'&&model.lastBingeActivity(byShow.get(s.id)??[],b.progress)!==null&&b.preferences.find(p=>p.showId===s.id)?.bingeManualOrder);if(ta!==null&&!manual&&ta!==tc)return tc-ta;}if(['Watching now','Watch soon'].includes(section))return (pa?.order??0)-(pc?.order??0)||(model.compareTitles?.(a.name,c.name)??a.name.localeCompare(c.name));if(section==='Upcoming')return (model.nextBingeDate(byShow.get(a.id)??[],now)?.date??'').localeCompare(model.nextBingeDate(byShow.get(c.id)??[],now)?.date??'')||(model.compareTitles?.(a.name,c.name)??a.name.localeCompare(c.name));return model.compareTitles?.(a.name,c.name)??a.name.localeCompare(c.name);})){
    const episodes=byShow.get(s.id)??[],seasons=b.seasons.filter(x=>x.showId===s.id);
    const preference=b.preferences.find(p=>p.showId===s.id),placement=model.bingePlacement?.(episodes,seasons,b.progress,preference,now);
    if(section==='Weekly'){if(model.bucket(episodes,seasons,b.progress,now)!=='Weekly'||preference?.bingeSection==='not-for-me')continue;}else if(section==='Watched'){if(model.bucket(episodes,seasons,b.progress,now)!=='Watched'&&!episodes.some(e=>seen.has(e.id)))continue;}else if(model.bingePlacement?placement!==section:model.bucket(episodes,seasons,b.progress,now)!==section)continue;
@@ -32,12 +32,12 @@ function atomic(file,text){const temp=file+'.tmp';fs.writeFileSync(temp,text);fs
 async function exportOnce(){
  fs.mkdirSync(folder,{recursive:true});
  const statusPath=path.join(folder,'export-status.json');let prior;try{prior=JSON.parse(fs.readFileSync(statusPath,'utf8'));}catch{}
- if(prior?.rendererVersion!==2||!fs.existsSync(path.join(folder,'Watchlist Current.json'))||!fs.existsSync(path.join(folder,'Watchlist Current.md')))prior=undefined;
+ if(prior?.rendererVersion!==3||!fs.existsSync(path.join(folder,'Watchlist Current.json'))||!fs.existsSync(path.join(folder,'Watchlist Current.md')))prior=undefined;
  const data=await readShared(prior);if(!data)return false;
  const now=new Date(),backup={...data.library.backup,exportedAt:now.toISOString()};
  atomic(path.join(folder,'Watchlist Current.json'),JSON.stringify(backup,null,2)+'\n');
  atomic(path.join(folder,'Watchlist Current.md'),renderLibrary(data.library,data.revision,now,await validators()));
- atomic(statusPath,JSON.stringify({rendererVersion:2,revision:data.revision,payloadHash:data.manifest.fields.payloadHash.stringValue,exportedAt:now.toISOString()},null,2)+'\n');
+ atomic(statusPath,JSON.stringify({rendererVersion:3,revision:data.revision,payloadHash:data.manifest.fields.payloadHash.stringValue,exportedAt:now.toISOString()},null,2)+'\n');
  console.log(`Exported cloud revision ${data.revision}: ${backup.shows.length} shows to ${folder}`);return true;
 }
 async function main(){

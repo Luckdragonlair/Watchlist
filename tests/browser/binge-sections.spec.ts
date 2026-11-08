@@ -7,8 +7,8 @@ test('Binge sections preserve legacy order, move/reorder/hide reversibly, and se
   await page.route('https://api.tvmaze.com/**',route=>route.abort());
   const names=['Zebra fixture','Bear fixture','The Alpha fixture','Dated fixture','Unknown fixture'];
   const shows=names.map((name,i)=>({id:940001+i,name,summary:null,status:'Running',genres:['Fantasy'],service:'Fixture',url:`https://www.tvmaze.com/shows/${940001+i}`,syncedAt:'2026-11-08T18:00:00Z'}));
-  const episodes=shows.flatMap((show,i)=>[1,2].map(number=>({id:950000+i*10+number,showId:show.id,season:1,number,name:'Episode '+number,summary:null,type:'regular',airstamp:i<3?'2025-01-01T12:00:00Z':null,airdate:i<3?'2025-01-01':i===3?'2026-11-09':null})));
-  const backup={version:1,exportedAt:'2026-11-08T18:00:00Z',shows,seasons:[],episodes,progress:[{episodeId:950001,showId:940001,watchedAt:'2026-01-01T12:00:00Z'}],preferences:shows.map((s,i)=>({showId:s.id,order:i,notes:'Preserved note '+i})),sources:[]};
+  const episodes=shows.flatMap((show,i)=>[1,2].map(number=>({id:950000+i*10+number,showId:show.id,season:1,number,name:'Episode '+number,summary:null,type:'regular',airstamp:i<3||(i===3&&number===1)?'2025-01-01T12:00:00Z':null,airdate:i<3||(i===3&&number===1)?'2025-01-01':i===3?'2026-11-09':null})));
+  const backup={version:1,exportedAt:'2026-11-08T18:00:00Z',shows,seasons:[],episodes,progress:[{episodeId:950031,showId:940004,watchedAt:'2026-01-01T12:00:00Z'}],preferences:shows.map((s,i)=>({showId:s.id,order:i,notes:'Preserved note '+i})),sources:[]};
   await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByLabel('Backup file').setInputFiles({name:'legacy.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});
   const preview=page.getByRole('dialog',{name:'Restore this backup?'});await preview.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await preview.getByRole('button',{name:'Replace library and restore'}).click();
   const soon=page.getByRole('region',{name:'Watch soon',exact:true}),watching=page.getByRole('region',{name:'Watching now',exact:true});
@@ -23,7 +23,7 @@ test('Binge sections preserve legacy order, move/reorder/hide reversibly, and se
   await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await expect(page.getByRole('region',{name:'Upcoming',exact:true}).locator('.show-title')).toHaveText(['Dated fixture']);await expect(page.getByRole('region',{name:'TBA',exact:true}).locator('.show-title')).toHaveText(['Unknown fixture']);
   await page.getByRole('button',{name:'Ready',exact:true}).click();await page.setViewportSize({width:412,height:900});await page.screenshot({path:'artifacts/binge-sections-phone.png',fullPage:true});await page.setViewportSize({width:320,height:900});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.getByLabel('More Watchlist actions',{exact:true}).click();const pending=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup',exact:true}).click();const exported=JSON.parse(readFileSync((await (await pending).path())!,'utf8'));
-  expect(exported.version).toBe(2);expect(exported.progress).toEqual(backup.progress);expect(exported.preferences.map((p:{notes:string})=>p.notes)).toEqual(backup.preferences.map(p=>p.notes));expect(exported.sources).toEqual([]);
+  expect(exported.version).toBe(3);expect(exported.progress).toEqual(backup.progress);expect(exported.preferences.map((p:{notes:string})=>p.notes)).toEqual(backup.preferences.map(p=>p.notes));expect(exported.sources).toEqual([]);
   await page.clock.setFixedTime(new Date('2026-11-10T18:00:00Z'));await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByRole('button',{name:'Dated fixture',exact:true})).toBeVisible();
 });
 

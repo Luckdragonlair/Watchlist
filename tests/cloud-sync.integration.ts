@@ -1,3 +1,6 @@
+import {saveBingeOrder,type OrderSnapshot} from '../src/binge-order';
+import {lastBingeActivity} from '../src/binge-model';
+import {libraryRevision} from '../src/db';
 import {readFile} from 'node:fs/promises';
 import {beforeAll,beforeEach,afterEach,afterAll,describe,it,expect} from 'vitest';
 import {initializeTestEnvironment,type RulesTestEnvironment} from '@firebase/rules-unit-testing';
@@ -63,4 +66,15 @@ describe('Firestore transport and two-device synchronization',()=>{
     await restoreBackup(await createBackup(database()),a);await poll(()=>b.shows.count()).toBe(0);
     expect((await readRemote(cloudA,uid))!.library.epoch).not.toBe(before);
   });
+});
+
+it('synchronizes format-3 manual order and Recent reset between private devices without losing notes',async()=>{
+ const a=database(),b=database(),cloudA=firestore(),cloudB=firestore();
+ await saveBundle(fixture,a);await saveBundle({...fixture,show:{...fixture.show,id:2,name:'Other sync fixture'},seasons:[{...fixture.seasons[0],id:20,showId:2}],episodes:fixture.episodes.map((e,i)=>({...e,id:3+i,showId:2}))},a);
+ for(const id of [1,2])await a.preferences.update(id,{bingeSection:'watch-soon',order:id});await setWatched(1,true,a);await setWatched(3,true,a);
+ const first=engine(a,cloudA);await poll(()=>first.status.phase).toBe('saved');engine(b,cloudB);await poll(()=>b.shows.count()).toBe(2);
+ async function capture():Promise<OrderSnapshot>{const episodes=await a.episodes.toArray(),progress=await a.progress.toArray();return {revision:await libraryRevision(a),section:'watching-now',started:true,members:await Promise.all([1,2].map(async id=>{const p=(await a.preferences.get(id))!;return {id,order:p.order,life:String((await a.settings.get('syncLife:'+id))?.value??''),activity:lastBingeActivity(episodes.filter(e=>e.showId===id),progress),manual:!!p.bingeManualOrder,storedSection:p.bingeSection};}))};}
+ await saveBingeOrder(await capture(),[2,1],a);await poll(()=>b.preferences.get(2)).toMatchObject({order:0,bingeManualOrder:true});expect((await readRemote(cloudA,uid))?.library.backup.version).toBe(3);
+ await b.preferences.update(1,{notes:'Family-independent device note'});await poll(()=>a.preferences.get(1)).toMatchObject({notes:'Family-independent device note'});
+ await saveBingeOrder(await capture(),[2,1],a,new Date(),false);await poll(()=>b.preferences.get(1)).toMatchObject({bingeManualOrder:false,notes:'Family-independent device note'});
 });

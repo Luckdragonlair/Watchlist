@@ -1,6 +1,8 @@
-# Watchlist v0.6.0
+# Watchlist v0.7.0
 
-A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. V2 Binge sections and the unmatched-only Match queue are implemented; drag-and-drop and the remaining V2 refinements are still in progress; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
+A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. V2 Binge sections, card dragging, activity-first order and the unmatched-only Match queue are implemented; final V2 refinements remain; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
+
+Update PC and phone to v0.7.0 for format-3 order preference compatibility; older backups remain readable.
 
 Use [the hosted app](https://genre-watchlist.firebaseapp.com/) for shared PC/Android use. See [SYNC.md](SYNC.md) for the one-time transfer from the original local library and real-device acceptance steps. Your original local library is not uploaded automatically.
 
@@ -18,7 +20,7 @@ The preserved master list has a separate normalized starting catalog: 298 active
 
 Follow [the development roadmap](Notes/ROADMAP.md) for the ordered plan toward one-click Firefox use on Android and PC with shared progress. The original files are preserved in `originals/`; current project notes are in [Notes/README.md](Notes/README.md). The original master SHA-256 is recorded in [the import audit](Notes/MASTER_IMPORT_AUDIT.json).
 
-Installable/offline app support is implemented. Open the normal app at `http://127.0.0.1:5174`, wait for Available offline, and use the browser install option if desired. The cached app can reopen with its local server stopped; saved tracking, ordering, details and backup/restore work offline. TVmaze search/import/refresh still need internet. See [OFFLINE.md](OFFLINE.md). Drag-and-drop and completion recommendations remain future work.
+Installable/offline app support is implemented. Open the normal app at `http://127.0.0.1:5174`, wait for Available offline, and use the browser install option if desired. The cached app can reopen with its local server stopped; saved tracking, ordering, details and backup/restore work offline. TVmaze search/import/refresh still need internet. See [OFFLINE.md](OFFLINE.md). Card dragging is available; completion recommendations remain future work.
 
 Metadata is supplied by [TVmaze](https://www.tvmaze.com/), under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); see [the API documentation](https://www.tvmaze.com/api). Dates/statuses reflect the provider and are not independent release verification. No code license has been selected.
 
@@ -50,7 +52,7 @@ Binge opens on Ready: Watching now and Watch soon use saved arrow order; Everyth
 
 Import adds files and shows retained/unmatched counts. Match, beside Import (also available on phones), shows only pending/review entries, with title filtering. Completed matches disappear from that queue after setup; source text and season assertions remain preserved. Matching stays explicit, with no automatic alias choices or new bulk batch.
 
-Update Watchlist on both PC and phone. New exports/shared snapshots use backup format 2 to preserve sections safely; this app also reads old format-1 backups. Older app versions cannot read the new shared format and must update. IndexedDB names/schema stay the same; no library is reset. Dragging and the A-Z shortcut remain next work.
+Update Watchlist on both PC and phone. New exports/shared snapshots use backup format 2 to preserve sections safely; this app also reads old format-1 backups. Older app versions cannot read the new shared format and must update. IndexedDB names/schema stay the same; no library is reset. Superseded by v0.7.0: dragging is built and new snapshots use format 3; the A-Z shortcut remains future work.
 
 ## Compact phone header (v0.5.1)
 
@@ -64,3 +66,7 @@ The owner approved Claude's original dark Brick alley (04) and Gold banner (07),
 The banner replaces the duplicate navigation wordmark; the version remains visible. Phone More/bottom navigation stay compact. Account and healthy sync status occupy the banner status area; expanded account, errors/invalid data/conflicts get a full-width row, preserving actions. No library data, matching, schema, backup format or sync rules change. Source files are preserved unchanged in design/claude-splash-banner with selected source SHA-256 hashes.
 
 Weekly is the default on a fresh launch/reload. Weekday sections start with today in America/Chicago, then cycle forward through the week, skipping empty sections. Existing placement and per-day show order are unchanged. The clock updates every minute and immediately on focus/visible return; this is not a closed-app scheduler.
+
+## Card dragging and activity order (v0.7.0)
+
+Use Drag on Watching now/Watch soon cards with mouse or touch; the rest of each card scrolls normally. Keyboard users can pick up with Space/Enter, move with Up/Down/Home/End, drop with Space/Enter or cancel with Escape. Arrows remain available. Started Ready shows come first in Watching now, sorted by recorded watch activity. Drag or arrows saves your own order; Recent returns to activity order. Undo removes an episode’s activity. Untouched and alphabetical lists keep their rules. Update PC and phone: new backups/sync use format 3; formats 1 and 2 still restore. No database reset.

@@ -110,3 +110,18 @@ test('original splash, gold font and brick scene reopen offline',async({page,con
   expect(await page.evaluate(()=>document.fonts.check('32px Limelight'))).toBe(true);
  }finally{await server.stop();}
 });
+
+test('offline keyboard dragging preserves order, notes and format-3 export after reopening',async({page,context})=>{
+ const server=await productionServer();try{
+  await page.goto(server.url);await ready(page);
+  const shows=[1,2].map(id=>({id:985000+id,name:'Offline order '+id,summary:null,status:'Running',genres:[],service:null,url:'https://www.tvmaze.com/shows/'+id,syncedAt:new Date().toISOString()}));
+  const backup={version:2,exportedAt:new Date().toISOString(),shows,seasons:[],episodes:shows.map(s=>({id:s.id,showId:s.id,season:1,number:1,name:'Episode',summary:null,type:'regular',airstamp:'2025-01-01T12:00:00Z',airdate:'2025-01-01'})),preferences:shows.map((s,i)=>({showId:s.id,order:i,notes:'Keep offline '+i,bingeSection:'watch-soon'})),progress:[],sources:[]};
+  await page.getByLabel('Backup file').setInputFiles({name:'offline-order.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});const dialog=page.getByRole('dialog',{name:'Restore this backup?'});await dialog.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await dialog.getByRole('button',{name:'Replace library and restore'}).click();
+  await server.stop();await context.setOffline(true);await page.setViewportSize({width:412,height:915});
+  const drag=page.getByRole('button',{name:'Drag Offline order 2'});await drag.focus();await page.keyboard.press('Space');await page.keyboard.press('Home');await page.keyboard.press('Space');
+  await expect(page.locator('.show-title')).toHaveText(['Offline order 2','Offline order 1']);
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.locator('.show-title')).toHaveText(['Offline order 2','Offline order 1']);
+  await page.getByLabel('More Watchlist actions',{exact:true}).click();const downloading=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup',exact:true}).click();const exported=JSON.parse(readFileSync((await(await downloading).path())!,'utf8'));
+  expect(exported.version).toBe(3);expect(exported.preferences.map((p:{notes:string})=>p.notes)).toEqual(['Keep offline 0','Keep offline 1']);expect(exported.preferences.find((p:{showId:number})=>p.showId===985002).order).toBe(0);
+ }finally{await server.stop();}
+});

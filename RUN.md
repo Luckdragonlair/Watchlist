@@ -34,7 +34,7 @@ Keep `originals/Project Watchlist Master List.txt` unchanged. Use the normalized
 
 ## Scope of this version
 
-The UI is a functional placeholder; Claude owns the visual design. Installable/offline app support is implemented; recommendations and drag-and-drop reordering are deferred. The Silo mid-season onboarding test is intentionally pending; no Silo data is seeded.
+The approved Nightfall presentation, installable/offline support and PC/touch/keyboard card dragging are implemented. Remaining visual/accessibility acceptance, movies and recommendations are future work. The full Silo acceptance test remains open; no original Silo rows are seeded or used to overwrite manual onboarding progress.
 
 ## Export a backup
 
@@ -69,3 +69,7 @@ Update Watchlist on PC and phone before continuing shared use. New snapshots/bac
 ## v0.6.0 startup presentation - 2026-11-08
 
 The original approved Brick alley splash and gold banner load from local/cached assets before Weekly. App/auth loading runs underneath; no external splash service or paid dependency is needed. The default launch view is Weekly; it rotates headings from today in America/Chicago. Internal navigation does not replay the splash. For updates, save drafts then choose Update and reload as usual. Tests use disposable contexts; splash-specific checks exercise the real animation, while unrelated library/fake-clock browser checks stub only the decorative startup script.
+
+## v0.7.0 dragging and format-3 compatibility
+
+Update PC and phone before shared use. Use visible Drag handles in the ordered Ready groups; arrows remain available. Keyboard: Space/Enter, Up/Down/Home/End, Space/Enter; Escape cancels. Started shows default to recent activity, with a saved manual override and Recent reset. New backup/shared payloads are format 3; old formats 1/2 remain readable. Database names/schema and the normal/dev ports stay unchanged. Restart the existing read-only export helper after updating its code, as described in LIBRARY_EXPORT.md.

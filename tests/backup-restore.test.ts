@@ -32,7 +32,7 @@ it('rolls back all replacement writes if any table fails',async()=>{
 });
 it('keeps an intentionally empty restore empty after reopening and startup initialization',async()=>{
   const db=create();await fill(db);await restoreBackup(empty,db);const name=db.name;db.close();const reopened=new WatchlistDB(name);databases.push(reopened);
-  await initializeCatalog(source,reopened);expect(contents(await createBackup(reopened))).toEqual(contents({...empty,version:2}));expect((await reopened.settings.get('catalogInitialized'))?.value).toBe(true);
+  await initializeCatalog(source,reopened);expect(contents(await createBackup(reopened))).toEqual(contents({...empty,version:3}));expect((await reopened.settings.get('catalogInitialized'))?.value).toBe(true);
 });
 it('rejects stale metadata requests after restore but permits an explicit new import',async()=>{
   const db=create();await fill(db);const revision=await libraryRevision(db);await restoreBackup(empty,db);
