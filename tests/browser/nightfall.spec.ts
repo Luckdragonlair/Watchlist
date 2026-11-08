@@ -32,7 +32,7 @@ test('Nightfall cards and phone navigation remain usable at narrow and compact s
     if(width<840){
       const nav=await page.getByRole('navigation',{name:'Views'}).boundingBox();
       expect(nav!.y+nav!.height).toBe(900);
-      await expect(page.getByRole('button',{name:'Import',exact:true})).toBeVisible();
+      const more=page.getByLabel('More Watchlist actions',{exact:true});await expect(more).toBeVisible();await expect(page.getByRole('button',{name:'Import',exact:true})).not.toBeVisible();await more.click();await expect(page.getByRole('button',{name:'Import',exact:true})).toBeVisible();await more.click();
     }
     if(width===412||width===1280)await page.screenshot({path:`artifacts/nightfall-${width}.png`,fullPage:true});
   }

@@ -1,4 +1,4 @@
-# Watchlist v0.5.0
+# Watchlist v0.5.1
 
 A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. V2 Binge sections and the unmatched-only Match queue are implemented; drag-and-drop and the remaining V2 refinements are still in progress; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
 
@@ -51,3 +51,7 @@ Binge opens on Ready: Watching now and Watch soon use saved arrow order; Everyth
 Import adds files and shows retained/unmatched counts. Match, beside Import (also available on phones), shows only pending/review entries, with title filtering. Completed matches disappear from that queue after setup; source text and season assertions remain preserved. Matching stays explicit, with no automatic alias choices or new bulk batch.
 
 Update Watchlist on both PC and phone. New exports/shared snapshots use backup format 2 to preserve sections safely; this app also reads old format-1 backups. Older app versions cannot read the new shared format and must update. IndexedDB names/schema stay the same; no library is reset. Dragging and the A-Z shortcut remain next work.
+
+## Compact phone header (v0.5.1)
+
+On phones, More contains Import, Match, backup export/restore, installation/offline options and the release timezone. Weekly/Binge/Watched/Add stay in the bottom navigation. Healthy account/sync information uses a compact row. Offline problems, sync errors/conflicts and update actions remain visible outside More. Empty Ready groups no longer push populated sections down; if none are ready, one empty message is shown. Desktop utility controls remain directly visible. More supports keyboard open/Escape and restores focus when navigating.

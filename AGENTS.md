@@ -144,6 +144,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Binge drag-and-drop | Approved design, not built | Must share the same saved order as arrow controls. |
 | Show deletion | Built and verified | Atomic cascade with source/history protections and safe clean re-add. |
 | Backup export | Built and verified | Consistent snapshot, timestamped file, visible feedback, reusable download. |
+| Compact phone header (v0.5.1) | Built and verified | More holds phone utilities; primary navigation stays at the bottom; warnings/update actions remain exposed. Healthy cloud info is compact and empty Ready groups are omitted. |
 | Binge sections and interest (v0.5.0) | Built and verified | Ready: Watching now / Watch soon / Everything else; Upcoming & TBA; reversible Not for me. Personal records retained. |
 | Match queue (v0.5.0) | Built and verified | Pending/review rows only; source matching removed from library views; file loading stays in Import. No new bulk matching performed. |
 | Backup format 2 compatibility | Built and verified | New backups/shared payloads retain sections; accepts legacy format 1. Update all devices; old apps safely reject format 2. Schema v3/database names unchanged. |
@@ -303,6 +304,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - Phone content no longer displaced by utility buttons
+
+- Owner reported the first phone screen was consumed by controls and supplied a local 1080x2400 MP4 recording. Inspected representative frames privately; recording confirmed the account/sync, backup, import/match, timezone and install stack obscured list content. No recording or private extracted frame is committed.
+- Added a compact phone brand/More header with utilities inside native details, shared backup controls, compact healthy cloud row, direct search and bottom primary navigation. Offline errors, sync problems/conflicts and updates stay visible. Empty Ready groups are omitted and headings/notices/filter spacing are smaller. Desktop actions stay exposed. No library, metadata, preferences, backup format or sync-rule changes.
+- New phone workflow measures first card/episode visibility above bottom navigation at 320/412px and 640px height; covers keyboard open/Escape, utility navigation focus, backup export and restore cancellation. Inspected the fictional compact-header screenshot. Existing phone tests now open More for utility access. A pre-existing fake-clock metadata test exposed a startup-lease race; it now waits for the fresh-data sweep to finish before jumping a day (test synchronization only).
+- PASS: TypeScript, 232 unit tests, 31 browser workflows (the metadata pair passed three synchronized targeted runs), seven PWA workflows including phone update/offline notices with More closed, hosted unsigned privacy check and both builds/privacy guard. The phone geometry check also reserves 44px for the hosted account row. Published Hosting-only; live index, worker, App and CloudBootstrap match the tested v0.5.1 build. Original master hash unchanged; no rules/billing changes. Version 0.5.1; next planned feature remains accessible dragging. Owner actual-phone acceptance is still needed. Claude's isolated splash/banner asset work remains separate.
+
 
 ### 2026-11-08 - Binge sections, Match tab and current documentation
 

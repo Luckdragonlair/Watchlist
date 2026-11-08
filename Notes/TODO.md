@@ -185,3 +185,10 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [ ] Claude is preparing splash/title screen and optional PC banner designs (owner plan 2026-11-08). Review/integrate later; keep splash brief and nonblocking, with offline/reduced-motion support. No implementation claimed.
 
 2026-11-08 design follow-up: owner proposes a movie-style spotlight sweeping across a wall/stage/screen to reveal Watchlist. Claude is preparing the splash and possible PC banner assets. This is a proposed visual concept, not built or a reason to delay library access; use a brief nonblocking reveal and a static reduced-motion state. Final assets still need review.
+
+## Compact phone controls - 2026-11-08
+
+- [x] Put utilities in More on phones; retain bottom primary navigation, direct search and visible warnings/update actions.
+- [x] Compact healthy account/sync information; omit empty Ready groups and reduce control whitespace.
+- [x] Verify 320px/412px content visibility, keyboard menu/focus behavior and backup restore cancellation on disposable data.
+- [ ] Owner verifies the updated layout on the actual phone recording's device after v0.5.1 update.

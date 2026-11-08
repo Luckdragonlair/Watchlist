@@ -196,3 +196,9 @@ For each future entry use: **Timestamp | Step | Change and evidence | Remaining 
 - [ ] Claude's splash/title screen and optional PC banner are planned design assets, not implemented features. Review assets before integration; keep splash brief/nonblocking and support reduced motion/offline use.
 
 Historical entries above remain as checkpoints; the current summary and this dated checkpoint supersede their old pending items where explicitly completed here.
+
+## 2026-11-08 - Phone layout correction (v0.5.1)
+
+- [x] Compact More utility menu, healthy cloud row, direct search/bottom navigation and omission of empty Ready groups.
+- [x] Fictional 320px/412px geometry and menu/backup workflow verified; private phone recording inspected.
+- [ ] Owner checks actual Android layout after updating. This presentation correction does not change the next planned accessible-dragging milestone or its estimate.

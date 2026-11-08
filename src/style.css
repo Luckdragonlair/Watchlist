@@ -163,3 +163,40 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); fo
 .show-actions {grid-column:2 / -2;}
 @media(max-width:839px){.show-card:has(.show-actions) .reorder-controls{grid-column:2;grid-row:1 / span 4;}.show-actions{grid-column:1;grid-row:4;}.show-card:not(:has(.reorder-controls))>.show-actions{grid-column:1 / -1;}}
 @media(max-width:839px){.mobile-import{display:inline-flex;margin-right:8px;}}
+
+/* Keep phone screens focused on the library; utilities stay within More. */
+.phone-tools-views,.phone-context,.sync-short {display:none;}
+@media(min-width:840px){.app-tools,.tool-panel{display:contents;}.app-tools>summary{display:none;}}
+@media(max-width:839px){
+  .watchlist-app {padding-top:10px;}
+  .app-header {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding-bottom:8px;gap:8px;}
+  .brand {gap:8px;}.brand h1 {font-size:24px;}.brand-mark{width:34px;height:34px;font-size:23px;}
+  .top-controls {display:contents;margin:0;}
+  .app-tools {position:relative;grid-column:2;}
+  .app-tools>summary {min-height:44px;min-width:60px;display:flex;align-items:center;justify-content:center;padding:10px;border:1px solid var(--line);border-radius:8px;background:#111c30;cursor:pointer;font-size:13px;list-style:none;}
+  .app-tools>summary::-webkit-details-marker{display:none;}
+  .app-tools[open]>.tool-panel {position:absolute;z-index:15;right:0;top:calc(100% + 8px);width:min(360px,calc(100vw - 32px));max-height:calc(100dvh - 120px);overflow:auto;background:#0c1527;border:1px solid #526883;border-radius:12px;padding:12px;box-shadow:0 16px 40px #000a;}
+  .phone-tools-views {display:flex;gap:8px;margin-bottom:8px;}
+  .phone-context {display:block;font:11px var(--mono);color:var(--muted);}
+  .tool-panel .backup-controls {display:flex;flex-wrap:wrap;gap:8px;}
+  .tool-panel .backup-controls>section {text-align:left;}
+  .library-context {display:none;}
+  .watchlist-app>h2,.watchlist-app>section>h2 {font-size:32px;margin:16px 0 8px;}
+  .watchlist-app>label:has(input) {margin:4px 0 8px;}
+  .binge-filters {gap:6px;margin:8px 0 12px;}
+  .binge-filters button {font-size:12px;padding-inline:10px;}
+  .binge-section {margin:14px 0 24px;}
+  .binge-heading {font-size:24px;padding:8px 0;margin-bottom:10px;}
+  .cloud-toolbar:has(.cloud-account:not([open])) {display:flex;align-items:center;gap:8px;max-width:1376px;margin:0 auto;padding:0 16px;}
+  .cloud-toolbar .cloud-account {margin:0;padding:0;flex:0 0 auto;}
+  .cloud-toolbar .cloud-account:not([open]) summary span {display:none;}
+  .cloud-toolbar .cloud-sync {margin:0;padding:0;min-width:0;flex:1;font-size:11px;}
+  .cloud-toolbar .cloud-sync p {margin:4px 0;}
+  .cloud-toolbar .sync-full {display:none;}.cloud-toolbar .sync-short {display:inline;}
+  .cloud-toolbar:has(.cloud-sync[data-phase=conflict]),.cloud-toolbar:has(.cloud-sync[data-phase=invalid]),.cloud-toolbar:has(.cloud-sync[data-phase=error]) {display:block;}
+  .cloud-toolbar .cloud-sync[data-phase=conflict],.cloud-toolbar .cloud-sync[data-phase=invalid],.cloud-toolbar .cloud-sync[data-phase=error] {padding:12px;}
+}@media(max-width:839px){
+  .binge-filters{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px;}
+  .binge-filters button{padding-inline:8px;white-space:normal;}
+  .watchlist-app>p[role=status]{font-size:12px;line-height:1.35;margin:6px 0;}
+}

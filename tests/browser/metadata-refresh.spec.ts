@@ -16,6 +16,9 @@ for(const mode of ['reopen','stay open'] as const)test('an ended caught-up show 
   const dialog=page.getByRole('dialog',{name:`Set up ${show.name}`});await dialog.getByLabel('Current episode (optional)').selectOption('caught-up');await dialog.getByLabel('Personal notes (optional)').fill('Keep following');await dialog.getByRole('button',{name:'Save and continue'}).click();
   await page.getByRole('button',{name:'Watched',exact:true}).click();await expect(page.getByRole('button',{name:show.name,exact:true})).toBeVisible();
   await page.reload();await expect(page.getByLabel('Automatic episode checks')).toBeVisible();expect(reads).toBe(1);
+  // Finish the initial fresh-data sweep before jumping the clock a whole day.
+  await page.clock.runFor(1);
+  await expect.poll(()=>page.evaluate(async()=>{const modulePath='/src/db.ts';const {db}=await import(modulePath);return (await db.settings.get('metadataRefreshLease'))?.value;})).toBeUndefined();
   returning=true;await page.clock.setSystemTime(new Date('2026-11-09T18:01:00Z'));
   if(mode==='reopen')await page.reload();else await page.clock.runFor(60001);
   await expect(page.getByRole('checkbox',{name:'Watch Returning series fixture S2 E1 · Return premiere'})).toBeVisible();

@@ -11,7 +11,7 @@ test.beforeEach(async({page})=>{
   });
 });
 test('search, explicit import, check-off, persistence, undo, completion and offline detail',async({page,context})=>{
-  await page.goto('/'); await expect(page.getByRole('heading',{name:'Everything else',exact:false})).toBeVisible();
+  await page.goto('/'); await expect(page.getByText('No ready episodes.',{exact:false})).toBeVisible();
   await page.getByRole('button',{name:'Add Show',exact:true}).click(); await page.getByLabel('Show title').fill('Fixture'); await page.getByRole('button',{name:'Search TVmaze'}).click();
   await expect(page.getByRole('button',{name:'Import Fixture series (#90001)'})).toBeVisible();
   await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page); await page.getByRole('button',{name:'Back to library'}).click();

@@ -15,7 +15,7 @@ export function CloudSyncStatus({uid,onMetadataPause}:{uid:string;onMetadataPaus
     engine.current=sync;sync.start();return()=>{sync.stop();engine.current=null;};
   },[uid,onMetadataPause]);
   async function resolve(){if(!choice||!confirmed)return;setWorking(true);await engine.current?.resolve(choice);setWorking(false);setChoice(null);setConfirmed(false);}
-  return <section className="cloud-sync" data-phase={status.phase} aria-label="Library synchronization"><p role="status">{status.message}</p>
+  return <section className="cloud-sync" data-phase={status.phase} aria-label="Library synchronization"><p role="status"><span className={status.phase==='saved'?'sync-full':undefined}>{status.message}</span>{status.phase==='saved'&&<span className="sync-short">Up to date</span>}</p>
     {status.phase==='error'&&<button onClick={()=>void engine.current?.sync()}>Retry sync</button>}
     {status.phase==='invalid'&&<><p>Sync is paused because some saved data could not be read. Your local copy is preserved. Export a backup before making changes.</p><BackupExport disabled={working}/><button disabled={working} onClick={()=>void engine.current?.sync()}>Retry sync</button></>}
     {status.phase==='conflict'&&<><p>Sync is paused. Export this device’s library before choosing a complete copy. Different edits have not been discarded.</p><BackupExport disabled={working}/>

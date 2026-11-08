@@ -46,9 +46,23 @@ test('production app reopens with its server stopped and supports progress, deta
     await page.close();const reopened=await context.newPage();await reopened.goto(server.url);await expect(reopened.getByRole('checkbox',{name:'Watch Offline fixture S1 E2 · Episode 2'})).toBeVisible();await reopened.close();
   }finally{await server.stop();}
 });
+test('phone keeps offline warnings outside More while healthy installation controls stay inside',async({page,context})=>{
+  const server=await productionServer();try{
+    await page.goto(server.url);await ready(page);await page.setViewportSize({width:412,height:760});
+    const more=page.getByLabel('More Watchlist actions',{exact:true});await expect(more).toBeVisible();
+    await expect(page.getByRole('region',{name:'App availability',exact:true})).toHaveCount(0);
+    await expect(page.getByRole('button',{name:'Export backup',exact:true})).not.toBeVisible();
+    await more.click();const options=page.getByRole('region',{name:'Install and offline options',exact:true});await expect(options).toBeVisible();await expect(options.getByRole('status')).toContainText('Available offline');
+    await more.click();await context.setOffline(true);
+    await expect(page.getByRole('region',{name:'App availability',exact:true}).getByRole('status')).toContainText('Offline');
+    await expect(page.getByRole('button',{name:'Export backup',exact:true})).not.toBeVisible();
+  }finally{await context.setOffline(false);await server.stop();}
+});
+
 test('an update waits for explicit acceptance and preserves the library when activated',async({page})=>{
   const server=await productionServer();try{
     await page.goto(server.url);await ready(page);await addFixture(page);
+    await page.setViewportSize({width:412,height:760});
     await page.evaluate(async()=>{await(await caches.open('unrelated-app-cache')).put('/unrelated.txt',new Response('keep'));});
     server.overrides.set('/index.html',(await server.read('index.html')).replace('</head>','<meta name="pwa-build-test" content="second"></head>'));
     server.overrides.set('/service-worker.js',(await server.read('service-worker.js')).replace(/const version = "[^"]+";/,'const version = "update-test";'));
