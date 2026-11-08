@@ -23,3 +23,5 @@ Applied 2026-11-08: all 181 submitted choices verified at shared revision 161, w
 Local draft update (2026-11-08, 2:19 p.m. America/Chicago): the matching/setup primary-genre selector is now programmed, but the owner explicitly holds testing. It is not committed or deployed; the reviewed v0.9.0 choices remain the live state. See PROGRESS.md for current details.
 
 Update 2026-11-08, 2:23 p.m. America/Chicago: owner lifted the hold; match/Add Show setup genre selection passed focused verification for v0.10.0. Existing 181 reviewed choices remain unchanged; the new UI applies to subsequent setup saves. v0.10.0 is published; live assets match the tested build.
+
+2026-11-08: v0.11.0 Manage editor now verified for changing existing-show primary genre without repeating the review batch. Three focused browser workflows passed; published Hosting-only; live assets verified. The local review page remains a separate maintenance tool.

@@ -1,3 +1,8 @@
+# Existing-show primary genre editor
+
+- [x] Manage editor implemented; three targeted PC/phone/safe-save workflows and TypeScript passed.
+- [x] v0.11.0 normal/hosted builds and privacy guard passed; published Hosting-only with exact live-asset verification.
+
 # Primary-genre setup: verified for v0.10.0
 
 Updated: 2026-11-08, 2:19 p.m. America/Chicago
@@ -5,7 +10,7 @@ Updated: 2026-11-08, 2:19 p.m. America/Chicago
 - [x] Programmed setup radio choices and atomic preference/notes/progress save in the local source.
 - [x] Owner authorized focused testing: 12 setup-save checks, three genre browser scenarios and TypeScript passed.
 - [x] v0.10.0 normal/hosted builds, private-asset guard and Hosting publication passed; live assets match tested build.
-- [ ] Existing-show Manage editor remains future work.
+- [x] Existing-show Manage editor verified for v0.11.0; published Hosting-only; live assets verified.
 
 Current handoff: [HANDOFF_QUORA.md](HANDOFF_QUORA.md), updated 2026-11-08 13:58 CST (America/Chicago). Historical checklists below are superseded where a newer checkpoint marks the item done.
 

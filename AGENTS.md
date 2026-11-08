@@ -139,6 +139,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Match queue (v0.5.0). |
 | Caught up (v0.2.0) | Built and verified | Setup/detail choice marks all released regular episodes, retains timestamps and future tracking. Header reads package.json version; database names unchanged. |
 | Filed title names (v0.4.0) | Built and verified | Leading A/The become trailing comma suffixes in saved imports/refreshes and alphabetical display/sort/search. Original source fields and manual order retained. |
+| Existing-show primary genre editor (v0.11.0) | Built and verified | Manage → Change primary genre across library views; guarded save, Cancel, stale-change reload. Three focused browser cases and TypeScript passed; published Hosting-only; live assets verified. |
 | Primary genre during match/import setup (v0.10.0) | Built and verified | Radio choices, existing/default selection, atomic notes/progress/genre save and Skip preservation. 12 setup unit checks, three targeted browser cases and TypeScript passed; published Hosting-only after both builds/privacy guard. |
 | Primary-genre preferences (v0.9.0) | Built and verified | Optional personal primary genre controls card color/first badge, preserved in format-4 backup/sync and provider refresh. All 181 owner choices applied and verified at shared revision 161. Match/setup picker verified and published in v0.10.0. |
 | Private primary-genre review page | Built and verified | 181 multi-genre matched shows from revision 160; radio choices save only to ignored Library/Primary Genre Choices.json. No app preference/matching change yet; see Notes/GENRE_REVIEW.md. |
@@ -267,11 +268,13 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest checkpoint: existing-show Manage genre editor verified for v0.11.0; published Hosting-only; live assets verified. Setup selector shipped v0.10.0. Next remaining work is owner-assigned V2/accessibility/movie work; no automatic scope expansion.
+
 Owner lifted the previous testing hold. Focused selector/save checks passed; v0.10.0 is built and published. Earlier hold instructions are superseded.
 
 Current checkpoint: v0.9.0 is verified, published and pushed; all 181 primary-genre choices applied at shared revision 161. Backup format 4; folder export renderer 4. See Notes/HANDOFF_QUORA.md for the compact continuation guide.
 
-1. Owner's next likely assignment: primary-genre choice during match/import setup, reusing the existing preference and atomic setup guards. Programming, focused verification and v0.10.0 publication are complete. Existing-show Manage editor is still unbuilt; confirm scope when assigned.
+1. Owner's next likely assignment: primary-genre choice during match/import setup, reusing the existing preference and atomic setup guards. Programming, focused verification and v0.10.0 publication are complete. Existing-show Manage editor is now verified for v0.11.0; published Hosting-only; live assets verified.
 2. Remaining V2 icons/A-Z/dialog/status refinements and actual-device accessibility/zoom acceptance.
 3. Movie planning/implementation after agreeing provider/account/gateway scope; retain TVmaze for TV and all existing data safeguards.
 4. Remaining Silo/manual acceptance and unresolved source entries stay separate unless explicitly assigned.
@@ -313,6 +316,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - v0.11.0 existing-show primary genre editor
+
+- Owner reported the setup selector worked when adding a show, then requested changing primary genre under Manage for existing shows. Added Change primary genre in library-card Manage, including Weekly/Watched; Binge section actions remain Binge-only. The focused native dialog uses existing genre labels/personal choice and explicit Save primary genre / Cancel. No genres disables Save rather than inventing metadata.
+- Reuses the guarded atomic setup save with no episode action and unchanged notes: only the primary preference changes. Concurrent notes/genre changes, lifecycle/revision changes or retracted new options refuse the save without overwriting personal data. Reload latest is explicit; Cancel/Escape discards the draft and returns focus to the opener. Other tags/filtering remain intact.
+- PASS: three targeted browser workflows only: PC/320px phone cancel/focus/save/reload, precise preservation of notes/order/progress/provider metadata, and stale-note rejection/reload/save from Watched. TypeScript passed. No unrelated unit/browser/PWA/sync suites run; shared save behavior was covered in the preceding setup checkpoint. Normal/hosted builds and private-asset guard passed; published Hosting-only and live index/worker/app JS/CSS match tested output. Existing personal library not modified during testing.
+- Version 0.11.0; format 4/schema v3 unchanged. No dependencies, AI calls, rules or billing changes. Owner's setup smoke check is user-reported, distinct from isolated Edge verification; actual Firefox/Android editor acceptance remains separate.
+
 
 ### 2026-11-08 - v0.10.0 setup genre selector: focused verification
 

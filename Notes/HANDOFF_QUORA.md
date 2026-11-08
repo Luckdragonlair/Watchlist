@@ -1,3 +1,5 @@
+CURRENT CHECKPOINT — 2026-11-08: v0.11.0 existing-show Manage genre editor passed three focused browser workflows and TypeScript; published Hosting-only; live assets verified. Setup selector is shipped v0.10.0. Existing-show editor is no longer unbuilt; earlier future-work statements below are historical. No schema/format change.
+
 # Watchlist handoff for Quora
 
 Updated: 2026-11-08 13:58 CST (America/Chicago)

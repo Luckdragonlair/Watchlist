@@ -1,3 +1,12 @@
+# Latest editor checkpoint
+
+### 2026-11-08 - v0.11.0 existing-show primary genre editor
+
+- Owner reported the setup selector worked when adding a show, then requested changing primary genre under Manage for existing shows. Added Change primary genre in library-card Manage, including Weekly/Watched; Binge section actions remain Binge-only. The focused native dialog uses existing genre labels/personal choice and explicit Save primary genre / Cancel. No genres disables Save rather than inventing metadata.
+- Reuses the guarded atomic setup save with no episode action and unchanged notes: only the primary preference changes. Concurrent notes/genre changes, lifecycle/revision changes or retracted new options refuse the save without overwriting personal data. Reload latest is explicit; Cancel/Escape discards the draft and returns focus to the opener. Other tags/filtering remain intact.
+- PASS: three targeted browser workflows only: PC/320px phone cancel/focus/save/reload, precise preservation of notes/order/progress/provider metadata, and stale-note rejection/reload/save from Watched. TypeScript passed. No unrelated unit/browser/PWA/sync suites run; shared save behavior was covered in the preceding setup checkpoint. Normal/hosted builds and private-asset guard passed; published Hosting-only and live index/worker/app JS/CSS match tested output. Existing personal library not modified during testing.
+- Version 0.11.0; format 4/schema v3 unchanged. No dependencies, AI calls, rules or billing changes. Owner's setup smoke check is user-reported, distinct from isolated Edge verification; actual Firefox/Android editor acceptance remains separate.
+
 # Latest focused verification
 
 ### 2026-11-08 - v0.10.0 setup genre selector: focused verification

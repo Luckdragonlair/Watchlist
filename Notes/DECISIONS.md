@@ -202,3 +202,7 @@ Owner authorized adding primary-genre radios to the existing setup after a succe
 ## 2026-11-08 - Testing hold lifted for setup genre selector
 
 Owner explicitly authorized focused selector/saving tests. The earlier hold is superseded. Twelve setup unit checks and three targeted browser scenarios passed; no unrelated suites were run. Retain ordinary verified-feature release/checkpoint workflow. Matching setup now supports the preference; an existing-show Manage editor remains separate.
+
+## 2026-11-08 - Existing-show Manage genre editor
+
+Owner requested Change primary genre under Manage. Make Manage available on Weekly/Binge/Watched library cards; retain Binge-only section controls. Save changes only the personal genre using existing revision/lifecycle/stale-note/genre guards, leaving episodes/history/notes/order untouched. Cancel/Escape discards the draft and returns focus. If metadata retracts a saved personal genre, keep it as an option; no listed/saved genres means no save. Shared preference schema/backup format 4 remain unchanged.
