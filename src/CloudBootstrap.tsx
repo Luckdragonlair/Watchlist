@@ -14,8 +14,9 @@ export default function CloudBootstrap(){
   const [checkingSlow,setCheckingSlow]=useState(false);
   const [busy,setBusy]=useState(false);
   const [error,setError]=useState('');
-  const [LocalApp,setLocalApp]=useState<ComponentType|null>(null);
-  const [SyncView,setSyncView]=useState<ComponentType<{uid:string}>|null>(null);
+  const [metadataPaused,setMetadataPaused]=useState(true);
+  const [LocalApp,setLocalApp]=useState<ComponentType<{metadataPaused?:boolean}>|null>(null);
+  const [SyncView,setSyncView]=useState<ComponentType<{uid:string;onMetadataPause?:(paused:boolean)=>void}>|null>(null);
   useEffect(()=>{
     if(!auth)return;
     let active=true;
@@ -23,7 +24,7 @@ export default function CloudBootstrap(){
     void getRedirectResult(auth).catch(error=>{if(active)setError(signInErrorMessage(error));});
     const unsubscribe=onAuthStateChanged(auth,async next=>{
       clearTimeout(checkingTimer);setCheckingSlow(false);
-      setUser(next);setReady(true);setLocalApp(null);setSyncView(null);
+      setUser(next);setReady(true);setMetadataPaused(true);setLocalApp(null);setSyncView(null);
       if(!next||!config||next.uid!==config.ownerUid)return;
       try {
         configureHostedLibrary(next.uid);
@@ -49,5 +50,5 @@ export default function CloudBootstrap(){
     {!ready?<p>{checkingSlow?<>Sign-in is taking longer than expected. Accept any app update above, then <a href="/">reload Watchlist</a>. If it still stalls, open it directly in Firefox.</>:'Checking sign-in…'}</p>:!user?<><p>Sign in with your Google account to open this device’s private library.</p><button disabled={busy} onClick={login}>{busy?'Opening Google…':'Sign in with Google'}</button></>:<><p>Signed in as {user.email??'Google account'}</p><button disabled={busy} onClick={logout}>Sign out</button>{user.uid!==config.ownerUid?<p>This account does not have access to this Watchlist.</p>:<p>Your library syncs while Watchlist is open and connected. Offline changes stay on this device until it reconnects.</p>}</>}
     {user&&!config.ownerUid&&<p>Owner setup is pending. Your account ID is <code>{user.uid}</code>. No library has been opened or uploaded.</p>}
     {error&&<p role="alert">{error}</p>}
-  </section></details>{user?.uid===config.ownerUid&&LocalApp&&SyncView&&<><SyncView uid={user.uid}/><LocalApp/></>}</>;
+  </section></details>{user?.uid===config.ownerUid&&LocalApp&&SyncView&&<><SyncView uid={user.uid} onMetadataPause={setMetadataPaused}/><LocalApp metadataPaused={metadataPaused}/></>}</>;
 }

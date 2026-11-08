@@ -1,4 +1,4 @@
-# Watchlist v0.2.0
+# Watchlist v0.3.0
 
 A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. Full V2 section organization and drag-and-drop are still in progress; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
 
@@ -26,6 +26,12 @@ A read-only helper can keep a private current app export in `Library/` on this P
 
 ## Caught up (v0.2.0)
 
-In import setup or show details, choose **Caught up—all aired episodes watched**. Setup saves it with your notes; in details, click **Mark all aired episodes watched**. Only released regular episodes gain watched records. Future, special and unknown-release episodes stay unchanged, and existing watched timestamps are preserved. The show remains tracked: newly released known episodes re-enter the watch queue; refresh metadata to discover new provider episodes.
+In import setup or show details, choose **Caught up—all aired episodes watched**. Setup saves it with your notes; in details, click **Mark all aired episodes watched**. Only released regular episodes gain watched records. Future, special and unknown-release episodes stay unchanged, and existing watched timestamps are preserved. The show remains tracked: newly released known episodes re-enter the watch queue; automatic checks discover new provider episodes while the app is open and online. You can still refresh manually.
 
 The header reads the release version from package.json. Git commits and content-based service-worker versions separately identify checkpoints and offline updates. Version changes keep existing database names and backup formats.
+
+## Automatic episode checks (v0.3.0)
+
+Tracked shows are checked against TVmaze when their last successful refresh is at least 24 hours old. Checks run on opening, returning to the app and reconnecting, plus periodically while it stays visible and online. A closed app does not run a scheduled server job; overdue checks resume when reopened. Requests run sequentially with spacing and retry backoff. Existing progress, notes, ordering and source history stay intact. Failed checks retain the previous snapshot.
+
+Caught-up and Watched shows are included. TVmaze's Ended status does not distinguish cancellation from a normal ending, so it does not permanently disable checks. Confirmed-cancellation overrides and closed-app server checks remain future work; no cancellation facts are inferred. See [TVmaze's status definitions](https://www.tvmaze.com/faq/13/shows#show-status).

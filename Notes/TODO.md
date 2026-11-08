@@ -1,6 +1,6 @@
 # Watchlist backlog
 
-Updated: 2026-11-07
+Updated: 2026-11-08
 
 ## Implemented in v0.2.0
 
@@ -149,3 +149,11 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [ ] Review the remaining 56 groups before further mappings; proposed versions and missing-season policy are in Library/Remaining Matching Choices.md.
 - [ ] Automatic Windows-login startup remains optional and uninstalled.
 - [ ] Full in-app resumable bulk matching, stronger genre palette and V2 Binge/dragging remain separate work.
+
+## Automatic episode checks - 2026-11-08
+
+- [x] Daily due checks on launch, reconnect/return and while open; include caught-up shows and retain manual refresh.
+- [x] Validate metadata, space requests, persist retry backoff and lease same-browser workers; preserve viewing records and reject stale results.
+- [ ] Owner acceptance on PC/Android after updating to v0.3.0.
+- [ ] Confirmed-cancellation override/source remains deferred; TVmaze Ended alone never stops checking.
+- [ ] Closed-app server checks/notifications remain deferred; current checks resume when the app reopens.

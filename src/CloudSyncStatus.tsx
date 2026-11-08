@@ -4,16 +4,16 @@ import {db} from './db';
 import {LibrarySync,type SyncStatus} from './sync-engine';
 import {readRemote,writeRemote,watchRemote,validateCloudUpload} from './cloud-transport';
 import {BackupExport} from './BackupExport';
-export function CloudSyncStatus({uid}:{uid:string}){
+export function CloudSyncStatus({uid,onMetadataPause}:{uid:string;onMetadataPause?:(paused:boolean)=>void}){
   const [status,setStatus]=useState<SyncStatus>({phase:'checking',message:'Checking the shared library…'});
   const [choice,setChoice]=useState<'device'|'cloud'|null>(null),[confirmed,setConfirmed]=useState(false),[working,setWorking]=useState(false);
   const engine=useRef<LibrarySync|null>(null);
   useEffect(()=>{
     if(db.name!==`watchlist-cloud-v01-${uid}`){setStatus({phase:'error',message:'The library account does not match. Please sign out and sign in again.'});return;}
     const firestore=getFirestore();
-    const sync=new LibrarySync(db,{read:()=>readRemote(firestore,uid),write:(revision,library)=>writeRemote(firestore,uid,revision,library),validate:validateCloudUpload,watch:(changed,error)=>watchRemote(firestore,uid,changed,error)},setStatus);
+    const sync=new LibrarySync(db,{read:()=>readRemote(firestore,uid),write:(revision,library)=>writeRemote(firestore,uid,revision,library),validate:validateCloudUpload,watch:(changed,error)=>watchRemote(firestore,uid,changed,error)},next=>{setStatus(next);onMetadataPause?.(next.phase==='checking'||next.phase==='conflict');});
     engine.current=sync;sync.start();return()=>{sync.stop();engine.current=null;};
-  },[uid]);
+  },[uid,onMetadataPause]);
   async function resolve(){if(!choice||!confirmed)return;setWorking(true);await engine.current?.resolve(choice);setWorking(false);setChoice(null);setConfirmed(false);}
   return <section className="cloud-sync" data-phase={status.phase} aria-label="Library synchronization"><p role="status">{status.message}</p>
     {status.phase==='error'&&<button onClick={()=>void engine.current?.sync()}>Retry sync</button>}

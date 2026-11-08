@@ -48,3 +48,7 @@ When an update is ready, the app shows **Update and reload**. Choose it when con
 - [ ] On the hosted trial address, verify Google sign-in, installation and offline reopening on actual Android Firefox.
 
 Sources checked 2026-11-06: [Mozilla Windows web apps](https://support.mozilla.org/en-US/kb/web-apps-firefox-windows), [Mozilla Android web apps](https://support.mozilla.org/en-US/kb/use-web-apps-firefox-android).
+
+## Automatic metadata checks - 2026-11-08
+
+While open, visible and connected, Watchlist refreshes linked shows whose metadata is at least 24 hours old. Overdue checks resume on reopening or reconnection. Checks pause offline, during setup/restore/manual work, and during unresolved synchronization conflicts. Tracking and cached episode availability still work offline. Closing/suspending the app stops scheduled checks; no server background job or paid service is installed. TVmaze Ended shows stay included because cancellation is not independently established. Notes, watched history and manual ordering survive checks; failures keep the last saved snapshot.

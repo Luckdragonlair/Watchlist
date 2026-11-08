@@ -1,6 +1,6 @@
 # Watchlist agent handoff and project state
 
-Last verified: 2026-11-07 (America/Chicago)
+Last verified: 2026-11-08 (America/Chicago)
 Repository: `Luckdragonlair/Watchlist`  
 Default branch: `main`
 
@@ -131,6 +131,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | IndexedDB/Dexie data model | Built and verified | Shows, seasons, episodes, progress, preferences, sources, and internal settings are separate. |
 | TVmaze search and explicit candidate import | Built and verified | Candidate results show identifying details; no silent exact-name selection. |
 | Atomic metadata refresh | Built and verified | Metadata refresh protects progress, notes, ordering, deleted shows, and restored revisions. |
+| Automatic episode metadata checks (v0.3.0) | Built and verified | Every 24 elapsed hours per show while visible/online, resume overdue checks on launch/reconnect. Includes Watched/Ended; no cancellation inference or closed-app job. |
 | Weekly, Binge, Watched, Add Show, Import views | Built and verified; Nightfall foundation applied | Shared dark theme, locally cached fonts, clearer cards, right-centered arrows and phone bottom navigation. V2 Binge sections and drag-and-drop remain pending. |
 | Weekly placement with older backlog | Built and verified | An active later season appears under its next release weekday even if older seasons are unwatched. An unstarted future premiere stays in Binge. 2026-11-07 regression fix. |
 | Episode check-off and automatic next-episode advance | Built and verified | Includes undo and Central-time availability rules. |
@@ -254,6 +255,8 @@ These are easy to break during a visual rewrite:
 
 Unless the user reprioritizes, use this order:
 
+2026-11-08: user-requested automatic metadata discovery is complete; the next planned feature remains V2 Binge organization (step 3). Closed-app checks and confirmed-cancellation overrides are separate deferred work.
+
 1. **Completed 2026-11-07: approved assets preserved.** Unmodified copies and hashes checked under design/nightfall-v2/.
 2. **Foundation completed 2026-11-07.** Locally cached approved typography, dark surfaces, focus styles, reduced-motion handling, brand treatment, responsive cards/navigation and arrow placement are verified. Application icon replacement and final screen refinements remain part of later V2 work.
 3. **Implement the V2 Binge structure.** Ready/Upcoming & TBA/Not for me; Watching now/Watch soon/Everything else; shared persistent ordering; search; sticky headings; compact layout.
@@ -295,6 +298,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - Periodic metadata discovery
+
+- User requested periodic checks so caught-up shows discover returning seasons without knowing to refresh. Added daily due checks on launch/return/reconnect and while visible/online, paused during manual work, setup, restore and sync conflicts. Requests are paced, retry delays persist, and a device-local expiring lease coordinates tabs.
+- Uses validated atomic metadata replacement, guarding revision/lifecycle/latest metadata and provider identity ownership. Does not change watched history, notes, ordering, source mappings or the original master. TVmaze Ended is not treated as independently confirmed cancellation; cancellation overrides and closed-app server jobs remain deferred. Sources: https://www.tvmaze.com/api and https://www.tvmaze.com/faq/13/shows .
+- PASS: TypeScript, 221 unit tests, 24 existing browser workflows plus both new returning-season workflows (26 total), 6 PWA workflows, hosted unsigned privacy check and both builds/privacy guard. The new browser checks cover automatic discovery on reopening and during continued use, preservation of notes/history and daily freshness. Unit checks cover retry backoff, offline/paused state, concurrent workers, invalid metadata, identifier collisions and stale restore/delete/re-add/refresh/conflict results. Final hosted sign-in privacy and offline update-preserves-library checks also passed. Published Hosting-only to genre-watchlist; live index, service worker, App and sync-status chunks match the tested build. Original master hash unchanged.
+- Hosted checks pause during initial sync and unresolved live conflicts through an explicit UI status callback, in addition to persisted-conflict transaction guards. No schema, backup format, rules, billing or original master changes. Next planned implementation remains V2 Binge organization and accessible dragging.
+
 
 ### 2026-11-07 - Caught up and visible release version
 

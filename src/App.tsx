@@ -9,11 +9,12 @@ import { masterSource } from './master';
 import { BackupExport } from './BackupExport';
 import { BackupRestore } from './BackupRestore';
 import { PwaStatus } from './PwaStatus';
+import {MetadataRefresh} from './MetadataRefresh';
 import { ShowSetup } from './ShowSetup';
 import { loadShowSetup, type SetupSnapshot } from './show-setup';
 
 type View = 'Weekly' | 'Binge' | 'Watched' | 'Add Show' | 'Import';
-export function App() {
+export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
   const [view, setView] = useState<View>('Binge');
   const [filter, setFilter] = useState('');
   const [detail, setDetail] = useState<number | null>(null);
@@ -127,7 +128,7 @@ export function App() {
     {detail !== null && data ? <Detail show={data.shows.find(s => s.id === detail)!} episodes={data.episodes.filter(e => e.showId === detail)} watched={new Set(data.progress.map(p => p.episodeId))} notes={data.preferences.find(p => p.showId === detail)?.notes ?? ''} now={now} busy={busy} run={run} toggle={toggle} onDelete={async () => { const show=data.shows.find(s=>s.id===detail); if (!show || !window.confirm(`Delete ${show.name}? This permanently removes its seasons, episodes, watched history, personal notes, order, and matching import entries from this library. Original files and existing backup files stay unchanged.`)) return; await run(async()=>{await deleteShow(show.id,db,fetchEpisodeOwner);setDetail(null);setImportTarget(null);setUndo(null);setCompletion('');setView('Binge');setNotice(`${show.name} was deleted from your library.`);}); }} onBack={() => setDetail(null)}/> : <><h2 ref={listHeading} tabIndex={-1}>{view}</h2>{['Weekly','Binge','Watched'].includes(view) && <label>Search library <input value={filter} onChange={e => setFilter(e.target.value)}/></label>}{content}</>}
     {completion && <div role="dialog" aria-modal="true" aria-label="Season complete"><p>{completion}</p><p>Your progress is saved. More metadata may be announced later.</p><button className="circle" aria-label="Dismiss completion" onClick={() => setCompletion('')}>×</button>{undo && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}</div>}
     {setup&&<ShowSetup snapshot={setup.snapshot} returnTo={setup.returnTo} busy={busy||restoring} onDone={finishSetup}/>}
-    <footer><p>Episode metadata: <a href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Cached locally; refresh manually. Availability can vary by region.</p></footer>
+    <MetadataRefresh paused={metadataPaused||busy||restoring||!!setup}/><footer><p>Episode metadata: <a href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Cached locally; checked automatically while open and online. Availability can vary by region.</p></footer>
   </main>;
 }
 
