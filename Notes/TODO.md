@@ -211,3 +211,8 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [ ] Family/private accounts and social recommendations deferred until the core is complete.
 - [ ] Plan movie support: metadata source, film tracking/import, released/upcoming/theatrical placement and matching. Provider and API-credit choices remain undecided.
 - [ ] Discuss API-credit use after core/movie requirements are clear; no AI dependency for ordinary tracking.
+
+## Small future possibilities - 2026-11-08
+
+- [ ] Maybe: repeat Caught up below the episode list. Owner says the existing top selector is fine; this is optional, not a requested implementation.
+- [ ] Proposed for discussion: one Check shows for updates button for a manual whole-library metadata check. Current behavior is daily due checks while visible/online plus Refresh metadata in individual show details. A renewal/cancellation announcement feed and independently confirmed cancellation handling remain separate future work; no provider or API-credit feature chosen.

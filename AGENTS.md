@@ -311,6 +311,11 @@ If any answer is yes, update the affected documentation now. A code change is in
 
 ## Recent project log
 
+### 2026-11-08 - Optional discovery controls noted
+
+- Owner found the existing Caught up option and is satisfied with it; a duplicate below the episode list is a future maybe only. Recorded the discussed whole-library manual update button as proposed, not built. Current daily/per-show refresh behavior verified in code; announcement verification remains separate. No code, data, deployment or tests changed.
+
+
 ### 2026-11-08 08:58 America/Chicago - Card dragging and active Binge order
 
 - Cleanup checkpoint a973090 is committed and pushed. Implemented mouse/touch/keyboard handles with edge auto-scroll, cancel and stale-data checks; arrows share the same atomic save.
