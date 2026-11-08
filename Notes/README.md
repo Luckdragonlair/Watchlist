@@ -26,3 +26,5 @@ Latest milestone: v0.7.0 card dragging and started-first Binge activity order wi
 - [DESIGN_IDEAS.md](DESIGN_IDEAS.md): brainstormed card-control placement, on-card episode/Caught up picker, genre filters and related future ideas. Proposed only.
 
 - [FEATURE_PLAN.md](FEATURE_PLAN.md): complete ordered feature inventory with difficulty, active-time ranges, dependency IDs and separate core/optional/AI/family tracks. Current estimates supersede historical TV-only totals.
+
+- [POTENTIAL_UPGRADES.md](POTENTIAL_UPGRADES.md): 15 optional quality-of-life/fun brainstorms, estimated separately from the core roadmap.

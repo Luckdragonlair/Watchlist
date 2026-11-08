@@ -311,6 +311,11 @@ If any answer is yes, update the affected documentation now. A code change is in
 
 ## Recent project log
 
+### 2026-11-08 12:19 America/Chicago - Optional quality-of-life brainstorm
+
+- Added 15 additional potential upgrades in Notes/POTENTIAL_UPGRADES.md with effort ranges, prerequisites and explicit boundaries. Linked from the feature plan/notes/backlog; excluded from current core estimates. All remain optional ideas, with no code, data, deployment, API-credit spending or test changes.
+
+
 ### 2026-11-08 12:11 America/Chicago - Dependency-aware future feature inventory
 
 - Added Notes/FEATURE_PLAN.md with 42 scoped items, rough active-hour ranges, prerequisites, core/optional/later tracks and non-overlapping totals. Reconciled historical built items and owner-removed placeholders; older roadmap estimates are explicitly superseded. This is planning only: deferred implementation, AI-credit use and family access remain deferred. No app/data/deployment changes or tests needed.

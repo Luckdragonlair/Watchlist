@@ -134,3 +134,7 @@ Re S3, Re S4 and The Return of the Shadow S2 were removed at the owner’s reque
 ## How to maintain this plan
 
 Keep stable IDs when revising order. After a selected item ships, record actual scope/checks/date and revise remaining ranges instead of resetting the full estimate. Merge overlapping tasks rather than charging both estimates; O01 may be absorbed by C06 and attribution is already in movie setup/release. Re-estimate F04/F05 and source-dependent automation after scope is known. Record user decisions before beginning explicitly deferred work.
+
+## Additional optional brainstorms - 2026-11-08 12:19 America/Chicago
+
+See [POTENTIAL_UPGRADES.md](POTENTIAL_UPGRADES.md) for 15 further quality-of-life/fun options (U01–U15), each with scope, prerequisites and effort estimates. They are separate from this original 42-item baseline and are not added to its core total. Nothing is selected for implementation by listing it.

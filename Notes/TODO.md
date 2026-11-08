@@ -228,3 +228,5 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [ ] Future design review only: Drag beneath the left letter/art tile, Manage in the existing lower action area, and an episode/Caught up picker on the card. See DESIGN_IDEAS.md. Owner explicitly requests brainstorming/notes, not implementation.
 
 - [ ] Movie implementation planning reference: ten-step recommended plan and official source requirements are now in DESIGN_IDEAS.md (2026-11-08). Planning only; TVmaze replacement is not required.
+
+- [ ] Optional future review: choose any worthwhile U01–U15 ideas from POTENTIAL_UPGRADES.md. Brainstorming only; no implementation requested.
