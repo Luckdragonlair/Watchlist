@@ -29,4 +29,3 @@ Unless the user reprioritizes, use this order:
 7. **Implement and test the A–Z adjustable control contract.**
 8. **Run the complete verification set.** Unit/database tests, browser workflows, PWA workflows, build, keyboard-only pass, TalkBack/NVDA checks, zoom/text-size checks, and visual review.
 9. **Finish remaining manual acceptance work.** Silo and unresolved source titles remain separate from the visual rewrite unless the user explicitly combines them.
-
