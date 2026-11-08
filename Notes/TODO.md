@@ -1,5 +1,7 @@
 # Watchlist backlog
 
+For the current consolidated order, prerequisites, difficulty and remaining estimates, use [FEATURE_PLAN.md](FEATURE_PLAN.md). The dated checklists below retain history and can contain superseded items.
+
 Updated: 2026-11-08
 
 ## Implemented in v0.2.0

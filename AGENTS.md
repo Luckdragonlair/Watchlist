@@ -311,6 +311,11 @@ If any answer is yes, update the affected documentation now. A code change is in
 
 ## Recent project log
 
+### 2026-11-08 12:11 America/Chicago - Dependency-aware future feature inventory
+
+- Added Notes/FEATURE_PLAN.md with 42 scoped items, rough active-hour ranges, prerequisites, core/optional/later tracks and non-overlapping totals. Reconciled historical built items and owner-removed placeholders; older roadmap estimates are explicitly superseded. This is planning only: deferred implementation, AI-credit use and family access remain deferred. No app/data/deployment changes or tests needed.
+
+
 ### 2026-11-08 - Movie implementation plan researched
 
 - Recorded a proposed ten-step plan in Notes/DESIGN_IDEAS.md: retain TVmaze TV records, add TMDB movies, common genre keys/filtering, US release distinctions, proper movie storage/progress and movie-aware backup/sync/offline verification. Official provider requirements and free gateway limits checked; account/token/infrastructure setup remains future work. No application code, credentials, cloud configuration or personal data changed.

@@ -1,5 +1,7 @@
 # Watchlist development roadmap
 
+**Current ordered estimates:** see [FEATURE_PLAN.md](FEATURE_PLAN.md) for the complete dependency-aware inventory, including movies and recent brainstorms. Its estimates supersede the older TV-only total below; historical milestones remain for context.
+
 Updated: 2026-11-08 09:05 America/Chicago
 
 This is the living development plan from the original prototype to a dependable first release. It tracks verified progress, remaining work and initial effort estimates. AI maintains the status marks, timestamps and estimate changes.
@@ -34,7 +36,7 @@ Marks: **[x] complete** · **[~] partly complete** · **[>] next** · **[ ] not 
 
 A focused session means roughly **1–2 hours of active development or testing**, including user device checks when needed. Estimates are initial planning judgments, not measured delivery commitments. Waiting for decisions, accounts, Claude design or device access does not count as active work.
 
-The remaining plan totals approximately **12–26 focused sessions**, or **12–52 active hours**, assuming the current TV-focused scope and no major redesign. Calendar completion is **not scheduled**. For illustration, at one session per working day this is roughly 3–6 working weeks after work resumes; this is a pace example, not a promised release date. Movies, a packaged native app, expanded recommendations or major sync defects require re-estimation.
+Historical TV-only estimate, superseded by FEATURE_PLAN.md: the remaining plan was approximately **12–26 focused sessions**, or **12–52 active hours**, assuming the current TV-focused scope and no major redesign. Calendar completion is **not scheduled**. For illustration, at one session per working day this is roughly 3–6 working weeks after work resumes; this is a pace example, not a promised release date. Movies, a packaged native app, expanded recommendations or major sync defects require re-estimation.
 
 Each ETA starts when its prerequisites are ready. The AI should revise the remaining estimate after meaningful progress and record why it changed. Completed steps show completion rather than a future ETA. Earlier records contain dates without times; the tracker preserves that distinction rather than inventing times.
 
