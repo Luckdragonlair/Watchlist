@@ -311,6 +311,11 @@ If any answer is yes, update the affected documentation now. A code change is in
 
 ## Recent project log
 
+### 2026-11-08 - Movie implementation plan researched
+
+- Recorded a proposed ten-step plan in Notes/DESIGN_IDEAS.md: retain TVmaze TV records, add TMDB movies, common genre keys/filtering, US release distinctions, proper movie storage/progress and movie-aware backup/sync/offline verification. Official provider requirements and free gateway limits checked; account/token/infrastructure setup remains future work. No application code, credentials, cloud configuration or personal data changed.
+
+
 ### 2026-11-08 - Future card-control design ideas recorded
 
 - Owner explicitly treats this discussion as brainstorming: propose Drag under the left letter/art tile, Manage in the lower action area, and the existing current-episode/Caught up picker directly on cards. Recorded in Notes/DESIGN_IDEAS.md with existing progress safeguards and links from the notes index/TODO. No code, data, deployment or tests changed.
