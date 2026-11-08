@@ -1,3 +1,11 @@
+# Latest Windows icon diagnostic
+
+### 2026-11-08 - Firefox Windows stored icon repair
+
+- Owner confirmed the metallic icon updated on phone and website but the pinned Windows taskbar still showed the old white W after unpinning/reopening. Read-only shortcut inspection found both Watchlist shortcuts target the correct hosted app/profile and reference one Firefox taskbartabs icon. Decoded that stored ICO: it was the original white W, not the deployed gold artwork.
+- Backed up that one ICO under ignored originals/firefox-icon-repair-*/ and replaced it with a valid ICO containing the approved PNG frames (16/32/192). Exact bytes and Windows/System.Drawing decoding verified; inspected the decoded gold frame. Requested SHChangeNotify refresh for that icon and the two existing shortcuts. Shortcut targets/arguments, Firefox registration/settings, browser data and app library were unchanged. No Explorer/browser restart or cache deletion performed. The first command used the wrong helper working directory and stopped before any changes; rerun used the absolute path successfully.
+- Owner must close/reopen the Watchlist app window to check the displayed taskbar result; visible taskbar acceptance remains pending. This is a machine-local repair, not an app release. No app tests/builds/deploys performed. Mozilla documents that existing web apps load their saved filesystem icon: https://firefox-source-docs.mozilla.org/browser/components/taskbartabs/docs/architecture.html . Private profile paths and repair receipts remain excluded from Git.
+
 # Latest app-icon checkpoint
 
 ### 2026-11-08 - v0.11.1 approved metallic-gold Nightfall app icons

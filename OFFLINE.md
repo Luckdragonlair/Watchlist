@@ -70,3 +70,7 @@ Dragging, arrows, activity grouping and Recent reset operate on IndexedDB offlin
 ## v0.11.1 app icons
 
 Approved metallic-gold Nightfall icons use new filenames and are cached with the shell, including favicons and the full-bleed maskable asset. Update and reload to receive the new manifest/icons. Offline asset availability is independently tested; existing OS launcher/pinned shortcut icon refresh remains a device acceptance check. No installation/library reset is required by this code change.
+
+## Firefox Windows keeps an old taskbar icon
+
+Firefox web apps retain a separate icon file under their profile taskbartabs/icons folder; updating the website or unpinning alone may leave that saved icon unchanged. On 2026-11-08, Watchlist’s two shortcuts correctly targeted the hosted app but referenced the old white-W ICO. The agent backed up and replaced only that ICO with approved gold frames and notified Windows to refresh. Reopening the Watchlist app window is the next user check; visible taskbar success is not yet confirmed. Do not delete browser data or all web-app registrations to troubleshoot one icon. Repair originals/receipts are private in originals/firefox-icon-repair-*/. See Mozilla’s Firefox Web Apps Architecture documentation for saved-icon behavior.
