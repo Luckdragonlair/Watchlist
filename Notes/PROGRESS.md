@@ -1,3 +1,10 @@
+# Latest user-reported acceptance
+
+### 2026-11-08 - Manage genre editor phone acceptance
+
+- Owner reported the v0.11.0 Manage primary-genre editor worked well on their phone. Record as user-reported acceptance, not an additional automated/device inspection.
+- Owner asked for a small next task because weekly quota is low. C07 approved app-icon asset replacement is recommended (existing icon asset/manifest wiring inspected); not authorized or started by this question. Movies/A-Z/recovery remain larger future work. No app code/data/deployment or application test changes.
+
 # Latest editor checkpoint
 
 ### 2026-11-08 - v0.11.0 existing-show primary genre editor

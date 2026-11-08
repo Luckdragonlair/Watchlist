@@ -1,5 +1,8 @@
 # Existing-show primary genre editor
 
+- [x] Owner-reported phone acceptance passed for v0.11.0 (2026-11-08); independent device/accessibility inspection remains separate.
+- [ ] Recommended small next milestone: C07 app icons, pending owner instruction; no implementation started.
+
 - [x] Manage editor implemented; three targeted PC/phone/safe-save workflows and TypeScript passed.
 - [x] v0.11.0 normal/hosted builds and privacy guard passed; published Hosting-only with exact live-asset verification.
 

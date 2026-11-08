@@ -317,6 +317,12 @@ If any answer is yes, update the affected documentation now. A code change is in
 
 ## Recent project log
 
+### 2026-11-08 - Manage genre editor phone acceptance
+
+- Owner reported the v0.11.0 Manage primary-genre editor worked well on their phone. Record as user-reported acceptance, not an additional automated/device inspection.
+- Owner asked for a small next task because weekly quota is low. C07 approved app-icon asset replacement is recommended (existing icon asset/manifest wiring inspected); not authorized or started by this question. Movies/A-Z/recovery remain larger future work. No app code/data/deployment or application test changes.
+
+
 ### 2026-11-08 - v0.11.0 existing-show primary genre editor
 
 - Owner reported the setup selector worked when adding a show, then requested changing primary genre under Manage for existing shows. Added Change primary genre in library-card Manage, including Weekly/Watched; Binge section actions remain Binge-only. The focused native dialog uses existing genre labels/personal choice and explicit Save primary genre / Cancel. No genres disables Save rather than inventing metadata.
