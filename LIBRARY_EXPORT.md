@@ -2,12 +2,14 @@
 
 The hosted Watchlist library is the shared viewing-state source. A small read-only PC helper keeps two private working exports in `D:\Watchlist\Library`:
 
-- `Watchlist Current.json`: valid app backup (format 2 after the app upgrades the shared library; format 1 remains readable) with all shows, seasons, episodes, notes, watched timestamps and source rows.
+- `Watchlist Current.json`: valid app backup (current format 4; versions 1/2/3 remain readable) with all shows, seasons, episodes, notes, watched timestamps and source rows.
 - `Watchlist Current.md`: readable Weekly/Binge/Watched summary plus source entries not linked. Classifications use the app's own model, not a separate guessed schedule.
 - `export-status.json`: cloud revision/hash and export timestamp.
 - `Matching Review.md` and `Remaining Matching Choices.md`: current matching progress/review, maintained separately from the automatic export.
 
 `Library/` is excluded from GitHub. The original root master TXT and `originals/` are not rewritten. The curated master Page and root current-master document do not automatically change when a show is added to the app. This helper exports the app library; it does not silently reconcile those independent documents.
+
+Current verified exporter: renderer 4, shared revision 161 at this handoff; later owner changes may advance it. See Notes/HANDOFF_QUORA.md. Older dated compatibility sections below are retained as history.
 
 ## Operation
 

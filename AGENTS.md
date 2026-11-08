@@ -266,31 +266,14 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
-Latest owner priority completed: v0.9.0 published and all 181 submitted choices applied with exact readback. Update PC/phone for backup format 4. Match-confirmation selection remains future work.
+Current checkpoint: v0.9.0 is verified, published and pushed; all 181 primary-genre choices applied at shared revision 161. Backup format 4; folder export renderer 4. See Notes/HANDOFF_QUORA.md for the compact continuation guide.
 
-Latest owner priority: complete the private primary-genre radio review, then implement safe preference persistence/application; match-confirmation genre selection follows later. Review helper is verified; app stays v0.8.1.
+1. Owner's next likely assignment: primary-genre choice during match/import setup, reusing the existing preference and atomic setup guards. Not built yet. Existing-show Manage editor is also unbuilt; confirm scope when assigned.
+2. Remaining V2 icons/A-Z/dialog/status refinements and actual-device accessibility/zoom acceptance.
+3. Movie planning/implementation after agreeing provider/account/gateway scope; retain TVmaze for TV and all existing data safeguards.
+4. Remaining Silo/manual acceptance and unresolved source entries stay separate unless explicitly assigned.
 
-Latest priority: owner-approved compact cards implemented in v0.8.1; six focused checks and builds passed, published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build. Remaining V2 icons/A-Z/dialog/accessibility and movie planning stay separate.
-
-Current priority superseding earlier notes: v0.8.0 genre colors/checkboxes and card controls are built and verified. Remaining V2 icons/A-Z/dialog/accessibility acceptance and movie planning stay next; family/AI changes remain deferred.
-
-Current priority 2026-11-08 09:05 America/Chicago: cleanup and v0.7.0 dragging/activity ordering are verified. Finish remaining V2/A-Z/dialog/accessibility work and plan required movie support next. Family access/social sharing stay deferred until core completion; API-credit use remains undecided.
-
-2026-11-08 owner reprioritization: integrate the approved original Brick alley splash/Gold banner and Weekly default/today-first ordering now; built and verified. Accessible dragging follows this milestone.
-
-Unless the user reprioritizes, use this order:
-
-2026-11-08: user-requested automatic metadata discovery is complete; V2 Binge organization (step 3) is now complete; accessible dragging (step 4) is next. The v0.4.0 filed-title helper is ready for its alphabetical sections. The v0.4.1 date repair is a separate maintenance fix; verify owner sync recovery after updating. Closed-app checks and confirmed-cancellation overrides are separate deferred work.
-
-1. **Completed 2026-11-07: approved assets preserved.** Unmodified copies and hashes checked under design/nightfall-v2/.
-2. **Foundation completed 2026-11-07.** Locally cached approved typography, dark surfaces, focus styles, reduced-motion handling, brand treatment, responsive cards/navigation and arrow placement are verified. Application icon replacement and final screen refinements remain part of later V2 work.
-3. **Completed 2026-11-08: V2 Binge structure and Match.** Ready/Upcoming & TBA/Not for me; persistent Watching now/Watch soon order; alphabetical Everything else; search/sticky headings; unmatched-only Match and compatible backups.
-4. **Completed v0.7.0: accessible dragging and activity order.** Mouse/touch/keyboard dragging and arrow controls must operate on the same ordering model and announce moves.
-5. **Restyle Weekly, Watched, Add Show, Import, and Show Detail.** Preserve current tested behavior while adding the approved hierarchy and mobile lower-detail content.
-6. **Implement empty/loading/error/status/dialog presentation.** Preserve the deployed owner-only sync and its conflict safeguards. Automatic 30-day recovery copies remain a separate unbuilt feature.
-7. **Implement and test the A–Z adjustable control contract.**
-8. **Run the complete verification set.** Unit/database tests, browser workflows, PWA workflows, build, keyboard-only pass, TalkBack/NVDA checks, zoom/text-size checks, and visual review.
-9. **Finish remaining manual acceptance work.** Silo and unresolved source titles remain separate from the visual rewrite unless the user explicitly combines them.
+Family access/social sharing, AI-credit spending, optional upgrades and automatic recovery copies remain deferred/proposed. This documentation handoff authorizes no new implementation. Superseded priority summaries are preserved in Notes/PRIORITIES_ARCHIVE_2026-11-08.md; the detailed dated project log remains below.
 
 ## Commands and safe testing
 
@@ -308,6 +291,10 @@ Use `./run-watchlist.ps1` on the handoff machine when Node/pnpm are not on PATH.
 
 Never use the user's normal production-origin IndexedDB library for automated tests. Do not run a real restore, destructive migration, deletion, or seed operation against it.
 
+## Standing owner requirement: notes and checkpoint checks
+
+Reaffirmed 2026-11-08: after every GitHub update or sizeable project change, update the affected notes and current handoff, verify their claims against actual evidence, reconcile D:\Watchlist, and confirm the remote/local checkpoint after pushing. This is routine required work every time, not just a one-off Quora handoff. Keep verification proportional: documentation-only changes need documentation/diff/local-remote checks, not application test suites. Do not infer that a handoff means the project or assistant work is finished or paused.
+
 ## Documentation update checklist
 
 Before ending any change, answer all of these in the commit:
@@ -323,6 +310,12 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 13:58 CST - Quora documentation handoff
+
+- Owner requested a low-usage handoff before the weekly reset. Added Notes/HANDOFF_QUORA.md, reconciled v0.9.0/format-4 summaries and archived contradictory older priority snippets without deleting history. Root notes index, roadmap, feature/design inventory and operation/export summaries now point to current status.
+- Checked clean canonical main and fetched origin/main: identical at feature c92c4b9 before this documentation checkpoint. No application tests, builds, deploys or personal-library writes performed for this handoff. Documentation diff checks and post-push verification are the only new checks. No new blocker.
+
 
 ### 2026-11-08 - v0.9.0 reviewed primary-genre preferences
 

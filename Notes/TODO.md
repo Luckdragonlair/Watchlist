@@ -1,3 +1,5 @@
+Current handoff: [HANDOFF_QUORA.md](HANDOFF_QUORA.md), updated 2026-11-08 13:58 CST (America/Chicago). Historical checklists below are superseded where a newer checkpoint marks the item done.
+
 # Primary genre application checkpoint
 
 - [x] Owner submitted all 181 choices; initial identity/genre check and read-only live preview passed.

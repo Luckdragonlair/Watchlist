@@ -2,7 +2,7 @@
 
 **Current ordered estimates:** see [FEATURE_PLAN.md](FEATURE_PLAN.md) for the complete dependency-aware inventory, including movies and recent brainstorms. Its estimates supersede the older TV-only total below; historical milestones remain for context.
 
-Updated: 2026-11-08 12:44 America/Chicago
+Updated: 2026-11-08 13:58 CST (America/Chicago)
 
 This is the living development plan from the original prototype to a dependable first release. It tracks verified progress, remaining work and initial effort estimates. AI maintains the status marks, timestamps and estimate changes.
 
@@ -14,11 +14,13 @@ The current local-first PWA is the foundation. Hosted access is published for tr
 
 ## Progress at a glance
 
+- [x] v0.9.0: all 181 primary-genre choices applied at revision 161; preference/format-4 preservation verified, published and pushed. See HANDOFF_QUORA.md.
+
 - [x] v0.8.1: compact cards verified with six focused browser workflows and both builds; published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build.
 
 - [x] v0.8.0: approved genre palette/multi-genre badges, compact Binge OR checkboxes, Drag below left letter, lower Manage and explicit-Apply episode/Caught up on cards. Focused unit/browser/build verification passed; real-device acceptance remains.
 
-**Current focus:** v0.7.0 card dragging and started-first Binge activity/manual order are built and verified. Next: remaining V2/A-Z/dialog/accessibility work, then movie planning. Family access and social recommendations are deferred until core completion; API-credit use is undecided.
+**Current focus:** v0.9.0 is complete. Next candidate: primary-genre choice during match/import setup (not built), then the remaining V2/A-Z/dialog/accessibility and movie work assigned by the owner. Family access and social recommendations are deferred until core completion; API-credit use is undecided.
 **Target:** one-click use on Android and Windows, a shared private library, and dependable offline tracking.
 
 Marks: **[x] complete** · **[~] partly complete** · **[>] next** · **[ ] not started** · **[!] blocked**. A blocked mark must name the blocker. No milestone is currently marked blocked; future steps depend on the decisions and checks below.

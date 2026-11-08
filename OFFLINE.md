@@ -1,14 +1,16 @@
 # Install and use Watchlist offline
 
+Current release: v0.9.0 with format-4 primary-genre preservation. Update and reload both devices. Existing owner migration and core PC/phone notes/offline reconnect passed by earlier user report; actual Firefox/Android accessibility and remaining acceptance checks are separate. See Notes/HANDOFF_QUORA.md.
+
 ## Hosted trial on PC and Android
 
 Open [Genre Watchlist](https://genre-watchlist.firebaseapp.com/) in Firefox and sign in with the same Google account used during setup. The app is now published on Firebase Hosting and can load with the PC switched off. The project has billing disabled. Only the configured owner can open the hosted library through the app.
 
-The hosted version now automatically synchronizes the private signed-in library. Its first library may be empty because the original local app has not been migrated. Use a fresh backup for the one-time transfer described in [SYNC.md](SYNC.md). Signing in on another hosted device then brings down the shared copy; signing in does not silently upload the old local origin.
+The hosted version now automatically synchronizes the private signed-in library. For an unmigrated setup its first library may be empty; the current owner completed migration earlier. Use a fresh backup for the one-time transfer described in [SYNC.md](SYNC.md). Signing in on another hosted device then brings down the shared copy; signing in does not silently upload the old local origin.
 
 On Android, open the hosted address in Firefox, then menu > Install to add the home-screen icon when offered. Wait for Available offline before trying an offline reopen. On Windows, use the Firefox address-bar web apps button. The existing PC shortcut for 127.0.0.1 still points to the original local app.
 
-Verified in an isolated Edge browser: live sign-in screen, manifest, offline reopening of the unsigned-in shell, and no exposed personal master catalog. Actual hosted Google sign-in and signed-in offline library behavior on Firefox/Android remain acceptance checks.
+Verified in an isolated Edge browser: live sign-in screen, manifest, offline reopening of the unsigned-in shell, and no exposed personal master catalog. The owner subsequently reported successful hosted sign-in, two-device live notes and offline notes delivery on reconnect; remaining formal device acceptance is tracked in Notes/SYNC_ACCEPTANCE_2026-11-07.md.
 ## Start the original local app
 
 Use the production app for your regular watch history:

@@ -1,5 +1,7 @@
 # Run Watchlist
 
+Current handoff: Notes/HANDOFF_QUORA.md. Shipped app v0.9.0, backup format 4; update both hosted PC/phone clients.
+
 ## Start the app
 
 The project uses Node.js, React, and Vite. From the project folder, install dependencies and start the development server:
@@ -10,7 +12,7 @@ pnpm build
 pnpm start
 ```
 
-Open `http://127.0.0.1:5174`. The fixed development port keeps your browser library at the same address between sessions. The repository includes `pnpm-lock.yaml`, so pnpm is preferred for a reproducible install. If pnpm is unavailable, `npm install`, `npm run build`, and `npm start` are alternatives. On the current handoff machine, npm and pnpm are not on PATH; use `./run-watchlist.ps1` from PowerShell. To install explicitly, use `./run-watchlist.ps1 -Task install`.
+Open `http://127.0.0.1:5174`. This is the production local origin. Development uses 127.0.0.1:5175 with separate browser storage. The repository includes `pnpm-lock.yaml`, so pnpm is preferred for a reproducible install. If pnpm is unavailable, `npm install`, `npm run build`, and `npm start` are alternatives. On the current handoff machine, npm and pnpm are not on PATH; use `./run-watchlist.ps1` from PowerShell. To install explicitly, use `./run-watchlist.ps1 -Task install`.
 
 ## Tests and build
 

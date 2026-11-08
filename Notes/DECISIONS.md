@@ -190,3 +190,7 @@ Owner requested a separate fast review of all existing multi-genre shows before 
 ## 2026-11-08 - Apply the completed primary-genre review
 
 Owner supplied all 181 explicit choices. Store optional primaryGenre in personal preferences rather than rewriting provider genres. Card color and first badge use this preference; remaining genres still filter normally. Preserve the personal choice even if future provider metadata omits it, adding it only to effective display/filter tags. Missing preferences retain automatic fallback, displayed first. Format 4 prevents older clients silently discarding new preferences; formats 1-3 remain readable. The matching/setup picker is deliberately still deferred. Only a validated current identity/genre match may be batch-applied, with atomic update-time guard and no overwrite of notes/history/order.
+
+## 2026-11-08 - Recurring documentation and checkpoint upkeep
+
+Owner reaffirmed that notes/documentation and proportional local/GitHub consistency checks are required after every GitHub update or sizeable change, not only when switching agents. Maintain this as part of ordinary completion without waiting for another request. Documentation-only updates do not require application test suites. A handoff does not itself pause or finish the project.

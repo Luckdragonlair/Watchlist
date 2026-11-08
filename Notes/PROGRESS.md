@@ -1,3 +1,7 @@
+# Documentation handoff - 2026-11-08 13:58 CST (America/Chicago)
+
+Added HANDOFF_QUORA.md and reconciled current summaries for v0.9.0/format 4/revision 161. No app code, data or deployment changes; no app suites rerun. Git/diff/source-copy verification only. Older checkpoint evidence below remains historical.
+
 # Latest checkpoint
 
 ### 2026-11-08 - v0.9.0 reviewed primary-genre preferences

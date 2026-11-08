@@ -1,6 +1,8 @@
 # Watchlist proposed feature and dependency plan
 
-Updated: 2026-11-08 12:11 America/Chicago
+Updated: 2026-11-08 13:58 CST (America/Chicago)
+
+Current continuation: HANDOFF_QUORA.md. C02 TV/C03-C06 are delivered; v0.8.1 adds compact cards and v0.9.0 adds reviewed primary preferences (181 applied, format 4). Primary-genre match/setup and existing-show editor remain unbuilt. The estimates below are historical planning ranges, not a current remaining-work total.
 
 This is a planning inventory of 42 proposed changes and remaining acceptance items. It does not authorize implementation. The owner subsequently authorized and completed the TV genre foundation, colors, checkboxes and card controls (C02 TV portion, C03-C06) in v0.8.0. Family access remains deferred; AI-credit use is undecided. The order below respects dependencies while putting small independent wins early. Difficulty is relative to the existing app, not a claim about product importance.
 
