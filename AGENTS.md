@@ -311,6 +311,11 @@ If any answer is yes, update the affected documentation now. A code change is in
 
 ## Recent project log
 
+### 2026-11-08 - Binge genre filters deferred
+
+- Owner requested one checkbox per genre with multiple choices, then explicitly asked not to implement yet. Recorded in TODO/ROADMAP only. No application code, data or deployment changed; no tests needed for this notes-only change.
+
+
 ### 2026-11-08 - Optional discovery controls noted
 
 - Owner found the existing Caught up option and is satisfied with it; a duplicate below the episode list is a future maybe only. Recorded the discussed whole-library manual update button as proposed, not built. Current daily/per-show refresh behavior verified in code; announcement verification remains separate. No code, data, deployment or tests changed.

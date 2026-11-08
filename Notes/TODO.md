@@ -216,3 +216,7 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 
 - [ ] Maybe: repeat Caught up below the episode list. Owner says the existing top selector is fine; this is optional, not a requested implementation.
 - [ ] Proposed for discussion: one Check shows for updates button for a manual whole-library metadata check. Current behavior is daily due checks while visible/online plus Refresh metadata in individual show details. A renewal/cancellation announcement feed and independently confirmed cancellation handling remain separate future work; no provider or API-credit feature chosen.
+
+## Upcoming: Binge genre checkboxes - 2026-11-08
+
+- [ ] One checkbox per genre on Binge; allow selecting several genres, such as Comedy and Fantasy. Owner explicitly deferred implementation. No code/UI changes made.

@@ -213,3 +213,5 @@ Historical entries above remain as checkpoints; the current summary and this dat
 4. [ ] Design movie support and choose its metadata/import/tracking approach — about one planning session; implementation ETA after scope/provider choice.
 5. [ ] Review API-credit ideas after core/movie requirements settle; no implementation or credit spending authorized by this note.
 6. [ ] Family accounts and recommendation sharing — deferred until core completion; implementation ETA remains unset.
+
+Upcoming idea (2026-11-08): Binge genre checkboxes with multiple selections. Explicitly deferred by the owner; implementation has not started and no ETA is assigned.
