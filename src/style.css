@@ -310,3 +310,12 @@ progress::-moz-progress-bar{background:var(--genre);border-radius:8px}
 @media(max-width:839px){.show-card .show-actions{display:inline-block;vertical-align:middle;margin:0 0 0 6px}.show-card .show-actions summary{padding:10px}.show-status{display:inline-block}}
 
 .genre-supernatural{--genre:#a3a1ff}
+
+/* Primary genre selection belongs to the existing post-match setup form. */
+.show-setup .setup-genres{margin:0 0 16px;padding:12px;border:1px solid var(--line);border-radius:10px;min-width:0}
+.setup-genres legend{font-size:14px;padding-inline:4px}.setup-genres p{font-size:12px;color:var(--muted);margin:4px 0 10px}
+.setup-genre-options{display:flex;flex-wrap:wrap;gap:8px}
+.show-setup .setup-genre-options label{display:flex;align-items:center;gap:8px;width:auto;max-width:100%;min-height:44px;margin:0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;overflow-wrap:anywhere}
+.setup-genre-options label:has(input:checked){border-color:var(--genre,var(--accent));background:#ffffff08}
+.setup-genre-options input[type=radio]{flex:0 0 20px;width:20px;height:20px;margin:0;accent-color:var(--genre,var(--accent))}
+.setup-genre-options small{font-size:11px;color:var(--muted)}

@@ -2,6 +2,8 @@
 
 Updated: 2026-11-08 13:58 CST (America/Chicago)
 
+CURRENT UPDATE — 2026-11-08, 2:23 p.m. America/Chicago: owner lifted the testing hold; setup genre selector passed 12 setup-save checks, three targeted browser scenarios and TypeScript. v0.10.0 is built and published, retaining format 4. Existing-show Manage editor remains future work. Earlier hold notes are historical.
+
 Read this, then the complete root AGENTS.md before work. This is a documentation handoff because the owner's weekly allowance is low; it does not start a new feature. Use targeted reads/checks, no unnecessary helpers or full-suite reruns.
 
 ## Current verified checkpoint
@@ -14,7 +16,7 @@ Read this, then the complete root AGENTS.md before work. This is a documentation
 
 ## Next work and boundaries
 
-1. Natural follow-up for the owner to assign: primary-genre selection during match/import setup. Reuse personal preferences and preserve the existing atomic notes/current-episode/Caught up safeguards. The owner specifically postponed this until after existing-show review; review is now complete, but no matching picker is built yet.
+1. Natural follow-up for the owner to assign: primary-genre selection during match/import setup. Reuse personal preferences and preserve the existing atomic notes/current-episode/Caught up safeguards. The owner specifically postponed this until after existing-show review; review is now complete, the matching/setup picker is now verified and published in v0.10.0.
 2. An existing-show primary-genre editor under Manage is still unbuilt. Confirm the desired scope when that task is assigned; do not imply it shipped with the bulk application.
 3. Remaining V2 work: app icons, A-Z accessible adjustable control, final screen/dialog/status refinements and actual-device accessibility/zoom acceptance. Preserve accepted Nightfall references in design/nightfall-v2.
 4. Movies remain planning only. FEATURE_PLAN.md and DESIGN_IDEAS.md describe adding TMDB alongside TVmaze, genre reuse, proper movie records, US release/availability distinctions and backup/sync changes. No movie provider setup or implementation is complete. Family access/social sharing and AI spending remain deferred.

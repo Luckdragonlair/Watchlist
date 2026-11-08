@@ -1,16 +1,25 @@
+# Primary-genre setup: verified for v0.10.0
+
+Updated: 2026-11-08, 2:19 p.m. America/Chicago
+
+- [x] Programmed setup radio choices and atomic preference/notes/progress save in the local source.
+- [x] Owner authorized focused testing: 12 setup-save checks, three genre browser scenarios and TypeScript passed.
+- [x] v0.10.0 normal/hosted builds, private-asset guard and Hosting publication passed; live assets match tested build.
+- [ ] Existing-show Manage editor remains future work.
+
 Current handoff: [HANDOFF_QUORA.md](HANDOFF_QUORA.md), updated 2026-11-08 13:58 CST (America/Chicago). Historical checklists below are superseded where a newer checkpoint marks the item done.
 
 # Primary genre application checkpoint
 
 - [x] Owner submitted all 181 choices; initial identity/genre check and read-only live preview passed.
 - [x] v0.9.0 primary preference/format-4 preservation verified and published; all 181 choices applied at revision 161; folder export/watcher renderer 4 current.
-- [ ] Primary genre choice during matching/setup and existing-show editor remain future work.
+- [~] Primary genre setup is programmed locally; focused verification completed. Existing-show editor remains future work.
 
 # Primary genre review checkpoint
 
 - [x] Private radio review page for 181 multi-genre shows; local autosave and focused verification. See GENRE_REVIEW.md.
 - [x] Owner completed selections; safe primary-genre preferences and guarded application delivered v0.9.0.
-- [ ] Add primary-genre choice during match/setup later; preserve all genres for filtering.
+- [~] Primary-genre match/setup draft now programmed; preserve all genres for filtering. Verified and published in v0.10.0.
 
 # Latest card layout checkpoint
 

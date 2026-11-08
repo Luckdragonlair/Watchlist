@@ -2,7 +2,7 @@
 
 Updated: 2026-11-08 13:58 CST (America/Chicago)
 
-**Current: v0.9.0, backup format 4, 181 primary genres applied.** Start with [HANDOFF_QUORA.md](HANDOFF_QUORA.md) for a concise continuation guide.
+**Published: v0.10.0 setup genre radios. Backup format 4 and existing 181 primary preferences are unchanged.** Start with [HANDOFF_QUORA.md](HANDOFF_QUORA.md) for a concise continuation guide.
 
 - [GENRE_REVIEW.md](GENRE_REVIEW.md): private radio-button review page, automatic choice file and restart instructions.
 

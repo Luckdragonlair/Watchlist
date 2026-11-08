@@ -1,10 +1,12 @@
-# Watchlist v0.9.0
+# Watchlist v0.10.0
+
+**Current release:** v0.10.0 primary-genre setup is verified and published.
 
 A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. V2 Binge sections, card dragging, activity-first order and the unmatched-only Match queue are implemented; final V2 refinements remain; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
 
-Update PC and phone to v0.9.0 for format-4 primary-genre preference compatibility; backup formats 1/2/3 remain readable.
+Update PC and phone to v0.10.0 for format-4 primary-genre preference compatibility; backup formats 1/2/3 remain readable.
 
-New in v0.9.0: reviewed primary genres determine card color and appear first. Other tags remain available for filtering. Choices are personal preferences preserved through metadata refresh, backup and sync. New-show primary-genre selection remains future work.
+New in v0.9.0: reviewed primary genres determine card color and appear first. Other tags remain available for filtering. Choices are personal preferences preserved through metadata refresh, backup and sync. After choosing a match or adding a show, setup lets you pick its primary genre before saving your episode and notes. Existing choices are preselected; Skip keeps them unchanged.
 
 New in v0.8.1: compact cards retain every action, move Manage into the title block, and show catch-up guidance when a selection is made. Cards expand for long text and open menus.
 

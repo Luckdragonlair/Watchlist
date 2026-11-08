@@ -58,3 +58,25 @@ it('refuses a stale setup after restore or deletion/re-add',async()=>{
   await expect(saveShowSetup(afterRestore,'Old show draft',22,now,database)).rejects.toThrow('removed or replaced');
   expect(await database.progress.count()).toBe(0);expect((await database.preferences.get(1))?.notes).toBe('');
 });
+
+async function genreFixture(){const database=await fixture();await database.shows.update(1,{genres:['Fantasy','Action','Drama']});return database;}
+it('saves selected genre with notes and episode catch-up while preserving existing timestamps and provider genres',async()=>{
+ const database=await genreFixture();await setWatched(11,true,database);const original=await database.progress.get(11),snapshot=await loadShowSetup(1,database);
+ expect(snapshot.genres).toEqual(['Action','Drama','Fantasy']);await saveShowSetup(snapshot,'Genre note',22,now,database,'Action');
+ expect(await database.preferences.get(1)).toMatchObject({primaryGenre:'Action',notes:'Genre note',order:7});expect(await database.progress.get(11)).toEqual(original);expect((await database.progress.toArray()).map(p=>p.episodeId).sort()).toEqual([11,12,21]);expect((await database.shows.get(1))?.genres).toEqual(['Fantasy','Action','Drama']);
+});
+it('rejects a stale primary genre without saving draft notes or watched history',async()=>{
+ const database=await genreFixture(),snapshot=await loadShowSetup(1,database);await database.preferences.update(1,{primaryGenre:'Drama'});
+ await expect(saveShowSetup(snapshot,'Discarded draft','caught-up',now,database,'Action')).rejects.toThrow('primary genre changed');expect(await database.preferences.get(1)).toMatchObject({notes:'Existing source notes',primaryGenre:'Drama'});expect(await database.progress.count()).toBe(0);
+});
+it('rejects a retracted new choice but retains a previously saved genre after provider retraction',async()=>{
+ const database=await genreFixture(),snapshot=await loadShowSetup(1,database);await database.shows.update(1,{genres:['Fantasy']});
+ await expect(saveShowSetup(snapshot,'Unsaved','caught-up',now,database,'Action')).rejects.toThrow('genre options changed');expect(await database.progress.count()).toBe(0);expect((await database.preferences.get(1))?.notes).toBe('Existing source notes');
+ await database.preferences.update(1,{primaryGenre:'Action'});const saved=await loadShowSetup(1,database);expect(saved.primaryGenre).toBe('Action');await saveShowSetup(saved,'Kept',undefined,now,database,'Action');expect(await database.preferences.get(1)).toMatchObject({primaryGenre:'Action',notes:'Kept'});
+});
+it('rolls back genre and notes if the chosen episode is invalid',async()=>{
+ const database=await genreFixture();await expect(saveShowSetup(await loadShowSetup(1,database),'Unsaved',999,now,database,'Action')).rejects.toThrow('current episode');expect(await database.progress.count()).toBe(0);expect(await database.preferences.get(1)).toMatchObject({notes:'Existing source notes'});expect((await database.preferences.get(1))?.primaryGenre).toBeUndefined();
+});
+it('does not invent a genre when none is listed or overwrite a concurrent genre from episode-only actions',async()=>{
+ const database=await fixture();await saveShowSetup(await loadShowSetup(1,database),'No genre',undefined,now,database);expect((await database.preferences.get(1))?.primaryGenre).toBeUndefined();const snapshot=await loadShowSetup(1,database);await database.preferences.update(1,{primaryGenre:'Action'});await saveShowSetup(snapshot,'No genre',22,now,database);expect((await database.preferences.get(1))?.primaryGenre).toBe('Action');
+});

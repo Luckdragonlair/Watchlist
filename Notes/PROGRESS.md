@@ -1,3 +1,23 @@
+# Latest focused verification
+
+### 2026-11-08 - v0.10.0 setup genre selector: focused verification
+
+- Owner lifted the testing hold and requested only genre-selector/saving checks. PASS: 12 checks in tests/show-setup.test.ts (including five new genre-save safeguards), three targeted browser scenarios in setup-flow.spec.ts, and TypeScript. No unrelated suites run. New browser checks cover Add Show automatic default, changing/saving with notes and catch-up, persistence/card color, 320px fit/44px labels; source-match saved preference, concurrent-edit rejection, reload and Skip; no-genre notes-only setup.
+- Unit checks cover primary/notes/progress atomicity, timestamps and provider tags, stale genre refusal, retracted options versus retained saved choices, invalid-episode rollback, and no invented genre/no overwrite by episode-only actions. Two new browser fixtures were corrected: source matching appends source context to existing notes, and no-genre metadata must be mocked on the show-detail endpoint as well as search. No application bug fix was needed after programming.
+- Setup offers listed genres, preserves an existing saved choice, preselects existing/automatic choice, and saves it only on Save and continue. Skip/Escape keeps the saved preference. Existing-show Manage genre editor remains unbuilt. Version prepared as 0.10.0; existing format 4/schema v3 unchanged. No personal library writes or AI calls.
+- Normal/hosted release builds and private-asset guard passed. Published Hosting-only; live index, service worker and all app JS/CSS match the tested build. No personal library/rules/billing changes. Earlier programming-only hold records below are historical and superseded by the owner's explicit test authorization.
+
+# Active programming checkpoint
+
+### 2026-11-08 - Primary genre during setup: programming only
+
+- Updated 2026-11-08, 2:19 p.m. America/Chicago. Owner authorized programming the primary-genre option after matching/import and explicitly instructed: hold all bug testing until they say to begin. This hold remains active. No tests, type checks, builds, browser/manual checks, deployment or live-library writes were performed for this change.
+- Local source now adds a radio group to the existing post-match/Add Show setup dialog. Options use listed provider genres plus an existing saved personal choice if the provider has omitted it. Preselect the saved preference, otherwise the current automatic genre. Empty metadata does not invent an Unclassified preference. Save and continue persists the choice together with notes and optional current-episode/Caught up progress; Skip/Escape discards setup choices.
+- Setup snapshots now include genre options and saved primary genre. The existing atomic transaction also guards concurrent primary-genre edits and rejects a newly selected option no longer present in current metadata, while retaining an existing personal choice. Loading latest setup refreshes notes/genre baseline and selection; independent card episode actions keep their existing no-genre-write behavior.
+- Added wrapping radio labels with 44px minimum targets. No dependency, schema, backup-format or cloud-rule change; package/deployed version remains v0.9.0 until the next verified release. Existing-show Manage genre editor stays future work.
+- Status: Built, verification pending, LOCAL UNCOMMITTED SOURCE ONLY. Kept out of GitHub commits/publication under the standing verified-feature checkpoint rule. Notes are updated in the canonical folder and mirrored chat workspace while work is active. Do not claim this draft is tested or shipped.
+- When owner authorizes checks: targeted setup saves/Skip and Add Show/source-match paths; saved/default/no-genre options; concurrent-note/genre changes and metadata/lifecycle guards; atomic progress/notes preservation; radio focus/wrapping. The reload action is now labeled "Discard draft and load latest setup"; update any old exact-name test selectors during that phase. Run no unrelated suites.
+
 # Documentation handoff - 2026-11-08 13:58 CST (America/Chicago)
 
 Added HANDOFF_QUORA.md and reconciled current summaries for v0.9.0/format 4/revision 161. No app code, data or deployment changes; no app suites rerun. Git/diff/source-copy verification only. Older checkpoint evidence below remains historical.

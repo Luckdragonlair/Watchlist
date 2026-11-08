@@ -194,3 +194,11 @@ Owner supplied all 181 explicit choices. Store optional primaryGenre in personal
 ## 2026-11-08 - Recurring documentation and checkpoint upkeep
 
 Owner reaffirmed that notes/documentation and proportional local/GitHub consistency checks are required after every GitHub update or sizeable change, not only when switching agents. Maintain this as part of ordinary completion without waiting for another request. Documentation-only updates do not require application test suites. A handoff does not itself pause or finish the project.
+
+## 2026-11-08 - Setup primary genre, programming-only phase
+
+Owner authorized adding primary-genre radios to the existing setup after a successful provider match/Add Show import. Preselect the saved personal choice or existing automatic default; preserve a saved choice omitted by later provider metadata. Save with notes/progress atomically and reject concurrent primary-genre changes before any writes. Skip does not change the preference. No new format/schema is needed. Explicit owner instruction: do programming now, hold all bug/testing until told to begin. This source draft is not a verified release and must not be automatically committed/pushed/published as one. Existing-show editor remains separate.
+
+## 2026-11-08 - Testing hold lifted for setup genre selector
+
+Owner explicitly authorized focused selector/saving tests. The earlier hold is superseded. Twelve setup unit checks and three targeted browser scenarios passed; no unrelated suites were run. Retain ordinary verified-feature release/checkpoint workflow. Matching setup now supports the preference; an existing-show Manage editor remains separate.

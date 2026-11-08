@@ -19,3 +19,7 @@ Focused disposable fixture coverage verifies radio choice exclusivity, save/relo
 The owner submitted the completed review on 2026-11-08. v0.9.0 adds safe primary-genre persistence; verify each current provider identity and genre set before applying with the guarded helper. Keep all other genre tags for filtering and put the selected primary first. The new-show match/setup picker remains future work. Do not edit provider genres or the original master to simulate a preference.
 
 Applied 2026-11-08: all 181 submitted choices verified at shared revision 161, with notes/history/order and provider metadata preserved. Current folder export is format 4/renderer 4. Use Update and reload on both PC and phone for v0.9.0.
+
+Local draft update (2026-11-08, 2:19 p.m. America/Chicago): the matching/setup primary-genre selector is now programmed, but the owner explicitly holds testing. It is not committed or deployed; the reviewed v0.9.0 choices remain the live state. See PROGRESS.md for current details.
+
+Update 2026-11-08, 2:23 p.m. America/Chicago: owner lifted the hold; match/Add Show setup genre selection passed focused verification for v0.10.0. Existing 181 reviewed choices remain unchanged; the new UI applies to subsequent setup saves. v0.10.0 is published; live assets match the tested build.
