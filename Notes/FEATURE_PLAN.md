@@ -2,13 +2,15 @@
 
 Updated: 2026-11-08 12:11 America/Chicago
 
-This is a planning inventory of 42 proposed changes and remaining acceptance items. It does not authorize implementation. The owner explicitly deferred genre checkboxes/card-layout ideas and family access; AI-credit use is undecided. The order below respects dependencies while putting small independent wins early. Difficulty is relative to the existing app, not a claim about product importance.
+This is a planning inventory of 42 proposed changes and remaining acceptance items. It does not authorize implementation. The owner subsequently authorized and completed the TV genre foundation, colors, checkboxes and card controls (C02 TV portion, C03-C06) in v0.8.0. Family access remains deferred; AI-credit use is undecided. The order below respects dependencies while putting small independent wins early. Difficulty is relative to the existing app, not a claim about product importance.
 
 Estimates are rough active implementation/review time, including focused verification, notes and an ordinary checkpoint. They exclude account approvals, waiting for user/device access, unavailable metadata and long external review queues. Final integrated verification is listed separately. Use focused checks during fixes, then a broader pass at a coherent milestone; do not rerun the full suite for every small change.
 
-The core TV/movie route totals **30.5–63 active hours** before contingency; a 20% allowance gives roughly **37–76 hours**. These are planning ranges, not calendar promises. At two active hours per session, the base range is roughly 16–32 sessions. The older TV-only roadmap total is superseded by this expanded scope. Optional extras and later tracks are excluded.
+Historical baseline before v0.8.0 completed C02 TV/C03-C06: the core TV/movie route totaled **30.5–63 active hours** before contingency; a 20% allowance gives roughly **37–76 hours**. These historical totals are not current remaining work; re-estimate the remainder before scheduling. They are planning ranges, not calendar promises. At two active hours per session, the base range is roughly 16–32 sessions. The older TV-only roadmap total is superseded by this expanded scope. Optional extras and later tracks are excluded.
 
 ## Recommended core order
+
+Completed checkpoint: C02 TV presentation/filter foundation and C03-C06 delivered v0.8.0, with focused verification. Future TMDB genre mapping remains part of movie work. Historical row estimates below are retained for comparison.
 
 Rows are a sensible default sequence, not a requirement to serialize independent work. C03/C04/C05/C07 can be scheduled independently after their prerequisites. The movie block can start after C01/C02 without waiting for all cosmetic work. Each new release must retain the currently working TV/offline/sync behavior.
 
@@ -85,7 +87,7 @@ The AI foundation is shared: implement A01 once, then add chosen features increm
 - **C01 — Confirm movie scope and compact card layout:** Agree Movies placement, watched/not-for-me behavior, US release labels and proposed TMDB/gateway approach. Design decisions, not implementation approval.
 - **C02 — Shared genre names and full multi-genre tags:** Normalize equivalent TV/movie labels; preserve raw genres and unknowns. Do not infer Superhero from Action. Foundation for filters, colors, movie imports and recommendations.
 - **C03 — Fuller, more vivid approved genre colors:** Apply the approved Nightfall palette consistently with readable text labels and contrast.
-- **C04 — Binge genre checkboxes:** One per genre; multiple selections mean any selected genre. Combine with text search, preserve hidden cards/order and keep phone controls compact. Still explicitly deferred until implementation is requested.
+- **C04 — Binge genre checkboxes:** One per genre; multiple selections mean any selected genre. Combine with text search, preserve hidden cards/order and keep phone controls compact. Delivered v0.8.0 after explicit owner approval.
 - **C05 — Move Drag below the left letter; retain Manage below:** Keep right-middle arrows; review the phone layout where imagery may be reduced. Reuse existing drag behavior.
 - **C06 — Episode/Caught up picker on the main card:** Reuse current catch-up actions and stale-state safeguards, with a clear apply interaction. No automatic loss of history from merely opening a selector.
 - **C07 — Replace temporary app icons with approved Nightfall icons:** Prepare install/maskable sizes and verify PC/Android launch presentation; splash is already built.

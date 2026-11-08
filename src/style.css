@@ -232,3 +232,51 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); fo
 @media(forced-colors:active){.show-card.drag-source,.show-card.drop-before,.show-card.drop-after{outline:3px solid Highlight}}
 
 .binge-heading button{font:12px 'IBM Plex Sans',system-ui,sans-serif;min-height:44px;padding:8px 10px;margin-left:auto;white-space:nowrap}.order-help{font-size:12px;color:var(--muted);line-height:1.4;margin:8px 0}
+
+/* Genre palette from the approved Nightfall reference. Labels always accompany color. */
+.genre-sciencefiction{--genre:oklch(80% .12 215)}.genre-superhero{--genre:oklch(83% .14 80)}
+.genre-fantasy{--genre:oklch(76% .13 300)}.genre-horror{--genre:oklch(70% .17 22)}
+.genre-comedy{--genre:oklch(80% .13 150)}.genre-drama{--genre:oklch(76% .06 250)}
+.genre-action{--genre:#f5bd84}.genre-adventure{--genre:#bddc7d}.genre-anime,.genre-animation{--genre:#f5b7df}.genre-crime,.genre-thriller{--genre:#b6acf4}.genre-mystery{--genre:#bda4ee}.genre-romance{--genre:#f2a9c7}.genre-unclassified{--genre:#bdc7da}
+.show-card{grid-template-columns:72px minmax(140px,1fr) minmax(205px,1.2fr) minmax(140px,.8fr) 44px;background-image:linear-gradient(95deg,color-mix(in srgb,var(--genre) 13%,transparent),transparent 70%);border-left:3px solid var(--genre)}
+.card-left{grid-column:1;grid-row:1 / span 2;display:flex;flex-direction:column;align-items:center;gap:8px;align-self:start}
+.card-left .show-art{display:grid;border-color:color-mix(in srgb,var(--genre) 55%,#334763);background:linear-gradient(140deg,color-mix(in srgb,var(--genre) 20%,#0b1424),#0b1424)}
+.genre-tag{border-color:color-mix(in srgb,var(--genre) 55%,#334763);background:color-mix(in srgb,var(--genre) 9%,transparent)}
+.show-identity{grid-column:2}.show-next{grid-column:3;min-width:0}.show-progress{grid-column:4}.show-actions{grid-column:2 / -2;grid-row:2}
+.library-search-row{display:flex;align-items:center;gap:12px;margin:8px 0 16px;position:relative}.library-search-row>label{display:flex;align-items:center;gap:8px;flex:1;max-width:480px;min-width:0;font-size:13px;color:var(--muted)}.library-search-row input{min-width:0;width:100%}
+.genre-filter{position:relative}.genre-filter>summary{min-height:44px;display:flex;align-items:center;padding:8px 12px;cursor:pointer;border:1px solid var(--line);border-radius:8px;background:#111c30;white-space:nowrap}
+.genre-panel{position:absolute;right:0;top:calc(100% + 8px);z-index:8;width:min(360px,calc(100vw - 32px));max-height:60dvh;overflow:auto;padding:12px;border:1px solid #59779b;border-radius:12px;background:#10192b;box-shadow:0 16px 40px #000a}.genre-panel fieldset{padding:8px;border:0;margin:0}.genre-panel p{font-size:12px;color:var(--muted)}.genre-panel label{display:flex;gap:8px;align-items:center;min-height:44px;margin:0;color:var(--genre,#dce8ff)}.genre-panel input{width:auto;accent-color:var(--genre,#8dd9ff)}
+.card-episode-picker{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;margin-top:10px}.card-episode-picker label{display:block;min-width:0;font-size:12px;color:var(--muted)}.card-episode-picker select{display:block;width:100%;min-width:0;margin-top:4px;font-size:12px}.card-episode-picker button{align-self:end;padding:8px;font-size:12px}.card-episode-picker small{grid-column:1 / -1;font-size:11px;line-height:1.4;color:var(--muted)}
+@media(min-width:840px) and (max-width:1199px){.show-card{grid-template-columns:64px minmax(120px,1fr) minmax(185px,1.2fr) 44px;gap:12px}.show-progress{grid-column:3;grid-row:2}.show-actions{grid-column:2;grid-row:2}.show-card .reorder-controls{grid-column:4;grid-row:1 / span 2}}
+@media(max-width:839px){
+ .library-search-row{gap:8px;margin:4px 0 8px}.library-search-row>label{display:block;font-size:11px}.library-search-row input{display:block;margin-top:3px}.genre-filter{align-self:end}
+ .show-card{grid-template-columns:64px minmax(0,1fr) 44px;gap:12px 10px}
+ .card-left{grid-column:1;grid-row:1}.card-left .show-art{width:40px;height:48px}.card-left .show-art span{font-size:28px}
+ .show-card>.show-identity,.show-card:not(:has(.reorder-controls))>.show-identity{grid-column:2 / -1;grid-row:1}
+ .show-card>.show-next,.show-card:not(:has(.reorder-controls))>.show-next{grid-column:1 / -1;grid-row:2;padding-right:54px}
+ .show-card>.show-progress,.show-card:not(:has(.reorder-controls))>.show-progress{grid-column:1 / -1;grid-row:3;padding-right:54px}
+ .show-card>.show-actions,.show-card:not(:has(.reorder-controls))>.show-actions{grid-column:1 / -1;grid-row:4;padding-right:54px}
+ .show-card .reorder-controls,.show-card:has(.show-actions) .reorder-controls{position:absolute;right:16px;top:50%;transform:translateY(-50%)}
+ .show-card:not(:has(.reorder-controls))>.show-next,.show-card:not(:has(.reorder-controls))>.show-progress,.show-card:not(:has(.reorder-controls))>.show-actions{padding-right:0}
+ .card-episode-picker{grid-template-columns:minmax(0,1fr)}.card-episode-picker button{justify-self:start}.card-episode-picker small{grid-column:1}
+}
+
+@media(max-width:839px){
+ .library-search-row>label{display:flex;gap:6px}.library-search-row input{margin-top:0}
+ .card-left{grid-row:1 / span 2;gap:6px}.card-left .show-art{height:40px}
+ .show-card>.show-next,.show-card:not(:has(.reorder-controls))>.show-next{display:contents}
+ .show-next>.episode-action,.show-next>p{grid-column:2 / -1;grid-row:2;margin:0}
+ .show-next>.card-episode-picker{grid-column:1 / -1;grid-row:3;padding-right:54px}
+ .show-card>.show-progress,.show-card:not(:has(.reorder-controls))>.show-progress{grid-row:4}
+ .show-card>.show-actions,.show-card:not(:has(.reorder-controls))>.show-actions{grid-row:5}
+ .show-card:not(:has(.reorder-controls)) .card-episode-picker{padding-right:0}
+}
+
+@media(max-width:839px){.show-card .reorder-controls,.show-card:has(.show-actions) .reorder-controls{grid-area:auto;}}
+
+.library-search-row>label{flex-wrap:nowrap;margin:0;white-space:nowrap}.library-search-row>label>input{flex:1;width:0}
+@media(max-width:839px){.show-title{font-size:24px}}
+
+/* Separate vendor selectors so each browser retains its supported progress color. */
+progress::-webkit-progress-value{background:var(--genre);border-radius:8px}
+progress::-moz-progress-bar{background:var(--genre);border-radius:8px}

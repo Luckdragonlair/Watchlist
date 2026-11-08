@@ -1,9 +1,11 @@
 # Watchlist design ideas
 
 Updated: 2026-11-08 (America/Chicago)
-Status: **Brainstorming / proposed future updates. Not implemented; not authorization to start implementation.**
+Status: **Mixed: genre colors/checkboxes and card controls approved and built in v0.8.0; other ideas remain proposed.**
 
-## Card controls
+## Card controls - implemented v0.8.0
+
+The owner authorized these on 2026-11-08. Explicit Apply now performs the existing guarded catch-up; opening/selecting does not write. The notes below preserve the original proposal.
 
 - Put the **Drag** handle beneath the letter/art tile on the left, making its relationship to moving the card clearer. Keep the up/down arrows on the right, vertically centered.
 - Keep **Manage** in the lower action area where Drag currently appears. Review desktop and compact phone arrangements before implementation.
@@ -12,9 +14,9 @@ Status: **Brainstorming / proposed future updates. Not implemented; not authoriz
 
 ## Other ideas discussed
 
-- Binge genre checkboxes, one per genre, allowing multiple selections such as Comedy and Fantasy. Explicitly deferred; see TODO.md.
+- Binge genre checkboxes, one per genre, allowing multiple selections such as Comedy and Fantasy. Earlier deferral superseded by explicit implementation request; delivered v0.8.0.
 - A duplicate Caught up action below the episode list is an optional maybe; the owner is satisfied with the existing top selector.
-- Complete the approved Nightfall genre palette: the current app has only the foundation's restrained accents. Use the approved references in design/nightfall-v2; final presentation work remains.
+- Complete the approved Nightfall genre palette: v0.8.0 now applies the approved genre palette and fuller card tints. Use the approved references in design/nightfall-v2; final presentation work remains.
 - Optional on-demand AI: recommendations based on mood and personal taste, inside or outside the saved library; identify a show from a half-remembered premise. API-credit use is undecided and no AI feature or spending is authorized by these ideas.
 
 Family accounts and social recommendation sharing remain deferred until core work is finished. Required movie support still needs provider, tracking and import design. Existing channel/service labels were accepted and do not need a new feature.

@@ -219,13 +219,13 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [ ] Maybe: repeat Caught up below the episode list. Owner says the existing top selector is fine; this is optional, not a requested implementation.
 - [ ] Proposed for discussion: one Check shows for updates button for a manual whole-library metadata check. Current behavior is daily due checks while visible/online plus Refresh metadata in individual show details. A renewal/cancellation announcement feed and independently confirmed cancellation handling remain separate future work; no provider or API-credit feature chosen.
 
-## Upcoming: Binge genre checkboxes - 2026-11-08
+## Delivered v0.8.0: Binge genre checkboxes - 2026-11-08
 
-- [ ] One checkbox per genre on Binge; allow selecting several genres, such as Comedy and Fantasy. Owner explicitly deferred implementation. No code/UI changes made.
+- [x] Superseding the earlier deferral: Binge Genres menu, OR checkboxes/search, all saved genre badges and approved palette; focused checks passed.
 
 ## Brainstormed card controls - 2026-11-08
 
-- [ ] Future design review only: Drag beneath the left letter/art tile, Manage in the existing lower action area, and an episode/Caught up picker on the card. See DESIGN_IDEAS.md. Owner explicitly requests brainstorming/notes, not implementation.
+- [x] Owner approved implementation: Drag below left tile, Manage lower, right-middle arrows and explicit-Apply card episode/Caught up picker delivered in v0.8.0; automated responsive and interaction checks passed. Real Firefox/Android and assistive-technology acceptance remain.
 
 - [ ] Movie implementation planning reference: ten-step recommended plan and official source requirements are now in DESIGN_IDEAS.md (2026-11-08). Planning only; TVmaze replacement is not required.
 

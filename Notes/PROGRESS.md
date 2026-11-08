@@ -1,3 +1,13 @@
+# Latest checkpoint
+
+### 2026-11-08 - v0.8.0 genre filters and card controls
+
+- Owner explicitly authorized the previously deferred genre/card ideas. Applied the approved six-color Nightfall palette with written multi-genre badges and stronger tinted card edges/surfaces. Binge's compact Genres menu offers one checkbox per saved genre; choices are OR, no checks means all, and text search combines with them across all Binge subviews. Filter choices are session UI state, not a synced library preference. Raw provider genres remain unchanged; Sci-Fi aliases normalize only for presentation/filtering. No superhero inference from Action.
+- Drag now sits below the left letter tile on PC/phone; Manage stays in the lower action area and arrows remain right-middle. Existing order, pointer/touch/keyboard controls and hidden-card preservation are reused.
+- Library cards now offer Your place: regular episode or Caught up, followed by explicit Apply. Merely selecting never writes. Existing atomic setup guards preserve notes, timestamps, current/later history, future/unknown/special episodes, revision/lifecycle protection and future tracking. No database/schema/backup/sync format changes.
+- Timing requested by owner: implementation started 12:29:39 CST; first edit-complete notification at 12:36:46 CST (about 7 minutes), before any type checks/tests. That was not a verified release claim. Testing then found a small-phone first-episode visibility regression and arrow centering issue; corrected layout without weakening acceptance assertions. New sample fixtures initially represented Weekly releases; corrected them to future-season Binge fixtures.
+- PASS: TypeScript; eight focused unit checks (genre filtering and existing setup safeguards); nine browser workflows (genre/search/hidden-order, explicit Apply/caught-up/future tracking, mouse/touch/keyboard drag, responsive cards and compact header). Checks cover 320/412/1024/1280 widths; fixture-only desktop/phone screenshots visually inspected. Normal/hosted builds and private-asset guard passed. Two focused production-offline workflows (offline tracking/restore and keyboard ordering) and unsigned hosted privacy check also passed. Published Hosting-only; live index, offline worker and all application JS/CSS matched the tested build on readback. No rules/billing changes. No user library/master writes or AI API usage. Real Firefox/Android/TalkBack and enlarged-text acceptance remain user/device checks.
+
 # Watchlist v0.1 checkpoint
 
 Verified: 2026-11-05 (America/Chicago). Project: `D:\Watchlist`.

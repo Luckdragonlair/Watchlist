@@ -2,7 +2,7 @@
 
 **Current ordered estimates:** see [FEATURE_PLAN.md](FEATURE_PLAN.md) for the complete dependency-aware inventory, including movies and recent brainstorms. Its estimates supersede the older TV-only total below; historical milestones remain for context.
 
-Updated: 2026-11-08 09:05 America/Chicago
+Updated: 2026-11-08 12:44 America/Chicago
 
 This is the living development plan from the original prototype to a dependable first release. It tracks verified progress, remaining work and initial effort estimates. AI maintains the status marks, timestamps and estimate changes.
 
@@ -10,9 +10,11 @@ This is the living development plan from the original prototype to a dependable 
 
 One-click Watchlist access on an Android phone and a Windows PC, with Firefox as a primary compatibility target. The same library, episode progress, notes and Binge order stay synchronized across devices. Ordinary tracking works offline and reconciles when reconnected. Installation uses an app icon/window where supported; routine use should not require finding a browser tab or starting a PC development server.
 
-The current local-first PWA is the foundation. Hosted access is published for trial use. Automatic cross-device sync is deployed and passes automated tests. Personal migration and core PC/phone notes/offline reconnect checks passed by user report. Dragging, remaining progress/order/recovery and accessibility acceptance, recommendations and final visual refinements remain unfinished.
+The current local-first PWA is the foundation. Hosted access is published for trial use. Automatic cross-device sync is deployed and passes automated tests. Personal migration and core PC/phone notes/offline reconnect checks passed by user report. Dragging and genre/card controls are built and verified. Remaining progress/order/recovery and accessibility acceptance, recommendations and final visual refinements remain unfinished.
 
 ## Progress at a glance
+
+- [x] v0.8.0: approved genre palette/multi-genre badges, compact Binge OR checkboxes, Drag below left letter, lower Manage and explicit-Apply episode/Caught up on cards. Focused unit/browser/build verification passed; real-device acceptance remains.
 
 **Current focus:** v0.7.0 card dragging and started-first Binge activity/manual order are built and verified. Next: remaining V2/A-Z/dialog/accessibility work, then movie planning. Family access and social recommendations are deferred until core completion; API-credit use is undecided.
 **Target:** one-click use on Android and Windows, a shared private library, and dependable offline tracking.

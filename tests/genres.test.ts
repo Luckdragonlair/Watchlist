@@ -1,0 +1,3 @@
+import {expect,it} from 'vitest';
+import {genresOf,matchesGenres,primaryGenre} from '../src/genres';
+it('filters any full genre tag without guessing from titles or mutating metadata',()=>{const values=['Fantasy','Comedy','Sci-Fi','Science-Fiction',''];expect(genresOf(values)).toEqual(['Comedy','Fantasy','Science-Fiction']);expect(values).toHaveLength(5);expect(matchesGenres(values,['Comedy'])).toBe(true);expect(matchesGenres(values,['Horror','Comedy'])).toBe(true);expect(matchesGenres(values,['Horror'])).toBe(false);expect(matchesGenres(values,[])).toBe(true);expect(primaryGenre(values)).toBe('Science-Fiction');expect(matchesGenres([],['Unclassified'])).toBe(true);expect(primaryGenre(['Action'])).toBe('Action');});

@@ -1,8 +1,10 @@
-# Watchlist v0.7.0
+# Watchlist v0.8.0
 
 A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. V2 Binge sections, card dragging, activity-first order and the unmatched-only Match queue are implemented; final V2 refinements remain; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
 
-Update PC and phone to v0.7.0 for format-3 order preference compatibility; older backups remain readable.
+Update PC and phone to v0.8.0 for format-3 order preference compatibility; older backups remain readable.
+
+New in v0.8.0: richer genre accents and all genre badges; Binge's **Genres** checkboxes filter any selected genre alongside search. Drag is under the left letter tile. On a library card, choose **Your place** or **Caught up**, then **Apply**; selecting alone changes nothing. Caught up marks aired regular episodes while retaining future tracking.
 
 Use [the hosted app](https://genre-watchlist.firebaseapp.com/) for shared PC/Android use. See [SYNC.md](SYNC.md) for the one-time transfer from the original local library and real-device acceptance steps. Your original local library is not uploaded automatically.
 

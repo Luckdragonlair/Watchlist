@@ -139,6 +139,8 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Match queue (v0.5.0). |
 | Caught up (v0.2.0) | Built and verified | Setup/detail choice marks all released regular episodes, retains timestamps and future tracking. Header reads package.json version; database names unchanged. |
 | Filed title names (v0.4.0) | Built and verified | Leading A/The become trailing comma suffixes in saved imports/refreshes and alphabetical display/sort/search. Original source fields and manual order retained. |
+| Genre colors and Binge checkboxes (v0.8.0) | Built and verified | Approved palette, multi-genre badges, OR checkboxes combined with search; compact phone menu, raw metadata preserved. |
+| Card controls (v0.8.0) | Built and verified | Drag below left tile; Manage lower; right-middle arrows. Explicit-Apply regular episode/Caught up picker reuses safe setup guards. |
 | Personal notes | Built and verified | Stored separately from provider metadata. |
 | Binge up/down ordering | Built and verified | Watching now/Watch soon share persistent section ranks; legacy ranks map to Watch soon. Everything else is alphabetical. |
 | Binge drag-and-drop (v0.7.0) | Built and verified | Mouse/touch handles, keyboard pickup/drop/cancel, auto-scroll and guarded atomic order shared with arrows. |
@@ -261,6 +263,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Current priority superseding earlier notes: v0.8.0 genre colors/checkboxes and card controls are built and verified. Remaining V2 icons/A-Z/dialog/accessibility acceptance and movie planning stay next; family/AI changes remain deferred.
+
 Current priority 2026-11-08 09:05 America/Chicago: cleanup and v0.7.0 dragging/activity ordering are verified. Finish remaining V2/A-Z/dialog/accessibility work and plan required movie support next. Family access/social sharing stay deferred until core completion; API-credit use remains undecided.
 
 2026-11-08 owner reprioritization: integrate the approved original Brick alley splash/Gold banner and Weekly default/today-first ordering now; built and verified. Accessible dragging follows this milestone.
@@ -310,6 +314,15 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - v0.8.0 genre filters and card controls
+
+- Owner explicitly authorized the previously deferred genre/card ideas. Applied the approved six-color Nightfall palette with written multi-genre badges and stronger tinted card edges/surfaces. Binge's compact Genres menu offers one checkbox per saved genre; choices are OR, no checks means all, and text search combines with them across all Binge subviews. Filter choices are session UI state, not a synced library preference. Raw provider genres remain unchanged; Sci-Fi aliases normalize only for presentation/filtering. No superhero inference from Action.
+- Drag now sits below the left letter tile on PC/phone; Manage stays in the lower action area and arrows remain right-middle. Existing order, pointer/touch/keyboard controls and hidden-card preservation are reused.
+- Library cards now offer Your place: regular episode or Caught up, followed by explicit Apply. Merely selecting never writes. Existing atomic setup guards preserve notes, timestamps, current/later history, future/unknown/special episodes, revision/lifecycle protection and future tracking. No database/schema/backup/sync format changes.
+- Timing requested by owner: implementation started 12:29:39 CST; first edit-complete notification at 12:36:46 CST (about 7 minutes), before any type checks/tests. That was not a verified release claim. Testing then found a small-phone first-episode visibility regression and arrow centering issue; corrected layout without weakening acceptance assertions. New sample fixtures initially represented Weekly releases; corrected them to future-season Binge fixtures.
+- PASS: TypeScript; eight focused unit checks (genre filtering and existing setup safeguards); nine browser workflows (genre/search/hidden-order, explicit Apply/caught-up/future tracking, mouse/touch/keyboard drag, responsive cards and compact header). Checks cover 320/412/1024/1280 widths; fixture-only desktop/phone screenshots visually inspected. Normal/hosted builds and private-asset guard passed. Two focused production-offline workflows (offline tracking/restore and keyboard ordering) and unsigned hosted privacy check also passed. Published Hosting-only; live index, offline worker and all application JS/CSS matched the tested build on readback. No rules/billing changes. No user library/master writes or AI API usage. Real Firefox/Android/TalkBack and enlarged-text acceptance remain user/device checks.
+
 
 ### 2026-11-08 12:19 America/Chicago - Optional quality-of-life brainstorm
 
