@@ -22,3 +22,5 @@ Keep originals unchanged. Normalize into separate working copies. The starting c
 Latest app milestone: v0.6.0 original Brick alley splash/gold banner and Weekly launch with today-first Central weekday sections. See AGENTS.md for current evidence; remaining actual-device animation acceptance is in TODO.md.
 
 Latest milestone: v0.7.0 card dragging and started-first Binge activity order with saved manual override. Update both devices for format-3 snapshots. Family access is deferred; movie/API-credit planning is recorded in ROADMAP.md.
+
+- [DESIGN_IDEAS.md](DESIGN_IDEAS.md): brainstormed card-control placement, on-card episode/Caught up picker, genre filters and related future ideas. Proposed only.

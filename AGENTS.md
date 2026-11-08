@@ -311,6 +311,11 @@ If any answer is yes, update the affected documentation now. A code change is in
 
 ## Recent project log
 
+### 2026-11-08 - Future card-control design ideas recorded
+
+- Owner explicitly treats this discussion as brainstorming: propose Drag under the left letter/art tile, Manage in the lower action area, and the existing current-episode/Caught up picker directly on cards. Recorded in Notes/DESIGN_IDEAS.md with existing progress safeguards and links from the notes index/TODO. No code, data, deployment or tests changed.
+
+
 ### 2026-11-08 - Binge genre filters deferred
 
 - Owner requested one checkbox per genre with multiple choices, then explicitly asked not to implement yet. Recorded in TODO/ROADMAP only. No application code, data or deployment changed; no tests needed for this notes-only change.

@@ -220,3 +220,7 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 ## Upcoming: Binge genre checkboxes - 2026-11-08
 
 - [ ] One checkbox per genre on Binge; allow selecting several genres, such as Comedy and Fantasy. Owner explicitly deferred implementation. No code/UI changes made.
+
+## Brainstormed card controls - 2026-11-08
+
+- [ ] Future design review only: Drag beneath the left letter/art tile, Manage in the existing lower action area, and an episode/Caught up picker on the card. See DESIGN_IDEAS.md. Owner explicitly requests brainstorming/notes, not implementation.
