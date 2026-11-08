@@ -2,6 +2,8 @@
 
 Updated: 2026-11-08
 
+- [GENRE_REVIEW.md](GENRE_REVIEW.md): private radio-button review page, automatic choice file and restart instructions.
+
 - [../AGENTS.md](../AGENTS.md): start here for the current project state and handoff rules.
 - [ROADMAP.md](ROADMAP.md): living progress tracker with status marks, remaining-effort ETAs, dated updates and release acceptance criteria.
 - [SYNC.md](../SYNC.md): one-time personal-library migration, offline sync and conflict recovery.

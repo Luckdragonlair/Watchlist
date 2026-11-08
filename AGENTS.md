@@ -139,6 +139,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Match queue (v0.5.0). |
 | Caught up (v0.2.0) | Built and verified | Setup/detail choice marks all released regular episodes, retains timestamps and future tracking. Header reads package.json version; database names unchanged. |
 | Filed title names (v0.4.0) | Built and verified | Leading A/The become trailing comma suffixes in saved imports/refreshes and alphabetical display/sort/search. Original source fields and manual order retained. |
+| Private primary-genre review page | Built and verified | 181 multi-genre matched shows from revision 160; radio choices save only to ignored Library/Primary Genre Choices.json. No app preference/matching change yet; see Notes/GENRE_REVIEW.md. |
 | Compact cards (v0.8.1) | Built and verified | Manage inside title block; smaller gaps/tile; inline picker/Apply and selection-only guidance. Natural height and 44px controls retained. |
 | Genre colors and Binge checkboxes (v0.8.0) | Built and verified | Approved palette, multi-genre badges, OR checkboxes combined with search; compact phone menu, raw metadata preserved. |
 | Card controls (v0.8.0) | Built and verified | Drag below left tile; Manage in title block since v0.8.1; right-middle arrows. Explicit-Apply regular episode/Caught up picker reuses safe setup guards. |
@@ -264,6 +265,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest owner priority: complete the private primary-genre radio review, then implement safe preference persistence/application; match-confirmation genre selection follows later. Review helper is verified; app stays v0.8.1.
+
 Latest priority: owner-approved compact cards implemented in v0.8.1; six focused checks and builds passed, published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build. Remaining V2 icons/A-Z/dialog/accessibility and movie planning stay separate.
 
 Current priority superseding earlier notes: v0.8.0 genre colors/checkboxes and card controls are built and verified. Remaining V2 icons/A-Z/dialog/accessibility acceptance and movie planning stay next; family/AI changes remain deferred.
@@ -317,6 +320,15 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - Private primary-genre review page
+
+- Owner requested a fast radio-button review of every saved show with multiple genres, before changing the app or adding primary-genre selection to matching. Refreshed the read-only shared export; revision 160 has 196 matched shows, of which 181 have multiple distinct display genres. Unmatched titles/movies without metadata are outside this review; no identity or genre was invented.
+- Built a private loopback page at http://127.0.0.1:5188 with one radio choice per show, alphabetical titles, search, unreviewed filtering, next-unreviewed navigation, progress, automatic saving and a download. No automatic choice is counted as reviewed; the existing automatic color is shown separately. Choices persist in ignored Library/Primary Genre Choices.json, with show identity/genre/snapshot context. App records, cloud data, notes, history and originals are unchanged.
+- Start/stop via Start-GenreReview.ps1; hidden helper is scoped to this Windows session and does not run after reboot unless restarted. Saves accept only a listed genre for that snapshot and require the local origin/Host; atomic file replacement, bounded requests and queued browser saves protect review work. No new dependency, AI use, public hosting or app release/version change.
+- PASS: one focused disposable-data browser/server workflow covering multi-genre-only/deduplicated listing, initially unselected radios, exclusive choices, changing/saving/reloading/restarting, narrow-screen fit, unchanged source bytes, invalid genre/cross-origin/Host rejection. Fixture screenshot inspected; live read-only health confirms 181 rows. No app-wide test/build suites run because app source/configuration is unchanged.
+- Remaining: owner completes choices; then implement/preserve primary-genre preferences across refresh/backup/sync and apply reviewed selections with current-identity checks. Match-confirmation picker remains a later requested adjustment, not shipped now. Never infer approval from an unselected radio or erase unreviewed/stale choices.
+
 
 ### 2026-11-08 - v0.8.1 compact cards
 

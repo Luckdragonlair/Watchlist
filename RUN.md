@@ -73,3 +73,7 @@ The original approved Brick alley splash and gold banner load from local/cached 
 ## v0.7.0 dragging and format-3 compatibility
 
 Update PC and phone before shared use. Use visible Drag handles in the ordered Ready groups; arrows remain available. Keyboard: Space/Enter, Up/Down/Home/End, Space/Enter; Escape cancels. Started shows default to recent activity, with a saved manual override and Recent reset. New backup/shared payloads are format 3; old formats 1/2 remain readable. Database names/schema and the normal/dev ports stay unchanged. Restart the existing read-only export helper after updating its code, as described in LIBRARY_EXPORT.md.
+
+## Optional PC primary-genre review
+
+Run ./Start-GenreReview.ps1 from D:\Watchlist, then open http://127.0.0.1:5188. It saves review choices only to Library/Primary Genre Choices.json and leaves the app/cloud library unchanged. Stop with ./Start-GenreReview.ps1 -Stop; restart after reboot if needed. See Notes/GENRE_REVIEW.md.

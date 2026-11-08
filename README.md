@@ -8,6 +8,8 @@ New in v0.8.1: compact cards retain every action, move Manage into the title blo
 
 New in v0.8.0: richer genre accents and all genre badges; Binge's **Genres** checkboxes filter any selected genre alongside search. Drag is under the left letter tile. On a library card, choose **Your place** or **Caught up**, then **Apply**; selecting alone changes nothing. Caught up marks aired regular episodes while retaining future tracking.
 
+For the separate PC-local primary-genre review, open http://127.0.0.1:5188 after running `./Start-GenreReview.ps1`; see [review instructions](Notes/GENRE_REVIEW.md). Choices do not change the app yet.
+
 Use [the hosted app](https://genre-watchlist.firebaseapp.com/) for shared PC/Android use. See [SYNC.md](SYNC.md) for the one-time transfer from the original local library and real-device acceptance steps. Your original local library is not uploaded automatically.
 
 From `D:\Watchlist`, run `pnpm install`, `pnpm build`, then `pnpm start`. On this machine you can use `./run-watchlist.ps1` instead; it finds the bundled Node/pnpm tools. See [RUN.md](RUN.md) for setup, tests, and data-storage details.

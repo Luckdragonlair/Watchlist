@@ -1,3 +1,9 @@
+# Primary genre review checkpoint
+
+- [x] Private radio review page for 181 multi-genre shows; local autosave and focused verification. See GENRE_REVIEW.md.
+- [ ] Owner completes selections; implement safe primary-genre preferences and guarded application afterward.
+- [ ] Add primary-genre choice during match/setup later; preserve all genres for filtering.
+
 # Latest card layout checkpoint
 
 - [x] v0.8.1 compact cards: six focused layout/interaction workflows, TypeScript and both builds passed; published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build. Real Firefox/Android acceptance remains.

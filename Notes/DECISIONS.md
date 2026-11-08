@@ -182,3 +182,7 @@ Supersedes earlier deferral: owner requested genre colors/checkboxes, Drag below
 ## 2026-11-08 - Compact cards approved
 
 Owner approved the compact comparison. Default cards use tighter spacing with Manage in the identity block and contextual picker guidance visible after selection. Retain accessible picker labeling and explicit Apply, 44px targets and natural card growth for long/enlarged text. Reserve space for arrows on phone; do not compress by clipping text or hiding essential actions. Verification should target the changed card surfaces and affected controls, not unrelated features.
+
+## 2026-11-08 - Owner-selected primary genre
+
+Owner requested a separate fast review of all existing multi-genre shows before future match-confirmation changes. No inference from the first alphabetical badge; no AI classification/spending. Review choices are explicit radio selections saved privately on this PC. Eventual primary genre should determine card accent and be displayed first while retaining all tags for filtering. Persistence/application and match/setup UI remain unbuilt until review is ready; do not rewrite provider genre metadata or infer decisions for unreviewed shows.

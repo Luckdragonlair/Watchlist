@@ -1,5 +1,15 @@
 # Latest checkpoint
 
+### 2026-11-08 - Private primary-genre review page
+
+- Owner requested a fast radio-button review of every saved show with multiple genres, before changing the app or adding primary-genre selection to matching. Refreshed the read-only shared export; revision 160 has 196 matched shows, of which 181 have multiple distinct display genres. Unmatched titles/movies without metadata are outside this review; no identity or genre was invented.
+- Built a private loopback page at http://127.0.0.1:5188 with one radio choice per show, alphabetical titles, search, unreviewed filtering, next-unreviewed navigation, progress, automatic saving and a download. No automatic choice is counted as reviewed; the existing automatic color is shown separately. Choices persist in ignored Library/Primary Genre Choices.json, with show identity/genre/snapshot context. App records, cloud data, notes, history and originals are unchanged.
+- Start/stop via Start-GenreReview.ps1; hidden helper is scoped to this Windows session and does not run after reboot unless restarted. Saves accept only a listed genre for that snapshot and require the local origin/Host; atomic file replacement, bounded requests and queued browser saves protect review work. No new dependency, AI use, public hosting or app release/version change.
+- PASS: one focused disposable-data browser/server workflow covering multi-genre-only/deduplicated listing, initially unselected radios, exclusive choices, changing/saving/reloading/restarting, narrow-screen fit, unchanged source bytes, invalid genre/cross-origin/Host rejection. Fixture screenshot inspected; live read-only health confirms 181 rows. No app-wide test/build suites run because app source/configuration is unchanged.
+- Remaining: owner completes choices; then implement/preserve primary-genre preferences across refresh/backup/sync and apply reviewed selections with current-identity checks. Match-confirmation picker remains a later requested adjustment, not shipped now. Never infer approval from an unselected radio or erase unreviewed/stale choices.
+
+# Latest checkpoint
+
 ### 2026-11-08 - v0.8.1 compact cards
 
 - Owner approved the compact comparison and requested narrowly scoped testing. Moved Manage inside the title block, reduced card padding/gaps and letter-tile height, kept Drag beneath it, and put picker/Apply together on phone. The picker label remains available to screen readers; contextual catch-up guidance becomes visible on selection before Apply. No save, history, order, sync, schema or provider rules changed.
