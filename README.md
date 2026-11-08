@@ -1,4 +1,4 @@
-# Watchlist v0.3.0
+# Watchlist v0.4.0
 
 A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. Full V2 section organization and drag-and-drop are still in progress; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
 
@@ -35,3 +35,7 @@ The header reads the release version from package.json. Git commits and content-
 Tracked shows are checked against TVmaze when their last successful refresh is at least 24 hours old. Checks run on opening, returning to the app and reconnecting, plus periodically while it stays visible and online. A closed app does not run a scheduled server job; overdue checks resume when reopened. Requests run sequentially with spacing and retry backoff. Existing progress, notes, ordering and source history stay intact. Failed checks retain the previous snapshot.
 
 Caught-up and Watched shows are included. TVmaze's Ended status does not distinguish cancellation from a normal ending, so it does not permanently disable checks. Confirmed-cancellation overrides and closed-app server checks remain future work; no cancellation facts are inferred. See [TVmaze's status definitions](https://www.tvmaze.com/faq/13/shows#show-status).
+
+## Alphabetical titles (v0.4.0)
+
+Leading A and The move to the end: A Bear becomes Bear, A; The Zebra becomes Zebra, The. Imports and metadata refreshes save this filed name. Existing saved shows display the same way and acquire the saved format on their next metadata refresh. Watched and alphabetical unmatched-title groups sort by the filed name; manual ordering remains primary. Library search accepts both title forms. An and words such as Theater stay unchanged. Provider IDs, original source text, notes and episode history are preserved.

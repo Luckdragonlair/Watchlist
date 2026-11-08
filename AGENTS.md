@@ -137,6 +137,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Episode check-off and automatic next-episode advance | Built and verified | Includes undo and Central-time availability rules. |
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Import queue. |
 | Caught up (v0.2.0) | Built and verified | Setup/detail choice marks all released regular episodes, retains timestamps and future tracking. Header reads package.json version; database names unchanged. |
+| Filed title names (v0.4.0) | Built and verified | Leading A/The become trailing comma suffixes in saved imports/refreshes and alphabetical display/sort/search. Original source fields and manual order retained. |
 | Personal notes | Built and verified | Stored separately from provider metadata. |
 | Binge up/down ordering | Built and verified | Persists manual order. |
 | Binge drag-and-drop | Approved design, not built | Must share the same saved order as arrow controls. |
@@ -255,7 +256,7 @@ These are easy to break during a visual rewrite:
 
 Unless the user reprioritizes, use this order:
 
-2026-11-08: user-requested automatic metadata discovery is complete; the next planned feature remains V2 Binge organization (step 3). Closed-app checks and confirmed-cancellation overrides are separate deferred work.
+2026-11-08: user-requested automatic metadata discovery is complete; the next planned feature remains V2 Binge organization (step 3). The v0.4.0 filed-title helper is ready for its alphabetical sections. Closed-app checks and confirmed-cancellation overrides are separate deferred work.
 
 1. **Completed 2026-11-07: approved assets preserved.** Unmodified copies and hashes checked under design/nightfall-v2/.
 2. **Foundation completed 2026-11-07.** Locally cached approved typography, dark surfaces, focus styles, reduced-motion handling, brand treatment, responsive cards/navigation and arrow placement are verified. Application icon replacement and final screen refinements remain part of later V2 work.
@@ -298,6 +299,13 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - Filed title names
+
+- Owner requested moving leading A/The to the end in alphabetized lists, then explicitly requested saving imported names that way. Added shared idempotent title formatting, comparison and search aliases. saveBundle applies the format for imports/source matches and all metadata refreshes. Existing names display consistently and are saved in this format on their next refresh; no bulk migration performed.
+- Watched/unmatched groups sort by the filed name; stored manual ordering remains primary. An and word prefixes remain unchanged. Provider IDs, source raw/title fields, original master, notes, viewing history and backup/schema versions are retained.
+- PASS: TypeScript, 221 unit tests and two focused browser checks (saved import names, refresh, Watched order, both search forms, exported names/order, and responsive cards). Normal/hosted builds, privacy guard, hosted unsigned check and offline update-preserves-library check also passed. Published Hosting-only; live index, service worker and App chunk match the tested build. Original master SHA-256 unchanged. No rules or billing changes. Version 0.4.0. Next planned feature remains V2 Binge organization, which should reuse titles.ts for its alphabetical sections and later A-Z control.
+
 
 ### 2026-11-08 - Periodic metadata discovery
 

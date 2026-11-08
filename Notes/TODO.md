@@ -157,3 +157,9 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [ ] Owner acceptance on PC/Android after updating to v0.3.0.
 - [ ] Confirmed-cancellation override/source remains deferred; TVmaze Ended alone never stops checking.
 - [ ] Closed-app server checks/notifications remain deferred; current checks resume when the app reopens.
+
+## Filed title names - 2026-11-08
+
+- [x] Move leading A/The to trailing comma suffixes in saved imports/refreshes and alphabetical display/sorting; accept both search forms.
+- [x] Preserve source text, provider identity, notes/history and manual ordering; verify saved backup names and refresh idempotence.
+- [ ] Reuse titles.ts in the forthcoming V2 alphabetical sections and A-Z index.

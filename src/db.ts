@@ -1,3 +1,4 @@
+import {filedTitle} from './titles';
 import Dexie, { type Table } from 'dexie';
 import type { Show, Season, Episode, Progress, Preference, Source, Bundle } from './model';
 import { regular, released, episodeSort } from './model';
@@ -43,7 +44,7 @@ export async function saveBundle(bundle: Bundle, database = db, requireExisting 
     // Retain ownership even if the provider retracts an episode during this refresh.
     for (const episode of await database.episodes.where('showId').equals(bundle.show.id).toArray()) await database.progress.update(episode.id,{showId:bundle.show.id});
     if(!await database.shows.get(bundle.show.id))await database.settings.put({key:'syncLife:'+bundle.show.id,value:crypto.randomUUID()});
-    await database.shows.put(bundle.show);
+    await database.shows.put({...bundle.show,name:filedTitle(bundle.show.name)});
     await database.seasons.where('showId').equals(bundle.show.id).delete();
     await database.episodes.where('showId').equals(bundle.show.id).delete();
     await database.seasons.bulkPut(bundle.seasons);

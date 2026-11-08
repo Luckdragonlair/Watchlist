@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+import {filedTitle} from '../../src/titles';
 
 test('Nightfall cards and phone navigation remain usable at narrow and compact sizes',async({page})=>{
   const name='A very long fantasy show title that must remain readable on a small phone';
@@ -14,14 +15,14 @@ test('Nightfall cards and phone navigation remain usable at narrow and compact s
   await page.getByRole('button',{name:'Search TVmaze'}).click();
   await page.getByRole('button',{name:`Import ${name} (#890001)`}).click();
   await page.getByRole('button',{name:'Skip for now'}).click();
-  const card=page.getByRole('article',{name,exact:true});
+  const card=page.getByRole('article',{name:filedTitle(name),exact:true});
   for(const width of [320,412,640,960,1280]){
     await page.setViewportSize({width,height:900});
     await expect(card).toBeVisible();
     await expect(page.getByLabel('Search library')).toBeVisible();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-    const arrow=await card.getByRole('button',{name:`Move ${name} up`}).boundingBox();
-    const other=await card.getByRole('button',{name:`Move ${name} down`}).boundingBox();
+    const arrow=await card.getByRole('button',{name:`Move ${filedTitle(name)} up`}).boundingBox();
+    const other=await card.getByRole('button',{name:`Move ${filedTitle(name)} down`}).boundingBox();
     const bounds=await card.boundingBox();
     expect(arrow!.width).toBeGreaterThanOrEqual(44);
     expect(arrow!.height).toBeGreaterThanOrEqual(44);
@@ -35,7 +36,7 @@ test('Nightfall cards and phone navigation remain usable at narrow and compact s
     if(width===412||width===1280)await page.screenshot({path:`artifacts/nightfall-${width}.png`,fullPage:true});
   }
   await page.emulateMedia({reducedMotion:'reduce'});
-  expect(await card.getByRole('button',{name,exact:true}).evaluate(e=>getComputedStyle(e).transitionDuration)).toBe('0s');
-  await card.getByRole('button',{name,exact:true}).focus();
-  await expect(card.getByRole('button',{name,exact:true})).toBeFocused();
+  expect(await card.getByRole('button',{name:filedTitle(name),exact:true}).evaluate(e=>getComputedStyle(e).transitionDuration)).toBe('0s');
+  await card.getByRole('button',{name:filedTitle(name),exact:true}).focus();
+  await expect(card.getByRole('button',{name:filedTitle(name),exact:true})).toBeFocused();
 });
