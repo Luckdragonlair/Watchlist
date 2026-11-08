@@ -161,7 +161,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Specials and manual release corrections | Deferred | Regular numbered episodes are the current queue. |
 | Final Nightfall styling | Foundation built and verified; full V2 integration in progress | Approved assets preserved under design/nightfall-v2. First presentation milestone verified; section model is built; dragging, A-Z control, final screen/dialog refinements and assistive-tech checks remain. |
 | Full Silo acceptance run | In progress | Generic coverage exists; remaining manual checks are in `Notes/TEST_CASE_SILO.md`. |
-| Re S3 / Re S4 identification | Blocked on user identification | Preserve original text until identified. |
+| Re S3 / Re S4 placeholders | Removed at owner request, 2026-11-08 | Also removed The Return of the Shadow S2; originals preserved. See Notes/MASTER_REMOVALS.json. |
 
 Recorded synchronization checkpoint (2026-11-06): 195 unit tests, 14 browser workflows, 5 PWA workflows, 1 unsigned hosted check, 13 rules tests, 5 SDK integration tests, and normal/hosted builds passed, per Notes/PROGRESS.md. These replace the older 100/13/4 counts. This 2026-11-07 document-only update verified Page readback, local export consistency and original-file hash; it did not rerun application tests.
 
@@ -307,6 +307,12 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - Three owner-requested placeholder removals
+
+- Removed exactly Re S3, Re S4 and The Return of the Shadow S2 from the live unmatched source queue (shared revision 79), verified server readback and refreshed Library/Watchlist Current.json/.md. All matched shows, seasons, episodes, viewing timestamps, notes, preferences, source metadata, lifecycle and epoch values were preserved. Current curated master Page and readable Current.md already contain none of these exact placeholders; no similarly named Re:ZERO or Shadow title was removed. Historical originals, raw imported source text and existing backups remain unchanged. Active starting catalog is now 298 rows / 206 titles; an exact SHA/row-ID/raw-title removal ledger prevents the normalization script reintroducing them. Original normalization audit remains historical. No app schema, sync rules, billing or hosted assets changed.
+- PASS: two master-source/active-seed tests and the real-catalog browser/export workflow. Verified live revision 79 removal and all other record equality; original master unchanged. Accessible dragging remains next.
+
 
 ### 2026-11-08 - Original splash and Weekly launch
 

@@ -31,7 +31,7 @@ Updated: 2026-11-08
 
 ## Needs review
 
-- [ ] Identify Re S3 and Re S4; acceptance: actual titles supplied, working copy corrected, original unchanged.
+- [x] Superseded 2026-11-08: owner removed Re S3, Re S4 and The Return of the Shadow S2 from active lists; no identification needed. Preserve historical originals.
 - [ ] Match remaining source titles through positive candidate selection. Ghosts has multiple exact matches; DAN DA DAN has a different provider spelling. Preserve season scopes and source history.
 - [ ] Independently verify future schedules/renewal assertions before treating them as facts.
 - [ ] Review source watched history per title: it reports seasons, not exact episode watch times. Stored timestamps record entry into this app, not historical viewing time.

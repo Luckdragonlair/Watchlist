@@ -1508,24 +1508,6 @@
       "state": "pending"
     },
     {
-      "id": "361",
-      "title": "Re",
-      "rawTitle": "Re S3",
-      "season": 3,
-      "sourceCategory": "Binge",
-      "notes": "",
-      "state": "review"
-    },
-    {
-      "id": "363",
-      "title": "Re",
-      "rawTitle": "Re S4",
-      "season": 4,
-      "sourceCategory": "Binge",
-      "notes": "",
-      "state": "review"
-    },
-    {
       "id": "365",
       "title": "Resident Alien",
       "rawTitle": "Resident Alien S4",
@@ -2147,15 +2129,6 @@
       "id": "505",
       "title": "The Punisher: One Last Kill Special",
       "rawTitle": "The Punisher: One Last Kill Special",
-      "sourceCategory": "Binge",
-      "notes": "",
-      "state": "pending"
-    },
-    {
-      "id": "507",
-      "title": "The Return of the Shadow",
-      "rawTitle": "The Return of the Shadow S2",
-      "season": 2,
       "sourceCategory": "Binge",
       "notes": "",
       "state": "pending"

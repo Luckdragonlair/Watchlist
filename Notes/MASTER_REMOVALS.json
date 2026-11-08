@@ -1,0 +1,19 @@
+{
+  "sourceSHA256": "6278d1781529929a12831005ec6b9922cfa0b68d11f7115360318748e3f0e5be",
+  "removedAt": "2026-11-08",
+  "reason": "Owner explicitly requested removal from all active lists. Original inputs and backups remain unchanged.",
+  "rows": [
+    {
+      "id": "361",
+      "rawTitle": "Re S3"
+    },
+    {
+      "id": "363",
+      "rawTitle": "Re S4"
+    },
+    {
+      "id": "507",
+      "rawTitle": "The Return of the Shadow S2"
+    }
+  ]
+}

@@ -28,7 +28,7 @@ Open a matched show's detail and select **Delete show** to remove it, then confi
 
 The library is stored in IndexedDB for the browser and origin you use. Data in `127.0.0.1:5174` is separate from data on another host, port, browser, or deployed site. The app exports format-2 Watchlist JSON backups and restores both format 1 and format 2.
 
-The normalized working catalog contains **301 installments across 208 titles**. It excludes all **5 Silo entries**; Silo remains in the preserved original master list and is intentionally not seeded. Catalog entries begin as source rows awaiting a positive, per-title TVmaze match, so the matched library may initially be empty. `Re S3` and `Re S4` remain flagged for manual identification. Source schedule and renewal claims are unverified until checked.
+The normalized working catalog contains **298 active installments across 206 titles** (historically 301 / 208). It excludes all **5 Silo entries**; Silo remains in the preserved original master list and is intentionally not seeded. Catalog entries begin as source rows awaiting a positive, per-title TVmaze match, so the matched library may initially be empty. The three owner-removed placeholders are omitted; see Notes/MASTER_REMOVALS.json. Source schedule and renewal claims are unverified until checked.
 
 Keep `originals/Project Watchlist Master List.txt` unchanged. Use the normalized working copy at `public/master-working.json` for the app.
 

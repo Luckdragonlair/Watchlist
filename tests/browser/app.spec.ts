@@ -40,10 +40,11 @@ test('real starting catalog is preserved in Match, with no source queue under li
   await page.route('**/master-working.json',route=>route.fulfill({json:seed}));await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();
   for(const name of ['Weekly','Binge','Watched']){await page.getByRole('button',{name,exact:true}).click();await expect(page.getByRole('button',{name:/Find match for/})).toHaveCount(0);}
   await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByLabel('Filter source entries').fill('3 Body Problem');await expect(page.getByRole('button',{name:/Find match for 3 Body Problem/}).first()).toBeVisible();
+  for(const title of ['Re S3','Re S4','The Return of the Shadow S2']){await page.getByLabel('Filter source entries').fill(title);await expect(page.getByRole('article')).toHaveCount(0);}
   await page.getByLabel('Filter source entries').fill('Silo');await expect(page.getByRole('article')).toHaveCount(0);await page.getByLabel('Filter source entries').fill('');
   await page.setViewportSize({width:390,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);await page.screenshot({path:'artifacts/watchlist-mobile.png',fullPage:false});
   await page.setViewportSize({width:1280,height:900});await page.getByRole('button',{name:'Binge',exact:true}).click();await page.screenshot({path:'artifacts/watchlist-desktop.png',fullPage:false});
-  await page.getByRole('button',{name:'Import',exact:true}).click();await expect(page.getByText('301 installments retained',{exact:false})).toBeVisible();
+  await page.getByRole('button',{name:'Import',exact:true}).click();await expect(page.getByText('298 installments retained',{exact:false})).toBeVisible();
   const pending=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup',exact:true}).click();const backup=JSON.parse(readFileSync((await (await pending).path())!,'utf8'));expect(backup.sources[0]).toEqual(seed);
 });
 test('mid-season onboarding starts at episode eight and refresh preserves progress and personal notes',async({page})=>{

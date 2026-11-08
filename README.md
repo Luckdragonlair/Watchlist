@@ -14,7 +14,7 @@ Weekly follows an actively releasing season even when older seasons are still un
 
 To remove a matched show, open its detail and choose **Delete show**, then confirm. This removes its active app records and viewing history without rewriting the preserved original master or existing backup files. Re-adding starts with fresh progress.
 
-The preserved master list has a separate normalized starting catalog: 301 installments / 208 titles, excluding every Silo entry. Source classifications, season labels, viewing assertions, and notes are retained. Metadata linking requires selecting the correct TVmaze show; unmatched entries remain visible and clearly labeled. `Re S3` and `Re S4` need identification. Silo is excluded from the starting catalog; the user has exercised manual onboarding at S3 E8, as recorded in the project notes.
+The preserved master list has a separate normalized starting catalog: 298 active installments / 206 titles (historically 301 / 208), excluding every Silo entry. Source classifications, season labels, viewing assertions, and notes are retained. Metadata linking requires selecting the correct TVmaze show; unmatched entries remain visible and clearly labeled. The three owner-removed placeholders are omitted; see Notes/MASTER_REMOVALS.json. Silo is excluded from the starting catalog; the user has exercised manual onboarding at S3 E8, as recorded in the project notes.
 
 Follow [the development roadmap](Notes/ROADMAP.md) for the ordered plan toward one-click Firefox use on Android and PC with shared progress. The original files are preserved in `originals/`; current project notes are in [Notes/README.md](Notes/README.md). The original master SHA-256 is recorded in [the import audit](Notes/MASTER_IMPORT_AUDIT.json).
 
