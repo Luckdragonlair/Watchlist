@@ -1,6 +1,7 @@
+import {version} from '../package.json';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db, saveBundle, setWatched, onboard, deleteShow, initializeCatalog, libraryRevision, assertLibraryRevision, addImportSource } from './db';
+import { db, saveBundle, setWatched, onboard, markCaughtUp, deleteShow, initializeCatalog, libraryRevision, assertLibraryRevision, addImportSource } from './db';
 import { airTime, bucket, confirmedComplete, episodeLabel, episodeSort, queue, regular, released, weeklyRelease, type Episode, type Show, type Source } from './model';
 import { fetchBundle, plainText, searchShows, fetchEpisodeOwner, type Candidate } from './tvmaze';
 import { isSilo, prepareSource } from './importer';
@@ -116,7 +117,7 @@ export function App() {
     if (sourceCards.length) content=<>{content}<section><h2>Imported source entries awaiting a match</h2><p>Source viewing history and season labels are preserved. Release and renewal claims need verification.</p>{sourceCards}</section></>;
   }
   return <main className="watchlist-app">
-    <header className="app-header"><div className="brand"><span className="brand-mark" aria-hidden="true">W</span><h1>Watchlist <small>v0.1</small></h1></div>
+    <header className="app-header"><div className="brand"><span className="brand-mark" aria-hidden="true">W</span><h1>Watchlist <small>v{version}</small></h1></div>
     <div className="top-controls"><nav aria-label="Views">{(['Weekly','Binge','Watched','Add Show','Import'] as View[]).map(v => <button key={v} className={v==='Import'?'import-nav':undefined} aria-current={view === v ? 'page' : undefined} onClick={() => {setView(v); setDetail(null); if(v==='Import'){setMatchReturn('Import');setImportTarget(null);}}}><span className="nav-symbol" aria-hidden="true">{({Weekly:'▦',Binge:'▷',Watched:'✓','Add Show':'+',Import:'↓'})[v]}</span>{v}</button>)}</nav><div className="backup-controls"><BackupExport disabled={busy||restoring||!data}/><BackupRestore disabled={busy||!data} onBusyChange={setRestoring} onRestored={resetAfterRestore}/></div></div></header>
     <p className="library-context">Your library <span aria-hidden="true">/</span> Release times in America/Chicago</p>
     <button className="mobile-import" onClick={()=>{setMatchReturn('Import');setView('Import');setDetail(null);setImportTarget(null);}}>Import</button>
@@ -163,7 +164,7 @@ function Detail({show, episodes, watched, notes, now, busy, run, toggle, onDelet
       });
       notesBaseline.current=draftNotes;setNewerNotes(false);setReplaceNewerNotes(false);
     })}>Save notes</button>
-    <fieldset><legend>Already watching? Choose the current episode</legend><p>Explicitly mark released episodes before this one watched. The selected episode stays unchanged.</p><label>Current episode <select value={current} onChange={e => setCurrent(e.target.value)}><option value="">Choose episode</option>{ordered.map(e => <option key={e.id} value={e.id}>{episodeLabel(e)}</option>)}</select></label><button disabled={busy || !current} onClick={() => run(() => onboard(show.id, Number(current), now))}>Mark earlier released episodes watched</button></fieldset>
+    <fieldset><legend>Already watching? Choose the current episode</legend><p>{current === 'caught-up' ? 'Marks all released regular episodes watched. Future, special and unknown-release episodes stay unchanged. The show stays tracked; new releases return to your watch queue.' : 'Explicitly mark released episodes before this one watched. The selected episode stays unchanged.'}</p><label>Current episode <select value={current} onChange={e => setCurrent(e.target.value)}><option value="">Choose episode</option><option value="caught-up">Caught up—all aired episodes watched</option>{ordered.map(e => <option key={e.id} value={e.id}>{episodeLabel(e)}</option>)}</select></label><button disabled={busy || !current} onClick={() => run(() => current === 'caught-up' ? markCaughtUp(show.id, now) : onboard(show.id, Number(current), now))}>{current === 'caught-up' ? 'Mark all aired episodes watched' : 'Mark earlier released episodes watched'}</button></fieldset>
     {Array.from(new Set(ordered.map(e => e.season))).map(season => <section key={season}><h3>Season {season}</h3>{ordered.filter(e => e.season === season).map(e => <div className="episode" key={e.id}><label><input type="checkbox" checked={watched.has(e.id)} disabled={busy || (!watched.has(e.id) && !released(e,now))} onChange={event => run(() => toggle(e,event.target.checked))}/>{episodeLabel(e)}</label><small>{e.airstamp ? airTime(e.airstamp) : e.airdate ? `${e.airdate} · Time unknown` : 'Release unknown'}</small><p>{plainText(e.summary)}</p></div>)}</section>)}
   </section>;
 }

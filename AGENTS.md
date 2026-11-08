@@ -135,6 +135,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Weekly placement with older backlog | Built and verified | An active later season appears under its next release weekday even if older seasons are unwatched. An unstarted future premiere stays in Binge. 2026-11-07 regression fix. |
 | Episode check-off and automatic next-episode advance | Built and verified | Includes undo and Central-time availability rules. |
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Import queue. |
+| Caught up (v0.2.0) | Built and verified | Setup/detail choice marks all released regular episodes, retains timestamps and future tracking. Header reads package.json version; database names unchanged. |
 | Personal notes | Built and verified | Stored separately from provider metadata. |
 | Binge up/down ordering | Built and verified | Persists manual order. |
 | Binge drag-and-drop | Approved design, not built | Must share the same saved order as arrow controls. |
@@ -294,6 +295,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-07 - Caught up and visible release version
+
+- Added Caught up to post-import setup and existing show details. Only released regular episodes gain watched records; existing timestamps, future/special/unknown-release history, notes and tracking are protected. Setup saves notes/progress atomically using existing stale-state guards. No personal library data was modified during development.
+- Version had remained package 0.1.0 / visible v0.1; bumped to 0.2.0 and derived the header directly from package.json. No schema, database name or backup version changes. Git and content-based offline-worker versions remain separate.
+- PASS: TypeScript, 209 unit tests, 22 existing browser workflows plus both new caught-up workflows (24 total), 6 PWA workflows, hosted unsigned privacy check, normal/hosted builds and asset privacy guard. New checks cover timestamp preservation, Central date-only boundaries, later-release queue entry, persistence and stale-note rejection. Two initial new browser selectors were corrected; the targeted rerun passed. Published Hosting-only to genre-watchlist; live index, service worker and app chunk match the tested build. Original master SHA-256 unchanged. No rules or billing changes.
+- Next planned implementation remains V2 Binge organization, followed by accessible dragging. Remaining source matches are manual; missing future seasons stay held.
+
 
 ### 2026-11-07 - Reviewed matching batch and current folder export
 

@@ -49,3 +49,27 @@ test('a show without episodes can still save setup notes',async({page})=>{
   await expect(dialog.getByText('No regular episodes are listed yet.',{exact:false})).toBeVisible();await dialog.getByLabel('Personal notes (optional)').fill('Waiting for premiere');await dialog.getByRole('button',{name:'Save and continue'}).click();
   await page.getByRole('button',{name:'Setup show',exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Waiting for premiere');
 });
+
+for(const location of ['setup','detail'] as const)test(`caught up from ${location} keeps future episodes tracked and queues them when released`,async({page})=>{
+  await page.clock.setFixedTime(new Date('2026-11-07T18:00:00Z'));
+  await provider(page);await seed(page);await page.goto('/');
+  await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Setup show');
+  const dialog=await selectResult(page);
+  if(location==='setup'){
+    await dialog.getByLabel('Current episode (optional)').selectOption('caught-up');
+    await dialog.getByLabel('Personal notes (optional)').fill('Still following this show');
+    await dialog.getByRole('button',{name:'Save and continue'}).click();
+  }else await dialog.getByRole('button',{name:'Skip for now'}).click();
+  await page.getByRole('button',{name:'Setup show',exact:true}).click();
+  if(location==='detail'){
+    await page.getByLabel('Current episode').selectOption('caught-up');
+    await page.getByRole('button',{name:'Mark all aired episodes watched',exact:true}).click();
+  }
+  for(const label of ['S1 E1 · Episode 1.1','S1 E2 · Episode 1.2','S2 E1 · Episode 2.1','S2 E2 · Episode 2.2'])await expect(page.getByRole('checkbox',{name:label,exact:true})).toBeChecked();
+  await expect(page.getByRole('checkbox',{name:'S3 E1 · Episode 3.1',exact:true})).not.toBeChecked();
+  await page.reload();await page.getByRole('button',{name:'Setup show',exact:true}).click();
+  await expect(page.getByRole('checkbox',{name:'S2 E2 · Episode 2.2',exact:true})).toBeChecked();
+  if(location==='setup')await expect(page.getByLabel('Personal notes')).toHaveValue('Still following this show');
+  await page.clock.setFixedTime(new Date('2035-01-06T18:00:00Z'));await page.reload();
+  await expect(page.getByRole('checkbox',{name:'Watch Setup show S3 E1',exact:false})).toBeVisible();
+});

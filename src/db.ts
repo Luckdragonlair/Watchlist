@@ -71,6 +71,16 @@ export async function onboard(showId: number, currentId: number, now = new Date(
   });
 }
 
+export async function markCaughtUp(showId:number, now=new Date(), database=db) {
+  await database.transaction('rw',database.shows,database.episodes,database.progress,async()=>{
+    if(!await database.shows.get(showId))throw new Error('This show is no longer in your library.');
+    const episodes=await database.episodes.where('showId').equals(showId).toArray();
+    for(const episode of episodes.filter(e=>regular(e)&&released(e,now))) {
+      if(!await database.progress.get(episode.id))await database.progress.put({episodeId:episode.id,showId,watchedAt:now.toISOString()});
+    }
+  });
+}
+
 export async function deleteShow(showId: number, database = db, resolveLegacyOwner?: (episodeId:number)=>Promise<number>) {
   const expectedRevision=await libraryRevision(database);
   // Version 1 could retain history after its episode metadata disappeared. Resolve

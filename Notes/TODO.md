@@ -1,6 +1,10 @@
 # Watchlist backlog
 
-Updated: 2026-11-05
+Updated: 2026-11-07
+
+## Implemented in v0.2.0
+
+- [x] Caught up in setup and details: all aired regular episodes watched, future tracking retained, old timestamps protected; header uses the package release version.
 
 ## Implemented in v0.1
 
