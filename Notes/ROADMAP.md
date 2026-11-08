@@ -12,7 +12,7 @@ The current local-first PWA is the foundation. Hosted access is published for tr
 
 ## Progress at a glance
 
-**Current focus:** Steps 7 and 9 — Binge sections and Match are built; accessible dragging is next, followed by the A-Z control and final screen/dialog refinements. Update PC and phone to v0.5.0 for section-compatible sync. Approved Nightfall references are in design/nightfall-v2. Claude is preparing splash/banner design assets separately.
+**Current focus:** Steps 7 and 9 — Binge sections and Match are built; accessible dragging is next, followed by the A-Z control and final screen/dialog refinements. Update PC and phone to v0.5.0 for section-compatible sync. Approved Nightfall references are in design/nightfall-v2. Owner-requested original Brick alley/Gold banner integration and Weekly launch/today-first headings are built and verified (v0.6.0). Accessible dragging follows.
 **Target:** one-click use on Android and Windows, a shared private library, and dependable offline tracking.
 
 Marks: **[x] complete** · **[~] partly complete** · **[>] next** · **[ ] not started** · **[!] blocked**. A blocked mark must name the blocker. No milestone is currently marked blocked; future steps depend on the decisions and checks below.
@@ -202,3 +202,5 @@ Historical entries above remain as checkpoints; the current summary and this dat
 - [x] Compact More utility menu, healthy cloud row, direct search/bottom navigation and omission of empty Ready groups.
 - [x] Fictional 320px/412px geometry and menu/backup workflow verified; private phone recording inspected.
 - [ ] Owner checks actual Android layout after updating. This presentation correction does not change the next planned accessible-dragging milestone or its estimate.
+
+2026-11-08: v0.6.0 original splash/gold banner, Weekly launch and today-first Central weekdays verified. Remaining splash ETA: one actual Android/Firefox smoothness check; accessible dragging remains the next implementation milestone.

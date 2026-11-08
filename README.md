@@ -1,4 +1,4 @@
-# Watchlist v0.5.1
+# Watchlist v0.6.0
 
 A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. V2 Binge sections and the unmatched-only Match queue are implemented; drag-and-drop and the remaining V2 refinements are still in progress; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
 
@@ -55,3 +55,12 @@ Update Watchlist on both PC and phone. New exports/shared snapshots use backup f
 ## Compact phone header (v0.5.1)
 
 On phones, More contains Import, Match, backup export/restore, installation/offline options and the release timezone. Weekly/Binge/Watched/Add stay in the bottom navigation. Healthy account/sync information uses a compact row. Offline problems, sync errors/conflicts and update actions remain visible outside More. Empty Ready groups no longer push populated sections down; if none are ready, one empty message is shown. Desktop utility controls remain directly visible. More supports keyboard open/Escape and restores focus when navigating.
+
+
+## Original splash and Weekly launch (v0.6.0)
+
+The owner approved Claude's original dark Brick alley (04) and Gold banner (07), with the original white flash and approximately five-second sweep/flash/fly-up sequence on each page launch. Shorter timing, softened flash and earlier logo flight were rejected previews and are not used. This supersedes the earlier proposed brief/nonblocking reveal: startup data/auth loading proceeds underneath, but the decorative overlay remains for the approved sequence. Navigation inside the app does not replay it. No sound or skip control. Reduced motion uses the original static/fade path (about 1.6 seconds); forced colours bypasses the scene. Independent JavaScript/CSS failure cleanup prevents a stranded overlay. Limelight, the brick image and all runtime files are local, hosted-allowlisted and cached offline. The manifest/theme background is #05070d.
+
+The banner replaces the duplicate navigation wordmark; the version remains visible. Phone More/bottom navigation stay compact. Account and healthy sync status occupy the banner status area; expanded account, errors/invalid data/conflicts get a full-width row, preserving actions. No library data, matching, schema, backup format or sync rules change. Source files are preserved unchanged in design/claude-splash-banner with selected source SHA-256 hashes.
+
+Weekly is the default on a fresh launch/reload. Weekday sections start with today in America/Chicago, then cycle forward through the week, skipping empty sections. Existing placement and per-day show order are unchanged. The clock updates every minute and immediately on focus/visible return; this is not a closed-app scheduler.

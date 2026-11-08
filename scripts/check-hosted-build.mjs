@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { nightfallFonts } from './nightfall-assets.mjs';
+import { splashAssets } from './splash-assets.mjs';
 export async function checkHostedBuild(root=fileURLToPath(new URL('../dist-hosted/',import.meta.url))){
   const marker=JSON.parse(await readFile(resolve(root,'hosted-build.json'),'utf8'));
   if(marker.mode!=='hosted')throw new Error('Only a hosted build can be deployed.');
@@ -12,9 +13,9 @@ export async function checkHostedBuild(root=fileURLToPath(new URL('../dist-hoste
     if(item.isSymbolicLink())throw new Error('Hosted assets must not be symbolic links.');
     if(/master-working|Project Watchlist Master|\.env|backup.*\.json/i.test(item.name))throw new Error('Personal files found in hosted assets.');
     if(item.isDirectory()){
-      if(relative||!['assets','icons','fonts'].includes(item.name))throw new Error('Unexpected directory in hosted assets.');
+      if(relative||!['assets','icons','fonts','splash'].includes(item.name))throw new Error('Unexpected directory in hosted assets.');
       await scan(resolve(dir,item.name),item.name);
-    }else if(!(relative==='assets'?/^[A-Za-z0-9_-]+\.(js|css)$/.test(item.name):relative==='icons'?icons.has(item.name):relative==='fonts'?nightfallFonts.includes(item.name):rootFiles.has(item.name)))throw new Error('Unexpected file in hosted assets.');
+    }else if(!(relative==='assets'?/^[A-Za-z0-9_-]+\.(js|css)$/.test(item.name):relative==='icons'?icons.has(item.name):relative==='fonts'?nightfallFonts.includes(item.name):relative==='splash'?splashAssets.includes(item.name):rootFiles.has(item.name)))throw new Error('Unexpected file in hosted assets.');
   }}
   await scan(root);
   const worker=await readFile(resolve(root,'service-worker.js'),'utf8');

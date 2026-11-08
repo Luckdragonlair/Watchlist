@@ -12,12 +12,12 @@ test('approved Nightfall typography survives an offline reload without external 
       for(const key of keys){const cache=await caches.open(key);urls.push(...(await cache.keys()).map(r=>new URL(r.url).pathname));}
       return urls.filter(p=>p.endsWith('.woff2'));
     });
-    expect(new Set(cached).size).toBe(8);
+    expect(new Set(cached).size).toBe(9);
     await context.setOffline(true);
     await page.reload();
     expect(await page.evaluate(async()=>{
-      await Promise.all(['Instrument Serif','IBM Plex Sans','IBM Plex Mono'].map(f=>document.fonts.load(`16px "${f}"`)));
-      return ['Instrument Serif','IBM Plex Sans','IBM Plex Mono'].every(f=>document.fonts.check(`16px "${f}"`));
+      await Promise.all(['Instrument Serif','IBM Plex Sans','IBM Plex Mono','Limelight'].map(f=>document.fonts.load(`16px "${f}"`)));
+      return ['Instrument Serif','IBM Plex Sans','IBM Plex Mono','Limelight'].every(f=>document.fonts.check(`16px "${f}"`));
     })).toBe(true);
   }finally{await context.setOffline(false);await server.stop();}
 });

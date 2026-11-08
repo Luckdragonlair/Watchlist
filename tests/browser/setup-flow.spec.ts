@@ -11,7 +11,7 @@ async function selectResult(page:Page){await page.getByRole('button',{name:'Sear
 
 test('new-show setup saves episode and notes, returns to the list and survives reload',async({page})=>{
   await provider(page);await page.route('**/master-working.json',route=>route.fulfill({json:{id:'empty',name:'Empty',raw:'',importedAt:'2026-11-07',rows:[]}}));
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Setup show');
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Setup show');
   const dialog=await selectResult(page);await expect(dialog).toBeVisible();await expect(dialog.getByRole('heading')).toBeFocused();
   await dialog.getByLabel('Current episode (optional)').selectOption('862002');await dialog.getByLabel('Personal notes (optional)').fill('Continue here after vacation');
   await page.setViewportSize({width:320,height:760});expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth)).toBe(true);
@@ -20,11 +20,11 @@ test('new-show setup saves episode and notes, returns to the list and survives r
   await page.getByRole('button',{name:'Setup show',exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Continue here after vacation');
   for(const label of ['S1 E1 · Episode 1.1','S1 E2 · Episode 1.2','S2 E1 · Episode 2.1'])await expect(page.getByRole('checkbox',{name:label,exact:true})).toBeChecked();
   for(const label of ['S2 E2 · Episode 2.2','S3 E1 · Episode 3.1'])await expect(page.getByRole('checkbox',{name:label,exact:true})).not.toBeChecked();
-  await page.reload();await page.getByRole('button',{name:'Setup show',exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Continue here after vacation');
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Setup show',exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Continue here after vacation');
 });
 
 for(const origin of ['Weekly','Binge','Watched'] as const)test(`matching from ${origin} offers setup and Skip preserves source history/notes`,async({page})=>{
-  await provider(page);await seed(page,origin);await page.goto('/');await page.getByRole('button',{name:origin,exact:true}).click();
+  await provider(page);await seed(page,origin);await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:origin,exact:true}).click();
   await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByRole('button',{name:'Find match for Setup show S1'}).click();const dialog=await selectResult(page);
   await expect(dialog.getByLabel('Personal notes (optional)')).toContainText('Preserved source note');
   await dialog.getByLabel('Personal notes (optional)').fill('Discard this optional draft');await dialog.getByLabel('Current episode (optional)').selectOption('862002');
@@ -36,7 +36,7 @@ for(const origin of ['Weekly','Binge','Watched'] as const)test(`matching from ${
 });
 
 test('matching from Import saves optional notes and returns to the filtered queue',async({page})=>{
-  await provider(page);await seed(page);await page.goto('/');await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByLabel('Filter source entries').fill('Setup');
+  await provider(page);await seed(page);await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByLabel('Filter source entries').fill('Setup');
   await page.getByRole('button',{name:'Find match for Setup show S1'}).click();const dialog=await selectResult(page);
   await dialog.getByLabel('Personal notes (optional)').fill('Notes without choosing an episode');await dialog.getByRole('button',{name:'Save and continue'}).click();
   await expect(page.getByRole('heading',{name:'Match',exact:true})).toBeVisible();await expect(page.getByLabel('Filter source entries')).toHaveValue('Setup');await expect(page.getByRole('button',{name:'Find match for Setup show S1'})).toHaveCount(0);
@@ -45,14 +45,14 @@ test('matching from Import saves optional notes and returns to the filtered queu
 
 test('a show without episodes can still save setup notes',async({page})=>{
   await provider(page);await seed(page);await page.route('https://api.tvmaze.com/shows/860001/episodes',route=>route.fulfill({json:[]}));
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Setup show');const dialog=await selectResult(page);
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Setup show');const dialog=await selectResult(page);
   await expect(dialog.getByText('No regular episodes are listed yet.',{exact:false})).toBeVisible();await dialog.getByLabel('Personal notes (optional)').fill('Waiting for premiere');await dialog.getByRole('button',{name:'Save and continue'}).click();
   await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await page.getByRole('button',{name:'Setup show',exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Waiting for premiere');
 });
 
 for(const location of ['setup','detail'] as const)test(`caught up from ${location} keeps future episodes tracked and queues them when released`,async({page})=>{
   await page.clock.setFixedTime(new Date('2026-11-07T18:00:00Z'));
-  await provider(page);await seed(page);await page.goto('/');
+  await provider(page);await seed(page);await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();
   await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Setup show');
   const dialog=await selectResult(page);
   if(location==='setup'){
@@ -68,9 +68,12 @@ for(const location of ['setup','detail'] as const)test(`caught up from ${locatio
   }
   for(const label of ['S1 E1 · Episode 1.1','S1 E2 · Episode 1.2','S2 E1 · Episode 2.1','S2 E2 · Episode 2.2'])await expect(page.getByRole('checkbox',{name:label,exact:true})).toBeChecked();
   await expect(page.getByRole('checkbox',{name:'S3 E1 · Episode 3.1',exact:true})).not.toBeChecked();
-  await page.reload();await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await page.getByRole('button',{name:'Setup show',exact:true}).click();
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await page.getByRole('button',{name:'Setup show',exact:true}).click();
   await expect(page.getByRole('checkbox',{name:'S2 E2 · Episode 2.2',exact:true})).toBeChecked();
   if(location==='setup')await expect(page.getByLabel('Personal notes')).toHaveValue('Still following this show');
-  await page.clock.setFixedTime(new Date('2035-01-06T18:00:00Z'));await page.reload();
+  await page.clock.setFixedTime(new Date('2035-01-06T18:00:00Z'));await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();
   await expect(page.getByRole('checkbox',{name:'Watch Setup show S3 E1',exact:false})).toBeVisible();
 });
+
+// Decorative startup is covered by splash.spec; keep library/fake-clock workflows independent.
+test.beforeEach(async({context})=>{await context.route('**/splash/startup.js',route=>route.fulfill({contentType:'text/javascript',body: "document.querySelector('.wl-splash')?.remove();"}));});

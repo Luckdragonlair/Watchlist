@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Watchlist · splash and PC banner options</title>
+<link rel="stylesheet" href="preview/preview.css">
+<style>
+.wrap{max-width:1400px;margin:0 auto;padding:28px 20px 60px;display:grid;gap:44px}
+.intro{max-width:70ch;color:#a3afc6;margin:0}
+.opt{display:grid;gap:14px}
+.opt header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px}
+.opt h2{margin:0;font:400 34px/1 'Instrument Serif',Georgia,serif}
+.badge{font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#05070d;background:#8dd9ff;border-radius:4px;padding:3px 7px}
+.opt p{margin:0;max-width:72ch;color:#a3afc6;text-wrap:pretty}
+.links{display:flex;gap:14px}
+.row{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:14px;align-items:start}
+.vp{position:relative;overflow:hidden;border:1px solid #1a2438;border-radius:8px;background:#05070d}
+.vp iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0}
+.cap{font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#a3afc6;text-transform:uppercase;margin:6px 0 0}
+.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.row,.row3{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head><body>
+<div class="pv-bar"><h1>Splash &amp; PC banner</h1><span class="pv-tag">Watchlist · Nightfall V2 · proposed assets</span><span class="pv-spacer"></span><button id="replay">Replay all</button></div>
+<main class="wrap">
+<p class="intro">Round 1: three directions for the launch splash, each with a matching static banner for PC windows 1200px and wider. All are proposals for review. Open an option for replay, phone/PC frames, reduced motion and banner widths.</p>
+
+<section class="opt" id="v2">
+  <header><span class="badge">04–07</span><h2>Round 2: theatre scenes and gold banner</h2></header>
+  <p>Built from your brief: one spotlight sweeps left to right and the gold Broadway-style letters appear one by one as it reaches them, the word flares white, and the gold logo flies up into the new top banner. 5 seconds, plays in full. PC drafts first; phone portrait and landscape come after you pick a scene.</p>
+  <div class="links"><a href="04-brick-alley/splash.html">04 Brick alley (chosen)</a><a href="04-brick-alley/phone.html">04 on phone</a><a href="05-movie-screen/splash.html">05 Movie screen</a><a href="06-stage-set/splash.html">06 Stage set</a><a href="07-gold-banner/banner.html">07 Gold banner</a></div>
+  <div class="row3">
+    <div><div class="vp" data-w="1280" data-h="800" data-src="04-brick-alley/splash.html?embed=1"></div><p class="cap">04 Brick alley</p></div>
+    <div><div class="vp" data-w="1280" data-h="800" data-src="05-movie-screen/splash.html?embed=1"></div><p class="cap">05 Movie screen</p></div>
+    <div><div class="vp" data-w="1280" data-h="800" data-src="06-stage-set/splash.html?embed=1"></div><p class="cap">06 Stage set</p></div>
+  </div>
+</section>
+<h2 style="margin:0;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#a3afc6;text-transform:uppercase">Round 1 (kept for reference)</h2>
+<section class="opt" id="01">
+  <header><span class="badge">01</span><h2>Spotlight sweep</h2><div class="links"><a href="01-spotlight-sweep/splash.html">Splash</a><a href="01-spotlight-sweep/banner.html">Banner</a></div></header>
+  <p>The owner's concept. A spotlight crosses a dark panelled wall, finds the wordmark and settles on it. 2.7s, dismissible at any point.</p>
+  <div class="row">
+    <div><div class="vp" data-w="1280" data-h="800" data-src="01-spotlight-sweep/splash.html?embed=desktop"></div><p class="cap">PC 1280 × 800</p></div>
+    <div><div class="vp" data-w="412" data-h="860" data-src="01-spotlight-sweep/splash.html?embed=phone"></div><p class="cap">Phone 412</p></div>
+  </div>
+  <div><div class="vp" data-w="1440" data-h="300" data-src="01-spotlight-sweep/banner.html?embed=1"></div><p class="cap">PC banner at 1440</p></div>
+</section>
+
+<section class="opt" id="02">
+  <header><span class="badge">02</span><h2>Projector screen</h2><div class="links"><a href="02-projector-screen/splash.html">Splash</a><a href="02-projector-screen/banner.html">Banner</a></div></header>
+  <p>A projector beam flickers on, the screen fills with light and the wordmark pulls into focus inside the icon's tick ring. 2.6s.</p>
+  <div class="row">
+    <div><div class="vp" data-w="1280" data-h="800" data-src="02-projector-screen/splash.html?embed=desktop"></div><p class="cap">PC 1280 × 800</p></div>
+    <div><div class="vp" data-w="412" data-h="860" data-src="02-projector-screen/splash.html?embed=phone"></div><p class="cap">Phone 412</p></div>
+  </div>
+  <div><div class="vp" data-w="1440" data-h="300" data-src="02-projector-screen/banner.html?embed=1"></div><p class="cap">PC banner at 1440</p></div>
+</section>
+
+<section class="opt" id="03">
+  <header><span class="badge">03</span><h2>Quiet ring</h2><div class="links"><a href="03-quiet-ring/splash.html">Splash</a><a href="03-quiet-ring/banner.html">Banner</a></div></header>
+  <p>The app-icon mark settles, its tick ring turns into place and a horizon line draws out under the wordmark. 1.9s and the least motion; can also serve as the reduced-motion version of 01 or 02.</p>
+  <div class="row">
+    <div><div class="vp" data-w="1280" data-h="800" data-src="03-quiet-ring/splash.html?embed=desktop"></div><p class="cap">PC 1280 × 800</p></div>
+    <div><div class="vp" data-w="412" data-h="860" data-src="03-quiet-ring/splash.html?embed=phone"></div><p class="cap">Phone 412</p></div>
+  </div>
+  <div><div class="vp" data-w="1440" data-h="300" data-src="03-quiet-ring/banner.html?embed=1"></div><p class="cap">PC banner at 1440</p></div>
+</section>
+</main>
+<script>
+(function(){
+  var vps=[].slice.call(document.querySelectorAll('.vp'));
+  function load(){vps.forEach(function(v){v.innerHTML='';var f=document.createElement('iframe');f.src=v.dataset.src;f.width=v.dataset.w;f.height=v.dataset.h;f.title='Preview';f.tabIndex=-1;v.appendChild(f);});fit();}
+  function fit(){vps.forEach(function(v){var s=v.clientWidth/v.dataset.w;v.style.height=(v.dataset.h*s)+'px';if(v.firstChild)v.firstChild.style.transform='scale('+s+')';});}
+  document.getElementById('replay').onclick=load;addEventListener('resize',fit);load();
+})();
+</script>
+</body></html>

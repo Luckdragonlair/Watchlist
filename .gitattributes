@@ -1,2 +1,5 @@
 # Preserve approved reference files byte-for-byte across checkouts.
 design/nightfall-v2/* -text
+
+# Preserve Claude handoff sources and their recorded hashes.
+design/claude-splash-banner/** -text

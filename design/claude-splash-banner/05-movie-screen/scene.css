@@ -1,0 +1,19 @@
+/* Option 05 — Movie screen. Red velvet curtains part as the spotlight sweeps; the gold letters sit on
+   the cinema screen behind. Uses curtain.png (generated velvet tile, repeats horizontally). */
+.sc-cine{position:absolute;inset:0;background:linear-gradient(#0a0c14,#120a0e 60%,#05070d)}
+.sc-cine__screen{position:absolute;left:50%;top:50%;width:min(82vw,150vh);aspect-ratio:2.2/1;transform:translate(-50%,-52%);
+  background:radial-gradient(circle,rgba(0,0,0,.08) 0 .5px,transparent 1px) 0 0/5px 5px,linear-gradient(180deg,#a3a7ae,#92969d 55%,#83878e);box-shadow:0 0 0 1.4vw #050507,0 0 0 1.6vw #1a1416}
+.sc-cine__curtain{position:absolute;top:0;bottom:0;width:52vw;background:#5a0a14 url(curtain.png) 0 0/auto 100% repeat-x;animation:wl-curtain-open 1.2s cubic-bezier(.5,0,.25,1) .2s both}
+.sc-cine__curtain::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 80%,rgba(0,0,0,.45))}
+.sc-cine__curtain--l{left:0;transform-origin:left center}
+.sc-cine__curtain--r{right:0;transform-origin:right center;background-position:240px 0}
+.sc-cine__curtain--r::after{background:linear-gradient(270deg,transparent 80%,rgba(0,0,0,.45))}
+.sc-cine__valance{position:absolute;left:0;right:0;top:0;height:12vh;background:#5a0a14 url(curtain.png) 0 0/auto 900% repeat-x;box-shadow:0 10px 24px rgba(0,0,0,.6)}
+.sc-cine__valance::after{content:'';position:absolute;left:0;right:0;bottom:-1.2vh;height:1.4vh;background:repeating-linear-gradient(90deg,#d9b45a 0 2px,#8a6420 2px 4px,transparent 4px 6px);border-top:2px solid #e6c46e}
+.sc-cine__seats{position:absolute;left:-4vw;right:-4vw;bottom:-2vh;height:17vh;
+  background:radial-gradient(ellipse 44% 62% at 50% 100%,#040406 97%,transparent 100%) 0 100%/7.5vw 100% repeat-x,radial-gradient(ellipse 44% 62% at 50% 100%,#08080b 97%,transparent 100%) 3.75vw 0/7.5vw 70% repeat-x}
+@keyframes wl-curtain-open{to{transform:scaleX(.2)}}
+.wl-splash--reduced .sc-cine__curtain{transform:scaleX(.2)}
+@media (prefers-reduced-motion:reduce){.sc-cine__curtain{transform:scaleX(.2)}}
+/* Curtains are open before the beam reaches the first letter. */
+.wl-splash{--sweep-delay:1.1s;--sweep-dur:2.2s}

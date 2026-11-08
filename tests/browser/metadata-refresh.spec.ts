@@ -11,19 +11,22 @@ for(const mode of ['reopen','stay open'] as const)test('an ended caught-up show 
     const path=new URL(route.request().url()).pathname;if(path.endsWith('/episodes'))reads++;
     return route.fulfill({json:path==='/search/shows'?[{show}]:path.endsWith('/episodes')?(returning?[first,next]:[first]):path.endsWith('/seasons')?(returning?[{id:893001,number:1,episodeOrder:1,endDate:'2025-01-01'},{id:893002,number:2,episodeOrder:null,endDate:null}]:[{id:893001,number:1,episodeOrder:1,endDate:'2025-01-01'}]):{...show,status:returning?'Running':'Ended'}});
   });
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill(show.name);
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill(show.name);
   await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:`Import ${show.name} (#890001)`}).click();
   const dialog=page.getByRole('dialog',{name:`Set up ${show.name}`});await dialog.getByLabel('Current episode (optional)').selectOption('caught-up');await dialog.getByLabel('Personal notes (optional)').fill('Keep following');await dialog.getByRole('button',{name:'Save and continue'}).click();
   await page.getByRole('button',{name:'Watched',exact:true}).click();await expect(page.getByRole('button',{name:show.name,exact:true})).toBeVisible();
-  await page.reload();await expect(page.getByLabel('Automatic episode checks')).toBeVisible();expect(reads).toBe(1);
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByLabel('Automatic episode checks')).toBeVisible();expect(reads).toBe(1);
   // Finish the initial fresh-data sweep before jumping the clock a whole day.
   await page.clock.runFor(1);
   await expect.poll(()=>page.evaluate(async()=>{const modulePath='/src/db.ts';const {db}=await import(modulePath);return (await db.settings.get('metadataRefreshLease'))?.value;})).toBeUndefined();
   returning=true;await page.clock.setSystemTime(new Date('2026-11-09T18:01:00Z'));
-  if(mode==='reopen')await page.reload();else await page.clock.runFor(60001);
+  if(mode==='reopen'){await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();}else await page.clock.runFor(60001);
   await expect(page.getByRole('checkbox',{name:'Watch Returning series fixture S2 E1 · Return premiere'})).toBeVisible();
   await page.getByRole('button',{name:show.name,exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Keep following');
   await expect(page.getByRole('checkbox',{name:'S1 E1 · Original finale',exact:true})).toBeChecked();await expect(page.getByRole('checkbox',{name:'S2 E1 · Return premiere',exact:true})).not.toBeChecked();
   expect(reads).toBe(2);
-  await page.reload();await expect(page.getByLabel('Automatic episode checks')).toBeVisible();expect(reads).toBe(2);
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByLabel('Automatic episode checks')).toBeVisible();expect(reads).toBe(2);
 });
+
+// Decorative startup is covered by splash.spec; keep library/fake-clock workflows independent.
+test.beforeEach(async({context})=>{await context.route('**/splash/startup.js',route=>route.fulfill({contentType:'text/javascript',body: "document.querySelector('.wl-splash')?.remove();"}));});

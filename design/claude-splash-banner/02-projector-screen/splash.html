@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>02 Projector screen · splash preview</title>
+<link rel="stylesheet" href="../preview/preview.css">
+<link rel="stylesheet" href="splash.css">
+</head><body>
+<div class="pv-bar">
+  <h1>Projector screen</h1><span class="pv-tag">Option 02 · splash</span>
+  <div class="pv-group"><button data-set-frame="desktop">PC 1280</button><button data-set-frame="phone">Phone 412</button></div>
+  <button id="pv-replay">Replay</button>
+  <label><input type="checkbox" id="pv-reduced"> Reduced motion</label>
+  <label><input type="checkbox" id="pv-hold"> Hold final frame</label>
+  <span class="pv-spacer"></span><a href="banner.html">Banner →</a><a href="../index.html">All options</a>
+</div>
+<div class="pv-stage"><div class="pv-frame" id="frame"><img class="pv-app" alt=""><div id="mount"></div></div></div>
+<p class="pv-note">Click or press any key inside the frame to dismiss early. The screenshot behind is a fictional test fixture of the current app.</p>
+<template id="splash-tpl">
+<div class="wl-splash" aria-hidden="true">
+  <div class="wl-splash__beam"></div>
+  <div class="wl-splash__floor"></div>
+  <div class="wl-splash__screen"><div class="wl-splash__light"></div><div class="wl-splash__scan"></div><div class="wl-splash__ring"></div><span class="wl-splash__word">Watchlist</span></div>
+</div>
+</template>
+<script src="../preview/harness.js"></script>
+</body></html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>02 Projector screen · PC banner preview</title>
+<link rel="stylesheet" href="../preview/preview.css">
+<link rel="stylesheet" href="banner.css">
+<style>
+/* Preview-only stand-ins for the app's existing header controls (not part of the asset). */
+.mk{position:relative;display:grid;place-items:center;width:46px;height:46px;border:1px solid #537392;border-radius:12px;background:radial-gradient(circle at 50% 30%,#26395b,#080d19);font:30px 'Instrument Serif',serif;color:#f1f6ff}
+.mk::before{content:'';position:absolute;inset:5px;border:1px solid #8dd9ff80;border-top-color:transparent;border-bottom-color:transparent;border-radius:50%}
+.mock-actions,.mock-nav{display:flex;gap:10px}
+.mock-actions span{font:500 14px 'IBM Plex Sans',sans-serif;padding:10px 14px;border:1px solid #2c3b54;border-radius:9px;background:#0b1220cc}
+.mock-nav{gap:6px;padding-bottom:10px}
+.mock-nav span{font:400 17px 'IBM Plex Sans',sans-serif;color:#a3afc6;padding:8px 13px;border-radius:9px}
+.mock-nav span.on{color:#8dd9ff;background:#10203acc;box-shadow:inset 0 -2px 0 #8dd9ff}
+.mock-body{padding:22px 32px 40px;background:#05070d}
+.mock-body p{margin:0 0 18px;font:400 12px 'IBM Plex Mono',monospace;color:#a3afc6}
+.mock-body h2{margin:0;font:400 46px/1 'Instrument Serif',serif}
+.sizes{display:grid;gap:28px;padding:24px 20px 40px;max-width:1400px;margin:0 auto}
+.sizes h3{margin:0 0 8px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#a3afc6;text-transform:uppercase}
+.sizes>div{min-width:0}
+.vp{position:relative;overflow:hidden;border:1px solid #1a2438;border-radius:8px}
+.vp iframe{position:absolute;left:0;top:0;border:0;display:block;transform-origin:0 0}
+body.pv-embed{background:#05070d}
+</style>
+</head><body>
+<div class="pv-bar"><h1>Projector screen</h1><span class="pv-tag">Option 02 · PC banner</span><span class="pv-spacer"></span><a href="splash.html">← Splash</a><a href="../index.html">All options</a></div>
+<div id="one" hidden>
+<header class="wl-banner">
+  <div class="wl-banner__top">
+    <div class="wl-banner__brand"><span class="mk" aria-hidden="true">W</span><h1 class="wl-banner__word">Watchlist<small>v0.5.1</small></h1></div>
+    <div class="mock-actions"><span>Export backup</span><span>Restore backup</span></div>
+  </div>
+  <nav class="mock-nav"><span>Weekly</span><span class="on">Binge</span><span>Watched</span><span>Add Show</span><span>Import</span><span>Match</span></nav>
+</header>
+<div class="mock-body"><p>Your library / Release times in America/Chicago</p><h2>Binge</h2></div>
+</div>
+<div class="sizes" id="sizes">
+  <div><h3>1920 wide</h3><div class="vp" data-w="1920"></div></div>
+  <div><h3>1440 wide</h3><div class="vp" data-w="1440"></div></div>
+  <div><h3>1200 wide · smallest banner width</h3><div class="vp" data-w="1200"></div></div>
+  <div><h3>1024 wide · banner off, ordinary compact header</h3><div class="vp" data-w="1024"></div></div>
+</div>
+<p class="pv-note">Each strip is this page rendered at that window width and scaled to fit. The header controls are stand-ins; only banner.svg and banner.css are the asset.</p>
+<script>
+(function(){
+  if(new URLSearchParams(location.search).get('embed')){document.body.classList.add('pv-embed');document.getElementById('one').hidden=false;document.getElementById('sizes').remove();return;}
+  var vps=[].slice.call(document.querySelectorAll('.vp'));
+  vps.forEach(function(v){var f=document.createElement('iframe');f.src='banner.html?embed=1';f.width=v.dataset.w;f.height=300;f.title=v.dataset.w+' pixel preview';f.tabIndex=-1;v.appendChild(f);});
+  function fit(){vps.forEach(function(v){var f=v.firstChild,s=Math.min(1,v.clientWidth/v.dataset.w);f.style.transform='scale('+s+')';v.style.height=(300*s)+'px';});}
+  addEventListener('resize',fit);fit();
+})();
+</script>
+</body></html>

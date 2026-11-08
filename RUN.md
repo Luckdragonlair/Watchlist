@@ -65,3 +65,7 @@ For the optional private current-library folder export, run `./Start-LibraryExpo
 ## v0.5.0 section-format compatibility - 2026-11-08
 
 Update Watchlist on PC and phone before continuing shared use. New snapshots/backups use format 2 to retain Binge sections; older format-1 backups remain readable. Older app versions reject the new shared format rather than dropping its fields. Database names and schema v3 are unchanged. Import handles working files; Match holds only unmatched entries. Reversible Not for me preserves viewing history. The read-only folder helper must run the updated code; restart it after this release so its validation and readable sections are current.
+
+## v0.6.0 startup presentation - 2026-11-08
+
+The original approved Brick alley splash and gold banner load from local/cached assets before Weekly. App/auth loading runs underneath; no external splash service or paid dependency is needed. The default launch view is Weekly; it rotates headings from today in America/Chicago. Internal navigation does not replay the splash. For updates, save drafts then choose Update and reload as usual. Tests use disposable contexts; splash-specific checks exercise the real animation, while unrelated library/fake-clock browser checks stub only the decorative startup script.

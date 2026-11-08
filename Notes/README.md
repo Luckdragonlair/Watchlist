@@ -18,3 +18,5 @@ Updated: 2026-11-08
 Keep originals unchanged. Normalize into separate working copies. The starting catalog excludes Silo; the original retains it. Missing release, streaming, or renewal information stays unknown. Approved Nightfall references are preserved in design/nightfall-v2; implementation follows AGENTS.md. See [../RUN.md](../RUN.md) for run instructions.
 
 - [NIGHTFALL_FOUNDATION.md](NIGHTFALL_FOUNDATION.md): delivered visual foundation, verified checks and remaining approved V2 work.
+
+Latest app milestone: v0.6.0 original Brick alley splash/gold banner and Weekly launch with today-first Central weekday sections. See AGENTS.md for current evidence; remaining actual-device animation acceptance is in TODO.md.

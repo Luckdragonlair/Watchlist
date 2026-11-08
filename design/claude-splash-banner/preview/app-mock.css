@@ -1,0 +1,22 @@
+/* Preview-only stand-in for the app page behind the splash/banner. Not for integration. */
+@font-face{font-family:'Limelight';src:url(../fonts/limelight-400.woff2) format('woff2');font-display:block}
+.mock{min-height:100vh;background:#05070d radial-gradient(ellipse 80% 50% at 50% 0,#0d1830,transparent 70%);color:#e4e9f4;font:400 15px/1.5 'IBM Plex Sans',system-ui,sans-serif}
+.mock-nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 32px;padding:10px 0 14px;border-bottom:1px solid #2c3b54}
+.mock-nav span{padding:8px 13px;border-radius:9px;color:#a3afc6;font-size:17px}
+.mock-nav span.on{color:#8dd9ff;background:#10203a;box-shadow:inset 0 -2px 0 #8dd9ff}
+.mock-nav .sp{flex:1;padding:0}
+.mock-nav b{font-weight:500;font-size:14px;padding:10px 14px;border:1px solid #2c3b54;border-radius:9px;background:#0b1220}
+.mock-main{padding:20px 32px}
+.mock-main p{margin:0 0 14px;font:400 12px 'IBM Plex Mono',monospace;color:#a3afc6}
+.mock-main h2{margin:0 0 20px;font:400 52px/1 'Instrument Serif',serif}
+.mock-card{display:grid;gap:4px;padding:18px;margin-bottom:14px;border:1px solid #2c3b54;border-radius:10px;background:linear-gradient(90deg,#17345540,transparent 60%)}
+.mock-card small{font:400 12px 'IBM Plex Mono',monospace;color:#c4b2fc}
+.mock-card strong{font:400 30px/1.15 'Instrument Serif',serif}
+@media (max-width:839.98px){.mock-nav{margin:0 16px}.mock-nav b{display:none}.mock-main{padding:16px}.mock-main h2{font-size:40px}}
+@media (max-height:500px) and (orientation:landscape){.mock-main h2{font-size:34px;margin-bottom:12px}}
+.pv-ctl{position:fixed;left:12px;bottom:12px;z-index:2000;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 10px;border:1px solid #2c3b54;border-radius:10px;background:rgba(5,7,13,.88);font:500 12px 'IBM Plex Sans',sans-serif;color:#e4e9f4}
+.pv-ctl button,.pv-ctl label{font:inherit;color:inherit;background:#0b1220;border:1px solid #2c3b54;border-radius:7px;padding:5px 9px;cursor:pointer;display:flex;gap:5px;align-items:center}
+.pv-ctl input[type=range]{width:180px;accent-color:#f2cd6b}
+.pv-ctl output{font:400 12px 'IBM Plex Mono',monospace;min-width:4ch}
+.pv-ctl a{color:#8dd9ff}
+body.pv-embed .pv-ctl{display:none}

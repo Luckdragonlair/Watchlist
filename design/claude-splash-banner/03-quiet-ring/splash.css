@@ -1,0 +1,29 @@
+/* Watchlist splash — Option 03: Quiet ring
+   The app-icon mark settles, its tick ring turns into place, a horizon line draws out and the
+   wordmark rises. Least motion of the three; also usable as the reduced-motion fallback for 01/02.
+   Total 1.9s. Nonblocking (see README). */
+.wl-splash{position:fixed;inset:0;z-index:1000;overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse 60% 50% at 50% 45%,#0c1527,#05070d 70%);animation:wl-splash-out .4s ease 1.5s forwards}
+.wl-splash__stack{display:grid;justify-items:center;gap:22px}
+.wl-splash__mark{position:relative;width:112px;height:112px;border-radius:26px;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,#1c2d52,#070a14 75%);box-shadow:inset 0 0 0 1px rgba(150,185,240,.22),0 10px 30px rgba(0,0,0,.5);animation:wl-mark .5s cubic-bezier(.2,.7,.2,1) both}
+.wl-splash__arc{position:absolute;inset:13px;border-radius:50%;border:1.5px solid rgba(141,217,255,.7);border-top-color:transparent;border-bottom-color:transparent;transform:rotate(-20deg);animation:wl-arc .8s cubic-bezier(.3,0,.2,1) .15s both}
+.wl-splash__ticks{position:absolute;inset:21px;border-radius:50%;background:repeating-conic-gradient(rgba(141,217,255,.5) 0 1.5deg,transparent 1.5deg 12deg);-webkit-mask:radial-gradient(circle,transparent 69%,#000 70%,#000 75%,transparent 76%);mask:radial-gradient(circle,transparent 69%,#000 70%,#000 75%,transparent 76%);animation:wl-ticks .9s cubic-bezier(.3,0,.2,1) .2s both}
+.wl-splash__w{position:relative;margin-top:6px;font:400 60px/1 'Instrument Serif',Georgia,serif;color:#f1f6ff;text-shadow:0 0 20px rgba(141,217,255,.7)}
+.wl-splash__horizon{width:min(70vw,520px);height:1px;background:linear-gradient(90deg,transparent,rgba(141,217,255,.85),transparent);box-shadow:0 0 12px rgba(141,217,255,.5);transform:scaleX(0);animation:wl-horizon .6s cubic-bezier(.3,0,.2,1) .4s forwards}
+.wl-splash__word{font:400 min(13vw,64px)/1 'Instrument Serif',Georgia,serif;letter-spacing:-.01em;color:#f1f6ff;opacity:0;transform:translateY(8px);animation:wl-rise .5s ease .6s forwards}
+@keyframes wl-mark{from{opacity:0;transform:scale(.94)}}
+@keyframes wl-arc{from{opacity:0;transform:rotate(-80deg)}}
+@keyframes wl-ticks{from{opacity:0;transform:rotate(40deg)}}
+@keyframes wl-horizon{to{transform:scaleX(1)}}
+@keyframes wl-rise{to{opacity:1;transform:none}}
+@keyframes wl-splash-out{to{opacity:0;visibility:hidden}}
+.wl-splash--dismiss{animation:wl-splash-out .2s ease forwards!important}
+.wl-splash--reduced{animation:wl-splash-out .3s ease .9s forwards}
+.wl-splash--reduced *{animation:none!important}
+.wl-splash--reduced .wl-splash__horizon{transform:none}
+.wl-splash--reduced .wl-splash__word{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .wl-splash{animation:wl-splash-out .3s ease .9s forwards}
+  .wl-splash *{animation:none!important}
+  .wl-splash__horizon{transform:none}
+  .wl-splash__word{opacity:1;transform:none}}
+@media (forced-colors:active){.wl-splash{display:none}}

@@ -144,6 +144,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Binge drag-and-drop | Approved design, not built | Must share the same saved order as arrow controls. |
 | Show deletion | Built and verified | Atomic cascade with source/history protections and safe clean re-add. |
 | Backup export | Built and verified | Consistent snapshot, timestamped file, visible feedback, reusable download. |
+| Splash/gold banner and Weekly launch (v0.6.0) | Built and verified | Original 04/07 assets; five-second flash/fly-up, reduced-motion/failure cleanup, local offline assets, Weekly default/today-first Central weekdays. |
 | Compact phone header (v0.5.1) | Built and verified | More holds phone utilities; primary navigation stays at the bottom; warnings/update actions remain exposed. Healthy cloud info is compact and empty Ready groups are omitted. |
 | Binge sections and interest (v0.5.0) | Built and verified | Ready: Watching now / Watch soon / Everything else; Upcoming & TBA; reversible Not for me. Personal records retained. |
 | Match queue (v0.5.0) | Built and verified | Pending/review rows only; source matching removed from library views; file loading stays in Import. No new bulk matching performed. |
@@ -259,6 +260,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+2026-11-08 owner reprioritization: integrate the approved original Brick alley splash/Gold banner and Weekly default/today-first ordering now; built and verified. Accessible dragging follows this milestone.
+
 Unless the user reprioritizes, use this order:
 
 2026-11-08: user-requested automatic metadata discovery is complete; V2 Binge organization (step 3) is now complete; accessible dragging (step 4) is next. The v0.4.0 filed-title helper is ready for its alphabetical sections. The v0.4.1 date repair is a separate maintenance fix; verify owner sync recovery after updating. Closed-app checks and confirmed-cancellation overrides are separate deferred work.
@@ -304,6 +307,15 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - Original splash and Weekly launch
+
+- Integrated approved original 04 Brick alley and 07 Gold banner; original flash and timing retained, rejected experimental previews excluded. Preserved supplied reference bundle and source hashes. Local font/image/runtime assets added to hosted allowlist/offline cache; dark manifest/theme colours.
+- Retained compact phone utilities and safe full-width account/sync problems. Data/auth startup runs underneath; reduced-motion, forced-colours and independent startup cleanup paths retained.
+- Owner additionally requested Weekly as launch view and today-first weekday headings, skipping empty days. Display-only Central-time rotation updates every minute/on return; no release/history/metadata rules changed. Version 0.6.0.
+- PASS: TypeScript, 234 unit tests, 39 browser workflows (38 full-suite plus the added banner-status check), eight PWA workflows (seven full-suite plus the updated ninth-font check), hosted signed-out privacy check, normal/hosted builds and public-asset privacy guard. Inspected fictional portrait/landscape and populated phone/desktop screenshots. Startup checks cover original 4.45s/600ms flight, launch-only replay, reduced motion, forced colours, runtime failure, responsive widths, and offline fonts/brick/runtime. Weekly checks cover midnight rotation, missing-day skipping and return-to-visible updates. Initial extraction and legacy navigation/font assertions were corrected; passing reruns are the recorded evidence. No personal library was used.
+- Published Hosting-only to genre-watchlist; live index, worker, entry scripts and splash runtime/brick/integration CSS match the tested build. Original master SHA-256 unchanged. Next: owner Android/Firefox smoothness acceptance, then accessible dragging and remaining V2 acceptance.
+
 
 ### 2026-11-08 - Phone content no longer displaced by utility buttons
 
@@ -434,4 +446,4 @@ If any answer is yes, update the affected documentation now. A code change is in
 - Required every future agent to update this ledger and the relevant project notes in the same change.
 - No application code, dependency, database, user library, or runtime behavior changed.
 
-2026-11-08 design follow-up: owner proposes a movie-style spotlight sweeping across a wall/stage/screen to reveal Watchlist. Claude is preparing the splash and possible PC banner assets. This is a proposed visual concept, not built or a reason to delay library access; use a brief nonblocking reveal and a static reduced-motion state. Final assets still need review.
+Superseded 2026-11-08 by the approved original five-second 04/07 integration above. Historical proposal: owner proposes a movie-style spotlight sweeping across a wall/stage/screen to reveal Watchlist. Claude is preparing the splash and possible PC banner assets. This is a proposed visual concept, not built or a reason to delay library access; use a brief nonblocking reveal and a static reduced-motion state. Final assets still need review.

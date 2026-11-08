@@ -1,0 +1,25 @@
+/* Option 06 — Stage set. The house curtain opens on a stage; the gold letters hang from a batten as a
+   set piece and the follow-spot finds them. Uses curtain.png and floor.png (generated textures). */
+.sc-stage{position:absolute;inset:0;background:#05070d;perspective:900px;perspective-origin:50% 40%}
+.sc-stage__back{position:absolute;left:6vw;right:6vw;top:0;height:78vh;background:radial-gradient(ellipse 60% 70% at 50% 60%,#1a2238,#0b0f1c 70%),#0b0f1c}
+.sc-stage__floor{position:absolute;left:6vw;right:6vw;top:78vh;height:700px;transform-origin:top center;transform:rotateX(90deg);background:#2a1a10 url(floor.png) center top/100% 100%}
+.sc-stage__batten{position:absolute;left:12vw;right:12vw;top:15vh;height:.9vh;border-radius:1vh;background:linear-gradient(#55595f,#1d1f22)}
+.sc-stage__wire{position:absolute;top:15.5vh;width:1px;height:calc(50vh - 5.3vw - 15.5vh);background:linear-gradient(#8b8f95,#5d6065)}
+.sc-stage__wire--l{left:calc(50% - 19vw)}
+.sc-stage__wire--r{left:calc(50% + 18vw)}
+.sc-stage__curtain{position:absolute;top:0;bottom:0;width:52vw;background:#5a0a14 url(curtain.png) 0 0/auto 100% repeat-x;animation:wl-curtain-open 1.2s cubic-bezier(.5,0,.25,1) .2s both}
+.sc-stage__curtain::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 80%,rgba(0,0,0,.45))}
+.sc-stage__curtain--l{left:0;transform-origin:left center}
+.sc-stage__curtain--r{right:0;transform-origin:right center;background-position:240px 0}
+.sc-stage__curtain--r::after{background:linear-gradient(270deg,transparent 80%,rgba(0,0,0,.45))}
+.sc-stage__frame{position:absolute;inset:0;pointer-events:none;box-shadow:inset 6vw 0 0 #0a0b12,inset -6vw 0 0 #0a0b12}
+.sc-stage__frame::before,.sc-stage__frame::after{content:'';position:absolute;top:0;bottom:0;width:.35vw;background:linear-gradient(#e6c46e,#8a6420)}
+.sc-stage__frame::before{left:6vw}.sc-stage__frame::after{right:6vw}
+.sc-stage__valance{position:absolute;left:0;right:0;top:0;height:11vh;background:#5a0a14 url(curtain.png) 0 0/auto 900% repeat-x;box-shadow:0 10px 24px rgba(0,0,0,.6)}
+.sc-stage__valance::after{content:'';position:absolute;left:0;right:0;bottom:-1.2vh;height:1.4vh;background:repeating-linear-gradient(90deg,#d9b45a 0 2px,#8a6420 2px 4px,transparent 4px 6px);border-top:2px solid #e6c46e}
+.sc-stage__apron{position:absolute;left:0;right:0;bottom:0;height:8vh;background:linear-gradient(#1a120c,#05070d);box-shadow:0 -1px 0 #3a2a18}
+@keyframes wl-curtain-open{to{transform:scaleX(.2)}}
+.wl-splash--reduced .sc-stage__curtain{transform:scaleX(.2)}
+@media (prefers-reduced-motion:reduce){.sc-stage__curtain{transform:scaleX(.2)}}
+/* Curtains are open before the beam reaches the first letter. */
+.wl-splash{--sweep-delay:1.1s;--sweep-dur:2.2s}

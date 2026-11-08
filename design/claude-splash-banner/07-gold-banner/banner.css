@@ -1,0 +1,18 @@
+/* Watchlist top banner — gold slanted title centred across the full width, transparent background.
+   Account / sync status overlays at the right on PC; on phone it drops to its own row below the title. */
+.wl-topbar{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;min-height:92px;padding:10px 32px;box-sizing:border-box;background:transparent}
+.wl-topbar__title{grid-column:2;margin:0;font:400 48px/1.1 'Limelight','Instrument Serif',serif;letter-spacing:.01em;white-space:nowrap;transform:skewX(-8deg);
+  background:linear-gradient(172deg,#fff6d2 0%,#f4d27a 20%,#c08a22 44%,#f8e09a 58%,#a5721a 78%,#e9c46a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 1px 0 #7a5410) drop-shadow(0 2px 0 #4a3207) drop-shadow(0 8px 14px rgba(0,0,0,.55))}
+.wl-topbar__status{grid-column:3;justify-self:end;display:grid;justify-items:end;gap:4px;min-width:0;font:400 13px/1.4 'IBM Plex Sans',system-ui,sans-serif;color:#a3afc6;text-align:right}
+/* Phone portrait: title row, then status row. */
+@media (max-width:839.98px){
+  .wl-topbar{grid-template-columns:minmax(0,1fr);justify-items:center;gap:6px;min-height:0;padding:14px 16px 10px}
+  .wl-topbar__title{grid-column:1;font-size:38px}
+  .wl-topbar__status{grid-column:1;justify-self:stretch;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;text-align:left}}
+/* Phone landscape: short screen, so one row again with a smaller title. */
+@media (max-height:500px) and (orientation:landscape){
+  .wl-topbar{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);justify-items:stretch;min-height:56px;padding:6px 20px}
+  .wl-topbar__title{grid-column:2;font-size:30px}
+  .wl-topbar__status{grid-column:3;justify-self:end;display:grid;justify-items:end;font-size:12px;text-align:right}}
+@media (forced-colors:active){.wl-topbar__title{background:none;color:CanvasText;filter:none}}

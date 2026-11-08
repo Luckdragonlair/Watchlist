@@ -1,0 +1,59 @@
+/* Watchlist splash v2 — shared core for options 04–06.
+   Timeline (5.0s): the word area starts dark · one spotlight sweeps left to right (scene sets
+   --sweep-delay / --sweep-dur) and each letter lights up as the beam reaches it · 3.65 the word flares white ·
+   4.0 flash peak (scene removed) · 4.0–4.45 flash dies, gold logo on navy · 4.45–5.05 logo flies up into the banner title. */
+.wl-splash{position:fixed;inset:0;z-index:1000;overflow:hidden;background:#05070d;user-select:none;-webkit-user-select:none;animation:wl-bg-out .55s ease 4.45s forwards}
+.wl-splash__scene{position:absolute;inset:0;animation:wl-hide 0s linear 4s forwards}
+.wl-layer{position:absolute;inset:0;overflow:hidden}
+.wl-layer--dim{filter:brightness(.09) saturate(.4)}
+.wl-layer--dim::after{content:'';position:absolute;inset:0;background:#0d1b38;mix-blend-mode:color;opacity:.55}
+/* Spotlight: a soft circle in a 300%×300% mask; mask-position moves the centre, left to right at word height. */
+.wl-layer--spot{filter:brightness(1.15) contrast(1.05);
+  -webkit-mask:radial-gradient(circle var(--spot-r,clamp(190px,19vw,330px)) at 50% 50%,#000 0 42%,rgba(0,0,0,.6) 68%,transparent 100%) 82.5% 50%/300% 300% no-repeat;
+          mask:radial-gradient(circle var(--spot-r,clamp(190px,19vw,330px)) at 50% 50%,#000 0 42%,rgba(0,0,0,.6) 68%,transparent 100%) 82.5% 50%/300% 300% no-repeat;
+  animation:wl-spot-path var(--sweep-dur,2.4s) linear var(--sweep-delay,.4s) both}
+.wl-layer--spot::after{content:'';position:absolute;inset:0;background:radial-gradient(circle clamp(120px,11vw,200px) at 50% 50%,rgba(255,236,200,.22),transparent 70%) 82.5% 50%/300% 300% no-repeat;mix-blend-mode:screen;animation:wl-spot-glow var(--sweep-dur,2.4s) linear var(--sweep-delay,.4s) both}
+/* Lit variant (.wl-splash--lit): the scene is well lit; only the word area stays dark until the beam passes. */
+.wl-splash--lit .wl-layer--dim{filter:brightness(.72) saturate(.9)}
+.wl-splash--lit .wl-layer--dim::after{opacity:.12}
+.wl-splash--lit .wl-layer--dim::before{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 36% 17% at 50% 50%,rgba(5,7,13,.94) 0 50%,rgba(5,7,13,.6) 72%,transparent 100%)}
+.wl-splash--lit .wl-layer--spot{filter:brightness(1.45) contrast(1.05)}
+/* Glint: the hot centre of the beam. Only the letters are kept, pushed bright, so they flare and reflect as it passes. */
+.wl-layer--glint{filter:brightness(2.3) saturate(.75);
+  -webkit-mask:radial-gradient(circle calc(var(--spot-r,clamp(190px,19vw,330px)) * .42) at 50% 50%,#000 0 30%,transparent 100%) 82.5% 50%/300% 300% no-repeat;
+          mask:radial-gradient(circle calc(var(--spot-r,clamp(190px,19vw,330px)) * .42) at 50% 50%,#000 0 30%,transparent 100%) 82.5% 50%/300% 300% no-repeat;
+  animation:wl-spot-path var(--sweep-dur,2.4s) linear var(--sweep-delay,.4s) both}
+.wl-layer--glint *{visibility:hidden}
+.wl-layer--glint>*{background:none!important}
+.wl-layer--glint .sc-word,.wl-layer--glint .sc-word *{visibility:visible}
+/* The letters are physically in the scene from the start: in the dark layer they are invisible, in the beam they shine. */
+.sc-word{position:absolute;inset:0;display:grid;place-items:center}
+.sc-word .wl-word>span{opacity:1;animation:none}
+.wl-layer--dim .sc-word{opacity:.12}
+.wl-splash__vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 50%,transparent 48%,rgba(5,7,13,.75) 78%,#05070d 100%)}
+/* Gold sign lettering (Limelight, slanted). Each letter is its own span so it can light up when the beam reaches it. */
+.wl-word{position:relative;display:inline-block;font:400 min(9.5vw,164px)/1.1 'Limelight','Instrument Serif',serif;letter-spacing:.01em;white-space:nowrap;transform:skewX(-8deg);
+  filter:drop-shadow(0 1px 0 #7a5410) drop-shadow(0 3px 0 #4a3207) drop-shadow(0 16px 22px rgba(0,0,0,.65));animation:wl-word-flare .7s ease-in-out 3.5s}
+.wl-word>span{display:inline-block;background:linear-gradient(172deg,#fff6d2 0%,#f4d27a 20%,#c08a22 44%,#f8e09a 58%,#a5721a 78%,#e9c46a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;animation:wl-letter .9s ease-out 1s forwards}
+.wl-logo{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.wl-logo__fly{display:inline-block;transform-origin:50% 50%}
+.wl-splash__flash{position:absolute;left:var(--ex,50%);top:var(--ey,50%);width:420vmax;height:420vmax;margin:-210vmax 0 0 -210vmax;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,#fff 0 22%,rgba(255,251,238,.9) 34%,rgba(255,240,200,0) 60%);transform:scale(0);opacity:0;animation:wl-flash .8s cubic-bezier(.3,0,.4,1) 3.65s forwards}
+@keyframes wl-spot-path{from{-webkit-mask-position:82.5% 50%;mask-position:82.5% 50%}to{-webkit-mask-position:17.5% 50%;mask-position:17.5% 50%}}
+@keyframes wl-spot-glow{from{background-position:82.5% 50%}to{background-position:17.5% 50%}}
+@keyframes wl-letter{from{opacity:0}to{opacity:1}}
+@keyframes wl-word-flare{50%{filter:drop-shadow(0 0 18px #fff) drop-shadow(0 0 40px #fff8e0) brightness(2.4)}}
+@keyframes wl-in{to{opacity:1}}
+@keyframes wl-hide{to{visibility:hidden}}
+@keyframes wl-bg-out{to{background-color:rgba(5,7,13,0)}}
+@keyframes wl-flash{0%{transform:scale(0);opacity:1}43%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+/* Reduced motion: lit scene and logo held still, then a plain fade. */
+.wl-splash--reduced{animation:wl-bg-out .4s ease 1.2s forwards}
+.wl-splash--reduced *,.wl-splash--reduced *::after{animation:none!important}
+.wl-splash--reduced .wl-layer--spot{-webkit-mask-position:50% 50%;mask-position:50% 50%}
+.wl-splash--reduced .wl-word>span{opacity:1}
+.wl-splash--reduced .wl-splash__flash{display:none}
+/* Phone portrait: larger word so it fills most of the width. */
+@media (max-width:839.98px) and (orientation:portrait){.wl-word{font-size:15vw}.wl-splash{--spot-r:clamp(150px,30vw,240px)}
+  .wl-splash--lit .wl-layer--dim::before{background:radial-gradient(ellipse 50% 9% at 50% 50%,rgba(5,7,13,.94) 0 50%,rgba(5,7,13,.6) 72%,transparent 100%)}}
+@media (forced-colors:active){.wl-splash{display:none}}

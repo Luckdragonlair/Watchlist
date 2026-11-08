@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>04 Brick alley · phone previews</title>
+<link rel="stylesheet" href="../preview/preview.css">
+<style>
+.wrap{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;justify-content:center;padding:24px 20px 40px}
+.wrap h3{margin:0 0 8px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#a3afc6;text-transform:uppercase}
+.vp{position:relative;overflow:hidden;border:1px solid #1a2438;border-radius:22px;background:#05070d}
+.vp iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0}
+</style></head><body>
+<div class="pv-bar"><h1>Brick alley</h1><span class="pv-tag">Option 04 · phone portrait and landscape</span>
+<button id="replay">Replay both</button><label><input type="checkbox" id="dark"> Lit scene</label>
+<span class="pv-spacer"></span><a href="splash.html">PC version</a><a href="../index.html">All options</a></div>
+<div class="wrap">
+  <div><h3>Portrait 412 × 915</h3><div class="vp" data-w="412" data-h="915" data-s=".72"></div></div>
+  <div><h3>Landscape 915 × 412</h3><div class="vp" data-w="915" data-h="412" data-s=".72"></div></div>
+</div>
+<p class="pv-note">Each frame is the real splash page at that phone size.</p>
+<script>
+(function(){var vps=[].slice.call(document.querySelectorAll('.vp')),dk=document.getElementById('dark');
+function load(){vps.forEach(function(v){v.innerHTML='';var f=document.createElement('iframe');f.src='splash.html?embed=1'+(dk.checked?'&light=lit':'');f.width=v.dataset.w;f.height=v.dataset.h;f.title=v.dataset.w+' by '+v.dataset.h+' preview';var s=+v.dataset.s;f.style.transform='scale('+s+')';v.style.width=v.dataset.w*s+'px';v.style.height=v.dataset.h*s+'px';v.appendChild(f);});}
+document.getElementById('replay').onclick=load;dk.onchange=load;load();})();
+</script></body></html>

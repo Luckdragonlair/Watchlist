@@ -1,0 +1,30 @@
+/* Option 04 — Brick alley. A dark alley; one spotlight pans left to right across the back wall and the gold
+   letters appear one by one as it reaches them. Uses brick.png (generated texture, 1920×1080). */
+.sc-alley{position:absolute;inset:0;background:#05070d;perspective:900px;perspective-origin:50% 42%}
+.sc-alley__sky{position:absolute;inset:0 0 auto 0;height:12vh;background:linear-gradient(#05070d,#0b1222)}
+.sc-alley__back{position:absolute;left:14vw;width:72vw;top:6vh;height:76vh;background:#2a1f1b url(brick.png) center/1100px auto}
+.sc-alley__side{position:absolute;top:6vh;height:76vh;width:760px;background:#2a1f1b url(brick.png) left center/1100px auto;filter:brightness(.55)}
+.sc-alley__side--l{left:14vw;transform-origin:left center;transform:rotateY(-90deg)}
+.sc-alley__side--r{right:14vw;transform-origin:right center;transform:rotateY(90deg);filter:brightness(.42)}
+.sc-alley__ground{position:absolute;left:14vw;width:72vw;top:82vh;height:760px;transform-origin:top center;transform:rotateX(90deg);
+  background:radial-gradient(ellipse 18% 9% at 30% 30%,rgba(140,160,190,.18),transparent 70%),radial-gradient(ellipse 12% 6% at 70% 55%,rgba(140,160,190,.14),transparent 70%),linear-gradient(#17171a,#0b0b0d)}
+.sc-alley__pipe{position:absolute;left:21vw;top:6vh;width:1.4vw;height:76vh;background:linear-gradient(90deg,#1b1d20,#5a5e63 35%,#2a2c30 60%,#121315)}
+.sc-alley__pipe::before{content:'';position:absolute;inset:auto -.4vw 30% -.4vw;height:1vw;background:linear-gradient(90deg,#222,#666,#2a2a2a)}
+.sc-alley__door{position:absolute;right:20vw;bottom:18vh;width:8vw;height:26vh;background:linear-gradient(90deg,#1c2026,#2c3138 50%,#1a1d22);box-shadow:inset 0 0 0 .45vw #121417,0 0 0 .3vw #3a3530}
+.sc-alley__door::after{content:'';position:absolute;right:.9vw;top:52%;width:.5vw;height:1.6vw;border-radius:2px;background:#6a6d70}
+.wl-splash{--sweep-delay:.4s;--sweep-dur:2.6s}
+/* Phone portrait: narrower alley, smaller bricks, door and pipe kept clear of the word. */
+@media (max-width:839.98px) and (orientation:portrait){
+  .sc-alley__back{left:5vw;width:90vw;top:10vh;height:72vh;background-size:620px auto}
+  .sc-alley__side{top:10vh;height:72vh;background-size:620px auto}
+  .sc-alley__side--l{left:5vw}.sc-alley__side--r{right:5vw}
+  .sc-alley__ground{left:5vw;width:90vw}
+  .sc-alley__sky{height:10vh}
+  .sc-alley__pipe{left:6.5vw;width:2.4vw}
+  .sc-alley__door{right:9vw;bottom:18vh;width:22vw;height:17vh}}
+/* Phone landscape: short screen, use the height. */
+@media (max-height:500px) and (orientation:landscape){
+  .sc-alley__back{top:4vh;height:80vh;background-size:760px auto}
+  .sc-alley__side{top:4vh;height:80vh;background-size:760px auto}
+  .sc-alley__ground{top:84vh}
+  .sc-alley__door{right:16vw;bottom:16vh;height:22vh;width:7vw}}

@@ -1,0 +1,38 @@
+/* Watchlist splash — Option 01: Spotlight sweep
+   A spotlight crosses a dark panelled wall, finds the wordmark, settles, then the splash fades out.
+   Total 2.7s. Nonblocking: dismiss on any pointer/key and when the app is ready (see README). */
+.wl-splash{position:fixed;inset:0;z-index:1000;overflow:hidden;background:#05070d;animation:wl-splash-out .45s ease 2.25s forwards}
+.wl-splash__layer{position:absolute;inset:0;display:grid;place-items:center}
+.wl-splash__wall{position:absolute;inset:0;background:url(wall.svg) center/cover no-repeat}
+.wl-splash__word{position:relative;font:400 min(14vw,176px)/1 'Instrument Serif',Georgia,serif;letter-spacing:-.01em;white-space:nowrap;padding-bottom:.08em}
+.wl-splash__dim .wl-splash__wall{opacity:.16}
+.wl-splash__dim .wl-splash__word{color:#0f1728}
+.wl-splash__lit{background:radial-gradient(ellipse 60% 70% at 50% 50%,#1d3052,#0a1222 75%);
+  -webkit-mask:radial-gradient(circle clamp(150px,26vw,360px) at 50% 50%,#000 0 48%,rgba(0,0,0,.55) 74%,transparent 100%) 90% 0/300% 100% no-repeat;
+          mask:radial-gradient(circle clamp(150px,26vw,360px) at 50% 50%,#000 0 48%,rgba(0,0,0,.55) 74%,transparent 100%) 90% 0/300% 100% no-repeat;
+  animation:wl-spot-sweep 1.55s cubic-bezier(.55,0,.25,1) .15s both}
+.wl-splash__lit .wl-splash__word{color:#f1f6ff;text-shadow:0 0 36px rgba(141,217,255,.45)}
+.wl-splash__final{background:radial-gradient(circle clamp(220px,44vw,620px) at 50% 50%,rgba(29,48,82,.55),transparent 70%);opacity:0;animation:wl-splash-in .5s ease 1.6s forwards}
+.wl-splash__final .wl-splash__word{color:#f1f6ff;text-shadow:0 0 28px rgba(141,217,255,.5),0 0 80px rgba(141,217,255,.18)}
+.wl-splash__tick{position:absolute;width:18px;height:18px;border:0 solid rgba(141,217,255,.5);opacity:0;animation:wl-splash-in .4s ease 1.7s forwards}
+.wl-splash__tick:nth-of-type(1){top:24px;left:24px;border-width:1px 0 0 1px}
+.wl-splash__tick:nth-of-type(2){top:24px;right:24px;border-width:1px 1px 0 0}
+.wl-splash__tick:nth-of-type(3){bottom:24px;left:24px;border-width:0 0 1px 1px}
+.wl-splash__tick:nth-of-type(4){bottom:24px;right:24px;border-width:0 1px 1px 0}
+/* Sweep: spot starts off-left, crosses to the right third, returns to centre. */
+@keyframes wl-spot-sweep{
+  0%{-webkit-mask-position:90% 0;mask-position:90% 0}
+  55%{-webkit-mask-position:30% 0;mask-position:30% 0}
+  100%{-webkit-mask-position:50% 0;mask-position:50% 0}}
+@keyframes wl-splash-in{to{opacity:1}}
+@keyframes wl-splash-out{to{opacity:0;visibility:hidden}}
+.wl-splash--dismiss{animation:wl-splash-out .2s ease forwards!important}
+/* Reduced motion: static lit frame, short fade. */
+.wl-splash--reduced{animation:wl-splash-out .3s ease .9s forwards}
+.wl-splash--reduced .wl-splash__lit{animation:none;-webkit-mask-position:50% 0;mask-position:50% 0}
+.wl-splash--reduced .wl-splash__final,.wl-splash--reduced .wl-splash__tick{animation:none;opacity:1}
+@media (prefers-reduced-motion:reduce){
+  .wl-splash{animation:wl-splash-out .3s ease .9s forwards}
+  .wl-splash__lit{animation:none;-webkit-mask-position:50% 0;mask-position:50% 0}
+  .wl-splash__final,.wl-splash__tick{animation:none;opacity:1}}
+@media (forced-colors:active){.wl-splash{display:none}}

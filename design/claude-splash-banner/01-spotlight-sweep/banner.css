@@ -1,0 +1,10 @@
+/* Watchlist PC banner — shared layout (identical file in every option; only banner.svg differs).
+   Static, decorative background behind the existing desktop header at ≥1200px. */
+.wl-banner{position:relative;box-sizing:border-box;min-height:176px;padding:28px 32px 0;display:grid;align-content:space-between;gap:18px;background:#05070d url(banner.svg) left center/cover no-repeat}
+.wl-banner__top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.wl-banner__brand{display:flex;align-items:center;gap:16px}
+.wl-banner__word{margin:0;font:400 60px/1 'Instrument Serif',Georgia,serif;letter-spacing:-.01em;color:#f1f6ff;text-shadow:0 0 30px rgba(141,217,255,.4)}
+.wl-banner__word small{margin-left:8px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:0;color:#a3afc6;text-shadow:none}
+/* Below 1200px: ordinary compact header, no image, no extra height. */
+@media (max-width:1199.98px){.wl-banner{min-height:0;padding-top:20px;background-image:none}.wl-banner__word{font-size:28px;text-shadow:none}}
+@media (forced-colors:active){.wl-banner{background-image:none}}

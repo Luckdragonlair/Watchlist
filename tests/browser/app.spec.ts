@@ -11,14 +11,14 @@ test.beforeEach(async({page})=>{
   });
 });
 test('search, explicit import, check-off, persistence, undo, completion and offline detail',async({page,context})=>{
-  await page.goto('/'); await expect(page.getByText('No ready episodes.',{exact:false})).toBeVisible();
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click(); await expect(page.getByText('No ready episodes.',{exact:false})).toBeVisible();
   await page.getByRole('button',{name:'Add Show',exact:true}).click(); await page.getByLabel('Show title').fill('Fixture'); await page.getByRole('button',{name:'Search TVmaze'}).click();
   await expect(page.getByRole('button',{name:'Import Fixture series (#90001)'})).toBeVisible();
   await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page); await page.getByRole('button',{name:'Back to library'}).click();
   await expect(page.getByText('2 available unwatched', {exact:false})).toBeVisible();
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'}).click();
   await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
-  await page.reload(); await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click(); await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'}).click(); await expect(page.getByRole('dialog',{name:'Season complete'})).toBeVisible();
   await page.getByRole('button',{name:'Undo last episode change'}).click(); await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'}).click(); await page.getByRole('button',{name:'Dismiss completion'}).click();
@@ -28,7 +28,7 @@ test('search, explicit import, check-off, persistence, undo, completion and offl
   await page.getByRole('button',{name:'Refresh metadata'}).click(); await expect(page.getByRole('alert')).toBeVisible(); await expect(page.getByRole('checkbox').first()).toBeChecked();
 });
 test('bulk working-list retains Silo exclusion and blocks ambiguous truncated entries',async({page})=>{
-  await page.goto('/'); await page.getByRole('button',{name:'Import',exact:true}).click();
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click(); await page.getByRole('button',{name:'Import',exact:true}).click();
   await page.getByLabel('Working list file').setInputFiles({name:'working.txt',mimeType:'text/plain',buffer:Buffer.from('Silo\nSilo Season 2\nRe S3\nFixture series')});
   await page.getByRole('button',{name:'Match',exact:true}).click(); await expect(page.getByRole('button',{name:/Find match for Silo/})).toHaveCount(0);
   await expect(page.getByText('Re S3 · review',{exact:true})).toBeVisible(); await page.getByRole('button',{name:'Find match for Fixture series'}).click();
@@ -37,7 +37,7 @@ test('bulk working-list retains Silo exclusion and blocks ambiguous truncated en
 });
 test('real starting catalog is preserved in Match, with no source queue under library views',async({page})=>{
   const seed=JSON.parse(readFileSync(new URL('../../public/master-working.json',import.meta.url),'utf8'));
-  await page.route('**/master-working.json',route=>route.fulfill({json:seed}));await page.goto('/');
+  await page.route('**/master-working.json',route=>route.fulfill({json:seed}));await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();
   for(const name of ['Weekly','Binge','Watched']){await page.getByRole('button',{name,exact:true}).click();await expect(page.getByRole('button',{name:/Find match for/})).toHaveCount(0);}
   await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByLabel('Filter source entries').fill('3 Body Problem');await expect(page.getByRole('button',{name:/Find match for 3 Body Problem/}).first()).toBeVisible();
   await page.getByLabel('Filter source entries').fill('Silo');await expect(page.getByRole('article')).toHaveCount(0);await page.getByLabel('Filter source entries').fill('');
@@ -49,7 +49,7 @@ test('real starting catalog is preserved in Match, with no source queue under li
 test('mid-season onboarding starts at episode eight and refresh preserves progress and personal notes',async({page})=>{
   const many=[...Array.from({length:10},(_,i)=>({...episodes[0],id:93000+i,season:1,number:i+1,name:`One ${i+1}`})),...Array.from({length:10},(_,i)=>({...episodes[0],id:94000+i,season:2,number:i+1,name:`Two ${i+1}`}))];
   await page.route('https://api.tvmaze.com/shows/90001/episodes',route=>route.fulfill({json:many}));
-  await page.goto('/'); await page.getByRole('button',{name:'Add Show',exact:true}).click(); await page.getByLabel('Show title').fill('Fixture'); await page.getByRole('button',{name:'Search TVmaze'}).click(); await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click(); await page.getByRole('button',{name:'Add Show',exact:true}).click(); await page.getByLabel('Show title').fill('Fixture'); await page.getByRole('button',{name:'Search TVmaze'}).click(); await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);
   await page.getByRole('combobox',{name:'Current episode',exact:true}).selectOption('94007'); await page.getByRole('button',{name:'Mark earlier released episodes watched'}).click();
   await expect(page.getByRole('checkbox',{name:'S2 E7 · Two 7',exact:true})).toBeChecked(); await expect(page.getByRole('checkbox',{name:'S2 E8 · Two 8',exact:true})).not.toBeChecked();
   await page.getByLabel('Personal notes').fill('Keep my progress and corrections'); await page.getByRole('button',{name:'Save notes'}).click(); await page.getByRole('button',{name:'Refresh metadata'}).click();
@@ -59,7 +59,7 @@ test('mid-season onboarding starts at episode eight and refresh preserves progre
 test('seasonless watched source requires explicit confirmation of scope',async({page})=>{
   const source={id:'seasonless-test',name:'Seasonless source',raw:'original source retained',importedAt:'2026-11-05',rows:[{id:'1',title:'Fixture series',state:'pending',notes:'Ended',sourceCategory:'Watched'}]};
   await page.route('**/master-working.json',route=>route.fulfill({json:source}));
-  await page.goto('/'); await page.getByRole('button',{name:'Watched',exact:true}).click(); await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByRole('button',{name:'Find match for Fixture series',exact:true}).click();
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click(); await page.getByRole('button',{name:'Watched',exact:true}).click(); await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByRole('button',{name:'Find match for Fixture series',exact:true}).click();
   await page.getByRole('button',{name:'Search TVmaze'}).click(); await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click(); await expect(page.getByRole('alert')).toContainText('Confirm the scope');
   await page.getByRole('checkbox',{name:'This source marks the whole title Watched',exact:false}).check(); await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await page.getByRole('button',{name:'Skip for now'}).click();await page.getByRole('button',{name:'Import',exact:true}).click();
   await expect(page.getByRole('button',{name:'Find match for Fixture series',exact:true})).toHaveCount(0); await page.getByRole('button',{name:'Watched',exact:true}).click(); await expect(page.getByText('Watched seasons: 1')).toBeVisible();
@@ -68,14 +68,14 @@ test('a future later-season premiere does not move an unfinished released season
   const backlog=[8,9,10].map(number=>({...episodes[0],id:95000+number,season:3,number,name:`Three ${number}`}));
   const future={...episodes[0],id:96001,season:4,number:1,name:'Future premiere',airstamp:'2035-07-06T12:00:00Z',airdate:'2035-07-06'};
   await page.route('https://api.tvmaze.com/shows/90001/episodes',route=>route.fulfill({json:[...backlog,future]}));
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);
   await page.getByRole('button',{name:'Back to library'}).click();
   const card=page.getByRole('article',{name:'Fixture series',exact:true});
   await expect(card.getByRole('checkbox',{name:'Watch Fixture series S3 E8 · Three 8'})).toBeVisible();
   await expect(card).toContainText('3 available unwatched');
   await page.getByRole('button',{name:'Weekly',exact:true}).click();await expect(page.getByRole('article',{name:'Fixture series',exact:true})).toHaveCount(0);
   await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(card.getByRole('checkbox',{name:'Watch Fixture series S3 E8 · Three 8'})).toBeVisible();
-  await page.reload();await expect(card.getByRole('checkbox',{name:'Watch Fixture series S3 E8 · Three 8'})).toBeVisible();
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(card.getByRole('checkbox',{name:'Watch Fixture series S3 E8 · Three 8'})).toBeVisible();
   await card.getByRole('checkbox').click();await expect(card.getByRole('checkbox',{name:'Watch Fixture series S3 E9 · Three 9'})).toBeVisible();
   await card.getByRole('checkbox').click();await expect(card.getByRole('checkbox',{name:'Watch Fixture series S3 E10 · Three 10'})).toBeVisible();
   await card.getByRole('checkbox').click();await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await expect(card).toContainText('Next confirmed airing');
@@ -84,7 +84,7 @@ test('a future later-season premiere does not move an unfinished released season
 test('delete confirmation can be cancelled and confirmed deletion removes all records and survives reload',async({page})=>{
   const source={id:'delete-seed',name:'Delete test seed',raw:'Fixture series original',importedAt:'2026-11-05',rows:[{id:'1',title:'Fixture series',notes:'source notes',state:'pending',sourceCategory:'Binge'}]};
   await page.route('**/master-working.json',route=>route.fulfill({json:source}));
-  await page.goto('/');await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByRole('button',{name:'Find match for Fixture series',exact:true}).click();await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await page.getByRole('button',{name:'Skip for now'}).click();await page.getByRole('button',{name:'Import',exact:true}).click();
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByRole('button',{name:'Find match for Fixture series',exact:true}).click();await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await page.getByRole('button',{name:'Skip for now'}).click();await page.getByRole('button',{name:'Import',exact:true}).click();
   await expect(page.getByRole('button',{name:'Find match for Fixture series',exact:true})).toHaveCount(0);await page.getByRole('button',{name:'Binge',exact:true}).click();
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'}).click();await page.getByRole('button',{name:'Fixture series',exact:true}).click();
   await page.getByLabel('Personal notes').fill('Remove personal notes too');await page.getByRole('button',{name:'Save notes'}).click();
@@ -92,7 +92,7 @@ test('delete confirmation can be cancelled and confirmed deletion removes all re
   await expect(page.getByRole('heading',{name:'Fixture series',exact:true})).toBeVisible();await expect(page.getByRole('checkbox').first()).toBeChecked();
   page.once('dialog',async dialog=>{expect(dialog.message()).toContain('watched history');await dialog.accept();});await page.getByRole('button',{name:'Delete show',exact:true}).click();
   await expect(page.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);
-  await page.reload();for(const name of ['Weekly','Binge','Watched']){await page.getByRole('button',{name,exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);}
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();for(const name of ['Weekly','Binge','Watched']){await page.getByRole('button',{name,exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);}
   await page.getByRole('button',{name:'Import',exact:true}).click();await expect(page.getByText('0 installments retained')).toBeVisible();
   const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup'}).click();const download=await downloadPromise;const backup=JSON.parse(readFileSync((await download.path())!,'utf8'));
   for(const table of ['shows','seasons','episodes','progress','preferences']) expect(backup[table]).toEqual([]);
@@ -104,18 +104,18 @@ test('delete confirmation can be cancelled and confirmed deletion removes all re
 test('a pending source import in another tab cannot resurrect a deleted show',async({page,context})=>{
   const source={id:'race-seed',name:'Race seed',raw:'Fixture series',importedAt:'2026-11-05',rows:[{id:'1',title:'Fixture series',notes:'',state:'pending',sourceCategory:'Binge'}]};
   await page.route('**/master-working.json',route=>route.fulfill({json:source}));
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);await page.getByRole('button',{name:'Back to library'}).click();
-  const other=await context.newPage();await other.route('**/master-working.json',route=>route.fulfill({json:source}));await other.goto('/');
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);await page.getByRole('button',{name:'Back to library'}).click();
+  const other=await context.newPage();await other.route('**/master-working.json',route=>route.fulfill({json:source}));await other.goto('/');await other.getByRole('button',{name:'Binge',exact:true}).click();
   await page.getByRole('button',{name:'Match',exact:true}).click();await page.getByRole('button',{name:'Find match for Fixture series',exact:true}).click();await page.getByRole('button',{name:'Search TVmaze'}).click();
   let release!:()=>void;const gate=new Promise<void>(resolve=>release=resolve);let fetching!:()=>void;const started=new Promise<void>(resolve=>fetching=resolve);
   await page.route('https://api.tvmaze.com/shows/90001/episodes',async route=>{fetching();await gate;await route.fulfill({json:episodes});});
   await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await started;
   await other.getByRole('button',{name:'Fixture series',exact:true}).click();other.once('dialog',dialog=>dialog.accept());await other.getByRole('button',{name:'Delete show',exact:true}).click();await expect(other.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();
   release();await expect(page.getByRole('alert')).toContainText('changed or was removed');
-  await page.reload();await expect(page.getByRole('article')).toHaveCount(0);await other.close();
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);await other.close();
 });
 test('backup export downloads viewing history and shows feedback plus a reusable download link beside the button',async({page})=>{
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);await page.getByRole('button',{name:'Back to library'}).click();
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);await page.getByRole('button',{name:'Back to library'}).click();
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'}).click();await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
   const section=page.getByRole('region',{name:'Backup export'});
   const downloading=page.waitForEvent('download');await section.getByRole('button',{name:'Export backup',exact:true}).click();const first=await downloading;
@@ -127,7 +127,7 @@ test('backup export downloads viewing history and shows feedback plus a reusable
   await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
 });
 test('restore previews and cancels safely, then recovers an exported library with notes and watched progress',async({page})=>{
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);
   await page.getByLabel('Personal notes').fill('Bring these notes back');await page.getByRole('button',{name:'Save notes'}).click();await page.getByRole('checkbox',{name:'S1 E1 · Episode 1',exact:true}).click();await expect(page.getByRole('checkbox',{name:'S1 E1 · Episode 1',exact:true})).toBeChecked();
   const downloading=page.waitForEvent('download');await page.getByRole('region',{name:'Backup export'}).getByRole('button',{name:'Export backup',exact:true}).click();const download=await downloading;const path=(await download.path())!;
   page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Delete show',exact:true}).click();await expect(page.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();
@@ -137,38 +137,38 @@ test('restore previews and cancels safely, then recovers an exported library wit
   const safeguard=page.waitForEvent('download');await preview.getByRole('button',{name:'Export backup',exact:true}).click();const currentBackup=await safeguard;expect(JSON.parse(readFileSync((await currentBackup.path())!,'utf8')).shows).toEqual([]);
   await preview.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await preview.getByRole('button',{name:'Replace library and restore'}).click();
   await expect(preview).not.toBeVisible();await expect(page.getByRole('region',{name:'Backup restore'}).getByRole('status')).toContainText('Backup restored');await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);
-  await page.reload();await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();await page.getByRole('button',{name:'Fixture series',exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Bring these notes back');await expect(page.getByRole('checkbox').first()).toBeChecked();
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();await page.getByRole('button',{name:'Fixture series',exact:true}).click();await expect(page.getByLabel('Personal notes')).toHaveValue('Bring these notes back');await expect(page.getByRole('checkbox').first()).toBeChecked();
 });
 test('malformed restore files leave the existing library untouched',async({page})=>{
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);await page.getByRole('button',{name:'Back to library'}).click();
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);await page.getByRole('button',{name:'Back to library'}).click();
   await page.getByLabel('Backup file').setInputFiles({name:'broken.json',mimeType:'application/json',buffer:Buffer.from('{broken')});await expect(page.getByRole('region',{name:'Backup restore'}).getByRole('alert')).toContainText('could not be read');await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'})).toBeVisible();
   await page.getByLabel('Backup file').setInputFiles({name:'future.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:99}))});await expect(page.getByRole('region',{name:'Backup restore'}).getByRole('alert')).toContainText('unsupported');await expect(page.getByRole('article',{name:'Fixture series',exact:true})).toBeVisible();
 });
 test('an empty restore stays empty after reload and does not reimport the starter catalog',async({page})=>{
   const source={id:'empty-restore-seed',name:'Starter',raw:'Fixture',importedAt:'2026-11-05T00:00:00Z',rows:[{id:'1',title:'Fixture series',notes:'',state:'pending',sourceCategory:'Binge'}]};
-  await page.route('**/master-working.json',route=>route.fulfill({json:source}));await page.goto('/');await page.getByRole('button',{name:'Match',exact:true}).click();await expect(page.getByRole('article')).toHaveCount(1);
+  await page.route('**/master-working.json',route=>route.fulfill({json:source}));await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Match',exact:true}).click();await expect(page.getByRole('article')).toHaveCount(1);
   const backup={version:1,exportedAt:'2026-11-05T00:00:00Z',shows:[],seasons:[],episodes:[],progress:[],preferences:[],sources:[]};
   await page.getByLabel('Backup file').setInputFiles({name:'empty.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});const dialog=page.getByRole('dialog',{name:'Restore this backup?'});await dialog.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await dialog.getByRole('button',{name:'Replace library and restore'}).click();await expect(dialog).not.toBeVisible();await expect(page.getByRole('article')).toHaveCount(0);
-  await page.reload();await expect(page.getByRole('button',{name:'Restore backup',exact:true})).toBeEnabled();await expect(page.getByRole('article')).toHaveCount(0);await page.getByRole('button',{name:'Import',exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);
+  await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByRole('button',{name:'Restore backup',exact:true})).toBeEnabled();await expect(page.getByRole('article')).toHaveCount(0);await page.getByRole('button',{name:'Import',exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);
 });
 test('restoring in another tab clears old undo state and rejects an older in-flight import',async({page,context})=>{
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);await page.getByRole('button',{name:'Back to library'}).click();
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);await page.getByRole('button',{name:'Back to library'}).click();
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'}).click();await expect(page.getByRole('button',{name:'Undo last episode change'})).toBeVisible();
   await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();
   let release!:()=>void,started!:()=>void;const gate=new Promise<void>(resolve=>release=resolve),waiting=new Promise<void>(resolve=>started=resolve);
   await page.route('https://api.tvmaze.com/shows/90001/episodes',async route=>{started();await gate;await route.fulfill({json:episodes});});await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await waiting;
-  const other=await context.newPage();await other.goto('/');const backup={version:1,exportedAt:'2026-11-05T00:00:00Z',shows:[],seasons:[],episodes:[],progress:[],preferences:[],sources:[]};
+  const other=await context.newPage();await other.goto('/');await other.getByRole('button',{name:'Binge',exact:true}).click();const backup={version:1,exportedAt:'2026-11-05T00:00:00Z',shows:[],seasons:[],episodes:[],progress:[],preferences:[],sources:[]};
   await other.getByLabel('Backup file').setInputFiles({name:'empty.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});const dialog=other.getByRole('dialog',{name:'Restore this backup?'});await dialog.getByRole('checkbox',{name:'Replace my current library with this backup.'}).check();await dialog.getByRole('button',{name:'Replace library and restore'}).click();await expect(dialog).not.toBeVisible();
-  await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);release();await expect(page.getByRole('alert')).toContainText('library was restored');await page.reload();await expect(page.getByRole('article')).toHaveCount(0);await other.close();
+  await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);release();await expect(page.getByRole('alert')).toContainText('library was restored');await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);await other.close();
 });
 
 test('remote notes refresh clean drafts and preserve conflicting unsaved drafts',async({page,context})=>{
-  await page.goto('/');
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();
   await page.getByRole('button',{name:'Add Show',exact:true}).click();
   await page.getByLabel('Show title').fill('Fixture');
   await page.getByRole('button',{name:'Search TVmaze'}).click();
   await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);
-  const other=await context.newPage();await other.goto('/');
+  const other=await context.newPage();await other.goto('/');await other.getByRole('button',{name:'Binge',exact:true}).click();
   async function remoteNotes(value:string){await other.evaluate(async value=>{
     const modulePath='/src/db.ts';
     const {db}=await import(modulePath);
@@ -185,3 +185,6 @@ test('remote notes refresh clean drafts and preserve conflicting unsaved drafts'
   await expect(page.getByLabel('Personal notes')).toHaveValue('Another phone edit');
   await other.close();
 });
+
+// Decorative startup is covered by splash.spec; keep library/fake-clock workflows independent.
+test.beforeEach(async({context})=>{await context.route('**/splash/startup.js',route=>route.fulfill({contentType:'text/javascript',body: "document.querySelector('.wl-splash')?.remove();"}));});

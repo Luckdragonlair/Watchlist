@@ -6,7 +6,7 @@ test('an announced episode with an empty provider date imports as unknown and st
   const episodes=[{id:931001,season:1,number:1,name:'Released',type:'regular',summary:null,airstamp:'2025-01-01T12:00:00Z',airdate:'2025-01-01'},{id:931002,season:3,number:1,name:'Announced',type:'regular',summary:null,airstamp:null,airdate:''}];
   await page.route('**/master-working.json',route=>route.fulfill({json:{id:'empty',name:'Fixture',raw:'',importedAt:'2026-11-08',rows:[]}}));
   await page.route('https://api.tvmaze.com/**',route=>{const path=new URL(route.request().url()).pathname;return route.fulfill({json:path==='/search/shows'?[{show}]:path.endsWith('/episodes')?episodes:path.endsWith('/seasons')?[]:show});});
-  await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill(show.name);
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill(show.name);
   await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Unknown date fixture (#930001)'}).click();
   const dialog=page.getByRole('dialog');await dialog.getByLabel('Current episode (optional)').selectOption('caught-up');await dialog.getByLabel('Personal notes (optional)').fill('Keep following');await dialog.getByRole('button',{name:'Save and continue'}).click();
   await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await page.getByRole('button',{name:show.name,exact:true}).click();await expect(page.getByRole('checkbox',{name:'S1 E1 · Released',exact:true})).toBeChecked();
@@ -15,3 +15,6 @@ test('an announced episode with an empty provider date imports as unknown and st
   const backup=JSON.parse(readFileSync((await (await downloading).path())!,'utf8'));
   expect(backup.episodes.find((e:{id:number})=>e.id===931002)).toMatchObject({airdate:null,airstamp:null});expect(backup.preferences[0].notes).toBe('Keep following');
 });
+
+// Decorative startup is covered by splash.spec; keep library/fake-clock workflows independent.
+test.beforeEach(async({context})=>{await context.route('**/splash/startup.js',route=>route.fulfill({contentType:'text/javascript',body: "document.querySelector('.wl-splash')?.remove();"}));});

@@ -1,0 +1,31 @@
+/* Watchlist splash — Option 02: Projector screen
+   A projector beam flickers on, a screen fills with light, the wordmark pulls into focus
+   inside the icon's tick ring, then the splash fades. Total 2.6s. Nonblocking (see README). */
+.wl-splash{position:fixed;inset:0;z-index:1000;overflow:hidden;background:#05070d;animation:wl-splash-out .4s ease 2.2s forwards}
+.wl-splash__beam{position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(to bottom,rgba(191,230,255,.20),rgba(141,217,255,.05));clip-path:polygon(47.5% 0,52.5% 0,94% 100%,6% 100%);opacity:0;animation:wl-beam-on .7s steps(1,end) .1s forwards}
+.wl-splash__screen{position:absolute;left:50%;top:50%;width:min(88vw,960px);aspect-ratio:16/9;transform:translate(-50%,-50%);border:1px solid #1a2438;background:#070b14;display:grid;place-items:center;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.wl-splash__light{position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 45%,#22395f,#0e1a30 70%,#09111f);opacity:0;animation:wl-screen-on .7s steps(1,end) .1s forwards}
+.wl-splash__scan{position:absolute;inset:0;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);opacity:0;animation:wl-splash-in .3s ease .3s forwards}
+.wl-splash__ring{position:absolute;left:50%;top:50%;width:min(44vw,420px);aspect-ratio:1;margin:calc(min(44vw,420px)/-2) 0 0 calc(min(44vw,420px)/-2);border-radius:50%;opacity:0;
+  background:repeating-conic-gradient(rgba(141,217,255,.55) 0 1.2deg,transparent 1.2deg 10deg);
+  -webkit-mask:radial-gradient(circle,transparent 68%,#000 69%,#000 73%,transparent 74%);mask:radial-gradient(circle,transparent 68%,#000 69%,#000 73%,transparent 74%);
+  animation:wl-ring 1.3s cubic-bezier(.3,0,.2,1) .35s both}
+.wl-splash__word{position:relative;font:400 min(13vw,128px)/1 'Instrument Serif',Georgia,serif;letter-spacing:.16em;white-space:nowrap;color:#f1f6ff;text-shadow:0 0 30px rgba(141,217,255,.5);filter:blur(10px);opacity:0;animation:wl-focus .9s cubic-bezier(.2,.7,.2,1) .5s forwards}
+.wl-splash__floor{position:absolute;left:50%;bottom:0;width:min(100vw,1200px);height:22%;transform:translateX(-50%);background:radial-gradient(ellipse 50% 60% at 50% 0,rgba(141,217,255,.07),transparent 70%);opacity:0;animation:wl-splash-in .5s ease .5s forwards}
+@keyframes wl-beam-on{0%{opacity:.9}10%{opacity:.2}22%{opacity:.75}30%{opacity:.35}45%,100%{opacity:1}}
+@keyframes wl-screen-on{0%{opacity:.7}10%{opacity:.15}22%{opacity:.65}30%{opacity:.3}45%,100%{opacity:1}}
+@keyframes wl-ring{0%{opacity:0;transform:rotate(-50deg) scale(1.08)}35%{opacity:1}75%{opacity:.9}100%{opacity:0;transform:rotate(0) scale(1)}}
+@keyframes wl-focus{to{filter:blur(0);letter-spacing:-.01em;opacity:1}}
+@keyframes wl-splash-in{to{opacity:1}}
+@keyframes wl-splash-out{to{opacity:0;visibility:hidden}}
+.wl-splash--dismiss{animation:wl-splash-out .2s ease forwards!important}
+.wl-splash--reduced{animation:wl-splash-out .3s ease .9s forwards}
+.wl-splash--reduced *{animation:none!important}
+.wl-splash--reduced .wl-splash__beam,.wl-splash--reduced .wl-splash__light,.wl-splash--reduced .wl-splash__scan,.wl-splash--reduced .wl-splash__floor{opacity:1}
+.wl-splash--reduced .wl-splash__word{opacity:1;filter:none;letter-spacing:-.01em}
+@media (prefers-reduced-motion:reduce){
+  .wl-splash{animation:wl-splash-out .3s ease .9s forwards}
+  .wl-splash *{animation:none!important}
+  .wl-splash__beam,.wl-splash__light,.wl-splash__scan,.wl-splash__floor{opacity:1}
+  .wl-splash__word{opacity:1;filter:none;letter-spacing:-.01em}}
+@media (forced-colors:active){.wl-splash{display:none}}

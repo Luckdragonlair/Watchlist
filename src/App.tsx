@@ -1,3 +1,4 @@
+import {weeklyDays} from './weekly-days';
 import {filedTitle,compareTitles,matchesTitle} from './titles';
 import {version} from '../package.json';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
@@ -18,7 +19,7 @@ import type {BingeSection} from './model';
 
 type View = 'Weekly' | 'Binge' | 'Watched' | 'Add Show' | 'Import' | 'Match';
 export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
-  const [view, setView] = useState<View>('Binge');
+  const [view, setView] = useState<View>('Weekly');
   const [phone,setPhone]=useState(()=>window.matchMedia('(max-width:839px)').matches);
   const [toolsOpen,setToolsOpen]=useState(()=>!window.matchMedia('(max-width:839px)').matches);
   const tools=useRef<HTMLDetailsElement>(null);
@@ -37,14 +38,20 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
   const [importTarget, setImportTarget] = useState<{sourceId:string;rowId:string} | null>(null);
   const [matchReturn,setMatchReturn]=useState<View>('Match');
   const [setup,setSetup]=useState<{snapshot:SetupSnapshot;returnTo:View}|null>(null);
-  const lastLibrary=useRef<View>('Binge'),listHeading=useRef<HTMLHeadingElement>(null),returning=useRef(false);
+  const lastLibrary=useRef<View>('Weekly'),listHeading=useRef<HTMLHeadingElement>(null),returning=useRef(false);
   useEffect(()=>{if(menuNavigation.current){menuNavigation.current=false;listHeading.current?.focus();}},[view,toolsOpen]);
   function openUtility(next:'Import'|'Match'){menuNavigation.current=next!==view||detail!==null;setMatchReturn('Match');setImportTarget(null);setDetail(null);setView(next);if(phone){if(tools.current)tools.current.open=false;setToolsOpen(false);}if(!menuNavigation.current)listHeading.current?.focus();}
   useEffect(()=>{if(['Weekly','Binge','Watched'].includes(view))lastLibrary.current=view;},[view]);
   useEffect(()=>{if(!setup&&returning.current){returning.current=false;listHeading.current?.focus();}},[setup]);
   async function beginSetup(id:number,returnTo:View){setDetail(null);setSetup({snapshot:await loadShowSetup(id),returnTo});}
   function finishSetup(saved:boolean){if(!setup)return;setView(setup.returnTo);setNotice(`${setup.snapshot.name} ${saved?'setup saved':'is in your library; setup skipped'}.`);returning.current=true;setSetup(null);}
-  useEffect(() => { const timer = setInterval(() => setNow(new Date()), 60000); return () => clearInterval(timer); }, []);
+  useEffect(() => {
+    const update=()=>setNow(new Date());
+    const visible=()=>{if(document.visibilityState==='visible')update();};
+    const timer=setInterval(update,60000);
+    window.addEventListener('focus',update);document.addEventListener('visibilitychange',visible);
+    return ()=>{clearInterval(timer);window.removeEventListener('focus',update);document.removeEventListener('visibilitychange',visible);};
+  }, []);
   useEffect(() => {
     (async()=>{
       if(import.meta.env.MODE==='hosted') return;
@@ -130,7 +137,7 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
     const searched=data.shows.filter(s=>matchesTitle(s.name,filter));
     const visible=searched.filter(s=>(view!=='Weekly'||preference(s)!=='not-for-me')&&(showBucket(s)===view||(view==='Watched'&&data.progress.some(p=>data.episodes.some(e=>e.id===p.episodeId&&e.showId===s.id))))).sort(view==='Watched'?(a,b)=>compareTitles(a.name,b.name):byOrder);
     if(view==='Weekly'){
-      const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+      const days=weeklyDays(now);
       content=<>{days.map(day=>{
         const shows=visible.filter(s=>{const next=weeklyRelease(data.episodes.filter(e=>e.showId===s.id),data.progress,now);return next&&new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',weekday:'long'}).format(new Date(next.airstamp!))===day;});
         return shows.length?<section key={day}><h2>{day}</h2>{shows.map(card)}</section>:null;
@@ -146,7 +153,7 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
     }else content=<>{visible.map(card)}{!visible.length&&<p>No episode history yet. Unmatched shows are in Match.</p>}</>;
   }
   return <main className="watchlist-app">
-    <header className="app-header"><div className="brand"><span className="brand-mark" aria-hidden="true">W</span><h1>Watchlist <small>v{version}</small></h1></div>
+    <header className="app-header"><div className="release-version" aria-label={`Watchlist version ${version}`}>v{version}</div>
     <div className="top-controls"><nav aria-label="Views">{(['Weekly','Binge','Watched','Add Show','Import','Match'] as View[]).map(v => <button key={v} className={(v==='Import'||v==='Match')?'import-nav':undefined} aria-current={view === v ? 'page' : undefined} onClick={() => {setView(v); setDetail(null); if(v==='Import'||v==='Match'){setMatchReturn('Match');setImportTarget(null);}}}><span className="nav-symbol" aria-hidden="true">{({Weekly:'▦',Binge:'▷',Watched:'✓','Add Show':'+',Import:'↓',Match:'⌕'})[v]}</span>{v}</button>)}</nav><details ref={tools} className="app-tools" open={toolsOpen} onToggle={event=>setToolsOpen(event.currentTarget.open)} onKeyDown={event=>{if(phone&&event.key==='Escape'&&!(event.target as Element).closest('dialog')){event.preventDefault();event.currentTarget.open=false;setToolsOpen(false);event.currentTarget.querySelector('summary')?.focus();}}}><summary aria-label="More Watchlist actions">More</summary><div className="tool-panel"><div className="phone-tools-views"><button onClick={()=>openUtility('Import')}>Import</button><button onClick={()=>openUtility('Match')}>Match</button></div><div className="backup-controls"><BackupExport disabled={busy||restoring||!data}/><BackupRestore disabled={busy||!data} onBusyChange={setRestoring} onRestored={resetAfterRestore}/></div>{phone&&<><p className="phone-context">Release times: America/Chicago</p><PwaStatus mode="options"/></>}</div></details></div></header>
     <p className="library-context">Your library <span aria-hidden="true">/</span> Release times in America/Chicago</p>
     <PwaStatus mode={phone?'alerts':'all'}/>{error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}

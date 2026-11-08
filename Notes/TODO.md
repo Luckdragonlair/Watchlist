@@ -182,7 +182,7 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [ ] Owner checks v0.5.0 on PC and phone: update both, move a show, verify shared section/order and offline reconnect.
 - [ ] Accessible drag-and-drop is next; A-Z rail, final styling/dialogs and assistive-tech/zoom acceptance remain.
 
-- [ ] Claude is preparing splash/title screen and optional PC banner designs (owner plan 2026-11-08). Review/integrate later; keep splash brief and nonblocking, with offline/reduced-motion support. No implementation claimed.
+- [x] Superseded by the approved original v0.6.0 splash/banner milestone below. Historical plan: Claude is preparing splash/title screen and optional PC banner designs (owner plan 2026-11-08). Review/integrate later; keep splash brief and nonblocking, with offline/reduced-motion support. No implementation claimed.
 
 2026-11-08 design follow-up: owner proposes a movie-style spotlight sweeping across a wall/stage/screen to reveal Watchlist. Claude is preparing the splash and possible PC banner assets. This is a proposed visual concept, not built or a reason to delay library access; use a brief nonblocking reveal and a static reduced-motion state. Final assets still need review.
 
@@ -192,3 +192,12 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Compact healthy account/sync information; omit empty Ready groups and reduce control whitespace.
 - [x] Verify 320px/412px content visibility, keyboard menu/focus behavior and backup restore cancellation on disposable data.
 - [ ] Owner verifies the updated layout on the actual phone recording's device after v0.5.1 update.
+
+## Original splash and Weekly launch - 2026-11-08
+
+- [x] Preserve approved original assets and integrate dark Brick alley/Gold banner, local Limelight, dark manifest colours and offline/public allowlist.
+- [x] Keep original flash/five-second timing and safe reduced-motion/forced-colours/failure cleanup; retain compact phone utilities.
+- [x] Default to Weekly and rotate from today in Central time, skipping empty days.
+- [x] Automated verification: 234 unit, 39 browser, eight PWA, hosted privacy and both builds/privacy guard. Published Hosting-only; live asset hashes match the tested build.
+- [ ] Owner checks actual Android portrait/landscape smoothness and banner after updating.
+- [ ] Accessible dragging remains next after this owner-requested presentation milestone.

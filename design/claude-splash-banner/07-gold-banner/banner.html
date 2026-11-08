@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>07 Gold banner · preview</title>
+<link rel="stylesheet" href="../preview/preview.css">
+<style>
+.sizes{display:grid;gap:28px;padding:24px 20px 40px;max-width:1400px;margin:0 auto}
+.row{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.sizes h3{margin:0 0 8px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#a3afc6;text-transform:uppercase}
+.vp{position:relative;overflow:hidden;border:1px solid #1a2438;border-radius:8px;background:#05070d}
+.vp iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0}
+</style></head><body>
+<div class="pv-bar"><h1>Gold banner</h1><span class="pv-tag">Option 07 · top banner, all screens</span><span class="pv-spacer"></span><a href="../index.html">All options</a></div>
+<div class="sizes">
+  <div><h3>PC 1440</h3><div class="vp" data-w="1440" data-h="420" data-fit="1"></div></div>
+  <div class="row">
+    <div><h3>Phone portrait 412</h3><div class="vp" data-w="412" data-h="560" data-s=".75"></div></div>
+    <div><h3>Phone landscape 860 × 400</h3><div class="vp" data-w="860" data-h="400" data-s=".75"></div></div>
+  </div>
+</div>
+<p class="pv-note">The page behind the banner is a stand-in. Only banner.css (and the Limelight font) is the asset.</p>
+<script>
+(function(){var vps=[].slice.call(document.querySelectorAll('.vp'));
+vps.forEach(function(v){var f=document.createElement('iframe');f.src='../preview/app-mock.html';f.width=v.dataset.w;f.height=v.dataset.h;f.title=v.dataset.w+' pixel preview';f.tabIndex=-1;v.appendChild(f);});
+function fit(){vps.forEach(function(v){var s=v.dataset.fit?Math.min(1,v.parentNode.clientWidth/v.dataset.w):+v.dataset.s;v.style.width=v.dataset.w*s+'px';v.style.height=v.dataset.h*s+'px';v.firstChild.style.transform='scale('+s+')';});}
+addEventListener('resize',fit);fit();})();
+</script></body></html>

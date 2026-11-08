@@ -1,0 +1,24 @@
+/* Preview-only harness. Not for integration: the app already loads these fonts from public/fonts. */
+@font-face{font-family:'Instrument Serif';src:url(../fonts/instrument-serif-normal-400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url(../fonts/ibm-plex-mono-normal-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url(../fonts/ibm-plex-sans-normal-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url(../fonts/ibm-plex-sans-normal-500.woff2) format('woff2');font-weight:500;font-display:swap}
+html,body{margin:0;background:#020308;color:#e4e9f4;font:400 14px/1.5 'IBM Plex Sans',system-ui,sans-serif;color-scheme:dark}
+a{color:#8dd9ff}a:hover{color:#c4ecff}
+.pv-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:14px 20px;border-bottom:1px solid #1a2438;background:#05070d}
+.pv-bar h1{font:400 26px/1 'Instrument Serif',Georgia,serif;margin:0 12px 0 0}
+.pv-bar .pv-tag{font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#a3afc6;text-transform:uppercase}
+.pv-group{display:flex;gap:6px;align-items:center}
+.pv-bar button,.pv-bar label{font:500 13px 'IBM Plex Sans',sans-serif;color:#e4e9f4;background:#0b1220;border:1px solid #2c3b54;border-radius:8px;padding:7px 12px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.pv-bar button[aria-pressed="true"]{border-color:#8dd9ff;color:#8dd9ff}
+.pv-bar button:focus-visible,.pv-bar input:focus-visible{outline:2px solid #8dd9ff;outline-offset:2px}
+.pv-spacer{flex:1}
+.pv-stage{display:grid;place-items:center;padding:28px 20px 40px}
+.pv-frame{position:relative;overflow:hidden;transform:translateZ(0);border:1px solid #1a2438;border-radius:10px;background:#05070d;width:1280px;height:800px;max-width:100%}
+.pv-frame[data-frame="phone"]{width:412px;height:860px;border-radius:24px}
+.pv-app{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left}
+.pv-hold .wl-splash{animation:none!important;opacity:1!important;visibility:visible!important}
+.pv-note{max-width:1280px;margin:0 auto;padding:0 20px 40px;color:#a3afc6;font-size:13px}
+body.pv-embed .pv-bar,body.pv-embed .pv-note{display:none}
+body.pv-embed .pv-stage{padding:0}
+body.pv-embed .pv-frame{width:100vw;height:100vh;border:0;border-radius:0}

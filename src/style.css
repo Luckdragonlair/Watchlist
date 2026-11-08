@@ -200,3 +200,21 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); fo
   .binge-filters button{padding-inline:8px;white-space:normal;}
   .watchlist-app>p[role=status]{font-size:12px;line-height:1.35;margin:6px 0;}
 }
+/* Original gold banner; utility/navigation behavior remains the compact v0.5.1 layout. */
+.release-version{font:10px var(--mono);color:var(--muted);white-space:nowrap}
+.wl-topbar__status{font-family:'IBM Plex Sans',system-ui,sans-serif}
+.wl-topbar__status .cloud-account,.wl-topbar__status .cloud-sync{max-width:none;margin:0;padding:0;text-align:inherit}
+.wl-topbar__status .cloud-sync p{margin:0;font-size:12px}
+.wl-topbar__status .cloud-account summary{padding:4px 0;min-height:32px}
+.wl-topbar__status .cloud-account summary span{display:none}
+.wl-topbar:has(.cloud-account[open]),.wl-topbar:has(.cloud-sync[data-phase=conflict]),.wl-topbar:has(.cloud-sync[data-phase=invalid]),.wl-topbar:has(.cloud-sync[data-phase=error]){grid-template-columns:minmax(0,1fr);gap:8px}
+.wl-topbar:has(.cloud-account[open])>.wl-topbar__title,.wl-topbar:has(.cloud-sync[data-phase=conflict])>.wl-topbar__title,.wl-topbar:has(.cloud-sync[data-phase=invalid])>.wl-topbar__title,.wl-topbar:has(.cloud-sync[data-phase=error])>.wl-topbar__title{grid-column:1;justify-self:center}
+.wl-topbar:has(.cloud-account[open])>.wl-topbar__status,.wl-topbar:has(.cloud-sync[data-phase=conflict])>.wl-topbar__status,.wl-topbar:has(.cloud-sync[data-phase=invalid])>.wl-topbar__status,.wl-topbar:has(.cloud-sync[data-phase=error])>.wl-topbar__status{grid-column:1;justify-self:stretch;text-align:left;display:block}
+@media(max-width:839px){
+ .wl-topbar__status{margin-top:3px}
+ .wl-topbar__status .cloud-toolbar:has(.cloud-account:not([open])){padding:0;gap:8px}
+ .wl-topbar__status .cloud-sync{font-size:11px}
+ .wl-topbar__status .cloud-sync p{font-size:11px}
+ .watchlist-app{padding-top:4px}
+ .app-header{padding-bottom:4px}
+}

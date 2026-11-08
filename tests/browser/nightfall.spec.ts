@@ -9,7 +9,7 @@ test('Nightfall cards and phone navigation remain usable at narrow and compact s
     const path=new URL(route.request().url()).pathname;
     return route.fulfill({json:path==='/search/shows'?[{show}]:path.endsWith('/episodes')?[{id:891001,season:1,number:1,name:'A long episode title for the phone layout',type:'regular',airstamp:'2025-01-01T12:00:00Z',airdate:'2025-01-01'}]:path.endsWith('/seasons')?[{id:892001,number:1,episodeOrder:null,endDate:null}]:show});
   });
-  await page.goto('/');
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();
   await page.getByRole('button',{name:'Add Show',exact:true}).click();
   await page.getByLabel('Show title').fill(name);
   await page.getByRole('button',{name:'Search TVmaze'}).click();
@@ -41,3 +41,6 @@ test('Nightfall cards and phone navigation remain usable at narrow and compact s
   await card.getByRole('button',{name:filedTitle(name),exact:true}).focus();
   await expect(card.getByRole('button',{name:filedTitle(name),exact:true})).toBeFocused();
 });
+
+// Decorative startup is covered by splash.spec; keep library/fake-clock workflows independent.
+test.beforeEach(async({context})=>{await context.route('**/splash/startup.js',route=>route.fulfill({contentType:'text/javascript',body: "document.querySelector('.wl-splash')?.remove();"}));});

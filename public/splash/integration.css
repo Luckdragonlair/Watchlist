@@ -1,0 +1,10 @@
+@font-face{font-family:Limelight;src:url('../fonts/limelight-400.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
+html,body{background-color:#05070d}
+/* CSS fail-safe also works when startup JavaScript is unavailable. */
+.wl-splash:not(.wl-splash--reduced){animation:wl-bg-out .55s ease 4.45s forwards,wl-safety-hide 0s 7s forwards}
+@keyframes wl-safety-hide{to{visibility:hidden;pointer-events:none}}
+.wl-topbar{max-width:1440px;margin:0 auto}
+.wl-topbar__status:empty{display:none}
+@media(max-width:839.98px){.wl-topbar{padding:8px 16px 0;gap:0}.wl-topbar__title{font-size:32px}}
+
+@media(max-width:839.98px){.wl-topbar{padding-top:4px}.wl-topbar__title{font-size:30px}}

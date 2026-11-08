@@ -10,5 +10,7 @@ export const nightfallFonts = [
   "instrument-serif-italic-400.woff2",
   "ibmplexmono-OFL.txt",
   "ibmplexsans-OFL.txt",
-  "instrumentserif-OFL.txt"
+  "instrumentserif-OFL.txt",
+  "limelight-400.woff2",
+  "limelight-OFL.txt"
 ];

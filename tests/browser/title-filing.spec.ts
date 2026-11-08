@@ -9,7 +9,7 @@ test('imports save filed names, alphabetized views ignore articles, and search a
     const url=new URL(route.request().url()),id=Number(url.pathname.split('/')[2]),show=shows.find(s=>s.id===id)??shows.find(s=>s.name===url.searchParams.get('q'))!;
     return route.fulfill({json:url.pathname==='/search/shows'?[{show}]:url.pathname.endsWith('/episodes')?[{id:show.id+100,season:1,number:1,name:'Finale',summary:null,type:'regular',airstamp:'2025-01-01T12:00:00Z',airdate:'2025-01-01'}]:url.pathname.endsWith('/seasons')?[{id:show.id+200,number:1,episodeOrder:1,endDate:'2025-01-01'}]:show});
   });
-  await page.goto('/');
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();
   for(const show of shows){
     await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill(show.name);await page.getByRole('button',{name:'Search TVmaze'}).click();
     await page.getByRole('button',{name:`Import ${show.name} (#${show.id})`}).click();const dialog=page.getByRole('dialog');
@@ -27,3 +27,6 @@ test('imports save filed names, alphabetized views ignore articles, and search a
   expect(backup.shows.map((s:{name:string})=>s.name)).toEqual(['Zebra, The','Bear, A','An Otter','Theater']);
   expect(backup.preferences.map((p:{order:number})=>p.order)).toEqual([0,1,2,3]);
 });
+
+// Decorative startup is covered by splash.spec; keep library/fake-clock workflows independent.
+test.beforeEach(async({context})=>{await context.route('**/splash/startup.js',route=>route.fulfill({contentType:'text/javascript',body: "document.querySelector('.wl-splash')?.remove();"}));});

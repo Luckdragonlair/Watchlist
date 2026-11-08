@@ -56,3 +56,7 @@ While open, visible and connected, Watchlist refreshes linked shows whose metada
 ## Binge sections offline (v0.5.0)
 
 Section choices and arrow order are stored locally, work offline, and sync on reconnection. Not for me hides active placement without deleting history. Match keeps the saved unmatched queue available offline, but TVmaze search/linking requires internet. New backups are format 2 with sections; old format 1 is still accepted. Update PC and phone to v0.5.0 or later before shared use; older apps cannot read the new payload. No database reset or automatic restore is performed.
+
+## Splash and banner offline (v0.6.0)
+
+The original five-second Brick alley splash and gold banner use cached local Limelight/brick/runtime assets, with no external media/font requests. They replay on page launch/reload, including offline reopen; in-app navigation does not replay. Reduced motion shortens the static/fade path; forced colours omits the splash. Failed runtime/font startup has independent cleanup. Android manifest/startup background and browser theme are #05070d. Weekly opens first, using today-first Central-time weekday order. Existing databases and format-2 backups are unchanged.

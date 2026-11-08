@@ -8,7 +8,7 @@ test('phone pages show the first episode without scrolling and keep utilities in
     const episodes=[1,2].map(number=>({id:show.id*10+number,season:1,number,name:'Episode '+number,summary:null,type:'regular',airstamp:show.id===970002&&number===2?'2035-01-05T12:00:00Z':'2025-01-01T12:00:00Z',airdate:show.id===970002&&number===2?'2035-01-05':'2025-01-01'}));
     return route.fulfill({json:url.pathname==='/search/shows'?[{show}]:url.pathname.endsWith('/episodes')?episodes:url.pathname.endsWith('/seasons')?[{id:show.id+100,number:1,episodeOrder:2,endDate:null}]:show});
   });
-  await page.goto('/');
+  await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();
   for(const show of shows){await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill(show.name);await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:`Import ${show.name} (#${show.id})`}).click();await page.getByRole('button',{name:'Skip for now'}).click();}
   const more=page.getByLabel('More Watchlist actions',{exact:true});
   for(const width of [320,412]){
@@ -29,3 +29,6 @@ test('phone pages show the first episode without scrolling and keep utilities in
   await page.getByLabel('Backup file').setInputFiles((await download.path())!);const dialog=page.getByRole('dialog',{name:'Restore this backup?'});await expect(dialog).toBeVisible();await dialog.getByRole('button',{name:'Cancel restore'}).click();await more.click();
   await page.setViewportSize({width:412,height:760});await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:'artifacts/compact-phone-header.png',fullPage:false});
 });
+
+// Decorative startup is covered by splash.spec; keep library/fake-clock workflows independent.
+test.beforeEach(async({context})=>{await context.route('**/splash/startup.js',route=>route.fulfill({contentType:'text/javascript',body: "document.querySelector('.wl-splash')?.remove();"}));});
