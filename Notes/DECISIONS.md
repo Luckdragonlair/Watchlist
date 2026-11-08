@@ -206,3 +206,7 @@ Owner explicitly authorized focused selector/saving tests. The earlier hold is s
 ## 2026-11-08 - Existing-show Manage genre editor
 
 Owner requested Change primary genre under Manage. Make Manage available on Weekly/Binge/Watched library cards; retain Binge-only section controls. Save changes only the personal genre using existing revision/lifecycle/stale-note/genre guards, leaving episodes/history/notes/order untouched. Cancel/Escape discards the draft and returns focus. If metadata retracts a saved personal genre, keep it as an option; no listed/saved genres means no save. Shared preference schema/backup format 4 remain unchanged.
+
+## 2026-11-08 - Metallic-gold Nightfall icon approved
+
+Owner selected the brighter reflective gold W preview with unchanged navy background/blue ring. Use it for app icons and browser/Apple touch icons, preserving ringless small variants and a full-bleed maskable background with essential content within the safe circle. Keep approved source/regeneration instructions durable; leave original Nightfall mockups unchanged. No library/schema/provider behavior changes.

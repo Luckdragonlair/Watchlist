@@ -1,5 +1,7 @@
 # Watchlist project notes
 
+Latest icon milestone: v0.11.1 metallic-gold Nightfall icons verified; published Hosting-only; live icon assets verified. Source/regeneration notes: ../design/app-icon-metallic-gold/README.md.
+
 Updated: 2026-11-08 13:58 CST (America/Chicago)
 
 **v0.11.0 Manage genre editor verified; published Hosting-only; live assets verified. Setup radios shipped v0.10.0. Format 4 is unchanged.** Start with [HANDOFF_QUORA.md](HANDOFF_QUORA.md) for a concise continuation guide.

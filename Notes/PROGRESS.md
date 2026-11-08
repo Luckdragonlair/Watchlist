@@ -1,3 +1,12 @@
+# Latest app-icon checkpoint
+
+### 2026-11-08 - v0.11.1 approved metallic-gold Nightfall app icons
+
+- Owner approved the brighter reflective gold W preview, retaining the navy background/blue ring. Preserved its code-native source under design/app-icon-metallic-gold; original Nightfall references remain unchanged. Local Instrument Serif font and the approved gold highlight gradient generate static PNGs via scripts/build-app-icons.cjs; no external resources, AI generation or new dependency.
+- Wired new named assets into the manifest/index: 192/512 any-purpose, 512 full-bleed maskable, 180 Apple touch, and dedicated 32/16 browser icons. Large/maskable variants retain the ring; small favicons omit it per the approved reference. Maskable essential artwork remains within the central safe circle. Fresh filenames avoid reusing cached placeholder icon URLs; legacy placeholder files remain unreferenced for history/old caches.
+- PASS: TypeScript, normal build/service-worker generation; one icon-only production/PWA workflow validates all six dimensions, manifest/favicon/Apple links, opaque maskable corners, and exact cached icon hashes while offline. Initial test assumed relative rather than root-based Vite URLs; corrected the assertion to compare resolved paths, then the focused rerun passed. Inspected rendered 192px asset. Hosted build/private-asset guard passed; published Hosting-only; live icon assets verified. Hosted packaging initially retained the old icon allowlist; corrected build/privacy scripts to share the six-icon allowlist, require all icons, and verified six packaging-guard checks after updating their fixtures. Republished the complete package; live manifest, all six icons, worker and app JS/CSS match generated output. No unrelated suites, library/provider/history/notes/sync/rules/billing changes.
+- Patch version 0.11.1, same format 4/schema v3. Actual installed Firefox/Android/taskbar shortcut refresh remains user/device acceptance; automated checks prove served/cached assets, not OS launcher replacement timing.
+
 # Latest user-reported acceptance
 
 ### 2026-11-08 - Manage genre editor phone acceptance

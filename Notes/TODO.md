@@ -1,7 +1,13 @@
+# Metallic-gold app icons
+
+- [x] C07 approved metallic-gold W installed in source with app, favicon, maskable and Apple sizes; focused offline/icon workflow passed.
+- [x] v0.11.1 published Hosting-only; live manifest, six icons, worker and app assets match the tested build.
+- [ ] Owner/device check: installed shortcut refresh on PC/phone.
+
 # Existing-show primary genre editor
 
 - [x] Owner-reported phone acceptance passed for v0.11.0 (2026-11-08); independent device/accessibility inspection remains separate.
-- [ ] Recommended small next milestone: C07 app icons, pending owner instruction; no implementation started.
+- [x] C07 approved by owner and verified for v0.11.1 (metallic-gold Nightfall variant).
 
 - [x] Manage editor implemented; three targeted PC/phone/safe-save workflows and TypeScript passed.
 - [x] v0.11.0 normal/hosted builds and privacy guard passed; published Hosting-only with exact live-asset verification.

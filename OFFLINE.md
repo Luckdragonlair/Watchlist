@@ -66,3 +66,7 @@ The original five-second Brick alley splash and gold banner use cached local Lim
 ## Offline card ordering (v0.7.0)
 
 Dragging, arrows, activity grouping and Recent reset operate on IndexedDB offline and sync when reconnected. Drag handles reserve touch gestures; ordinary card surfaces still scroll. Both devices must update for format-3 snapshots, which preserve the manual-activity override. Legacy formats remain readable. No new cloud job, external provider or paid service is introduced.
+
+## v0.11.1 app icons
+
+Approved metallic-gold Nightfall icons use new filenames and are cached with the shell, including favicons and the full-bleed maskable asset. Update and reload to receive the new manifest/icons. Offline asset availability is independently tested; existing OS launcher/pinned shortcut icon refresh remains a device acceptance check. No installation/library reset is required by this code change.

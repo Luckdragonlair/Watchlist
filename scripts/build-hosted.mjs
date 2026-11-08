@@ -1,3 +1,4 @@
+import {appIconAssets} from './app-icon-assets.mjs';
 import { spawnSync } from 'node:child_process';
 import { cp, mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -9,7 +10,7 @@ const build=spawnSync(process.execPath,[fileURLToPath(new URL('../node_modules/v
 if(build.status!==0)process.exit(build.status??1);
 // Deliberate allowlist: the user's personal master is never a hosted public asset.
 await mkdir(new URL('../dist-hosted/icons/',import.meta.url),{recursive:true});
-for(const path of ['manifest.webmanifest','icons/icon-192.png','icons/icon-512.png','icons/icon-maskable.png','icons/icon.svg']){
+for(const path of ['manifest.webmanifest',...appIconAssets.map(name=>'icons/'+name)]){
   await cp(new URL(`../public/${path}`,import.meta.url),new URL(`../dist-hosted/${path}`,import.meta.url));
 }
 await writeFile(new URL('../dist-hosted/hosted-build.json',import.meta.url),JSON.stringify({mode:'hosted',syncEnabled:true}));

@@ -1,0 +1,13 @@
+import {test,expect} from '@playwright/test';
+import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';import {productionServer} from './server';
+test('metallic gold icons have correct sizes, wired links, opaque maskable corners and exact offline copies',async({page,context})=>{
+ const server=await productionServer();try{
+  await page.goto(server.url);await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
+  const manifestPath=await page.locator('link[rel=manifest]').getAttribute('href'),manifest=await(await page.request.get(new URL(manifestPath!,server.url).href)).json();expect(manifest.icons.map((i:{src:string})=>i.src)).toEqual(['icons/nightfall-gold-192.png','icons/nightfall-gold-512.png','icons/nightfall-gold-maskable.png']);expect(manifest.icons[2].purpose).toBe('maskable');
+  expect(await page.locator('link[rel=icon]').evaluateAll(nodes=>nodes.map(node=>new URL((node as HTMLLinkElement).href).pathname))).toEqual(['/icons/nightfall-gold-32.png','/icons/nightfall-gold-16.png']);expect(new URL((await page.locator('link[rel=apple-touch-icon]').getAttribute('href'))!,server.url).pathname).toBe('/icons/nightfall-gold-apple.png');
+  const icons=[['nightfall-gold-192.png',192],['nightfall-gold-512.png',512],['nightfall-gold-maskable.png',512],['nightfall-gold-apple.png',180],['nightfall-gold-32.png',32],['nightfall-gold-16.png',16]] as const;
+  const hashes:Record<string,string>={};for(const [name,size] of icons){const bytes=readFileSync('dist/icons/'+name);expect(bytes.subarray(1,4).toString()).toBe('PNG');expect(bytes.readUInt32BE(16)).toBe(size);expect(bytes.readUInt32BE(20)).toBe(size);hashes[name]=createHash('sha256').update(bytes).digest('hex');}
+  const alpha=await page.evaluate(async()=>{const image=new Image();image.src='./icons/nightfall-gold-maskable.png';await image.decode();const canvas=document.createElement('canvas');canvas.width=canvas.height=512;const c=canvas.getContext('2d')!;c.drawImage(image,0,0);return [[0,0],[511,0],[0,511],[511,511]].map(([x,y])=>c.getImageData(x,y,1,1).data[3]);});expect(alpha).toEqual([255,255,255,255]);
+  await context.setOffline(true);const cached=await page.evaluate(async names=>{const result:Record<string,string>={};for(const name of names){const response=await fetch('./icons/'+name);if(!response.ok)throw Error(name+' is unavailable offline');const hash=await crypto.subtle.digest('SHA-256',await response.arrayBuffer());result[name]=Array.from(new Uint8Array(hash),v=>v.toString(16).padStart(2,'0')).join('');}return result;},icons.map(([name])=>name));expect(cached).toEqual(hashes);
+ }finally{await context.setOffline(false);await server.stop();}
+});

@@ -1,3 +1,4 @@
+import {appIconAssets} from './app-icon-assets.mjs';
 import { readdir,readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
@@ -8,7 +9,7 @@ export async function checkHostedBuild(root=fileURLToPath(new URL('../dist-hoste
   const marker=JSON.parse(await readFile(resolve(root,'hosted-build.json'),'utf8'));
   if(marker.mode!=='hosted')throw new Error('Only a hosted build can be deployed.');
   const rootFiles=new Set(['hosted-build.json','index.html','service-worker.js','manifest.webmanifest']);
-  const icons=new Set(['icon-192.png','icon-512.png','icon-maskable.png','icon.svg']);
+  const icons=new Set(appIconAssets);
   async function scan(dir,relative=''){for(const item of await readdir(dir,{withFileTypes:true})){
     if(item.isSymbolicLink())throw new Error('Hosted assets must not be symbolic links.');
     if(/master-working|Project Watchlist Master|\.env|backup.*\.json/i.test(item.name))throw new Error('Personal files found in hosted assets.');
@@ -18,6 +19,7 @@ export async function checkHostedBuild(root=fileURLToPath(new URL('../dist-hoste
     }else if(!(relative==='assets'?/^[A-Za-z0-9_-]+\.(js|css)$/.test(item.name):relative==='icons'?icons.has(item.name):relative==='fonts'?nightfallFonts.includes(item.name):relative==='splash'?splashAssets.includes(item.name):rootFiles.has(item.name)))throw new Error('Unexpected file in hosted assets.');
   }}
   await scan(root);
+  for(const name of appIconAssets)await readFile(resolve(root,'icons',name));
   const worker=await readFile(resolve(root,'service-worker.js'),'utf8');
   if(worker.includes('master-working.json'))throw new Error('The private master must not be precached.');
   await readFile(resolve(root,'index.html'));

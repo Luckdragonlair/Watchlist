@@ -1,3 +1,5 @@
+CURRENT CHECKPOINT — 2026-11-08: v0.11.1 metallic-gold Nightfall icon assets verified; published Hosting-only; live icon assets verified. C07 is no longer unbuilt. One icon-only offline/dimensions/link workflow and builds passed; no unrelated suites run. App data is unchanged. See design/app-icon-metallic-gold/README.md.
+
 CURRENT CHECKPOINT — 2026-11-08: v0.11.0 existing-show Manage genre editor passed three focused browser workflows and TypeScript; published Hosting-only; live assets verified. Setup selector is shipped v0.10.0. Existing-show editor is no longer unbuilt; earlier future-work statements below are historical. No schema/format change.
 
 # Watchlist handoff for Quora

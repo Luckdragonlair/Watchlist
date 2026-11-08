@@ -24,7 +24,7 @@ Rows are a sensible default sequence, not a requirement to serialize independent
 | C04 | Binge genre checkboxes | Moderate | 1–2.5 | C02 |
 | C05 | Move Drag below the left letter; retain Manage below | Easy–moderate | 0.5–1.5 | C01 |
 | C06 | Episode/Caught up picker on the main card | Moderate | 1.5–3 | C05 |
-| C07 | Replace temporary app icons with approved Nightfall icons | Easy–moderate | 0.5–1.5 | Existing app; independent |
+| C07 | Delivered v0.11.1: approved metallic-gold Nightfall icons | Easy–moderate | 0.5–1.5 | Existing app; independent |
 | C08 | TMDB account connection and protected metadata gateway | High | 2–4 | C01 |
 | C09 | Movie records, identity, progress and preferences | High | 3–5 | C01, C02 |
 | C10 | Movie-aware backup, restore, sync and folder export | Very high | 4–8 | C09 |

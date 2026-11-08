@@ -14,6 +14,8 @@ The current local-first PWA is the foundation. Hosted access is published for tr
 
 ## Progress at a glance
 
+- [x] C07/v0.11.1 metallic-gold Nightfall icon assets verified; published Hosting-only; live assets verified; installed-device refresh remains acceptance.
+
 - [x] v0.9.0: all 181 primary-genre choices applied at revision 161; preference/format-4 preservation verified, published and pushed. See HANDOFF_QUORA.md.
 
 - [x] v0.8.1: compact cards verified with six focused browser workflows and both builds; published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build.

@@ -139,6 +139,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Match queue (v0.5.0). |
 | Caught up (v0.2.0) | Built and verified | Setup/detail choice marks all released regular episodes, retains timestamps and future tracking. Header reads package.json version; database names unchanged. |
 | Filed title names (v0.4.0) | Built and verified | Leading A/The become trailing comma suffixes in saved imports/refreshes and alphabetical display/sort/search. Original source fields and manual order retained. |
+| Metallic-gold Nightfall app icons (v0.11.1) | Built and verified | Owner-approved reflective W; six static app/favicon/maskable/Apple PNGs. Focused dimensions/links/offline hash workflow passed; published Hosting-only; live icon assets verified. |
 | Existing-show primary genre editor (v0.11.0) | Built and verified | Manage → Change primary genre across library views; guarded save, Cancel, stale-change reload. Three focused browser cases and TypeScript passed; published Hosting-only; live assets verified. |
 | Primary genre during match/import setup (v0.10.0) | Built and verified | Radio choices, existing/default selection, atomic notes/progress/genre save and Skip preservation. 12 setup unit checks, three targeted browser cases and TypeScript passed; published Hosting-only after both builds/privacy guard. |
 | Primary-genre preferences (v0.9.0) | Built and verified | Optional personal primary genre controls card color/first badge, preserved in format-4 backup/sync and provider refresh. All 181 owner choices applied and verified at shared revision 161. Match/setup picker verified and published in v0.10.0. |
@@ -268,6 +269,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest: C07 metallic-gold icon replacement is verified for v0.11.1, published Hosting-only; live icon assets verified. Remaining V2 A-Z/dialog/accessibility and movie work stay separate; no automatic scope expansion.
+
 Latest checkpoint: existing-show Manage genre editor verified for v0.11.0; published Hosting-only; live assets verified. Setup selector shipped v0.10.0. Next remaining work is owner-assigned V2/accessibility/movie work; no automatic scope expansion.
 
 Owner lifted the previous testing hold. Focused selector/save checks passed; v0.10.0 is built and published. Earlier hold instructions are superseded.
@@ -275,7 +278,7 @@ Owner lifted the previous testing hold. Focused selector/save checks passed; v0.
 Current checkpoint: v0.9.0 is verified, published and pushed; all 181 primary-genre choices applied at shared revision 161. Backup format 4; folder export renderer 4. See Notes/HANDOFF_QUORA.md for the compact continuation guide.
 
 1. Owner's next likely assignment: primary-genre choice during match/import setup, reusing the existing preference and atomic setup guards. Programming, focused verification and v0.10.0 publication are complete. Existing-show Manage editor is now verified for v0.11.0; published Hosting-only; live assets verified.
-2. Remaining V2 icons/A-Z/dialog/status refinements and actual-device accessibility/zoom acceptance.
+2. Remaining V2 A-Z/dialog/status refinements and actual-device accessibility/zoom acceptance.
 3. Movie planning/implementation after agreeing provider/account/gateway scope; retain TVmaze for TV and all existing data safeguards.
 4. Remaining Silo/manual acceptance and unresolved source entries stay separate unless explicitly assigned.
 
@@ -316,6 +319,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - v0.11.1 approved metallic-gold Nightfall app icons
+
+- Owner approved the brighter reflective gold W preview, retaining the navy background/blue ring. Preserved its code-native source under design/app-icon-metallic-gold; original Nightfall references remain unchanged. Local Instrument Serif font and the approved gold highlight gradient generate static PNGs via scripts/build-app-icons.cjs; no external resources, AI generation or new dependency.
+- Wired new named assets into the manifest/index: 192/512 any-purpose, 512 full-bleed maskable, 180 Apple touch, and dedicated 32/16 browser icons. Large/maskable variants retain the ring; small favicons omit it per the approved reference. Maskable essential artwork remains within the central safe circle. Fresh filenames avoid reusing cached placeholder icon URLs; legacy placeholder files remain unreferenced for history/old caches.
+- PASS: TypeScript, normal build/service-worker generation; one icon-only production/PWA workflow validates all six dimensions, manifest/favicon/Apple links, opaque maskable corners, and exact cached icon hashes while offline. Initial test assumed relative rather than root-based Vite URLs; corrected the assertion to compare resolved paths, then the focused rerun passed. Inspected rendered 192px asset. Hosted build/private-asset guard passed; published Hosting-only; live icon assets verified. Hosted packaging initially retained the old icon allowlist; corrected build/privacy scripts to share the six-icon allowlist, require all icons, and verified six packaging-guard checks after updating their fixtures. Republished the complete package; live manifest, all six icons, worker and app JS/CSS match generated output. No unrelated suites, library/provider/history/notes/sync/rules/billing changes.
+- Patch version 0.11.1, same format 4/schema v3. Actual installed Firefox/Android/taskbar shortcut refresh remains user/device acceptance; automated checks prove served/cached assets, not OS launcher replacement timing.
+
 
 ### 2026-11-08 - Manage genre editor phone acceptance
 
