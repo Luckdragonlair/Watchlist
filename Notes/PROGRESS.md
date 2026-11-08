@@ -1,5 +1,15 @@
 # Latest checkpoint
 
+### 2026-11-08 - v0.9.0 reviewed primary-genre preferences
+
+- Owner submitted the completed choices file: 181 unique choices, matching all 181 multi-genre shows in the 196-show current library; no missing/invalid identities or genres in the initial check. Rechecked the live library in a read-only preview: base revision 160, 181 choices, ~1.93 MB serialized. Personal choices and before/receipt files remain private under ignored Library/originals, never hosted assets or Git.
+- Added optional personal primaryGenre preference, independent of provider genres. It determines the card accent and first badge; all other tags remain filterable. User choices survive provider genre retraction by retaining the personal genre in effective display/filter tags without changing provider metadata. Shows without a choice use the existing fallback priority, now also shown first. Added an explicit periwinkle Supernatural accent for the owner's 19 choices.
+- New exports/shared snapshots use backup format 4; reads formats 1/2/3 as well. Earlier clients reject format 4 rather than stripping the preference. Database schema/names, cloud manifest version, rules, accounts and billing stay unchanged. Update both PC/phone. Match/setup selection and an existing-show preference editor remain deferred; this release applies the reviewed choices only.
+- Added a scoped maintenance helper: default read-only preview, --apply performs one atomic commit with current manifest update-time precondition, exact readback and private before/choice/receipt copies. Changed/deleted identities, altered genre sets, invalid selections and duplicate IDs abort the entire batch. Only primaryGenre and backup version change; original provider records, notes, history/timestamps, section/order flags, sources, epoch and lifecycles are protected.
+- PASS: 155 focused unit checks across affected genre, backup/restore, sync and maintenance modules (two fixture/version expectation corrections passed on targeted rerun); two browser workflows (primary badge/accent/filter/export/reload and legacy Binge backup), one production-offline format-4 export workflow, TypeScript, normal/hosted builds and privacy guard. Published Hosting-only; live index, service worker and all app JS/CSS matched the tested build. Applied all 181 choices atomically at shared revision 161 with exact server readback. Updated folder JSON (format 4) and readable summary (renderer 4), confirmed all 181 choices, and restarted the authorized read-only watcher (PID 24708). Original master SHA-256 unchanged. No rules/billing changes.
+
+# Latest checkpoint
+
 ### 2026-11-08 - Private primary-genre review page
 
 - Owner requested a fast radio-button review of every saved show with multiple genres, before changing the app or adding primary-genre selection to matching. Refreshed the read-only shared export; revision 160 has 196 matched shows, of which 181 have multiple distinct display genres. Unmatched titles/movies without metadata are outside this review; no identity or genre was invented.

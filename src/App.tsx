@@ -1,6 +1,6 @@
 import {GenreFilter} from './GenreFilter';
 import {CardEpisodePicker} from './CardEpisodePicker';
-import {genresOf,genreClass,primaryGenre,matchesGenres} from './genres';
+import {genresOf,genreClass,primaryGenre,displayGenres,matchesGenres} from './genres';
 import {DragHandle} from './DragHandle';
 import {moveInOrder,saveBingeOrder,type OrderSnapshot,type OrderedSection} from './binge-order';
 import {weeklyDays} from './weekly-days';
@@ -136,7 +136,8 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
     const episodes = data.episodes.filter(e => e.showId === show.id);
     const q = queue(episodes, data.progress, now);
     const completed = data.seasons.filter(s => s.showId === show.id && confirmedComplete(s, episodes, data.progress, now));
-    const genre = primaryGenre(show.genres), tags=genresOf(show.genres);
+    const preferred=data.preferences.find(p=>p.showId===show.id)?.primaryGenre;
+    const genre = primaryGenre(show.genres,preferred), tags=displayGenres(show.genres,preferred);
     const cardSnapshot:SetupSnapshot={showId:show.id,name:show.name,notes:data.preferences.find(p=>p.showId===show.id)?.notes??'',revision:data.revision,life:String(data.lifecycles.find(row=>row.key==='syncLife:'+show.id)?.value??'')};
     const total = episodes.filter(regular).length;
     const watched = episodes.filter(e=>regular(e)&&data.progress.some(p=>p.episodeId===e.id)).length;
@@ -159,7 +160,7 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
   else {
     const showBucket=(s:Show)=>bucket(data.episodes.filter(e=>e.showId===s.id),data.seasons.filter(x=>x.showId===s.id),data.progress,now);
     const preference=(s:Show)=>readySection(data.episodes.filter(e=>e.showId===s.id),data.progress,data.preferences.find(p=>p.showId===s.id));
-    const searched=data.shows.filter(s=>matchesTitle(s.name,filter)&&(view!=='Binge'||matchesGenres(s.genres,selectedGenres)));
+    const searched=data.shows.filter(s=>matchesTitle(s.name,filter)&&(view!=='Binge'||matchesGenres(displayGenres(s.genres,data.preferences.find(p=>p.showId===s.id)?.primaryGenre),selectedGenres)));
     const visible=searched.filter(s=>(view!=='Weekly'||preference(s)!=='not-for-me')&&(showBucket(s)===view||(view==='Watched'&&data.progress.some(p=>data.episodes.some(e=>e.id===p.episodeId&&e.showId===s.id))))).sort(view==='Watched'?(a,b)=>compareTitles(a.name,b.name):byOrder);
     if(view==='Weekly'){
       const days=weeklyDays(now);
@@ -185,7 +186,7 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
     <PwaStatus mode={phone?'alerts':'all'}/>{error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     {busy && <p role="status">Saving or fetching…</p>}
     {undo && !completion && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}
-    {detail !== null && data ? <Detail section={readySection(data.episodes.filter(e=>e.showId===detail),data.progress,data.preferences.find(p=>p.showId===detail))} onSection={section=>moveSection(data.shows.find(s=>s.id===detail)!,section)} show={data.shows.find(s => s.id === detail)!} episodes={data.episodes.filter(e => e.showId === detail)} watched={new Set(data.progress.map(p => p.episodeId))} notes={data.preferences.find(p => p.showId === detail)?.notes ?? ''} now={now} busy={busy} run={run} toggle={toggle} onDelete={async () => { const show=data.shows.find(s=>s.id===detail); if (!show || !window.confirm(`Delete ${show.name}? This permanently removes its seasons, episodes, watched history, personal notes, order, and matching import entries from this library. Original files and existing backup files stay unchanged.`)) return; await run(async()=>{await deleteShow(show.id,db,fetchEpisodeOwner);setDetail(null);setImportTarget(null);setUndo(null);setCompletion('');setView('Binge');setNotice(`${show.name} was deleted from your library.`);}); }} onBack={() => setDetail(null)}/> : <><h2 ref={listHeading} tabIndex={-1}>{view}</h2>{['Weekly','Binge','Watched'].includes(view) && <div className="library-search-row"><label>Search library <input value={filter} onChange={e => setFilter(e.target.value)}/></label>{view==='Binge'&&data&&<GenreFilter choices={[...new Set(data.shows.flatMap(show=>{const tags=genresOf(show.genres);return tags.length?tags:['Unclassified'];}))].sort()} selected={selectedGenres} onChange={setSelectedGenres}/>}</div>}{content}</>}
+    {detail !== null && data ? <Detail section={readySection(data.episodes.filter(e=>e.showId===detail),data.progress,data.preferences.find(p=>p.showId===detail))} onSection={section=>moveSection(data.shows.find(s=>s.id===detail)!,section)} show={data.shows.find(s => s.id === detail)!} episodes={data.episodes.filter(e => e.showId === detail)} watched={new Set(data.progress.map(p => p.episodeId))} notes={data.preferences.find(p => p.showId === detail)?.notes ?? ''} now={now} busy={busy} run={run} toggle={toggle} onDelete={async () => { const show=data.shows.find(s=>s.id===detail); if (!show || !window.confirm(`Delete ${show.name}? This permanently removes its seasons, episodes, watched history, personal notes, order, and matching import entries from this library. Original files and existing backup files stay unchanged.`)) return; await run(async()=>{await deleteShow(show.id,db,fetchEpisodeOwner);setDetail(null);setImportTarget(null);setUndo(null);setCompletion('');setView('Binge');setNotice(`${show.name} was deleted from your library.`);}); }} onBack={() => setDetail(null)}/> : <><h2 ref={listHeading} tabIndex={-1}>{view}</h2>{['Weekly','Binge','Watched'].includes(view) && <div className="library-search-row"><label>Search library <input value={filter} onChange={e => setFilter(e.target.value)}/></label>{view==='Binge'&&data&&<GenreFilter choices={[...new Set(data.shows.flatMap(show=>{const tags=displayGenres(show.genres,data.preferences.find(p=>p.showId===show.id)?.primaryGenre);return tags.length?tags:['Unclassified'];}))].sort()} selected={selectedGenres} onChange={setSelectedGenres}/>}</div>}{content}</>}
     {completion && <div role="dialog" aria-modal="true" aria-label="Season complete"><p>{completion}</p><p>Your progress is saved. More metadata may be announced later.</p><button className="circle" aria-label="Dismiss completion" onClick={() => setCompletion('')}>×</button>{undo && <button disabled={busy} onClick={() => run(undoLast)}>Undo last episode change</button>}</div>}
     {setup&&<ShowSetup snapshot={setup.snapshot} returnTo={setup.returnTo} busy={busy||restoring} onDone={finishSetup}/>}
     <MetadataRefresh paused={metadataPaused||busy||restoring||!!setup}/><footer><p>Episode metadata: <a href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Cached locally; checked automatically while open and online. Availability can vary by region.</p></footer>

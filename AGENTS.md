@@ -139,6 +139,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Match queue (v0.5.0). |
 | Caught up (v0.2.0) | Built and verified | Setup/detail choice marks all released regular episodes, retains timestamps and future tracking. Header reads package.json version; database names unchanged. |
 | Filed title names (v0.4.0) | Built and verified | Leading A/The become trailing comma suffixes in saved imports/refreshes and alphabetical display/sort/search. Original source fields and manual order retained. |
+| Primary-genre preferences (v0.9.0) | Built and verified | Optional personal primary genre controls card color/first badge, preserved in format-4 backup/sync and provider refresh. All 181 owner choices applied and verified at shared revision 161. Match/setup picker remains deferred. |
 | Private primary-genre review page | Built and verified | 181 multi-genre matched shows from revision 160; radio choices save only to ignored Library/Primary Genre Choices.json. No app preference/matching change yet; see Notes/GENRE_REVIEW.md. |
 | Compact cards (v0.8.1) | Built and verified | Manage inside title block; smaller gaps/tile; inline picker/Apply and selection-only guidance. Natural height and 44px controls retained. |
 | Genre colors and Binge checkboxes (v0.8.0) | Built and verified | Approved palette, multi-genre badges, OR checkboxes combined with search; compact phone menu, raw metadata preserved. |
@@ -265,6 +266,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest owner priority completed: v0.9.0 published and all 181 submitted choices applied with exact readback. Update PC/phone for backup format 4. Match-confirmation selection remains future work.
+
 Latest owner priority: complete the private primary-genre radio review, then implement safe preference persistence/application; match-confirmation genre selection follows later. Review helper is verified; app stays v0.8.1.
 
 Latest priority: owner-approved compact cards implemented in v0.8.1; six focused checks and builds passed, published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build. Remaining V2 icons/A-Z/dialog/accessibility and movie planning stay separate.
@@ -320,6 +323,15 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - v0.9.0 reviewed primary-genre preferences
+
+- Owner submitted the completed choices file: 181 unique choices, matching all 181 multi-genre shows in the 196-show current library; no missing/invalid identities or genres in the initial check. Rechecked the live library in a read-only preview: base revision 160, 181 choices, ~1.93 MB serialized. Personal choices and before/receipt files remain private under ignored Library/originals, never hosted assets or Git.
+- Added optional personal primaryGenre preference, independent of provider genres. It determines the card accent and first badge; all other tags remain filterable. User choices survive provider genre retraction by retaining the personal genre in effective display/filter tags without changing provider metadata. Shows without a choice use the existing fallback priority, now also shown first. Added an explicit periwinkle Supernatural accent for the owner's 19 choices.
+- New exports/shared snapshots use backup format 4; reads formats 1/2/3 as well. Earlier clients reject format 4 rather than stripping the preference. Database schema/names, cloud manifest version, rules, accounts and billing stay unchanged. Update both PC/phone. Match/setup selection and an existing-show preference editor remain deferred; this release applies the reviewed choices only.
+- Added a scoped maintenance helper: default read-only preview, --apply performs one atomic commit with current manifest update-time precondition, exact readback and private before/choice/receipt copies. Changed/deleted identities, altered genre sets, invalid selections and duplicate IDs abort the entire batch. Only primaryGenre and backup version change; original provider records, notes, history/timestamps, section/order flags, sources, epoch and lifecycles are protected.
+- PASS: 155 focused unit checks across affected genre, backup/restore, sync and maintenance modules (two fixture/version expectation corrections passed on targeted rerun); two browser workflows (primary badge/accent/filter/export/reload and legacy Binge backup), one production-offline format-4 export workflow, TypeScript, normal/hosted builds and privacy guard. Published Hosting-only; live index, service worker and all app JS/CSS matched the tested build. Applied all 181 choices atomically at shared revision 161 with exact server readback. Updated folder JSON (format 4) and readable summary (renderer 4), confirmed all 181 choices, and restarted the authorized read-only watcher (PID 24708). Original master SHA-256 unchanged. No rules/billing changes.
+
 
 ### 2026-11-08 - Private primary-genre review page
 

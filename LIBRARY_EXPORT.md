@@ -40,3 +40,7 @@ Update Watchlist on PC and phone before continuing shared use. New snapshots/bac
 ## v0.7.0 renderer update
 
 Renderer version 3 mirrors started-first Watching now, recent activity and saved manual overrides. Its validator accepts backup formats 1/2/3. Restart the session watcher after this update to load the new validator/model; no reboot startup is installed and no cloud writes are made.
+
+## v0.9.0 primary genres
+
+Renderer 4 reads backup formats 1/2/3/4 and includes the effective primary genre in the readable summary. Restart the read-only watcher after updating to load the new validator/model. Original files and private choice downloads remain separate and unchanged.

@@ -18,7 +18,7 @@ function renderLibrary(library,revision,now,model){
    const preference=b.preferences.find(p=>p.showId===s.id),placement=model.bingePlacement?.(episodes,seasons,b.progress,preference,now);
    if(section==='Weekly'){if(model.bucket(episodes,seasons,b.progress,now)!=='Weekly'||preference?.bingeSection==='not-for-me')continue;}else if(section==='Watched'){if(model.bucket(episodes,seasons,b.progress,now)!=='Watched'&&!episodes.some(e=>seen.has(e.id)))continue;}else if(model.bingePlacement?placement!==section:model.bucket(episodes,seasons,b.progress,now)!==section)continue;
    const next=model.queue(episodes,b.progress,now).next;
-   lines.push(`- **${esc(model.filedTitle?.(s.name)??s.name)}** | ${esc(s.service??'Service unknown')} | ${episodes.filter(e=>regular(e)&&seen.has(e.id)).length}/${episodes.filter(regular).length} watched${next?` | Next: S${next.season} E${next.number} — ${esc(next.name)}`:''}`);
+   lines.push(`- **${esc(model.filedTitle?.(s.name)??s.name)}** | ${esc(s.service??'Service unknown')} | Primary genre: ${esc(model.primaryGenre?.(s.genres,preference?.primaryGenre)??preference?.primaryGenre??s.genres[0]??'Unclassified')} | ${episodes.filter(e=>regular(e)&&seen.has(e.id)).length}/${episodes.filter(regular).length} watched${next?` | Next: S${next.season} E${next.number} — ${esc(next.name)}`:''}`);
    const notes=b.preferences.find(p=>p.showId===s.id)?.notes;if(notes)lines.push('  - Notes: '+esc(notes));
   }
   lines.push('');
@@ -32,12 +32,12 @@ function atomic(file,text){const temp=file+'.tmp';fs.writeFileSync(temp,text);fs
 async function exportOnce(){
  fs.mkdirSync(folder,{recursive:true});
  const statusPath=path.join(folder,'export-status.json');let prior;try{prior=JSON.parse(fs.readFileSync(statusPath,'utf8'));}catch{}
- if(prior?.rendererVersion!==3||!fs.existsSync(path.join(folder,'Watchlist Current.json'))||!fs.existsSync(path.join(folder,'Watchlist Current.md')))prior=undefined;
+ if(prior?.rendererVersion!==4||!fs.existsSync(path.join(folder,'Watchlist Current.json'))||!fs.existsSync(path.join(folder,'Watchlist Current.md')))prior=undefined;
  const data=await readShared(prior);if(!data)return false;
  const now=new Date(),backup={...data.library.backup,exportedAt:now.toISOString()};
  atomic(path.join(folder,'Watchlist Current.json'),JSON.stringify(backup,null,2)+'\n');
  atomic(path.join(folder,'Watchlist Current.md'),renderLibrary(data.library,data.revision,now,await validators()));
- atomic(statusPath,JSON.stringify({rendererVersion:3,revision:data.revision,payloadHash:data.manifest.fields.payloadHash.stringValue,exportedAt:now.toISOString()},null,2)+'\n');
+ atomic(statusPath,JSON.stringify({rendererVersion:4,revision:data.revision,payloadHash:data.manifest.fields.payloadHash.stringValue,exportedAt:now.toISOString()},null,2)+'\n');
  console.log(`Exported cloud revision ${data.revision}: ${backup.shows.length} shows to ${folder}`);return true;
 }
 async function main(){

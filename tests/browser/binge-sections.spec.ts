@@ -23,7 +23,7 @@ test('Binge sections preserve legacy order, move/reorder/hide reversibly, and se
   await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await expect(page.getByRole('region',{name:'Upcoming',exact:true}).locator('.show-title')).toHaveText(['Dated fixture']);await expect(page.getByRole('region',{name:'TBA',exact:true}).locator('.show-title')).toHaveText(['Unknown fixture']);
   await page.getByRole('button',{name:'Ready',exact:true}).click();await page.setViewportSize({width:412,height:900});await page.screenshot({path:'artifacts/binge-sections-phone.png',fullPage:true});await page.setViewportSize({width:320,height:900});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.getByLabel('More Watchlist actions',{exact:true}).click();const pending=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup',exact:true}).click();const exported=JSON.parse(readFileSync((await (await pending).path())!,'utf8'));
-  expect(exported.version).toBe(3);expect(exported.progress).toEqual(backup.progress);expect(exported.preferences.map((p:{notes:string})=>p.notes)).toEqual(backup.preferences.map(p=>p.notes));expect(exported.sources).toEqual([]);
+  expect(exported.version).toBe(4);expect(exported.progress).toEqual(backup.progress);expect(exported.preferences.map((p:{notes:string})=>p.notes)).toEqual(backup.preferences.map(p=>p.notes));expect(exported.sources).toEqual([]);
   await page.clock.setFixedTime(new Date('2026-11-10T18:00:00Z'));await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByRole('button',{name:'Dated fixture',exact:true})).toBeVisible();
 });
 

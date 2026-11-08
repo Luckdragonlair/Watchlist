@@ -55,3 +55,7 @@ Update Watchlist on PC and phone before continuing shared use. New snapshots/bac
 ## v0.7.0 order preference compatibility
 
 The optional bingeManualOrder preference and saved ranks travel in format-3 backups/shared payloads. Update PC and Android before editing. Older clients safely reject format 3. Existing format-1/2 libraries remain readable; database schema/names and the cloud manifest/access rules remain unchanged. Concurrent different reorders or manual/recent mode changes use existing conflict handling. Notes can merge independently. Family/multi-user access remains deferred; this release retains the configured owner-only scope.
+
+## v0.9.0 compatibility
+
+Update both devices to v0.9.0 (format 4) before continuing shared use. Primary-genre preferences survive refresh/backup/sync. Older clients pause on the unsupported format rather than silently stripping those choices; their local data remains intact. Cloud manifest/rules and database schema/names are unchanged. Backup formats 1/2/3 remain importable.

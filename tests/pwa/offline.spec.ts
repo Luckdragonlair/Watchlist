@@ -111,7 +111,7 @@ test('original splash, gold font and brick scene reopen offline',async({page,con
  }finally{await server.stop();}
 });
 
-test('offline keyboard dragging preserves order, notes and format-3 export after reopening',async({page,context})=>{
+test('offline keyboard dragging preserves order, notes and format-4 export after reopening',async({page,context})=>{
  const server=await productionServer();try{
   await page.goto(server.url);await ready(page);
   const shows=[1,2].map(id=>({id:985000+id,name:'Offline order '+id,summary:null,status:'Running',genres:[],service:null,url:'https://www.tvmaze.com/shows/'+id,syncedAt:new Date().toISOString()}));
@@ -122,6 +122,6 @@ test('offline keyboard dragging preserves order, notes and format-3 export after
   await expect(page.locator('.show-title')).toHaveText(['Offline order 2','Offline order 1']);
   await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.locator('.show-title')).toHaveText(['Offline order 2','Offline order 1']);
   await page.getByLabel('More Watchlist actions',{exact:true}).click();const downloading=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup',exact:true}).click();const exported=JSON.parse(readFileSync((await(await downloading).path())!,'utf8'));
-  expect(exported.version).toBe(3);expect(exported.preferences.map((p:{notes:string})=>p.notes)).toEqual(['Keep offline 0','Keep offline 1']);expect(exported.preferences.find((p:{showId:number})=>p.showId===985002).order).toBe(0);
+  expect(exported.version).toBe(4);expect(exported.preferences.map((p:{notes:string})=>p.notes)).toEqual(['Keep offline 0','Keep offline 1']);expect(exported.preferences.find((p:{showId:number})=>p.showId===985002).order).toBe(0);
  }finally{await server.stop();}
 });

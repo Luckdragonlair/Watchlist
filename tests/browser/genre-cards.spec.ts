@@ -41,3 +41,11 @@ test('compact cards keep tap targets clear and grow for long text and expanded M
  await page.setViewportSize({width:320,height:1000});await page.addStyleTag({content:'.show-card .show-title{font-size:48px}.show-card .show-meta{font-size:24px}.show-card .genre-tag{font-size:20px}'});
  await expect(page.locator('.show-title').first()).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
+
+test('saved primary genre controls the first badge and accent while all genres stay filterable',async({page})=>{
+ await seed(page);await page.evaluate(async()=>{const path='/src/db.ts';const {db}=await import(path);await db.shows.update(1,{genres:['Fantasy','Action']});await db.preferences.update(1,{primaryGenre:'Action'});});
+ const card=page.getByRole('article',{name:'Funny fantasy',exact:true});await expect(card.locator('.genre-tag').first()).toHaveText('Action');await expect(card).toHaveClass(/genre-action/);
+ await page.locator('.genre-filter summary').click();await page.getByRole('checkbox',{name:'Fantasy',exact:true}).check();await page.getByRole('checkbox',{name:'Fantasy',exact:true}).press('Escape');await expect(card).toBeVisible();
+ const download=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup',exact:true}).click();const exported=await download;const fs=await import('node:fs/promises');const backup=JSON.parse(await fs.readFile((await exported.path())!,'utf8'));expect(backup.version).toBe(4);expect(backup.preferences.find((p:{showId:number})=>p.showId===1)).toMatchObject({primaryGenre:'Action',notes:'Keep notes 1'});
+ await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(card.locator('.genre-tag').first()).toHaveText('Action');await expect(card).toHaveClass(/genre-action/);
+});

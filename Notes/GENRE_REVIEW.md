@@ -4,7 +4,7 @@ Open **http://127.0.0.1:5188/** on this PC. The helper is running for this Windo
 
 Choose one radio button per show. Each choice saves automatically to **D:\Watchlist\Library\Primary Genre Choices.json**. Search, Unreviewed only and Next unreviewed help work through the list. Previously selected choices return after reloading or restarting. Download choices is an optional extra copy. No need to send a screenshot of every choice: tell the agent when review is ready.
 
-This review covers all 181 multi-genre shows in the current 196-show exported library (shared revision 160), across all app sections. It does not include unmatched source titles or fabricate movie metadata. No radio is preselected solely from automatic color priority. The review does not yet change the app.
+This review covers all 181 multi-genre shows in the current 196-show exported library (shared revision 160), across all app sections. It does not include unmatched source titles or fabricate movie metadata. No radio is preselected solely from automatic color priority. The review page still only saves choices; application is a separate guarded maintenance step.
 
 ## Start or stop
 
@@ -14,6 +14,8 @@ The server uses the existing exported library snapshot at startup; it does not r
 
 ## Verification and next work
 
-Focused disposable fixture coverage verifies radio choice exclusivity, save/reload/restart persistence, only multi-genre rows, responsive fit and local-only/valid-choice writes. Run node --test tests/genre-review.test.cjs. The shipped app remains v0.8.1.
+Focused disposable fixture coverage verifies radio choice exclusivity, save/reload/restart persistence, only multi-genre rows, responsive fit and local-only/valid-choice writes. Run node --test tests/genre-review.test.cjs. The submitted 181 choices are complete; v0.9.0 adds personal preference persistence and guarded application.
 
-After the owner completes review, use this file as an explicit choice list. First implement a safe personal primary-genre preference and its backup/sync/refresh preservation, then verify each current provider identity and chosen genre before applying. Keep all other genre tags for filtering and put the selected primary first. The new-show match/setup picker remains future work. Do not edit provider genres or the original master to simulate a preference.
+The owner submitted the completed review on 2026-11-08. v0.9.0 adds safe primary-genre persistence; verify each current provider identity and genre set before applying with the guarded helper. Keep all other genre tags for filtering and put the selected primary first. The new-show match/setup picker remains future work. Do not edit provider genres or the original master to simulate a preference.
+
+Applied 2026-11-08: all 181 submitted choices verified at shared revision 161, with notes/history/order and provider metadata preserved. Current folder export is format 4/renderer 4. Use Update and reload on both PC and phone for v0.9.0.

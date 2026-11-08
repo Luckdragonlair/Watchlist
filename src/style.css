@@ -308,3 +308,5 @@ progress::-moz-progress-bar{background:var(--genre);border-radius:8px}
 }
 
 @media(max-width:839px){.show-card .show-actions{display:inline-block;vertical-align:middle;margin:0 0 0 6px}.show-card .show-actions summary{padding:10px}.show-status{display:inline-block}}
+
+.genre-supernatural{--genre:#a3a1ff}

@@ -186,3 +186,7 @@ Owner approved the compact comparison. Default cards use tighter spacing with Ma
 ## 2026-11-08 - Owner-selected primary genre
 
 Owner requested a separate fast review of all existing multi-genre shows before future match-confirmation changes. No inference from the first alphabetical badge; no AI classification/spending. Review choices are explicit radio selections saved privately on this PC. Eventual primary genre should determine card accent and be displayed first while retaining all tags for filtering. Persistence/application and match/setup UI remain unbuilt until review is ready; do not rewrite provider genre metadata or infer decisions for unreviewed shows.
+
+## 2026-11-08 - Apply the completed primary-genre review
+
+Owner supplied all 181 explicit choices. Store optional primaryGenre in personal preferences rather than rewriting provider genres. Card color and first badge use this preference; remaining genres still filter normally. Preserve the personal choice even if future provider metadata omits it, adding it only to effective display/filter tags. Missing preferences retain automatic fallback, displayed first. Format 4 prevents older clients silently discarding new preferences; formats 1-3 remain readable. The matching/setup picker is deliberately still deferred. Only a validated current identity/genre match may be batch-applied, with atomic update-time guard and no overwrite of notes/history/order.

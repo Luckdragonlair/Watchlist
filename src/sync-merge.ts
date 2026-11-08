@@ -23,7 +23,7 @@ function normalized(library: SharedLibrary): SharedLibrary {
   try {
     if (!library || typeof library.epoch !== 'string' || !library.epoch.trim()) throw new Error('A library epoch is required.');
     if (!library.lifecycles || typeof library.lifecycles !== 'object' || Array.isArray(library.lifecycles)) throw new Error('Show lifecycle identifiers are required.');
-    const backup = {...validateBackup(library.backup),version:3 as const}, lifecycles: Record<string, string> = {};
+    const backup = {...validateBackup(library.backup),version:4 as const}, lifecycles: Record<string, string> = {};
     for (const [key, token] of Object.entries(library.lifecycles)) {
       if (!/^[1-9]\d*$/.test(key) || !Number.isSafeInteger(Number(key)) || typeof token !== 'string' || !token.trim()) throw new Error('A show lifecycle identifier is invalid.');
       lifecycles[key] = token;
@@ -156,7 +156,7 @@ export function mergeLibraries(baseValue: SharedLibrary, localValue: SharedLibra
   const progress = table(b.progress, l.progress, r.progress, p => p.episodeId, 'Watched episode', progressOwner,
     (bp, lp, rp, where) => mergeRecord(bp, lp, rp, where, (key) => key === 'watchedAt' && lp && rp ? { value: [lp.watchedAt, rp.watchedAt].sort().at(-1) } : undefined));
   try {
-    const backup = validateBackup({ version: 3, exportedAt: [l.exportedAt, r.exportedAt].sort().at(-1),
+    const backup = validateBackup({ version: 4, exportedAt: [l.exportedAt, r.exportedAt].sort().at(-1),
       shows: table(b.shows, l.shows, r.shows, row => row.id, 'Show', row => row.id,
         (bs, ls, rs, where) => mergeRecord(bs, ls, rs, where, key => key === 'syncedAt' && ls && rs ? { value: [ls.syncedAt, rs.syncedAt].sort().at(-1) } : undefined)),
       seasons: table(b.seasons, l.seasons, r.seasons, row => row.id, 'Season', row => row.showId),

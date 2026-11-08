@@ -1,7 +1,13 @@
+# Primary genre application checkpoint
+
+- [x] Owner submitted all 181 choices; initial identity/genre check and read-only live preview passed.
+- [x] v0.9.0 primary preference/format-4 preservation verified and published; all 181 choices applied at revision 161; folder export/watcher renderer 4 current.
+- [ ] Primary genre choice during matching/setup and existing-show editor remain future work.
+
 # Primary genre review checkpoint
 
 - [x] Private radio review page for 181 multi-genre shows; local autosave and focused verification. See GENRE_REVIEW.md.
-- [ ] Owner completes selections; implement safe primary-genre preferences and guarded application afterward.
+- [x] Owner completed selections; safe primary-genre preferences and guarded application delivered v0.9.0.
 - [ ] Add primary-genre choice during match/setup later; preserve all genres for filtering.
 
 # Latest card layout checkpoint
