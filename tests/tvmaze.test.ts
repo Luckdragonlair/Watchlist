@@ -1,5 +1,6 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { fetchBundle, searchShows, fetchEpisodeOwner } from '../src/tvmaze';
+import {released} from '../src/model';
 afterEach(()=>vi.unstubAllGlobals());
 it('presents fuzzy candidates without choosing one silently',async()=>{
   const fetcher=vi.fn().mockResolvedValue({ok:true,json:async()=>[{show:{id:1,name:'Test'}},{show:{id:2,name:'Test'}}]}); vi.stubGlobal('fetch',fetcher);
@@ -12,6 +13,11 @@ it('fetches independent show, season, and episode records without inventing unkn
 });
 it('handles rate limits without pretending an empty import succeeded',async()=>{
   vi.stubGlobal('fetch',vi.fn().mockResolvedValue({ok:false,status:429})); await expect(fetchBundle(10)).rejects.toThrow('TVmaze is busy');
+});
+it('normalizes the provider empty airdate to unknown without inventing availability',async()=>{
+  const payloads=[{id:10,name:'Future fixture',summary:null,status:'Running',genres:[],url:'https://www.tvmaze.com/shows/10'},[],[{id:1,season:3,number:1,name:'TBA',summary:null,airstamp:null,airdate:'',type:'regular'}]];
+  vi.stubGlobal('fetch',vi.fn().mockImplementation(async()=>({ok:true,json:async()=>payloads.shift()})));
+  const result=await fetchBundle(10);expect(result.episodes[0].airdate).toBeNull();expect(released(result.episodes[0],new Date('2035-01-01'))).toBe(false);
 });
 it('recovers a legacy episode owner from the provider link without following arbitrary URLs',async()=>{
   vi.stubGlobal('fetch',vi.fn().mockResolvedValue({ok:true,json:async()=>({_links:{show:{href:'https://api.tvmaze.com/shows/10'}}})}));

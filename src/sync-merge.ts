@@ -5,6 +5,9 @@ export interface SharedLibrary { backup: Backup; epoch: string; lifecycles: Reco
 export class SyncConflict extends Error {
   constructor(reason: string) { super(reason); this.name = 'SyncConflict'; }
 }
+export class LibraryValidationError extends Error {
+  constructor(reason:string){super(reason);this.name='LibraryValidationError';}
+}
 type Row = { [key: string]: unknown };
 type Branch = 'local' | 'remote';
 const clone = <T>(value: T): T => structuredClone(value);
@@ -27,7 +30,7 @@ function normalized(library: SharedLibrary): SharedLibrary {
     }
     for (const show of backup.shows) if (!lifecycles[String(show.id)]) throw new Error(`Show ${show.id} is missing its lifecycle identifier.`);
     return { backup, epoch: library.epoch, lifecycles };
-  } catch (error) { throw new SyncConflict(`Cannot synchronize this library: ${error instanceof Error ? error.message : String(error)}`); }
+  } catch (error) { throw new LibraryValidationError(`Cannot synchronize this library: ${error instanceof Error ? error.message : String(error)}`); }
 }
 function content(library: SharedLibrary) {
   const { exportedAt: _ignored, ...backup } = library.backup;

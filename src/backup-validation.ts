@@ -114,7 +114,7 @@ export function validateBackup(value: unknown): Backup {
       id: id(e.id, `${loc} identifier`), showId: id(e.showId, `${loc} show identifier`), season: integer(e.season, `${loc} season`),
       number: nullable(e.number, `${loc} number`, (value, location) => integer(value, location, 1)),
       name: text(e.name, `${loc} name`), summary: nullable(e.summary, `${loc} summary`, text),
-      airstamp: nullable(e.airstamp, `${loc} release time`, timestamp), airdate: nullable(e.airdate, `${loc} release date`, date), type: text(e.type, `${loc} type`),
+      airstamp: nullable(e.airstamp, `${loc} release time`, timestamp), airdate: nullable(e.airdate === '' ? null : e.airdate, `${loc} release date`, date), type: text(e.type, `${loc} type`),
     };
   });
   const progress = array(b.progress, 'watched history').map((value, index) => {

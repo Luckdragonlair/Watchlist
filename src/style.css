@@ -97,7 +97,7 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); fo
 .cloud-account section { padding:12px 20px; border:1px solid var(--line); border-radius:12px; background:#0d1423; }
 .cloud-account h1 { font-size:30px; }
 .cloud-sync { max-width:1376px; margin:0 auto; padding:0 16px; font-size:12px; color:#a5dfcc; }
-.cloud-sync[data-phase=conflict],.cloud-sync[data-phase=error] { color:#ffd69a; padding-block:12px; border-block:1px solid #9f7848; background:#20190d; }
+.cloud-sync[data-phase=conflict],.cloud-sync[data-phase=invalid],.cloud-sync[data-phase=error] { color:#ffd69a; padding-block:12px; border-block:1px solid #9f7848; background:#20190d; }
 .cloud-sync button { margin:4px; }
 .mobile-import { display:none; }
 @media (min-width:840px) and (max-width:1199px) {

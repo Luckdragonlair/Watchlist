@@ -1,6 +1,6 @@
 import { liveQuery } from 'dexie';
-import { type WatchlistDB } from './db';
-import { mergeLibraries,libraryContentKey,SyncConflict,type SharedLibrary } from './sync-merge';
+import { repairUnknownAirdates,type WatchlistDB } from './db';
+import { mergeLibraries,libraryContentKey,SyncConflict,LibraryValidationError,type SharedLibrary } from './sync-merge';
 import { readLocalSync,acknowledgeSyncedState,emptyLibrary,syncAckConflictKey,readPendingUpload,acquirePendingUpload,clearPendingUpload,pausePendingUpload,type PendingUpload } from './sync-local';
 export interface RemoteLibrary{revision:number;library:SharedLibrary}
 export interface SyncTransport{
@@ -9,11 +9,11 @@ export interface SyncTransport{
   write(revision:number,library:SharedLibrary):Promise<number>;
   watch(onRevision:(revision:number)=>void,onError:(error:unknown)=>void):()=>void;
 }
-export type SyncStatus={phase:'checking'|'syncing'|'saved'|'offline'|'error'|'conflict';message:string};
+export type SyncStatus={phase:'checking'|'syncing'|'saved'|'offline'|'error'|'conflict'|'invalid';message:string};
 export class LibrarySync {
   private running=false;private again=false;private stopped=true;private unsubscribe:(()=>void)|null=null;
   private localSubscription:{unsubscribe:()=>void}|null=null;private retryTimer:ReturnType<typeof setTimeout>|null=null;
-  private remoteRevision=-1;private conflict=false;
+  private remoteRevision=-1;private conflict=false;private datesRepaired=false;
   private trigger=()=>{void this.sync();};
   constructor(private database:WatchlistDB,private transport:SyncTransport,private publish:(status:SyncStatus)=>void,private online=()=>navigator.onLine){}
   start(){
@@ -55,6 +55,7 @@ export class LibrarySync {
     if(!this.online()){this.fail();return;}
     this.running=true;
     try{
+      if(!this.datesRepaired){await repairUnknownAirdates(this.database);this.datesRepaired=true;}
       let attempts=0;
       do{
         if(++attempts>8)throw new Error('The shared library is busy. Retry shortly.');
@@ -97,7 +98,8 @@ export class LibrarySync {
         this.publish({phase:'saved',message:'Up to date across your signed-in devices.'});
       }while(this.again&&!this.stopped);
     }catch(error){
-      if(error instanceof SyncConflict){this.conflict=true;this.publish({phase:'conflict',message:error.message});}
+      if(error instanceof LibraryValidationError){this.publish({phase:'invalid',message:error.message});}
+      else if(error instanceof SyncConflict){this.conflict=true;this.publish({phase:'conflict',message:error.message});}
       else if(error&&typeof error==='object'&&'name'in error&&error.name==='CloudLibraryLimitError'){
         if(this.retryTimer)clearTimeout(this.retryTimer);this.retryTimer=null;
         this.publish({phase:'error',message:'Library too large for this sync version. Your local library and backups are safe.'});

@@ -20,6 +20,13 @@ export class WatchlistDB extends Dexie {
   }
 }
 export const db = new WatchlistDB();
+// TVmaze uses an empty airdate for some announced episodes. Repair only this
+// known unknown-value representation; never guess dates or alter viewing state.
+export async function repairUnknownAirdates(database=db){
+  await database.transaction('rw',database.episodes,async()=>{
+    await database.episodes.filter(e=>e.airdate==='').modify({airdate:null});
+  });
+}
 export async function libraryRevision(database=db):Promise<string> {return String((await database.settings.get('libraryRevision'))?.value??'');}
 export async function assertLibraryRevision(expected:string,database=db) {
   if(await libraryRevision(database)!==expected) throw new Error('The library was restored or synchronized while this request was running. Please try again.');

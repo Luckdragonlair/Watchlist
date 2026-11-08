@@ -130,6 +130,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | React, TypeScript, Vite application | Built and verified | Production build is part of the recorded checkpoint. |
 | IndexedDB/Dexie data model | Built and verified | Shows, seasons, episodes, progress, preferences, sources, and internal settings are separate. |
 | TVmaze search and explicit candidate import | Built and verified | Candidate results show identifying details; no silent exact-name selection. |
+| Unknown episode-date repair (v0.4.1) | Built and verified | Provider/legacy blank airdates become unknown/null; sync startup repairs only that field. Invalid data is distinct from true conflicts and never offers whole-library replacement choices. |
 | Atomic metadata refresh | Built and verified | Metadata refresh protects progress, notes, ordering, deleted shows, and restored revisions. |
 | Automatic episode metadata checks (v0.3.0) | Built and verified | Every 24 elapsed hours per show while visible/online, resume overdue checks on launch/reconnect. Includes Watched/Ended; no cancellation inference or closed-app job. |
 | Weekly, Binge, Watched, Add Show, Import views | Built and verified; Nightfall foundation applied | Shared dark theme, locally cached fonts, clearer cards, right-centered arrows and phone bottom navigation. V2 Binge sections and drag-and-drop remain pending. |
@@ -256,7 +257,7 @@ These are easy to break during a visual rewrite:
 
 Unless the user reprioritizes, use this order:
 
-2026-11-08: user-requested automatic metadata discovery is complete; the next planned feature remains V2 Binge organization (step 3). The v0.4.0 filed-title helper is ready for its alphabetical sections. Closed-app checks and confirmed-cancellation overrides are separate deferred work.
+2026-11-08: user-requested automatic metadata discovery is complete; the next planned feature remains V2 Binge organization (step 3). The v0.4.0 filed-title helper is ready for its alphabetical sections. The v0.4.1 date repair is a separate maintenance fix; verify owner sync recovery after updating. Closed-app checks and confirmed-cancellation overrides are separate deferred work.
 
 1. **Completed 2026-11-07: approved assets preserved.** Unmodified copies and hashes checked under design/nightfall-v2/.
 2. **Foundation completed 2026-11-07.** Locally cached approved typography, dark surfaces, focus styles, reduced-motion handling, brand treatment, responsive cards/navigation and arrow placement are verified. Application icon replacement and final screen refinements remain part of later V2 work.
@@ -299,6 +300,14 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - Blank release-date sync repair
+
+- Owner screenshot showed sync treating an invalid episode date as a library conflict. Inspected the owner's exported backup read-only and preserved a private ignored before-copy. Root cause: Kaiju No. 8 episode 3379036 (S3 E1) has provider airdate='', airstamp=null; strict validation rejected the empty date. The exported snapshot has 178 shows / 4,568 episodes and exactly one such value.
+- Normalize this known empty representation to null at import/backup validation, retain strict nonblank date/calendar checks, and repair existing stored blank airdates before the sync engine's first read. No history, notes, source rows, order, identity/lifecycle or revision reset. Invalid library data now has a separate export/retry state, without whole-library replacement buttons; actual merge conflicts retain their protections.
+- PASS: TypeScript, 225 unit tests, provider-date browser regression, 13 Firestore access/rules tests and 5 SDK integration tests in local emulators. A private copy of the actual backup validates after exactly one blank-to-null normalization, all other data values unchanged. Final normal/hosted builds, privacy guard, hosted unsigned check and PWA update-preserves-library passed, including the invalid-state warning style. Published Hosting-only to genre-watchlist. Live index, worker, App and sync-status chunks match the tested release. Original master and exported-backup hashes are unchanged. No rules/billing changes. Version 0.4.1.
+- User must update/reopen to run repair against the actual browser library; no live browser database or cloud library was replaced by the agent. Next planned development remains V2 Binge organization; owner sync acceptance remains pending.
+
 
 ### 2026-11-08 - Filed title names
 

@@ -1,4 +1,4 @@
-# Watchlist v0.4.0
+# Watchlist v0.4.1
 
 A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. Full V2 section organization and drag-and-drop are still in progress; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
 
@@ -39,3 +39,7 @@ Caught-up and Watched shows are included. TVmaze's Ended status does not disting
 ## Alphabetical titles (v0.4.0)
 
 Leading A and The move to the end: A Bear becomes Bear, A; The Zebra becomes Zebra, The. Imports and metadata refreshes save this filed name. Existing saved shows display the same way and acquire the saved format on their next metadata refresh. Watched and alphabetical unmatched-title groups sort by the filed name; manual ordering remains primary. Library search accepts both title forms. An and words such as Theater stay unchanged. Provider IDs, original source text, notes and episode history are preserved.
+
+## Unknown-date sync repair (v0.4.1)
+
+TVmaze sometimes supplies an empty release date for an announced episode. Imports treat this as unknown; sync startup converts existing blank episode dates to null without changing notes, viewing history or other metadata. Legacy backups with this exact blank value remain usable. Malformed nonblank dates are still rejected, and saved-data validation errors no longer offer whole-library conflict replacement choices. After updating, sync resumes normally without restoring a backup or selecting a complete library. Actual differing edits still use the existing conflict review flow.

@@ -19,7 +19,7 @@ export async function fetchBundle(id: number): Promise<Bundle> {
   const seasons = await get<Omit<Season, 'showId'>[]>(`/shows/${id}/seasons`);
   const episodes = await get<Omit<Episode, 'showId'>[]>(`/shows/${id}/episodes`);
   const metadata: Show = { id: show.id, name: show.name, summary: show.summary, status: show.status, genres: show.genres, service: show.webChannel?.name ?? show.network?.name ?? null, url: show.url, syncedAt: new Date().toISOString() };
-  return { show: metadata, seasons: seasons.map(s => ({ id: s.id, showId: id, number: s.number, episodeOrder: s.episodeOrder, endDate: s.endDate })), episodes: episodes.map(e => ({ id: e.id, showId: id, season: e.season, number: e.number, name: e.name, summary: e.summary, airstamp: e.airstamp, airdate: e.airdate, type: e.type })) };
+  return { show: metadata, seasons: seasons.map(s => ({ id: s.id, showId: id, number: s.number, episodeOrder: s.episodeOrder, endDate: s.endDate })), episodes: episodes.map(e => ({ id: e.id, showId: id, season: e.season, number: e.number, name: e.name, summary: e.summary, airstamp: e.airstamp, airdate: e.airdate === '' ? null : e.airdate, type: e.type })) };
 }
 // Provider HTML is rendered as text, never injected into the page.
 export const plainText = (html: string | null) => html ? html.replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"') : 'Unknown';

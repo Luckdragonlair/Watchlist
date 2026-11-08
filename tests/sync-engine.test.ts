@@ -1,6 +1,7 @@
 import {afterEach,describe,it,expect,vi} from 'vitest';
 import {WatchlistDB,saveBundle,setWatched,deleteShow} from '../src/db';
 import {createBackup,restoreBackup} from '../src/backup';
+import {validateBackup} from '../src/backup-validation';
 import {LibrarySync,type SyncTransport} from '../src/sync-engine';
 import {readLocalSync,acceptSyncedState,syncAckConflictKey,readPendingUpload,acquirePendingUpload,clearPendingUpload,type PendingUpload} from '../src/sync-local';
 import {libraryContentKey,type SharedLibrary} from '../src/sync-merge';
@@ -16,6 +17,29 @@ function remote(){
 function engine(db:WatchlistDB,transport:SyncTransport,online=()=>true){const instance=new LibrarySync(db,transport,()=>{},online);engines.push(instance);instance.start();return instance;}
 afterEach(async()=>{for(const instance of engines.splice(0))instance.stop();for(const db of databases.splice(0))await db.delete();vi.restoreAllMocks();});
 describe('durable shared-library synchronization',()=>{
+ it('repairs a legacy blank date and merges pending edits without replacing either library',async()=>{
+  const cloud=remote(),a=database(),b=database();await saveBundle(bundle,a);const first=engine(a,cloud.transport);
+  await expect.poll(()=>cloud.value?.library.backup.shows.length).toBe(1);
+  engine(b,cloud.transport);await expect.poll(()=>b.shows.count()).toBe(1);first.stop();
+  await a.episodes.put({...bundle.episodes[0],id:3,season:3,number:1,airstamp:null,airdate:''});
+  await a.preferences.update(1,{notes:'Unsynced notes preserved'});await setWatched(1,true,a);
+  await setWatched(2,true,b);await expect.poll(()=>cloud.value?.library.backup.progress.some(p=>p.episodeId===2)).toBe(true);
+  const phases:string[]=[];const resumed=new LibrarySync(a,cloud.transport,status=>phases.push(status.phase),()=>true);engines.push(resumed);resumed.start();
+  await expect.poll(()=>b.episodes.get(3)).toMatchObject({airdate:null,airstamp:null});
+  await expect.poll(()=>a.progress.count()).toBe(2);await expect.poll(()=>b.preferences.get(1)).toMatchObject({notes:'Unsynced notes preserved'});
+  expect((await a.episodes.get(3))?.airdate).toBeNull();expect(phases).not.toContain('conflict');expect(phases).not.toContain('invalid');
+ });
+ it('accepts a legacy blank as unknown in backups but still rejects malformed calendar dates',async()=>{
+  const db=database();await saveBundle(bundle,db);const backup=await createBackup(db);backup.episodes[0].airdate='';
+  expect(validateBackup(backup).episodes[0].airdate).toBeNull();expect(backup.episodes[0].airdate).toBe('');
+  for(const date of ['2026-02-30','2026-13-01',' ','tomorrow']){backup.episodes[0].airdate=date;expect(()=>validateBackup(backup)).toThrow('valid date');}
+ });
+ it('reports malformed saved data as invalid rather than a whole-library conflict',async()=>{
+  const cloud=remote(),db=database();await saveBundle(bundle,db);await db.episodes.update(1,{airdate:'2026-02-30'});
+  const phases:string[]=[];const instance=new LibrarySync(db,cloud.transport,status=>phases.push(status.phase),()=>true);engines.push(instance);instance.start();
+  await expect.poll(()=>phases).toContain('invalid');expect(phases).not.toContain('conflict');expect(cloud.value).toBeNull();
+  expect((await db.episodes.get(1))?.airdate).toBe('2026-02-30');
+ });
  it('sends saved progress between two separate databases and survives an engine restart',async()=>{
   const cloud=remote(),a=database(),b=database();await saveBundle(bundle,a);const first=engine(a,cloud.transport);
   await expect.poll(()=>cloud.value?.library.backup.shows.length).toBe(1);

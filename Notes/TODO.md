@@ -163,3 +163,10 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Move leading A/The to trailing comma suffixes in saved imports/refreshes and alphabetical display/sorting; accept both search forms.
 - [x] Preserve source text, provider identity, notes/history and manual ordering; verify saved backup names and refresh idempotence.
 - [ ] Reuse titles.ts in the forthcoming V2 alphabetical sections and A-Z index.
+
+## Blank release-date sync repair - 2026-11-08
+
+- [x] Normalize provider/legacy blank episode airdates to unknown, preserve all other fields and strict malformed-date checks.
+- [x] Automatically repair stored blank airdates before sync and distinguish data-validation failures from true library conflicts.
+- [x] Verify the owner's exported snapshot (178 shows / 4,568 episodes): exactly one blank-date normalization, all other values identical. Preserve the exported file.
+- [ ] Owner acceptance: update/reopen PC and phone, confirm Up to date across your signed-in devices without selecting a complete-library replacement.
