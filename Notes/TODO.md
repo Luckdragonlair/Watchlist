@@ -1,3 +1,7 @@
+# Latest card layout checkpoint
+
+- [x] v0.8.1 compact cards: six focused layout/interaction workflows, TypeScript and both builds passed; published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build. Real Firefox/Android acceptance remains.
+
 # Watchlist backlog
 
 For the current consolidated order, prerequisites, difficulty and remaining estimates, use [FEATURE_PLAN.md](FEATURE_PLAN.md). The dated checklists below retain history and can contain superseded items.

@@ -139,8 +139,9 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Already-watching catch-up and post-import setup | Built and verified | Every successful show import/match offers optional current episode and prefilled notes, Save and continue / Skip. Notes and earlier released progress save atomically; selected/later episode state is retained. Returns to starting list or filtered Match queue (v0.5.0). |
 | Caught up (v0.2.0) | Built and verified | Setup/detail choice marks all released regular episodes, retains timestamps and future tracking. Header reads package.json version; database names unchanged. |
 | Filed title names (v0.4.0) | Built and verified | Leading A/The become trailing comma suffixes in saved imports/refreshes and alphabetical display/sort/search. Original source fields and manual order retained. |
+| Compact cards (v0.8.1) | Built and verified | Manage inside title block; smaller gaps/tile; inline picker/Apply and selection-only guidance. Natural height and 44px controls retained. |
 | Genre colors and Binge checkboxes (v0.8.0) | Built and verified | Approved palette, multi-genre badges, OR checkboxes combined with search; compact phone menu, raw metadata preserved. |
-| Card controls (v0.8.0) | Built and verified | Drag below left tile; Manage lower; right-middle arrows. Explicit-Apply regular episode/Caught up picker reuses safe setup guards. |
+| Card controls (v0.8.0) | Built and verified | Drag below left tile; Manage in title block since v0.8.1; right-middle arrows. Explicit-Apply regular episode/Caught up picker reuses safe setup guards. |
 | Personal notes | Built and verified | Stored separately from provider metadata. |
 | Binge up/down ordering | Built and verified | Watching now/Watch soon share persistent section ranks; legacy ranks map to Watch soon. Everything else is alphabetical. |
 | Binge drag-and-drop (v0.7.0) | Built and verified | Mouse/touch handles, keyboard pickup/drop/cancel, auto-scroll and guarded atomic order shared with arrows. |
@@ -263,6 +264,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest priority: owner-approved compact cards implemented in v0.8.1; six focused checks and builds passed, published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build. Remaining V2 icons/A-Z/dialog/accessibility and movie planning stay separate.
+
 Current priority superseding earlier notes: v0.8.0 genre colors/checkboxes and card controls are built and verified. Remaining V2 icons/A-Z/dialog/accessibility acceptance and movie planning stay next; family/AI changes remain deferred.
 
 Current priority 2026-11-08 09:05 America/Chicago: cleanup and v0.7.0 dragging/activity ordering are verified. Finish remaining V2/A-Z/dialog/accessibility work and plan required movie support next. Family access/social sharing stay deferred until core completion; API-credit use remains undecided.
@@ -314,6 +317,13 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-08 - v0.8.1 compact cards
+
+- Owner approved the compact comparison and requested narrowly scoped testing. Moved Manage inside the title block, reduced card padding/gaps and letter-tile height, kept Drag beneath it, and put picker/Apply together on phone. The picker label remains available to screen readers; contextual catch-up guidance becomes visible on selection before Apply. No save, history, order, sync, schema or provider rules changed.
+- Cards have no fixed height: long titles/multiple genres, expanded Manage and large text reflow naturally. Phone reserves an arrow column; 44px control targets and right-middle arrows are retained. Tightened the phone status/Manage row after the existing first-episode visibility assertion caught extra height. The new overlap check uses actual visibility to exclude closed native-details content, and verifies expanded Manage controls.
+- PASS: six targeted browser workflows, TypeScript, normal/hosted builds and hosted private-asset guard. Covered 320/412/1024/1280 widths, mouse/touch/keyboard dragging, explicit picker Apply/caught-up, first-episode visibility, 44px controls, expanded Manage and doubled title/genre text. Fixture screenshots inspected; published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build. No unrelated unit, sync, rules or full-PWA suites requested or run. Personal library and original master remain untouched. Real Firefox/Android/TalkBack acceptance remains separate.
+
 
 ### 2026-11-08 - v0.8.0 genre filters and card controls
 

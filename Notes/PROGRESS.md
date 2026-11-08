@@ -1,5 +1,13 @@
 # Latest checkpoint
 
+### 2026-11-08 - v0.8.1 compact cards
+
+- Owner approved the compact comparison and requested narrowly scoped testing. Moved Manage inside the title block, reduced card padding/gaps and letter-tile height, kept Drag beneath it, and put picker/Apply together on phone. The picker label remains available to screen readers; contextual catch-up guidance becomes visible on selection before Apply. No save, history, order, sync, schema or provider rules changed.
+- Cards have no fixed height: long titles/multiple genres, expanded Manage and large text reflow naturally. Phone reserves an arrow column; 44px control targets and right-middle arrows are retained. Tightened the phone status/Manage row after the existing first-episode visibility assertion caught extra height. The new overlap check uses actual visibility to exclude closed native-details content, and verifies expanded Manage controls.
+- PASS: six targeted browser workflows, TypeScript, normal/hosted builds and hosted private-asset guard. Covered 320/412/1024/1280 widths, mouse/touch/keyboard dragging, explicit picker Apply/caught-up, first-episode visibility, 44px controls, expanded Manage and doubled title/genre text. Fixture screenshots inspected; published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build. No unrelated unit, sync, rules or full-PWA suites requested or run. Personal library and original master remain untouched. Real Firefox/Android/TalkBack acceptance remains separate.
+
+# Latest checkpoint
+
 ### 2026-11-08 - v0.8.0 genre filters and card controls
 
 - Owner explicitly authorized the previously deferred genre/card ideas. Applied the approved six-color Nightfall palette with written multi-genre badges and stronger tinted card edges/surfaces. Binge's compact Genres menu offers one checkbox per saved genre; choices are OR, no checks means all, and text search combines with them across all Binge subviews. Filter choices are session UI state, not a synced library preference. Raw provider genres remain unchanged; Sci-Fi aliases normalize only for presentation/filtering. No superhero inference from Action.

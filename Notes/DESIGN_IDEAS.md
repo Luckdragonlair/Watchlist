@@ -3,7 +3,9 @@
 Updated: 2026-11-08 (America/Chicago)
 Status: **Mixed: genre colors/checkboxes and card controls approved and built in v0.8.0; other ideas remain proposed.**
 
-## Card controls - implemented v0.8.0
+## Card controls - implemented v0.8.0; compact refinement v0.8.1
+
+The owner subsequently approved compact spacing with Manage inside the title block, inline picker/Apply and contextual guidance. Compact implementation passed six targeted workflows and both builds; the older lower-action-area proposal below is superseded.
 
 The owner authorized these on 2026-11-08. Explicit Apply now performs the existing guarded catch-up; opening/selecting does not write. The notes below preserve the original proposal.
 

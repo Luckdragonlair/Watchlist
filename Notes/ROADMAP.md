@@ -14,6 +14,8 @@ The current local-first PWA is the foundation. Hosted access is published for tr
 
 ## Progress at a glance
 
+- [x] v0.8.1: compact cards verified with six focused browser workflows and both builds; published Hosting-only; live index, offline worker and all app JS/CSS matched the tested build.
+
 - [x] v0.8.0: approved genre palette/multi-genre badges, compact Binge OR checkboxes, Drag below left letter, lower Manage and explicit-Apply episode/Caught up on cards. Focused unit/browser/build verification passed; real-device acceptance remains.
 
 **Current focus:** v0.7.0 card dragging and started-first Binge activity/manual order are built and verified. Next: remaining V2/A-Z/dialog/accessibility work, then movie planning. Family access and social recommendations are deferred until core completion; API-credit use is undecided.

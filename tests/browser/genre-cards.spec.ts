@@ -23,3 +23,21 @@ test('card picker requires Apply, preserves notes/history/future tracking, and l
  expect(await page.evaluate(async()=>{const path='/src/db.ts';const {db}=await import(path);return (await db.preferences.get(1)).notes;})).toBe('Keep notes 1');
  await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await expect(card).toBeVisible();await expect(card.getByText('1 upcoming',{exact:false})).toBeVisible();
 });
+
+test('compact cards keep tap targets clear and grow for long text and expanded Manage',async({page})=>{
+ await seed(page);const card=page.getByRole('article',{name:'Funny fantasy',exact:true});
+ await page.setViewportSize({width:1280,height:1000});expect((await card.boundingBox())!.height).toBeLessThan(220);
+ await expect(card.locator('.card-episode-picker small')).toBeHidden();await card.getByLabel('Current episode for Funny fantasy').selectOption('caught-up');await expect(card.getByText('Marks aired regular episodes watched; keeps tracking future episodes.',{exact:true})).toBeVisible();
+ await card.getByLabel('Current episode for Funny fantasy').selectOption('');
+ for(const width of [320,412,1024,1280]){
+  await page.setViewportSize({width,height:1000});
+  await card.getByLabel('Manage Funny fantasy',{exact:true}).click();await expect(card.getByRole('button',{name:'Not for me',exact:true})).toBeVisible();
+  const controls=await card.locator('button,select,summary').evaluateAll(nodes=>nodes.filter(node=>node.checkVisibility()).map(node=>{const b=node.getBoundingClientRect();return {name:node.getAttribute('aria-label')??node.textContent,x:b.x,y:b.y,width:b.width,height:b.height};}));
+  for(const control of controls)expect(control.height,control.name??'control').toBeGreaterThanOrEqual(44);
+  for(let i=0;i<controls.length;i++)for(let j=i+1;j<controls.length;j++){const a=controls[i],b=controls[j];expect(Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)>1&&Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y)>1,a.name+' overlaps '+b.name).toBe(false);}
+  await card.getByLabel('Manage Funny fantasy',{exact:true}).click();
+ }
+ await page.evaluate(async()=>{const path='/src/db.ts';const {db}=await import(path);await db.shows.update(1,{name:'An extremely long fantasy series title with several words that must wrap at large text sizes',genres:['Science-Fiction','Fantasy','Comedy','Adventure']});});
+ await page.setViewportSize({width:320,height:1000});await page.addStyleTag({content:'.show-card .show-title{font-size:48px}.show-card .show-meta{font-size:24px}.show-card .genre-tag{font-size:20px}'});
+ await expect(page.locator('.show-title').first()).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});

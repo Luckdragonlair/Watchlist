@@ -178,3 +178,7 @@ User priorities: family access and social recommendations are deferred until the
 ## 2026-11-08 - Genre filters and card progress approved
 
 Supersedes earlier deferral: owner requested genre colors/checkboxes, Drag below the letter, Manage below and a main-card episode picker. All saved genres participate in Binge OR filtering, combined with search; no checks means all. Filters are session-only, do not change placement/order or delete hidden records, and do not affect Weekly/Watched. Approved palette always includes written labels. Provider metadata stays raw; display aliases are separate. Current episode/Caught up requires explicit Apply and existing atomic setup safeguards; future tracking is retained. No additional notes editor is added to cards.
+
+## 2026-11-08 - Compact cards approved
+
+Owner approved the compact comparison. Default cards use tighter spacing with Manage in the identity block and contextual picker guidance visible after selection. Retain accessible picker labeling and explicit Apply, 44px targets and natural card growth for long/enlarged text. Reserve space for arrows on phone; do not compress by clipping text or hiding essential actions. Verification should target the changed card surfaces and affected controls, not unrelated features.
