@@ -123,7 +123,7 @@ Updated: 2026-11-08
 
 - [x] Preserve approved references, apply local/offline typography and theme, responsive navigation/cards, focus/reduced-motion handling and centered right-edge arrows.
 - [x] Verify existing browser/offline behavior and new narrow-layout/font checks.
-- [ ] Implement V2 Binge sections with compatible persisted preferences before drag-and-drop.
+- [x] Implement V2 Binge sections with compatible persisted preferences before drag-and-drop (2026-11-08; v0.5.0).
 - [ ] Implement A-Z slider, final dialog/status hierarchy and icon assets; verify real zoom/text sizes, Firefox/Android and assistive technologies.
 
 Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANCE_2026-11-07.md. Historical pending-sync items above are superseded only to that recorded extent.
@@ -170,3 +170,18 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Automatically repair stored blank airdates before sync and distinguish data-validation failures from true library conflicts.
 - [x] Verify the owner's exported snapshot (178 shows / 4,568 episodes): exactly one blank-date normalization, all other values identical. Preserve the exported file.
 - [ ] Owner acceptance: update/reopen PC and phone, confirm Up to date across your signed-in devices without selecting a complete-library replacement.
+
+## Binge sections and Match - 2026-11-08
+
+- [x] Ready with Watching now / Watch soon / alphabetical Everything else; Upcoming & TBA; reversible Not for me.
+- [x] Preserve legacy order, notes/history and automatic availability/Weekly rules; protect section changes across refresh/restore/sync.
+- [x] Dedicated unmatched-only Match tab; Import handles files; setup returns to filtered Match queue.
+- [x] Format-2 backups/shared snapshots retain sections, with format-1 import compatibility and old-client safety fence.
+- [x] Update readable folder export and current code/status documentation.
+- [x] Owner reported v0.4.1 sync recovery (Up to date) before this release; phone recovery was not separately reported.
+- [ ] Owner checks v0.5.0 on PC and phone: update both, move a show, verify shared section/order and offline reconnect.
+- [ ] Accessible drag-and-drop is next; A-Z rail, final styling/dialogs and assistive-tech/zoom acceptance remain.
+
+- [ ] Claude is preparing splash/title screen and optional PC banner designs (owner plan 2026-11-08). Review/integrate later; keep splash brief and nonblocking, with offline/reduced-motion support. No implementation claimed.
+
+2026-11-08 design follow-up: owner proposes a movie-style spotlight sweeping across a wall/stage/screen to reveal Watchlist. Claude is preparing the splash and possible PC banner assets. This is a proposed visual concept, not built or a reason to delay library access; use a brief nonblocking reveal and a static reduced-motion state. Final assets still need review.

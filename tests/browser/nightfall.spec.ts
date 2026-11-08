@@ -15,6 +15,7 @@ test('Nightfall cards and phone navigation remain usable at narrow and compact s
   await page.getByRole('button',{name:'Search TVmaze'}).click();
   await page.getByRole('button',{name:`Import ${name} (#890001)`}).click();
   await page.getByRole('button',{name:'Skip for now'}).click();
+  await page.getByLabel('Manage '+filedTitle(name),{exact:true}).click();await page.getByRole('button',{name:'Move to Watch soon',exact:true}).click();
   const card=page.getByRole('article',{name:filedTitle(name),exact:true});
   for(const width of [320,412,640,960,1280]){
     await page.setViewportSize({width,height:900});

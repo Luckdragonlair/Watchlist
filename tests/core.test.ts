@@ -88,7 +88,7 @@ describe('IndexedDB persistence and sync', () => {
     const db=create();const b=bundle();await saveBundle(b,db);await setWatched(1,true,db);await db.preferences.update(10,{notes:'Preserve these notes',order:4});
     const source={id:'backup-source',name:'Working list',raw:'Test series',importedAt:now.toISOString(),rows:[{id:'1',title:'Test series',notes:'source assertion',state:'imported' as const,showId:10}]};await db.sources.put(source);
     const progress=await db.progress.toArray();const backup=await createBackup(db);
-    expect(backup).toMatchObject({version:1,shows:[b.show],seasons:b.seasons,episodes:b.episodes,progress,sources:[source],preferences:[{showId:10,notes:'Preserve these notes',order:4}]});
+    expect(backup).toMatchObject({version:2,shows:[b.show],seasons:b.seasons,episodes:b.episodes,progress,sources:[source],preferences:[{showId:10,notes:'Preserve these notes',order:4}]});
     expect(Number.isFinite(Date.parse(backup.exportedAt))).toBe(true);expect(await db.progress.toArray()).toEqual(progress);expect(await db.shows.toArray()).toEqual([b.show]);
   });
   it('syncs twice without duplicates or overwriting progress and manual preferences',async()=>{

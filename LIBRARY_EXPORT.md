@@ -2,7 +2,7 @@
 
 The hosted Watchlist library is the shared viewing-state source. A small read-only PC helper keeps two private working exports in `D:\Watchlist\Library`:
 
-- `Watchlist Current.json`: valid version-1 app backup with all shows, seasons, episodes, notes, watched timestamps and source rows.
+- `Watchlist Current.json`: valid app backup (format 2 after the app upgrades the shared library; format 1 remains readable) with all shows, seasons, episodes, notes, watched timestamps and source rows.
 - `Watchlist Current.md`: readable Weekly/Binge/Watched summary plus source entries not linked. Classifications use the app's own model, not a separate guessed schedule.
 - `export-status.json`: cloud revision/hash and export timestamp.
 - `Matching Review.md` and `Remaining Matching Choices.md`: current matching progress/review, maintained separately from the automatic export.
@@ -32,3 +32,7 @@ Matching uses local provider caches and explicit source-row IDs. Unclear title/p
 Do not run apply-reviewed-matches.cjs merely to experiment: it performs live maintenance and requires the owner's concrete batch approval. Its default approved batch is specifically the November 7 138/59 plan; the owner-selected path is limited to the three recorded choices. The full likely-match/resumable UI remains future work.
 
 When updating the app's backup schema or classification code, restart the watcher after testing so its validation/classification module is refreshed. The old watcher refuses incompatible data and retains the last good files rather than guessing.
+
+## v0.5.0 section-format compatibility - 2026-11-08
+
+Update Watchlist on PC and phone before continuing shared use. New snapshots/backups use format 2 to retain Binge sections; older format-1 backups remain readable. Older app versions reject the new shared format rather than dropping its fields. Database names and schema v3 are unchanged. Import handles working files; Match holds only unmatched entries. Reversible Not for me preserves viewing history. The read-only folder helper must run the updated code; restart it after this release so its validation and readable sections are current.

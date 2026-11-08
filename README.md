@@ -1,6 +1,6 @@
-# Watchlist v0.4.1
+# Watchlist v0.5.0
 
-A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. Full V2 section organization and drag-and-drop are still in progress; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
+A personal React + TypeScript + Vite app with an offline IndexedDB library (Dexie) and owner-only Firebase synchronization in the hosted version. The first Nightfall V2 presentation milestone is implemented: locally cached typography, dark surfaces, responsive cards and phone bottom navigation. V2 Binge sections and the unmatched-only Match queue are implemented; drag-and-drop and the remaining V2 refinements are still in progress; see [the foundation checkpoint](Notes/NIGHTFALL_FOUNDATION.md).
 
 Use [the hosted app](https://genre-watchlist.firebaseapp.com/) for shared PC/Android use. See [SYNC.md](SYNC.md) for the one-time transfer from the original local library and real-device acceptance steps. Your original local library is not uploaded automatically.
 
@@ -43,3 +43,11 @@ Leading A and The move to the end: A Bear becomes Bear, A; The Zebra becomes Zeb
 ## Unknown-date sync repair (v0.4.1)
 
 TVmaze sometimes supplies an empty release date for an announced episode. Imports treat this as unknown; sync startup converts existing blank episode dates to null without changing notes, viewing history or other metadata. Legacy backups with this exact blank value remain usable. Malformed nonblank dates are still rejected, and saved-data validation errors no longer offer whole-library conflict replacement choices. After updating, sync resumes normally without restoring a backup or selecting a complete library. Actual differing edits still use the existing conflict review flow.
+
+## Binge sections and matching (v0.5.0)
+
+Binge opens on Ready: Watching now and Watch soon use saved arrow order; Everything else is alphabetical. Upcoming & TBA separates dated future episodes from shows without a known next date. Not for me hides a show from active lists without deleting history; its history remains in Watched. Use Manage on a Binge card or Watch list section in show details to move it. A section choice does not force an unavailable episode into Ready or an actively releasing show out of Weekly. Old unsectioned shows use Watch soon to preserve prior ordering; new imports start in Everything else.
+
+Import adds files and shows retained/unmatched counts. Match, beside Import (also available on phones), shows only pending/review entries, with title filtering. Completed matches disappear from that queue after setup; source text and season assertions remain preserved. Matching stays explicit, with no automatic alias choices or new bulk batch.
+
+Update Watchlist on both PC and phone. New exports/shared snapshots use backup format 2 to preserve sections safely; this app also reads old format-1 backups. Older app versions cannot read the new shared format and must update. IndexedDB names/schema stay the same; no library is reset. Dragging and the A-Z shortcut remain next work.

@@ -26,7 +26,7 @@ The browser tests are configured for the Microsoft Edge channel (`msedge`). Inst
 
 Open a matched show's detail and select **Delete show** to remove it, then confirm. Removal covers metadata, viewing history, personal notes/order and linked source entries, and stays removed after reload. Original source files and previously exported backups remain unchanged. A fresh explicit import can add the show again with no old progress.
 
-The library is stored in IndexedDB for the browser and origin you use. Data in `127.0.0.1:5174` is separate from data on another host, port, browser, or deployed site. The app exports and restores version-1 Watchlist JSON backups.
+The library is stored in IndexedDB for the browser and origin you use. Data in `127.0.0.1:5174` is separate from data on another host, port, browser, or deployed site. The app exports format-2 Watchlist JSON backups and restores both format 1 and format 2.
 
 The normalized working catalog contains **301 installments across 208 titles**. It excludes all **5 Silo entries**; Silo remains in the preserved original master list and is intentionally not seeded. Catalog entries begin as source rows awaiting a positive, per-title TVmaze match, so the matched library may initially be empty. `Re S3` and `Re S4` remain flagged for manual identification. Source schedule and renewal claims are unverified until checked.
 
@@ -61,3 +61,7 @@ Development is now pnpm dev at http://127.0.0.1:5175, with no service worker and
 Run production PWA tests with pnpm build followed by pnpm test:pwa, or ./run-watchlist.ps1 -Task test:pwa. Those tests use disposable browser profiles and local test servers, never the user's library. No deployment, accounts, or cross-device sync has been created.
 
 For the optional private current-library folder export, run `./Start-LibraryExport.ps1` (Windows-session watcher), `-Once` (single export) or `-Stop`. See LIBRARY_EXPORT.md. No Windows-login startup task is installed.
+
+## v0.5.0 section-format compatibility - 2026-11-08
+
+Update Watchlist on PC and phone before continuing shared use. New snapshots/backups use format 2 to retain Binge sections; older format-1 backups remain readable. Older app versions reject the new shared format rather than dropping its fields. Database names and schema v3 are unchanged. Import handles working files; Match holds only unmatched entries. Reversible Not for me preserves viewing history. The read-only folder helper must run the updated code; restart it after this release so its validation and readable sections are current.

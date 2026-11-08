@@ -90,7 +90,7 @@ export function parseBackup(raw: string): Backup {
 
 export function validateBackup(value: unknown): Backup {
   const b = object(value, 'file');
-  if (b.version !== 1) fail('version', 'is missing or unsupported; this app accepts version 1');
+  if (b.version !== 1 && b.version !== 2) fail('version', 'is missing or unsupported; this app accepts version 1 and version 2');
   const exportedAt = timestamp(b.exportedAt, 'export date');
   const shows = array(b.shows, 'shows').map((value, index) => {
     const loc = `show ${index + 1}`, s = object(value, loc);
@@ -123,7 +123,8 @@ export function validateBackup(value: unknown): Backup {
   });
   const preferences = array(b.preferences, 'preferences').map((value, index) => {
     const loc = `preference ${index + 1}`, p = object(value, loc);
-    return { showId: id(p.showId, `${loc} show identifier`), order: number(p.order, `${loc} order`), notes: text(p.notes, `${loc} notes`) };
+    if(p.bingeSection!==undefined&&(b.version!==2||!['watching-now','watch-soon','everything-else','not-for-me'].includes(String(p.bingeSection))))fail(loc,'has an unsupported Binge section');
+    return { showId: id(p.showId, `${loc} show identifier`), order: number(p.order, `${loc} order`), notes: text(p.notes, `${loc} notes`),...(p.bingeSection===undefined?{}:{bingeSection:p.bingeSection as 'watching-now'|'watch-soon'|'everything-else'|'not-for-me'}) };
   });
   const sources = array(b.sources, 'import sources').map((value, index) => {
     const loc = `import source ${index + 1}`, s = object(value, loc);
@@ -154,5 +155,5 @@ export function validateBackup(value: unknown): Backup {
     if (r.state === 'imported' && r.showId === undefined) fail(`import source ${source.name}, row ${r.id}`, 'is marked imported but has no linked show');
     if (r.showId !== undefined) knownShow(r.showId, `import source ${source.name}, row ${r.id}`);
   }
-  return { version: 1, exportedAt, shows, seasons, episodes, progress, preferences, sources };
+  return { version: b.version, exportedAt, shows, seasons, episodes, progress, preferences, sources };
 }

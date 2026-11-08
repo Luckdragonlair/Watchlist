@@ -1,6 +1,6 @@
 # Watchlist development roadmap
 
-Updated: 2026-11-07 08:23 CST (America/Chicago)
+Updated: 2026-11-08 04:20 CST (America/Chicago)
 
 This is the living development plan from the original prototype to a dependable first release. It tracks verified progress, remaining work and initial effort estimates. AI maintains the status marks, timestamps and estimate changes.
 
@@ -8,11 +8,11 @@ This is the living development plan from the original prototype to a dependable 
 
 One-click Watchlist access on an Android phone and a Windows PC, with Firefox as a primary compatibility target. The same library, episode progress, notes and Binge order stay synchronized across devices. Ordinary tracking works offline and reconciles when reconnected. Installation uses an app icon/window where supported; routine use should not require finding a browser tab or starting a PC development server.
 
-The current local-first PWA is the foundation. Hosted access is published for trial use. Automatic cross-device sync is deployed and passes automated tests. Personal migration, actual Firefox/Android acceptance, dragging, recommendations and final visual design remain unfinished.
+The current local-first PWA is the foundation. Hosted access is published for trial use. Automatic cross-device sync is deployed and passes automated tests. Personal migration and core PC/phone notes/offline reconnect checks passed by user report. Dragging, remaining progress/order/recovery and accessibility acceptance, recommendations and final visual refinements remain unfinished.
 
 ## Progress at a glance
 
-**Current focus:** Steps 5–6 — automatic sync deployed; transfer a fresh backup and verify actual PC/Android behavior. Claude can start visual design independently using CLAUDE_DESIGN_HANDOFF.md.
+**Current focus:** Steps 7 and 9 — Binge sections and Match are built; accessible dragging is next, followed by the A-Z control and final screen/dialog refinements. Update PC and phone to v0.5.0 for section-compatible sync. Approved Nightfall references are in design/nightfall-v2. Claude is preparing splash/banner design assets separately.
 **Target:** one-click use on Android and Windows, a shared private library, and dependable offline tracking.
 
 Marks: **[x] complete** · **[~] partly complete** · **[>] next** · **[ ] not started** · **[!] blocked**. A blocked mark must name the blocker. No milestone is currently marked blocked; future steps depend on the decisions and checks below.
@@ -25,10 +25,10 @@ Marks: **[x] complete** · **[~] partly complete** · **[>] next** · **[ ] not 
 | 4 | [~] Firefox PC checks passed; Firebase Spark chosen; access/security design underway | 1–2 sessions; Android acceptance follows hosted access in step 5 | 2026-11-06 07:00 CST; user confirmed internet-disconnected reopen |
 | 5 | [~] Hosted trial published; live unsigned-in shell verified; device acceptance and migration remain | About 1 session for device checks; migration depends on sync readiness | 2026-11-06 08:03 CST |
 | 6 | [~] Sync deployed; migration, live two-way notes and offline reconnect passed by user report | Remaining progress/order/recovery checks included in step 10 | 2026-11-07; see SYNC_ACCEPTANCE_2026-11-07.md |
-| 7 | [~] Persistent arrows now centered on card right edge; dragging remains | 1-2 sessions for accessible drag/order integration | 2026-11-07 08:23 CST |
-| 8 | [~] Core library works; onboarding and next-watch features remain | 2–4 sessions after scope is agreed | 2026-11-06; time not recorded |
-| 9 | [~] Nightfall foundation deployed; full V2 integration continues | 2-4 focused sessions remain; Binge sections, drag/A-Z and accessibility validation | 2026-11-07 08:23 CST |
-| 10 | [ ] Device acceptance, recovery checks and first release | 1–3 sessions after steps 4–9; major defects require a revised estimate | Not started |
+| 7 | [>] Watching now/Watch soon section arrows and shared saved order built; accessible dragging next | 1-2 focused sessions, subject to device acceptance | 2026-11-08 04:20 CST |
+| 8 | [~] Setup, caught-up action, daily metadata checks and Match queue built; held titles/manual acceptance remain | Manual review as needed; recommendations remain deferred | 2026-11-08 04:20 CST |
+| 9 | [~] Nightfall foundation, Binge sections and Match complete; drag/A-Z, final styling and accessibility remain | 2-4 focused sessions; overlaps step 7, not additive | 2026-11-08 04:20 CST |
+| 10 | [~] Core real-device sync passed; remaining section/progress/order/recovery and accessibility acceptance open | 1-3 sessions after steps 7-9; defects may revise estimate | 2026-11-08: owner reported sync recovered after v0.4.1 |
 
 ### How to read the estimates
 
@@ -183,4 +183,16 @@ For each future entry use: **Timestamp | Step | Change and evidence | Remaining 
 ## Import setup improvement - 2026-11-07 10:05 CST
 
 - [x] Post-match/import current-episode and notes setup, return to origin, skip and concurrency guards implemented and verified. This completes that requested onboarding improvement; broader step 8 work remains.
-- [ ] V2 Binge section organization remains next, then dragging. Existing remaining-effort estimates are unchanged by this bounded workflow addition.
+- [x] V2 Binge section organization completed 2026-11-08; this supersedes the earlier next-step note. Accessible dragging is next.
+
+## 2026-11-08 - Binge/Match checkpoint
+
+- [x] Ready / Watching now / Watch soon / Everything else; Upcoming & TBA; reversible Not for me; persistent arrow order and preserved history.
+- [x] Dedicated unmatched-only Match tab; Import for files; post-match setup returns to the filtered queue.
+- [x] Format-2 snapshots/backups retain section choices, accepting old format 1 and safely excluding old app readers. Update both devices.
+- [x] Automated verification: 232 unit tests, 30 browser workflows, 6 PWA workflows, 13 rules/access tests, 5 SDK integration tests, hosted privacy check and both builds. Fictional phone layout inspected.
+- [ ] Owner v0.5.0 PC/Android section/order/offline acceptance.
+- [>] Accessible dragging; next A-Z shortcut and final screen/dialog/status refinements.
+- [ ] Claude's splash/title screen and optional PC banner are planned design assets, not implemented features. Review assets before integration; keep splash brief/nonblocking and support reduced motion/offline use.
+
+Historical entries above remain as checkpoints; the current summary and this dated checkpoint supersede their old pending items where explicitly completed here.

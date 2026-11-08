@@ -1,6 +1,8 @@
 import {createRequire} from 'node:module';
 import {expect,it} from 'vitest';
 import * as model from '../src/model';
+import * as bingeModel from '../src/binge-model';
+import * as titles from '../src/titles';
 const require=createRequire(import.meta.url);
 const {applyMatches}=require('../scripts/bulk-match-data.cjs');
 const {makeCommit}=require('../scripts/bulk-match-commit.cjs');
@@ -36,4 +38,10 @@ it('builds one atomic commit with a stale-write precondition and round-trips UTF
 });
 it('renders the folder export using app classifications and retains unmatched titles separately',()=>{
  const data=fixture();const result=renderLibrary(data,19,now,model);expect(result).toContain('## Watched');expect(result).toContain('My existing personal note');expect(result).toContain('Unclear special');expect(result).toContain('Cloud revision 19');
+});
+it('includes Binge sections and Not for me in the readable folder export',()=>{
+ const original=fixture();
+ const data={...original,backup:{...original.backup,version:2 as const,preferences:original.backup.preferences.map(p=>({...p,bingeSection:'not-for-me' as const}))}};
+ const output=renderLibrary(data,20,now,{...model,...bingeModel,...titles});
+ expect(output).toContain('## Binge');expect(output).toContain('### Not for me\n\n- **Existing**');expect(output).toContain('My existing personal note');expect(output).toContain('## Watched');
 });

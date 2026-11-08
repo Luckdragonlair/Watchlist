@@ -47,3 +47,7 @@ Cloud writes use an atomic compare-and-swap revision and hashed chunks. Rules re
 Run pnpm test for local merge/queue/database tests, pnpm test:e2e for browser behavior, pnpm test:pwa for offline/update routing, pnpm test:hosted for unsigned-in hosted privacy, and pnpm test:rules for both rules and real SDK/two-database tests against the local demo emulator. On a fresh Windows checkout run powershell -File scripts/setup-rules-java.ps1 first if usable Java is unavailable. Tests refuse a non-loopback emulator and use demo-watchlist-rules, never the user's live library.
 
 Actual Android/Firefox installation, signed-in offline behavior and personal-library migration require real-device acceptance in addition to automated checks. See Notes/PROGRESS.md for current deployment status and verified results.
+
+## v0.5.0 section-format compatibility - 2026-11-08
+
+Update Watchlist on PC and phone before continuing shared use. New snapshots/backups use format 2 to retain Binge sections; older format-1 backups remain readable. Older app versions reject the new shared format rather than dropping its fields. Database names and schema v3 are unchanged. Import handles working files; Match holds only unmatched entries. Reversible Not for me preserves viewing history. The read-only folder helper must run the updated code; restart it after this release so its validation and readable sections are current.

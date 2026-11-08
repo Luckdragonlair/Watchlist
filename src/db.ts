@@ -56,7 +56,7 @@ export async function saveBundle(bundle: Bundle, database = db, requireExisting 
     await database.episodes.where('showId').equals(bundle.show.id).delete();
     await database.seasons.bulkPut(bundle.seasons);
     await database.episodes.bulkPut(bundle.episodes);
-    if (!await database.preferences.get(bundle.show.id)) await database.preferences.put({ showId: bundle.show.id, order: await database.preferences.count(), notes: '' });
+    if (!await database.preferences.get(bundle.show.id)) await database.preferences.put({ showId: bundle.show.id, order: await database.preferences.count(), notes: '',bingeSection:'everything-else' });
   });
 }
 export async function setWatched(episodeId: number, watched: boolean, database = db) {

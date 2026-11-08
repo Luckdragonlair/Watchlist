@@ -147,3 +147,19 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); fo
 .show-setup label { display:block; width:100%; }
 .show-setup select,.show-setup textarea { display:block; width:100%; margin-top:8px; }
 .setup-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+
+/* Binge organization uses the existing Nightfall surfaces and shared controls. */
+.binge-filters {display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px;}
+.binge-filters button[aria-pressed=true] {border-color:var(--accent);color:var(--accent);background:#163047;}
+.binge-section {margin:24px 0 36px;}
+.binge-heading {position:sticky;top:0;z-index:3;background:#080e19f5;border-bottom:1px solid var(--line);padding:12px 0;font:28px var(--serif);display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.binge-heading span {font:11px var(--mono);color:var(--muted);}
+.show-actions {grid-column:2 / -1;justify-self:start;position:relative;}
+.show-actions summary {min-height:44px;padding:12px;cursor:pointer;border:1px solid var(--line);border-radius:8px;font-size:12px;}
+.show-actions div {display:flex;flex-wrap:wrap;gap:6px;padding-top:8px;}
+.show-actions button {font-size:12px;min-height:44px;}
+@media(min-width:840px){nav[aria-label=Views]{flex-wrap:wrap;}}
+@media(max-width:839px){.show-actions{grid-column:1 / -1;}.mobile-import{margin-right:8px;}}.show-card:has(.show-actions) .reorder-controls {grid-column:-2 / -1;grid-row:1 / span 2;}
+.show-actions {grid-column:2 / -2;}
+@media(max-width:839px){.show-card:has(.show-actions) .reorder-controls{grid-column:2;grid-row:1 / span 4;}.show-actions{grid-column:1;grid-row:4;}.show-card:not(:has(.reorder-controls))>.show-actions{grid-column:1 / -1;}}
+@media(max-width:839px){.mobile-import{display:inline-flex;margin-right:8px;}}

@@ -52,3 +52,7 @@ Sources checked 2026-11-06: [Mozilla Windows web apps](https://support.mozilla.o
 ## Automatic metadata checks - 2026-11-08
 
 While open, visible and connected, Watchlist refreshes linked shows whose metadata is at least 24 hours old. Overdue checks resume on reopening or reconnection. Checks pause offline, during setup/restore/manual work, and during unresolved synchronization conflicts. Tracking and cached episode availability still work offline. Closing/suspending the app stops scheduled checks; no server background job or paid service is installed. TVmaze Ended shows stay included because cancellation is not independently established. Notes, watched history and manual ordering survive checks; failures keep the last saved snapshot.
+
+## Binge sections offline (v0.5.0)
+
+Section choices and arrow order are stored locally, work offline, and sync on reconnection. Not for me hides active placement without deleting history. Match keeps the saved unmatched queue available offline, but TVmaze search/linking requires internet. New backups are format 2 with sections; old format 1 is still accepted. Update PC and phone to v0.5.0 or later before shared use; older apps cannot read the new payload. No database reset or automatic restore is performed.

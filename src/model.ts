@@ -2,11 +2,12 @@ export interface Show { id: number; name: string; summary: string | null; status
 export interface Season { id: number; showId: number; number: number; episodeOrder: number | null; endDate: string | null }
 export interface Episode { id: number; showId: number; season: number; number: number | null; name: string; summary: string | null; airstamp: string | null; airdate: string | null; type: string }
 export interface Progress { episodeId: number; watchedAt: string; showId?: number }
-export interface Preference { showId: number; order: number; notes: string }
+export type BingeSection='watching-now'|'watch-soon'|'everything-else'|'not-for-me';
+export interface Preference { showId: number; order: number; notes: string; bingeSection?:BingeSection }
 export interface ImportRow { id: string; title: string; notes: string; state: 'pending' | 'excluded' | 'review' | 'imported'; showId?: number; sourceCategory?: 'Weekly' | 'Binge' | 'Watched'; sourceWeekday?: string; sourceStatus?: string; season?: number; rawTitle?: string }
 export interface Source { id: string; name: string; raw: string; importedAt: string; rows: ImportRow[] }
 export interface Bundle { show: Show; seasons: Season[]; episodes: Episode[] }
-export interface Backup { version: 1; exportedAt: string; shows: Show[]; seasons: Season[]; episodes: Episode[]; progress: Progress[]; preferences: Preference[]; sources: Source[] }
+export interface Backup { version: 1|2; exportedAt: string; shows: Show[]; seasons: Season[]; episodes: Episode[]; progress: Progress[]; preferences: Preference[]; sources: Source[] }
 export const chicagoDate = (now: Date) => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
 export const airTime = (stamp: string) => new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'long', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }).format(new Date(stamp));
 export const episodeLabel = (e: Episode) => `S${e.season} E${e.number ?? '?'} · ${e.name}`;

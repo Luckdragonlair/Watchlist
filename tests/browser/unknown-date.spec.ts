@@ -9,7 +9,7 @@ test('an announced episode with an empty provider date imports as unknown and st
   await page.goto('/');await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill(show.name);
   await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Unknown date fixture (#930001)'}).click();
   const dialog=page.getByRole('dialog');await dialog.getByLabel('Current episode (optional)').selectOption('caught-up');await dialog.getByLabel('Personal notes (optional)').fill('Keep following');await dialog.getByRole('button',{name:'Save and continue'}).click();
-  await page.getByRole('button',{name:show.name,exact:true}).click();await expect(page.getByRole('checkbox',{name:'S1 E1 · Released',exact:true})).toBeChecked();
+  await page.getByRole('button',{name:'Upcoming & TBA',exact:true}).click();await page.getByRole('button',{name:show.name,exact:true}).click();await expect(page.getByRole('checkbox',{name:'S1 E1 · Released',exact:true})).toBeChecked();
   const future=page.getByRole('checkbox',{name:'S3 E1 · Announced',exact:true});await expect(future).not.toBeChecked();await expect(future).toBeDisabled();await expect(page.getByText('Release unknown',{exact:true})).toBeVisible();
   const downloading=page.waitForEvent('download');await page.getByRole('region',{name:'Backup export'}).getByRole('button',{name:'Export backup',exact:true}).click();
   const backup=JSON.parse(readFileSync((await (await downloading).path())!,'utf8'));
