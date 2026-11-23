@@ -89,7 +89,8 @@ export async function markCaughtUp(showId:number, now=new Date(), database=db) {
   });
 }
 
-export async function deleteShow(showId: number, database = db, resolveLegacyOwner?: (episodeId:number)=>Promise<number>) {
+export interface DeletedShowSnapshot { show:Show; seasons:Season[]; episodes:Episode[]; progress:Progress[]; preference?:Preference; sources:{before:Source;after:Source}[]; revision:string; life:string }
+export async function deleteShow(showId: number, database = db, resolveLegacyOwner?: (episodeId:number)=>Promise<number>, expected?:{revision:string;life:string}):Promise<DeletedShowSnapshot|undefined> {
   const expectedRevision=await libraryRevision(database);
   // Version 1 could retain history after its episode metadata disappeared. Resolve
   // those IDs before deletion; never guess ownership or purge another show's history.
@@ -106,8 +107,9 @@ export async function deleteShow(showId: number, database = db, resolveLegacyOwn
       } catch { throw new Error('Older viewing history could not be linked to its show. Please reconnect and retry deletion. No records were deleted.'); }
     }
   }
-  await database.transaction('rw',[database.shows,database.seasons,database.episodes,database.progress,database.preferences,database.sources,database.settings],async()=>{
+  return database.transaction('rw',[database.shows,database.seasons,database.episodes,database.progress,database.preferences,database.sources,database.settings],async()=>{
     await assertLibraryRevision(expectedRevision,database);
+    if(expected&&(expected.revision!==expectedRevision||String((await database.settings.get('syncLife:'+showId))?.value??'')!==expected.life)) throw new Error('The show or library changed. Close this confirmation and try again.');
     const show=await database.shows.get(showId);
     if (!show) return;
     const sources=await database.sources.toArray();
@@ -116,17 +118,36 @@ export async function deleteShow(showId: number, database = db, resolveLegacyOwn
     const otherNames=new Set([...(await database.shows.filter(s=>s.id!==showId).toArray()).map(s=>normalize(s.name)),...sources.flatMap(s=>s.rows.filter(r=>r.showId!==undefined&&r.showId!==showId).map(r=>normalize(r.title)))]);
     for (const [episodeId,owner] of legacyOwners) await database.progress.update(episodeId,{showId:owner});
     const episodeIds=await database.episodes.where('showId').equals(showId).primaryKeys();
+    const snapshot:DeletedShowSnapshot={show,seasons:await database.seasons.where('showId').equals(showId).toArray(),episodes:await database.episodes.where('showId').equals(showId).toArray(),progress:await database.progress.where('showId').equals(showId).toArray(),preference:await database.preferences.get(showId),sources:[],revision:expectedRevision,life:crypto.randomUUID()};
     await database.progress.where('showId').equals(showId).delete();
     await database.progress.bulkDelete(episodeIds);
     await database.episodes.where('showId').equals(showId).delete();
     await database.seasons.where('showId').equals(showId).delete();
     await database.preferences.delete(showId);
     await database.shows.delete(showId);
-    await database.settings.put({key:'syncLife:'+showId,value:crypto.randomUUID()});
+    await database.settings.put({key:'syncLife:'+showId,value:snapshot.life});
     for (const source of sources) {
       const rows=source.rows.filter(r=>r.showId!==showId && !(r.showId===undefined && names.has(normalize(r.title)) && !otherNames.has(normalize(r.title))));
       // Keep the source ID even when empty so startup does not reload its original seed.
-      if (rows.length!==source.rows.length) await database.sources.put({...source,rows,raw:JSON.stringify(rows,null,2)});
+      if (rows.length!==source.rows.length) {const after={...source,rows,raw:JSON.stringify(rows,null,2)};snapshot.sources.push({before:source,after});await database.sources.put(after);}
     }
+    return snapshot;
+  });
+}
+
+export async function undoDeleteShow(snapshot:DeletedShowSnapshot,database=db) {
+  await database.transaction('rw',[database.shows,database.seasons,database.episodes,database.progress,database.preferences,database.sources,database.settings],async()=>{
+    await assertLibraryRevision(snapshot.revision,database);
+    const id=snapshot.show.id;
+    if(await database.shows.get(id)||(await database.settings.get('syncLife:'+id))?.value!==snapshot.life) throw new Error('This show or library changed after deletion. Undo was not applied.');
+    for(const source of snapshot.sources) if(JSON.stringify(await database.sources.get(source.after.id))!==JSON.stringify(source.after)) throw new Error('An import list changed after deletion. Undo was not applied.');
+    for(const episode of snapshot.episodes) if(await database.episodes.get(episode.id)) throw new Error('An episode changed after deletion. Undo was not applied.');
+    for(const season of snapshot.seasons) if(await database.seasons.get(season.id)) throw new Error('A season changed after deletion. Undo was not applied.');
+    for(const progress of snapshot.progress) if(await database.progress.get(progress.episodeId)) throw new Error('Viewing history changed after deletion. Undo was not applied.');
+    if(await database.preferences.get(id)) throw new Error('Show preferences changed after deletion. Undo was not applied.');
+    await database.shows.add(snapshot.show);await database.seasons.bulkAdd(snapshot.seasons);await database.episodes.bulkAdd(snapshot.episodes);await database.progress.bulkAdd(snapshot.progress);
+    if(snapshot.preference)await database.preferences.add(snapshot.preference);
+    for(const source of snapshot.sources)await database.sources.put(source.before);
+    await database.settings.put({key:'syncLife:'+id,value:crypto.randomUUID()});
   });
 }

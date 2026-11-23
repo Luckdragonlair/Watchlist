@@ -79,3 +79,5 @@ Update PC and phone before shared use. Use visible Drag handles in the ordered R
 ## Optional PC primary-genre review
 
 Run ./Start-GenreReview.ps1 from D:\Watchlist, then open http://127.0.0.1:5188. It saves review choices only to Library/Primary Genre Choices.json and leaves the app/cloud library unchanged. Stop with ./Start-GenreReview.ps1 -Stop; restart after reboot if needed. See Notes/GENRE_REVIEW.md.
+
+Card deletion (v0.12.0): On Weekly, Binge or Watched, open a show’s Manage menu and choose Delete show. Confirm to delete it, or Cancel to keep it. Undo deletion restores its saved records during the current page session until reload or another deletion; changes from another tab or device may prevent undo to protect newer data. Original files and existing backups remain unchanged. The older detail-page delete action remains available.

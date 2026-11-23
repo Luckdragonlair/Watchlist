@@ -151,7 +151,7 @@ Do not “fix” a discrepancy by weakening a safety rule or deleting historical
 | Binge up/down ordering | Built and verified | Watching now/Watch soon share persistent section ranks; legacy ranks map to Watch soon. Everything else is alphabetical. |
 | Binge drag-and-drop (v0.7.0) | Built and verified | Mouse/touch handles, keyboard pickup/drop/cancel, auto-scroll and guarded atomic order shared with arrows. |
 | Started-first Binge/activity order (v0.7.0) | Built and verified | Ready progress promotes to Watching now; recent activity defaults, saved manual override and Recent reset. Not for me/Weekly/upcoming placement protected. |
-| Show deletion | Built and verified | Atomic cascade with source/history protections and safe clean re-add. |
+| Show deletion | Built and verified | Atomic cascade; card Manage actions offer confirmation and guarded in-session undo in v0.12.0. Existing detail deletion remains available. |
 | Backup export | Built and verified | Consistent snapshot, timestamped file, visible feedback, reusable download. |
 | Splash/gold banner and Weekly launch (v0.6.0) | Built and verified | Original 04/07 assets; five-second flash/fly-up, reduced-motion/failure cleanup, local offline assets, Weekly default/today-first Central weekdays. |
 | Compact phone header (v0.5.1) | Built and verified | More holds phone utilities; primary navigation stays at the bottom; warnings/update actions remain exposed. Healthy cloud info is compact and empty Ready groups are omitted. |
@@ -269,6 +269,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest: v0.12.0 adds card deletion and in-session undo; verified locally, not deployed. Remaining owner-assigned work stays separate.
+
 Latest: C07 metallic-gold icon replacement is verified for v0.11.1, published Hosting-only; live icon assets verified. Remaining V2 A-Z/dialog/accessibility and movie work stay separate; no automatic scope expansion.
 
 Latest checkpoint: existing-show Manage genre editor verified for v0.11.0; published Hosting-only; live assets verified. Setup selector shipped v0.10.0. Next remaining work is owner-assigned V2/accessibility/movie work; no automatic scope expansion.
@@ -319,6 +321,11 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-23 - Card deletion and undo (v0.12.0)
+
+- Added Delete show under Manage on Weekly, Binge and Watched cards, a red pulsing confirmation with safe default focus, and a yellow pulsing undo after deletion. Reduced motion disables pulsing. Undo is in memory until reload or another deletion; stale library, show, source, episode or history changes prevent overwrite. Original files and existing backups remain unchanged. Existing detail deletion remains available.
+- PASS: TypeScript, normal and hosted builds, hosted privacy guard, 45 core/synchronization tests and an isolated browser workflow across all three views including cancel, delete and undo. Updated a stale core assertion from backup format 3 to the already-shipped format 4. Two-device sync was simulated; real-device acceptance and deployment were not performed.
 
 ### 2026-11-08 - Firefox Windows stored icon repair
 

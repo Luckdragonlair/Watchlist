@@ -271,3 +271,8 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [ ] Movie implementation planning reference: ten-step recommended plan and official source requirements are now in DESIGN_IDEAS.md (2026-11-08). Planning only; TVmaze replacement is not required.
 
 - [ ] Optional future review: choose any worthwhile U01–U15 ideas from POTENTIAL_UPGRADES.md. Brainstorming only; no implementation requested.
+
+## 2026-11-23 card deletion
+
+- [x] Card Manage delete confirmation and guarded in-session undo on Weekly, Binge and Watched; isolated browser and synchronization tests passed.
+- [ ] Owner acceptance on actual devices and separate authorization for hosted publication.

@@ -82,3 +82,5 @@ Weekly is the default on a fresh launch/reload. Weekday sections start with toda
 ## Card dragging and activity order (v0.7.0)
 
 Use Drag on Watching now/Watch soon cards with mouse or touch; the rest of each card scrolls normally. Keyboard users can pick up with Space/Enter, move with Up/Down/Home/End, drop with Space/Enter or cancel with Escape. Arrows remain available. Started Ready shows come first in Watching now, sorted by recorded watch activity. Drag or arrows saves your own order; Recent returns to activity order. Undo removes an episode’s activity. Untouched and alphabetical lists keep their rules. Update PC and phone: new backups/sync use format 3; formats 1 and 2 still restore. No database reset.
+
+Card deletion (v0.12.0): On Weekly, Binge or Watched, open a show’s Manage menu and choose Delete show. Confirm to delete it, or Cancel to keep it. Undo deletion restores its saved records during the current page session until reload or another deletion; changes from another tab or device may prevent undo to protect newer data. Original files and existing backups remain unchanged. The older detail-page delete action remains available.

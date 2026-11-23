@@ -1,6 +1,6 @@
 import { describe, expect, it, afterEach } from 'vitest';
 import Dexie from 'dexie';
-import { WatchlistDB, saveBundle, setWatched, onboard, deleteShow } from '../src/db';
+import { WatchlistDB, saveBundle, setWatched, onboard, deleteShow, undoDeleteShow } from '../src/db';
 import { airTime, bucket, confirmedComplete, queue, released, weeklyRelease, type Bundle, type Episode } from '../src/model';
 import { prepareSource } from '../src/importer';
 import { createBackup } from '../src/backup';
@@ -88,7 +88,7 @@ describe('IndexedDB persistence and sync', () => {
     const db=create();const b=bundle();await saveBundle(b,db);await setWatched(1,true,db);await db.preferences.update(10,{notes:'Preserve these notes',order:4});
     const source={id:'backup-source',name:'Working list',raw:'Test series',importedAt:now.toISOString(),rows:[{id:'1',title:'Test series',notes:'source assertion',state:'imported' as const,showId:10}]};await db.sources.put(source);
     const progress=await db.progress.toArray();const backup=await createBackup(db);
-    expect(backup).toMatchObject({version:3,shows:[b.show],seasons:b.seasons,episodes:b.episodes,progress,sources:[source],preferences:[{showId:10,notes:'Preserve these notes',order:4}]});
+    expect(backup).toMatchObject({version:4,shows:[b.show],seasons:b.seasons,episodes:b.episodes,progress,sources:[source],preferences:[{showId:10,notes:'Preserve these notes',order:4}]});
     expect(Number.isFinite(Date.parse(backup.exportedAt))).toBe(true);expect(await db.progress.toArray()).toEqual(progress);expect(await db.shows.toArray()).toEqual([b.show]);
   });
   it('syncs twice without duplicates or overwriting progress and manual preferences',async()=>{
@@ -125,6 +125,18 @@ describe('IndexedDB persistence and sync', () => {
     await expect(setWatched(1,true,db)).rejects.toThrow('no longer exists');
     await expect(saveBundle(first,db,true)).rejects.toThrow('deleted');
     expect(await db.shows.get(10)).toBeUndefined();
+  });
+  it('undoes a deletion atomically with notes, source rows and orphan history',async()=>{
+    const db=create();const first=bundle();await saveBundle(first,db);await setWatched(2,true,db);await saveBundle({...first,episodes:[ep(1)]},db);
+    await db.preferences.update(10,{notes:'Keep this',order:7});const source={id:'seed',name:'Seed',raw:'original',importedAt:now.toISOString(),rows:[{id:'1',title:'Test series',notes:'source notes',state:'imported' as const,showId:10}]};await db.sources.put(source);
+    const snapshot=await deleteShow(10,db);expect(snapshot).toBeDefined();await undoDeleteShow(snapshot!,db);
+    expect(await db.shows.get(10)).toEqual(first.show);expect(await db.progress.get(2)).toMatchObject({showId:10});expect(await db.preferences.get(10)).toMatchObject({notes:'Keep this',order:7});expect(await db.sources.get('seed')).toEqual(source);
+  });
+  it('refuses undo when the show, library or affected source changed',async()=>{
+    for(const changed of ['show','revision','source']){const db=create();await saveBundle(bundle(),db);await db.sources.put({id:'seed',name:'Seed',raw:'',importedAt:now.toISOString(),rows:[{id:'1',title:'Test series',notes:'',state:'imported',showId:10}]});const snapshot=await deleteShow(10,db);
+      if(changed==='show')await saveBundle(bundle(),db);if(changed==='revision')await db.settings.put({key:'libraryRevision',value:'changed'});if(changed==='source')await db.sources.update('seed',{name:'Changed'});
+      await expect(undoDeleteShow(snapshot!,db)).rejects.toThrow();if(changed!=='show')expect(await db.shows.get(10)).toBeUndefined();
+    }
   });
   it('retains an empty source marker after deleting its final title so reload cannot restore its seed',async()=>{
     const db=create();await saveBundle(bundle(),db);

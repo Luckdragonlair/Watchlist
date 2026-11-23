@@ -210,3 +210,7 @@ Owner requested Change primary genre under Manage. Make Manage available on Week
 ## 2026-11-08 - Metallic-gold Nightfall icon approved
 
 Owner selected the brighter reflective gold W preview with unchanged navy background/blue ring. Use it for app icons and browser/Apple touch icons, preserving ringless small variants and a full-bleed maskable background with essential content within the safe circle. Keep approved source/regeneration instructions durable; leave original Nightfall mockups unchanged. No library/schema/provider behavior changes.
+
+## 2026-11-23: Card deletion and undo
+
+- Weekly, Binge and Watched card Manage menus offer Delete show with a red pulsing confirmation and a yellow pulsing undo control. Motion respects reduced-motion settings. Undo remains available in the current page session until reload or another deletion; it restores captured show data atomically and refuses to overwrite newer conflicting data. Undo may be unavailable after synchronization or other changes; it is not an automatic recovery backup. The existing detail action remains available.

@@ -319,3 +319,12 @@ progress::-moz-progress-bar{background:var(--genre);border-radius:8px}
 .setup-genre-options label:has(input:checked){border-color:var(--genre,var(--accent));background:#ffffff08}
 .setup-genre-options input[type=radio]{flex:0 0 20px;width:20px;height:20px;margin:0;accent-color:var(--genre,var(--accent))}
 .setup-genre-options small{font-size:11px;color:var(--muted)}
+
+/* Destructive confirmation and recovery remain readable without animation. */
+.delete-dialog { border: 1px solid #c85b62; }
+.delete-dialog .delete-confirm { background: #a52b35; border: 1px solid #ff858b; color: #fff; animation: delete-warning 2s ease-in-out infinite; }
+.delete-undo { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin:1rem 0; }
+.delete-undo .undo-delete { background:#6e5306; border:1px solid #f7d56c; color:#fff8db; animation: undo-warning 2s ease-in-out infinite; }
+@keyframes delete-warning { 50% { background:#d03943; box-shadow:0 0 0 5px #e7505860; } }
+@keyframes undo-warning { 50% { background:#96720b; box-shadow:0 0 0 5px #e8c54760; } }
+@media (prefers-reduced-motion: reduce) { .delete-dialog .delete-confirm, .delete-undo .undo-delete { animation:none; } }

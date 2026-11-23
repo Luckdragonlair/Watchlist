@@ -1,0 +1,12 @@
+import {test,expect} from '@playwright/test';
+
+test('delete and undo are available on Weekly, Binge and Watched cards',async({page})=>{
+ await page.route('**/splash/startup.js',route=>route.fulfill({contentType:'text/javascript',body:"document.querySelector('.wl-splash')?.remove();"}));
+ await page.route('**/master-working.json',route=>route.fulfill({json:{id:'empty',name:'Empty',raw:'',importedAt:'2026-01-01T00:00:00Z',rows:[]}}));
+ await page.goto('/');await expect(page.getByLabel('Automatic episode checks')).toBeVisible();
+ await page.evaluate(async()=>{const path='/src/db.ts';const {db,saveBundle}=await import(path);for(const [id,name] of [[1,'Weekly fixture'],[2,'Binge fixture'],[3,'Watched fixture']] as [number,string][]){await saveBundle({show:{id,name,genres:[],summary:null,status:'Running',service:'Fixture',url:'https://www.tvmaze.com/shows/'+id,syncedAt:new Date().toISOString()},seasons:[{id,showId:id,number:1,episodeOrder:id===3?1:2,endDate:id===3?'2025-01-02':null}],episodes:[{id:id*10+1,showId:id,season:1,number:1,name:'Episode 1',summary:null,type:'regular',airstamp:'2025-01-01T12:00:00Z',airdate:'2025-01-01'},...(id===1?[{id:12,showId:id,season:1,number:2,name:'Episode 2',summary:null,type:'regular',airstamp:'2099-01-01T12:00:00Z',airdate:'2099-01-01'}]:[])]});await db.preferences.update(id,{notes:'Retain notes'});}await db.progress.put({episodeId:31,showId:3,watchedAt:'2025-01-01T13:00:00Z'});});
+ for(const [view,name] of [['Weekly','Weekly fixture'],['Binge','Binge fixture'],['Watched','Watched fixture']]){
+  await page.getByRole('button',{name:view,exact:true}).click();const card=page.getByRole('article',{name,exact:true});await expect(card).toBeVisible();await card.getByLabel('Manage '+name,{exact:true}).click();const button=card.getByRole('button',{name:'Delete show',exact:true});await button.click();const dialog=page.getByRole('dialog',{name:`Delete ${name}?`});await expect(dialog.getByRole('button',{name:'Cancel'})).toBeFocused();await page.keyboard.press('Escape');await expect(button).toBeFocused();await button.click();await dialog.getByRole('button',{name:`Delete ${name}`,exact:true}).click();await expect(card).toHaveCount(0);const undo=page.getByRole('button',{name:'Undo deletion'});await expect(undo).toBeVisible();await undo.click();await expect(card).toBeVisible();
+ }
+ expect(await page.evaluate(async()=>{const path='/src/db.ts';const {db}=await import(path);return [(await db.preferences.get(3)).notes,!!await db.progress.get(31)];})).toEqual(['Retain notes',true]);
+});

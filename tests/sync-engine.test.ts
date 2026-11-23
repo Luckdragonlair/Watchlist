@@ -1,5 +1,5 @@
 import {afterEach,describe,it,expect,vi} from 'vitest';
-import {WatchlistDB,saveBundle,setWatched,deleteShow} from '../src/db';
+import {WatchlistDB,saveBundle,setWatched,deleteShow,undoDeleteShow} from '../src/db';
 import {createBackup,restoreBackup} from '../src/backup';
 import {validateBackup} from '../src/backup-validation';
 import {LibrarySync,type SyncTransport} from '../src/sync-engine';
@@ -60,6 +60,10 @@ describe('durable shared-library synchronization',()=>{
   connected=false;await setWatched(1,true,b);await deleteShow(1,a);await expect.poll(()=>cloud.value?.library.backup.shows.length).toBe(0);
   connected=true;await second.sync();expect(cloud.value?.library.backup.shows).toHaveLength(0);expect(await b.shows.count()).toBe(1); // Conflict preserves the local copy for explicit choice.
   await second.resolve('cloud');expect(await b.shows.count()).toBe(0);
+ });
+ it('synchronizes an explicitly undone show deletion with its saved history',async()=>{
+  const cloud=remote(),a=database(),b=database();await saveBundle(bundle,a);await setWatched(1,true,a);await a.preferences.update(1,{notes:'Saved notes'});engine(a,cloud.transport);await expect.poll(()=>cloud.value?.library.backup.shows.length).toBe(1);engine(b,cloud.transport);await expect.poll(()=>b.shows.count()).toBe(1);
+  const snapshot=await deleteShow(1,a);await expect.poll(()=>b.shows.count()).toBe(0);await undoDeleteShow(snapshot!,a);await expect.poll(()=>b.shows.count()).toBe(1);await expect.poll(()=>b.progress.get(1)).toBeDefined();expect(await b.preferences.get(1)).toMatchObject({notes:'Saved notes'});
  });
  it('applies a deliberate full restore but pauses conflicting edits from its old generation',async()=>{
   const cloud=remote(),a=database(),b=database();await saveBundle(bundle,a);engine(a,cloud.transport);await expect.poll(()=>cloud.value?.revision).toBeGreaterThan(0);
