@@ -22,7 +22,7 @@ test('search, explicit import, check-off, persistence, undo, completion and offl
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'}).click(); await expect(page.getByRole('dialog',{name:'Season complete'})).toBeVisible();
   await page.getByRole('button',{name:'Undo last episode change'}).click(); await expect(page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'})).toBeVisible();
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E2 · Episode 2'}).click(); await page.getByRole('button',{name:'Dismiss completion'}).click();
-  await page.getByRole('button',{name:'Watched',exact:true}).click(); await expect(page.getByText('Watched seasons: 1')).toBeVisible();
+  await expect(page.getByRole('button',{name:'Undo last episode change'})).toBeVisible();await page.getByRole('button',{name:'Watched',exact:true}).click(); await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);await expect(page.getByText('Watched seasons: 1')).toBeVisible();
   await context.setOffline(true); await page.getByRole('button',{name:'Fixture series',exact:true}).click(); await expect(page.getByRole('checkbox').first()).toBeChecked();
   await page.route('https://api.tvmaze.com/**',route=>route.abort('internetdisconnected'));
   await page.getByRole('button',{name:'Refresh metadata'}).click(); await expect(page.getByRole('alert')).toBeVisible(); await expect(page.getByRole('checkbox').first()).toBeChecked();

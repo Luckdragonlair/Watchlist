@@ -269,6 +269,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest: v0.12.4 clears episode-change undo when navigating screens; published Hosting-only.
+
 Latest: v0.12.3 replaces the tiny back glyph with the owner-approved larger left-pointing arrow; published Hosting-only.
 
 Latest: v0.12.2 clears deletion undo when navigating to another screen; the owner reported Get Jiro deletion worked in v0.12.1.
@@ -327,6 +329,11 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-23 - Clear episode undo on navigation (v0.12.4)
+
+- Owner reported Undo last episode change remained after completing a show and navigating. Screen navigation now clears that undo without changing saved progress, matching deletion undo.
+- PASS: TypeScript, focused browser completion/navigation and card deletion workflows, normal and hosted builds and hosted privacy guard. Published Hosting-only; live index, worker, entry assets and app chunk match. Real phone acceptance pending; no personal records used for tests.
 
 ### 2026-11-23 - Larger back arrow (v0.12.3)
 

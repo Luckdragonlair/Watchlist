@@ -226,3 +226,7 @@ Owner selected the brighter reflective gold W preview with unchanged navy backgr
 ## 2026-11-23: Back arrow refinement
 
 - The red circular back button uses the owner-approved larger black arrow pointing left, with a curved return stroke.
+
+## 2026-11-23: Episode undo navigation
+
+- Undo last episode change is available on the current screen and clears on navigation to a different screen; clearing it does not reverse saved viewing progress.

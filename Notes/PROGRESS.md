@@ -404,3 +404,7 @@ Owner reported Get Jiro deletion worked on phone but undo followed screen change
 ## 2026-11-23 - v0.12.3 larger back arrow
 
 Owner approved a larger left-pointing black back arrow within the red circular control. PASS: TypeScript, focused phone-width browser workflow, normal and hosted builds and hosted privacy guard. Published Hosting-only; live index, worker, entry assets and app chunk match. Phone acceptance remains pending.
+
+## 2026-11-23 - v0.12.4 episode undo navigation
+
+Owner reported episode undo persisted after navigating. Clearing the button on screen navigation preserves saved progress. PASS: TypeScript, focused completion/navigation and card-deletion browser workflows, normal and hosted builds and hosted privacy guard. Published Hosting-only; live index, worker, entry assets and app chunk match. Real phone acceptance pending.
