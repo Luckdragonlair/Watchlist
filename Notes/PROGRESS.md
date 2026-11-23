@@ -408,3 +408,7 @@ Owner approved a larger left-pointing black back arrow within the red circular c
 ## 2026-11-23 - v0.12.4 episode undo navigation
 
 Owner reported episode undo persisted after navigating. Clearing the button on screen navigation preserves saved progress. PASS: TypeScript, focused completion/navigation and card-deletion browser workflows, normal and hosted builds and hosted privacy guard. Published Hosting-only; live index, worker, entry assets and app chunk match. Real phone acceptance pending.
+
+## 2026-11-23 - v0.12.5 screen Back navigation
+
+Watchlist screen and show-detail changes now create browser history entries; Back returns through them and cancels open native dialogs when a Watchlist history entry is available. Root exit remains browser-controlled; Mozilla has an open report for the Android installed-app blank screen. PASS: TypeScript, three focused browser workflows (screen Back and delete cancellation, card deletion/undo, completion/navigation), both builds and hosted privacy guard. Published Hosting-only; live index, worker, entry assets and app chunk match. Real Android/Firefox verification remains pending.

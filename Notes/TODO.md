@@ -285,3 +285,6 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Replace tiny back glyph with owner-approved larger left-pointing arrow; published v0.12.3.
 
 - [x] Clear episode undo on screen navigation without reversing progress; published v0.12.4.
+
+- [x] Add browser Back navigation between library screens and show detail; isolated browser checks passed.
+- [ ] Owner test on Android Firefox; root exit remains subject to the Firefox blank-screen issue.

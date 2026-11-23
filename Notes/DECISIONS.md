@@ -230,3 +230,7 @@ Owner selected the brighter reflective gold W preview with unchanged navy backgr
 ## 2026-11-23: Episode undo navigation
 
 - Undo last episode change is available on the current screen and clears on navigation to a different screen; clearing it does not reverse saved viewing progress.
+
+## 2026-11-23: Browser Back navigation
+
+- Screen and show-detail changes create browser history entries, allowing browser/phone Back to return to previous Watchlist screens. Back with an open native dialog cancels it when a Watchlist history entry is available. Back from the first screen remains browser-controlled; Firefox Android may show a blank screen due to its reported installed-web-app issue.

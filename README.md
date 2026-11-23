@@ -86,3 +86,5 @@ Use Drag on Watching now/Watch soon cards with mouse or touch; the rest of each 
 Card deletion (v0.12.0): On Weekly, Binge or Watched, open a show’s Manage menu and choose Delete show. Confirm to delete it, or Cancel to keep it. Undo deletion restores its saved records until you change screens, reload, or delete another show; changes from another tab or device may prevent undo to protect newer data. Original files and existing backups remain unchanged. The show detail page uses the same confirmation and undo flow.
 
 Episode undo remains available on the current screen; changing screens dismisses it without changing saved progress.
+
+Browser and phone Back return through previously visited Watchlist screens. On Android Firefox, exiting from the first screen may still encounter Firefox’s installed-app blank-screen issue; the phone Home button is a workaround.

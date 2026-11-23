@@ -25,6 +25,13 @@ import {bingePlacement,nextBingeDate,sectionNames,sectionOf,setBingeSection,last
 import type {BingeSection} from './model';
 
 type View = 'Weekly' | 'Binge' | 'Watched' | 'Add Show' | 'Import' | 'Match';
+const views:View[]=['Weekly','Binge','Watched','Add Show','Import','Match'];
+type Screen={view:View;detail:number|null};
+function historyScreen(value:unknown):Screen|null {
+  if(!value||typeof value!=='object')return null;
+  const screen=(value as {watchlistScreen?:Screen}).watchlistScreen;
+  return screen&&views.includes(screen.view)&&(screen.detail===null||Number.isSafeInteger(screen.detail))?screen:null;
+}
 export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
   const [view, setView] = useState<View>('Weekly');
   const [phone,setPhone]=useState(()=>window.matchMedia('(max-width:839px)').matches);
@@ -75,6 +82,30 @@ export function App({metadataPaused=false}:{metadataPaused?:boolean}={}) {
     })().catch(e=>setError(e instanceof Error ? e.message : String(e)));
   }, []);
   const data = useLiveQuery(async () => ({ shows: await db.shows.toArray(), seasons: await db.seasons.toArray(), episodes: await db.episodes.toArray(), progress: await db.progress.toArray(), preferences: await db.preferences.toArray(), sources: await db.sources.toArray(), lifecycles:await db.settings.where('key').startsWith('syncLife:').toArray(),revision:await libraryRevision(),resetRevision:(await db.settings.get('uiResetRevision'))?.value??await libraryRevision() }));
+  const screenHistory=useRef<Screen|null>(null),latestData=useRef(data);
+  latestData.current=data;
+  useEffect(()=>{
+    const initial:Screen={view:'Weekly',detail:null};
+    window.history.replaceState({...window.history.state,watchlistScreen:initial},'');
+    screenHistory.current=initial;
+    const onPop=(event:PopStateEvent)=>{
+      const next=historyScreen(event.state);if(!next)return;
+      // A pending dialog must never be implicitly confirmed by Back.
+      const modal=document.querySelector<HTMLDialogElement>('dialog[open]');
+      if(modal){window.history.pushState({...window.history.state,watchlistScreen:screenHistory.current},'');modal.dispatchEvent(new Event('cancel',{cancelable:true}));return;}
+      const validDetail=next.detail!==null&&latestData.current?.shows.some(show=>show.id===next.detail)?next.detail:null;
+      screenHistory.current={view:next.view,detail:validDetail};
+      setUndo(null);setDeletedShow(null);setCompletion('');setImportTarget(null);setDeleteTarget(null);setSetup(null);
+      setView(next.view);setDetail(validDetail);
+    };
+    window.addEventListener('popstate',onPop);return()=>window.removeEventListener('popstate',onPop);
+  },[]);
+  useEffect(()=>{
+    const previous=screenHistory.current;
+    if(previous&&(previous.view!==view||previous.detail!==detail)){
+      const next={view,detail};window.history.pushState({...window.history.state,watchlistScreen:next},'');screenHistory.current=next;
+    }
+  },[view,detail]);
   const seenRevision=useRef<string|null>(null);
   function resetAfterRestore(){setSetup(null);setDetail(null);setUndo(null);setDeletedShow(null);setDeleteTarget(null);setCompletion('');setImportTarget(null);setFilter('');setSelectedGenres([]);setBingeFilter('Ready');setError('');setNotice('');setView('Binge');}
   useEffect(()=>{

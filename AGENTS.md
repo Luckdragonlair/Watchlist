@@ -269,6 +269,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest: v0.12.5 adds Back navigation between Watchlist screens. Firefox on Android may still show its reported blank screen when Back exits the first screen; real-phone acceptance remains pending.
+
 Latest: v0.12.4 clears episode-change undo when navigating screens; published Hosting-only.
 
 Latest: v0.12.3 replaces the tiny back glyph with the owner-approved larger left-pointing arrow; published Hosting-only.
@@ -329,6 +331,11 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-23 - Screen Back navigation (v0.12.5)
+
+- Owner reported the Android Back button shows a blank screen from any view and requested previous-screen navigation. Watchlist now records library screens and show detail in browser history, returns through them on Back, and safely cancels an open native dialog when a Watchlist history entry is available. Stale deleted-show details fall back to the list; undo controls are cleared on navigation. Back from the first screen is left to the browser: Mozilla has an open Android installed-web-app blank-screen report; do not claim that Firefox issue is fixed.
+- PASS: TypeScript, three focused browser workflows covering screen Back, delete-dialog cancellation, deletion/undo and completion/navigation; normal and hosted builds and hosted privacy guard. Tests use disposable data. Published Hosting-only; live index, worker, entry assets and app chunk match. Real Android/Firefox acceptance remains pending.
 
 ### 2026-11-23 - Clear episode undo on navigation (v0.12.4)
 
