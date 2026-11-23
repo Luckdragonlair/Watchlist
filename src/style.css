@@ -328,3 +328,6 @@ progress::-moz-progress-bar{background:var(--genre);border-radius:8px}
 @keyframes delete-warning { 50% { background:#d03943; box-shadow:0 0 0 5px #e7505860; } }
 @keyframes undo-warning { 50% { background:#96720b; box-shadow:0 0 0 5px #e8c54760; } }
 @media (prefers-reduced-motion: reduce) { .delete-dialog .delete-confirm, .delete-undo .undo-delete { animation:none; } }
+
+/* Consistent back navigation, separate from dismiss and delete controls. */
+button.back-button, button.back-button:hover:not(:disabled) { color:#080808; background:#f36b72; border-color:#ffadb1; }

@@ -214,3 +214,7 @@ Owner selected the brighter reflective gold W preview with unchanged navy backgr
 ## 2026-11-23: Card deletion and undo
 
 - Weekly, Binge and Watched card Manage menus offer Delete show with a red pulsing confirmation and a yellow pulsing undo control. Motion respects reduced-motion settings. Undo remains available in the current page session until reload or another deletion; it restores captured show data atomically and refuses to overwrite newer conflicting data. Undo may be unavailable after synchronization or other changes; it is not an automatic recovery backup. The existing detail action remains available.
+
+## 2026-11-23: Detail delete consistency
+
+- Supersedes the older detail delete flow: show detail uses the same confirmation and guarded in-session undo as library cards. Back navigation uses a red circle with a black curved arrow.

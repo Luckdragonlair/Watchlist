@@ -89,9 +89,9 @@ test('delete confirmation can be cancelled and confirmed deletion removes all re
   await expect(page.getByRole('button',{name:'Find match for Fixture series',exact:true})).toHaveCount(0);await page.getByRole('button',{name:'Binge',exact:true}).click();
   await page.getByRole('checkbox',{name:'Watch Fixture series S1 E1 · Episode 1'}).click();await page.getByRole('button',{name:'Fixture series',exact:true}).click();
   await page.getByLabel('Personal notes').fill('Remove personal notes too');await page.getByRole('button',{name:'Save notes'}).click();
-  page.once('dialog',dialog=>dialog.dismiss());await page.getByRole('button',{name:'Delete show',exact:true}).click();
+  await page.getByRole('button',{name:'Delete show',exact:true}).click();await page.getByRole('dialog',{name:'Delete Fixture series?'}).getByRole('button',{name:'Cancel'}).click();
   await expect(page.getByRole('heading',{name:'Fixture series',exact:true})).toBeVisible();await expect(page.getByRole('checkbox').first()).toBeChecked();
-  page.once('dialog',async dialog=>{expect(dialog.message()).toContain('watched history');await dialog.accept();});await page.getByRole('button',{name:'Delete show',exact:true}).click();
+  await page.getByRole('button',{name:'Delete show',exact:true}).click();const deleteDialog=page.getByRole('dialog',{name:'Delete Fixture series?'});await expect(deleteDialog).toContainText('watched history');await deleteDialog.getByRole('button',{name:'Delete Fixture series'}).click();
   await expect(page.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Undo last episode change'})).toHaveCount(0);
   await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();for(const name of ['Weekly','Binge','Watched']){await page.getByRole('button',{name,exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);}
   await page.getByRole('button',{name:'Import',exact:true}).click();await expect(page.getByText('0 installments retained')).toBeVisible();
@@ -111,7 +111,7 @@ test('a pending source import in another tab cannot resurrect a deleted show',as
   let release!:()=>void;const gate=new Promise<void>(resolve=>release=resolve);let fetching!:()=>void;const started=new Promise<void>(resolve=>fetching=resolve);
   await page.route('https://api.tvmaze.com/shows/90001/episodes',async route=>{fetching();await gate;await route.fulfill({json:episodes});});
   await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await started;
-  await other.getByRole('button',{name:'Fixture series',exact:true}).click();other.once('dialog',dialog=>dialog.accept());await other.getByRole('button',{name:'Delete show',exact:true}).click();await expect(other.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();
+  await other.getByRole('button',{name:'Fixture series',exact:true}).click();await other.getByRole('button',{name:'Delete show',exact:true}).click();await other.getByRole('dialog',{name:'Delete Fixture series?'}).getByRole('button',{name:'Delete Fixture series'}).click();await expect(other.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();
   release();await expect(page.getByRole('alert')).toContainText('changed or was removed');
   await page.reload();await page.getByRole('button',{name:'Binge',exact:true}).click();await expect(page.getByRole('article')).toHaveCount(0);await other.close();
 });
@@ -131,7 +131,7 @@ test('restore previews and cancels safely, then recovers an exported library wit
   await page.goto('/');await page.getByRole('button',{name:'Binge',exact:true}).click();await page.getByRole('button',{name:'Add Show',exact:true}).click();await page.getByLabel('Show title').fill('Fixture');await page.getByRole('button',{name:'Search TVmaze'}).click();await page.getByRole('button',{name:'Import Fixture series (#90001)'}).click();await skipSetupAndOpenDetails(page);
   await page.getByLabel('Personal notes').fill('Bring these notes back');await page.getByRole('button',{name:'Save notes'}).click();await page.getByRole('checkbox',{name:'S1 E1 · Episode 1',exact:true}).click();await expect(page.getByRole('checkbox',{name:'S1 E1 · Episode 1',exact:true})).toBeChecked();
   const downloading=page.waitForEvent('download');await page.getByRole('region',{name:'Backup export'}).getByRole('button',{name:'Export backup',exact:true}).click();const download=await downloading;const path=(await download.path())!;
-  page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Delete show',exact:true}).click();await expect(page.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'Delete show',exact:true}).click();await page.getByRole('dialog',{name:'Delete Fixture series?'}).getByRole('button',{name:'Delete Fixture series'}).click();await expect(page.getByText('Fixture series was deleted from your library.',{exact:true})).toBeVisible();
   await page.getByLabel('Backup file').setInputFiles(path);const preview=page.getByRole('dialog',{name:'Restore this backup?'});await expect(preview).toContainText('1 shows · 2 episodes · 1 watched-episode records');await expect(preview.getByRole('button',{name:'Replace library and restore'})).toBeDisabled();
   await preview.getByRole('button',{name:'Cancel restore'}).click();await expect(page.getByRole('article')).toHaveCount(0);
   await page.getByLabel('Backup file').setInputFiles(path);await expect(preview).toBeVisible();
