@@ -269,6 +269,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest: v0.12.3 replaces the tiny back glyph with the owner-approved larger left-pointing arrow; published Hosting-only.
+
 Latest: v0.12.2 clears deletion undo when navigating to another screen; the owner reported Get Jiro deletion worked in v0.12.1.
 
 Latest: v0.12.1 unifies detail and card deletion and changes the back button to red with a black arrow; verified locally and published Hosting-only.
@@ -325,6 +327,11 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-23 - Larger back arrow (v0.12.3)
+
+- Owner approved the larger left-pointing black arrow inside the red circular back button. Replaced the small text glyph with a consistently sized icon; accessible label and navigation remain.
+- PASS: TypeScript, focused phone-width browser workflow, normal/hosted builds and hosted privacy guard. Published Hosting-only; live index, worker, entry assets and app chunk match the tested build. Owner phone acceptance remains pending.
 
 ### 2026-11-23 - Dismiss deletion undo on navigation (v0.12.2)
 

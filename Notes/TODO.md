@@ -281,3 +281,5 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 - [x] Detail delete shares card confirmation and undo; back navigation uses the owner-requested red and black style. Focused phone-width and deletion safeguards passed.
 
 - [x] Clear deletion undo notice on screen change; focused browser check passed. Owner reported Get Jiro deletion worked on phone (v0.12.1).
+
+- [x] Replace tiny back glyph with owner-approved larger left-pointing arrow; published v0.12.3.

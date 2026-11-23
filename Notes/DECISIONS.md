@@ -222,3 +222,7 @@ Owner selected the brighter reflective gold W preview with unchanged navy backgr
 ## 2026-11-23: Undo notice navigation
 
 - Supersedes the prior duration: deletion undo remains on the result screen until a screen change, reload, or another deletion. Navigation clears the undo snapshot and notice; it does not restore the deleted show.
+
+## 2026-11-23: Back arrow refinement
+
+- The red circular back button uses the owner-approved larger black arrow pointing left, with a curved return stroke.

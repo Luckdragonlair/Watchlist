@@ -400,3 +400,7 @@ Detail deletion now shares card confirmation and in-session undo; the curved bac
 ## 2026-11-23 - v0.12.2 deletion undo navigation
 
 Owner reported Get Jiro deletion worked on phone but undo followed screen changes. Undo now clears when navigating to a different screen. PASS: TypeScript, isolated phone-width browser workflow covering card/detail deletion and undo and navigation away/back, normal and hosted builds, hosted privacy guard. Published Hosting-only; live index, worker and app assets match the tested build. Phone confirmation of this update remains pending.
+
+## 2026-11-23 - v0.12.3 larger back arrow
+
+Owner approved a larger left-pointing black back arrow within the red circular control. PASS: TypeScript, focused phone-width browser workflow, normal and hosted builds and hosted privacy guard. Published Hosting-only; live index, worker, entry assets and app chunk match. Phone acceptance remains pending.
