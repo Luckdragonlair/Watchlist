@@ -396,3 +396,7 @@ Weekly, Binge and Watched cards now provide Delete show in Manage, a red pulsing
 ## 2026-11-23 - v0.12.1 detail deletion and back button
 
 Detail deletion now shares card confirmation and in-session undo; the curved back control is red with a black arrow. PASS: TypeScript, four focused browser workflows (including phone-width detail cancel/delete/undo, card views, import-race and backup restore), normal/hosted builds and hosted privacy guard. No personal library used. Published Hosting-only; live index, service worker, entry JS/CSS and app chunk match the tested build. Real-device acceptance remains pending.
+
+## 2026-11-23 - v0.12.2 deletion undo navigation
+
+Owner reported Get Jiro deletion worked on phone but undo followed screen changes. Undo now clears when navigating to a different screen. PASS: TypeScript, isolated phone-width browser workflow covering card/detail deletion and undo and navigation away/back, normal and hosted builds, hosted privacy guard. Published Hosting-only; live index, worker and app assets match the tested build. Phone confirmation of this update remains pending.

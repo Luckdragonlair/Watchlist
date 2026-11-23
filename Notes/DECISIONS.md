@@ -218,3 +218,7 @@ Owner selected the brighter reflective gold W preview with unchanged navy backgr
 ## 2026-11-23: Detail delete consistency
 
 - Supersedes the older detail delete flow: show detail uses the same confirmation and guarded in-session undo as library cards. Back navigation uses a red circle with a black curved arrow.
+
+## 2026-11-23: Undo notice navigation
+
+- Supersedes the prior duration: deletion undo remains on the result screen until a screen change, reload, or another deletion. Navigation clears the undo snapshot and notice; it does not restore the deleted show.

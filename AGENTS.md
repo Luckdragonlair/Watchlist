@@ -269,6 +269,8 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
+Latest: v0.12.2 clears deletion undo when navigating to another screen; the owner reported Get Jiro deletion worked in v0.12.1.
+
 Latest: v0.12.1 unifies detail and card deletion and changes the back button to red with a black arrow; verified locally and published Hosting-only.
 
 Latest: v0.12.0 adds card deletion and in-session undo; verified locally and published Hosting-only. Remaining owner-assigned work stays separate.
@@ -323,6 +325,11 @@ Before ending any change, answer all of these in the commit:
 If any answer is yes, update the affected documentation now. A code change is incomplete until its handoff notes are current.
 
 ## Recent project log
+
+### 2026-11-23 - Dismiss deletion undo on navigation (v0.12.2)
+
+- Owner reported Get Jiro was removed successfully on phone; undo remained visible after switching screens. Undo now clears when navigating to another screen, while remaining available on the deletion result screen. This supersedes the v0.12.0 session-only duration.
+- PASS: TypeScript, focused isolated browser workflow covering all card views, phone detail deletion and undo, then navigation away and back; normal and hosted builds and privacy check. Published Hosting-only; live index, service worker and app assets match. Actual personal library was not used for tests.
 
 ### 2026-11-23 - Detail delete and red back button (v0.12.1)
 
