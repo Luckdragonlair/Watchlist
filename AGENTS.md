@@ -269,7 +269,7 @@ These are easy to break during a visual rewrite:
 
 ## Next implementation steps
 
-Latest: v0.12.0 adds card deletion and in-session undo; verified locally, not deployed. Remaining owner-assigned work stays separate.
+Latest: v0.12.0 adds card deletion and in-session undo; verified locally and published Hosting-only. Remaining owner-assigned work stays separate.
 
 Latest: C07 metallic-gold icon replacement is verified for v0.11.1, published Hosting-only; live icon assets verified. Remaining V2 A-Z/dialog/accessibility and movie work stay separate; no automatic scope expansion.
 
@@ -325,7 +325,7 @@ If any answer is yes, update the affected documentation now. A code change is in
 ### 2026-11-23 - Card deletion and undo (v0.12.0)
 
 - Added Delete show under Manage on Weekly, Binge and Watched cards, a red pulsing confirmation with safe default focus, and a yellow pulsing undo after deletion. Reduced motion disables pulsing. Undo is in memory until reload or another deletion; stale library, show, source, episode or history changes prevent overwrite. Original files and existing backups remain unchanged. Existing detail deletion remains available.
-- PASS: TypeScript, normal and hosted builds, hosted privacy guard, 45 core/synchronization tests and an isolated browser workflow across all three views including cancel, delete and undo. Updated a stale core assertion from backup format 3 to the already-shipped format 4. Two-device sync was simulated; real-device acceptance and deployment were not performed.
+- PASS: TypeScript, normal and hosted builds, hosted privacy guard, 45 core/synchronization tests and an isolated browser workflow across all three views including cancel, delete and undo. Updated a stale core assertion from backup format 3 to the already-shipped format 4. Two-device sync was simulated; real-device acceptance remains pending. Published Firebase Hosting only on 2026-11-23; live index, service worker, entry JS/CSS and app chunk match the tested build.
 
 ### 2026-11-08 - Firefox Windows stored icon repair
 

@@ -275,4 +275,5 @@ Core real-device notes sync acceptance passed by user report; see SYNC_ACCEPTANC
 ## 2026-11-23 card deletion
 
 - [x] Card Manage delete confirmation and guarded in-session undo on Weekly, Binge and Watched; isolated browser and synchronization tests passed.
-- [ ] Owner acceptance on actual devices and separate authorization for hosted publication.
+- [x] Published Hosting-only; live release assets match the verified build.
+- [ ] Owner acceptance on actual devices.
